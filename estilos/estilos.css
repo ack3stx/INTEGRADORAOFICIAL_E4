@@ -9,3 +9,42 @@
   .contact-info .info-item i {
     margin-right: 10px;
   }
+
+.fab{
+  height: 30px;
+  width: 30px;
+}
+.barra_abajo{
+  background-color: #900C3F;
+}
+.btn-hover:hover {
+  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
+  color: white; /* Cambia el color del texto al pasar el cursor */
+}
+.nav-link-hover {
+  transition: background-color 0.9s ease, color 0.6s ease; /* Transición suave */
+  border-radius: 10%; /* Redondea los bordes */
+}
+.nav-link-hover:hover {
+  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
+  color: white; /* Cambia el color del texto al pasar el cursor */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
+  transform: scale(1.05); /* Agranda ligeramente el elemento */
+}
+
+.navbar-brand img{
+  width: 150px;
+}
+
+
+@media (max-width: 900px) {
+  .navbar-brand img {
+    width: 250px;
+    padding-left: 40px;
+  }
+}
+
+.btn-enviar-mensaje{
+  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
+
+}
