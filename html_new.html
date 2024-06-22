@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hotel Laguna Inn</title>
-    <link rel="stylesheet" href="../bootstrap-5.3.3/bootstrap-5.3.3/dist/css/bootstrap.min.css">
+    <title class="text text-dark">Hotel Laguna Inn</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
     <div class="container-fluid p-0">
         <main class="main-content">
-            <header class="header" style="background-color: rgb(150, 20, 20);">
+            <header class="header bg bg-transparent">
                 <button class="btn btn-outline-danger fas fa-bars rounded-pill p-3" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions"></button>
                 <div class="offcanvas offcanvas-start bg bg-transparent" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions" aria-labelledby="offcanvasWithBothOptionsLabel">
                   <div class="offcanvas-header">
@@ -29,12 +29,13 @@
                     </ul>
                   </div>
                 </div>
+                <img class="w-25 p-10" src="../../Imagenes_Integradora/Laguna inn.jpg">
                 <div class="header-left">
-                    <h1>Hotel Laguna  Inn</h1>
+                    <h1 class="text text-dark">Hotel Laguna  Inn</h1>
                 </div>
                 <div class="header-right">
                         <div class="btn-group">
-                            <button class="form-control-plaintext dropdown-toggle text text-light" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="form-control-plaintext dropdown-toggle text text-dark" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                               Tomasillo
                             </button>
                             <ul class="dropdown-menu bg bg-dark text text-light">
@@ -46,7 +47,7 @@
                             </ul>
                         </div>
                           
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-user btn btn-outline-danger"></i>
                 </div>
             </header>
             <section id="reservaciones" class="content-section">
@@ -79,7 +80,7 @@
             <option class="form-control me-2" value="Registrado">Registrado</option>
             <option class="form-control me-2" value="Pendiente">Pendiente</option>
         </select><br>
-        <button class="btn btn-outline-success" type="submit">Agregar</button><br><br>
+        <button class="btn btn-outline-danger" type="submit">Agregar</button><br><br>
     </form>
         </div>
         <div class="modal-footer">
@@ -97,7 +98,7 @@
                     <input class="form-control me-2 width" type="date" id="checkin" name="checkin" style="width: 150px;">&nbsp;
                     <label for="checkout">Fecha fin:</label>&nbsp;
                     <input class="form-control me-2 width" type="date" id="checkout" name="checkout" style="width: 150px;">&nbsp;
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
                 <table>
                     <thead>
@@ -160,12 +161,12 @@
                     <option class="form-control me-2" value="Ocupada">Ocupada</option>
                     <option class="form-control me-2" value="Disponible">Disponible</option>
                 </select><br>
-                <button class="btn btn-outline-success" type="submit">Agregar</button>
+                <button class="btn btn-outline-danger" type="submit">Agregar</button>
             </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Listo</button>
+          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
         </div>
       </div>
     </div>
@@ -185,7 +186,7 @@
                         <option value="Mantenimiento">Mantenimiento</option>
                         <option value="Disponible">Disponible</option>
                     </select>&nbsp;
-                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
                 <table>
                     <thead>
@@ -441,8 +442,6 @@
         </main>
     </div>
     <script src="scripts.js"></script>
-    <script src="../bootstrap-5.3.3/bootstrap-5.3.3/dist/js/bootstrap.min.js"></script>
-    <script src="../bootstrap-5.3.3/bootstrap-5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../bootstrap-5.3.3/bootstrap-5.3.3/dist/js/bootstrap.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
