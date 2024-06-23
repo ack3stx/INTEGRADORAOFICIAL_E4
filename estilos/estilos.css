@@ -1,50 +1,79 @@
+/* Estilos de la barra de navegación */
+.navbar-nav {
+  width: 100%;
+}
+
+.navbar-nav .nav-link {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(116, 13, 13); /* Color de texto normal */
+  transition: all 0.3s ease;
+  border-radius: 25px;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+  color: #fff !important; /* Color de texto al hacer hover */
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+}
+
+/* Aplicar los colores de la barra de navegación al diseño general */
 .contact-info {
-    border-right: 1px solid #e9ecef;
-    padding-right: 30px;
-    margin-right: 30px;
-  }
-  .contact-info .info-item {
-    margin-bottom: 15px;
-  }
-  .contact-info .info-item i {
-    margin-right: 10px;
-  }
-
-.fab{
-  height: 30px;
-  width: 30px;
+  background-color: #ffffff; /* White background */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
 }
-.barra_abajo{
-  background-color: #900C3F;
+.contact-info:hover {
+  transform: translateY(-10px);
 }
-.btn-hover:hover {
-  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
-  color: white; /* Cambia el color del texto al pasar el cursor */
+.contact-info h5 {
+  margin-bottom: 20px;
+  color: rgb(116, 13, 13); /* Color del texto */
 }
-.nav-link-hover {
-  transition: background-color 0.9s ease, color 0.6s ease; /* Transición suave */
-  border-radius: 10%; /* Redondea los bordes */
+.contact-info .info-item {
+  margin-bottom: 15px;
 }
-.nav-link-hover:hover {
-  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
-  color: white; /* Cambia el color del texto al pasar el cursor */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Agrega una sombra suave */
-  transform: scale(1.05); /* Agranda ligeramente el elemento */
+.contact-info a {
+  color: rgb(116, 13, 13); /* Color del enlace */
+  text-decoration: none;
 }
-
-.navbar-brand img{
-  width: 150px;
+.contact-info a:hover {
+  text-decoration: underline;
 }
-
-
-@media (max-width: 900px) {
-  .navbar-brand img {
-    width: 250px;
-    padding-left: 40px;
-  }
+.contact-info .social-icons a {
+  font-size: 1.2em;
+  color: rgb(116, 13, 13); /* Color del icono social */
+  margin-right: 10px;
+  transition: color 0.3s;
 }
-
-.btn-enviar-mensaje{
-  background-color: #900C3F; /* Cambia el color de fondo al pasar el cursor */
-
+.contact-info .social-icons a:hover {
+  color: #ffa500; /* Color de hover */
+}
+#contact-form {
+  background-color: #ffffff; /* White background */
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+#contact-form .form-control {
+  border-radius: 0.25rem;
+}
+#contact-form .btn {
+  background-color: rgb(116, 13, 13); /* Color del botón */
+  border: none;
+  transition: background-color 0.3s ease;
+}
+#contact-form .btn:hover {
+  background-color: #ffa500; /* Color de hover del botón */
+}
+.barra_abajo {
+  padding: 20px 0;
+  background-color: rgb(116, 13, 13); /* Color de fondo */
+  color: #fff; /* Color del texto */
 }

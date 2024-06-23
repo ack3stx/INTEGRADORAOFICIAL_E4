@@ -10,11 +10,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app, origins=["http://localhost"])
-
-@app.route('/')
-def index():
-    return send_from_directory('.', 'Contacto.php')
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route('/send_email', methods=['POST'])
 def send_email():
@@ -108,4 +104,4 @@ def send_email():
         return jsonify({"message": f"Hubo un error al enviar el mensaje: {error_message}"}), 500
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0', port=5000)
