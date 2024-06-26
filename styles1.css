@@ -12,6 +12,7 @@ body, html {
     height: 100vh;
 }
 
+
 .container {
     opacity: .9;
     background: #fff;
@@ -20,10 +21,27 @@ body, html {
                 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
-    width: 768px;
+    min-height: 500px;
+    width: 750px;
     max-width: 100%;
-    min-height: 480px;
 }
+
+@media (max-width: 1000px)
+{
+    .container {
+        min-height: 400px;
+        width: 550px;
+    }
+}
+
+@media (max-width: 560px)
+{
+    .container {
+        min-height: 300px;
+        width: 400px;
+    }
+}
+
 
 .form-container {
     position: absolute;
@@ -197,3 +215,4 @@ p {
 span {
     font-size: 12px;
 }
+

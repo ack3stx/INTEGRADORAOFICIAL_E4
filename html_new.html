@@ -38,7 +38,7 @@
                               Tomasillo
                             </button>
                             <ul class="dropdown-menu bg bg-dark text text-light">
-                                <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#">Cuenta</a></li>
+                                <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#" onclick="showSection('Cuenta')">Cuenta</a></li>
                                 <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#">Historial</a></li>
                                 <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#">Opciones</a></li>
                                 <li><hr class="dropdown-divider"></li>
@@ -437,6 +437,31 @@
                         </tr>
                     </tbody>
                 </table>
+            </section>
+            <section id="Cuenta" class="content-section">
+              <h1 class="text-center">Cuenta</h1>
+              <img src="Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 p-3 rounded-circle" alt="...">
+              <h3 class="text-center">Maluma_Baby</h3>
+              <form>
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Nuevo Email</label>
+                  <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                  <div id="emailHelp" class="form-text">Checa que tengas bien agregado el correo</div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Nueva Contraseña</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label">Confirmar Nueva Contraseña</label>
+                  <input type="password" class="form-control" id="exampleInputPassword1">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </form>
             </section>
         </main>
     </div>
