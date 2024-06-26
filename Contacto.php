@@ -11,7 +11,7 @@
 </head>
 <body>
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top ">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
   <div class="container-fluid">
     <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
       <img src="img/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav text-center">
         <li class="nav-item">
-          <a class="nav-link" href="#"><label>INICIO</label></a>
+          <a class="nav-link" href="http://192.168.253.41/BORRADORINTEGRADORA/index"><label>INICIO</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><label>NOSOTROS</label></a>
@@ -34,13 +34,13 @@
           <a class="nav-link" href="#"><label>SERVICIOS</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><label>CONTACTANOS</label></a>
+          <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><label>INICIAR SESION</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#"><label>RESERVAR AHORA</label></a>
+          <a class="nav-link" href="192.168.253.32/INTEGRADORA_OFICIALE4/INTEGRADORAOFICIAL_E4/Calendario.php"><label>RESERVAR AHORA</label></a>
         </li>
       </ul>
     </div>
@@ -103,7 +103,7 @@
       event.preventDefault(); // Evita el envío tradicional del formulario
       $.ajax({
         type: 'POST',
-        url: 'http://192.168.100.45:5000/send_email',
+        url: 'http://192.168.253.32:5000/send_email',
         data: $(this).serialize(), // Serializa el formulario para enviar los datos
         success: function(response) {
           $('#form-messages').html('<div class="alert alert-success">' + response.message + '</div>');

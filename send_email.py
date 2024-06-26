@@ -12,6 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+
+
 @app.route('/send_email', methods=['POST'])
 def send_email():
     nombre = request.form['nombre']
