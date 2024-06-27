@@ -216,3 +216,34 @@ span {
     font-size: 12px;
 }
 
+/* pie de pagina */
+
+        .icono-si {
+            font-size: 40px;
+            margin-right: 20px;
+            
+        }
+
+        .diplay{
+            display:flex;
+        }
+
+        .no-compañero{
+            display:flex;
+            width: 100%;
+            height: 200%;
+        }
+
+        .ai{
+            width: 60%;
+            
+        }
+
+        .pagina{
+            font-size: 100%;
+        }
+
+        .pagina:hover {
+            font-size: 140%;
+            color: black;
+        }
