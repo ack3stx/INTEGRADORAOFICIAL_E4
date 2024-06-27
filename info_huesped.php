@@ -106,12 +106,60 @@
     </div>
 </nav>
 
-<section class="header-section text-center" style="background-color: rgb(116, 13, 13); color: white; padding: 10px;">
-    <div class="header-content">
-                <h1>Formulario de Contacto
-        </h1>
+<br>
+
+<div class="header mg-5">
+        <div class="header-images">
+            <img src="img/barrita.jpg" alt="saladeestar">
+        </div>
+        <div class="header-title">
+            <br>
+        <h1>Informacion Huesped</h1>
+        </div>
     </div>
-</section>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    position: relative;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.header-images {
+    display: flex;
+    overflow: hidden;
+}
+
+.header-images img {
+    width: 120vw;
+    height: 25vh;
+    object-fit: cover;
+    background: linear-gradient(0deg, black 0%, black 10%, transparent);
+}
+
+.header-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.header-title h1 {
+    color: white;
+    margin: 0;
+    font-size: 3rem;
+}
+</style>
+
+
 
 <div class="container">
     <form>
@@ -145,11 +193,97 @@
 
 <br>
 <br>
-<div class="progress" style="height: 10px; position: fixed; bottom: 0; left: 0; width: 100%; margin: 0;">
-  <div class="progress-bar" role="progressbar" style="width: 100%; background-color: rgb(116, 13, 13);" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-</div>
+<br>
 
+<style>
+        .icono-si {
+            font-size: 40px;
+            margin-right: 20px;
+            
+        }
 
+        .diplay{
+            display:flex;
+        }
+
+        .no-compañero{
+            display:flex;
+            width: 100%;
+            height: 200%;
+        }
+
+        .ai{
+            width: 60%;
+            
+        }
+
+        .pagina{
+            font-size: 100%;
+        }
+
+        .pagina:hover {
+            font-size: 140%;
+            color: black;
+        }
+       
+    </style>
+
+<!--PIE DE PAGINAA-->
+<footer  style="background-color:  rgb(116, 13, 13);" class="text-white pt-5 pb-4 pl-0 pr-0 no-compañero">
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Contáctanos</h2>
+                <hr class="mb-4">
+                <p class="text-left">
+                    <i class="fa-solid fa-house"></i>&nbsp;&nbsp; Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón , México
+                    <br>
+                    <i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;hotellagunainn@inn.com
+                    <br>
+                    <i class="fa-solid fa-phone"></i>&nbsp;&nbsp;+52 (614) 432-1500
+                    <br><br>
+                    <p class="diplay">
+                    <i class="fa-brands fa-instagram icono-si"></i>
+                    <i class="fa-brands fa-facebook icono-si diplay"></i>
+                    <i class="fa-brands fa-whatsapp icono-si"></i>
+                    </p>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Explora</h2>
+                <hr class="mb-4">
+                
+                    <p class="pagina">Inicio</p>
+                    <br>
+                    <p class="pagina">Nosotros</p>
+                    <br>
+                    <p class="pagina" >Habitaciones</p>
+                    <br>
+                    <p class="pagina">Amenidades</p>
+                    <br>
+                    
+            </div>
+        </div>
+    </div>
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Novedades</h2>
+                <hr class="mb-4">
+                
+                    <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
+                    <br>
+                   <input type="text" placeholder="Email" >
+                   <i  style="color: black;"      class="fa-solid fa-paper-plane"></i>
+                    
+            </div>
+        </div>
+    </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

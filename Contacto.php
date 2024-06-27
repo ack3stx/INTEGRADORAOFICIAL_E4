@@ -10,6 +10,38 @@
   <link rel="stylesheet" href="estilos/estilos.css">
 </head>
 <body>
+  <style>
+.icono-si {
+            font-size: 40px;
+            margin-right: 20px;
+            
+        }
+
+        .diplay{
+            display:flex;
+        }
+
+        .no-compañero{
+            display:flex;
+            width: 100%;
+            height: 100%;
+        }
+
+        .ai{
+            width: 50%;
+            
+        }
+
+        .pagina{
+            font-size: 100%;
+        }
+
+        .pagina:hover {
+            font-size: 140%;
+            color: black;
+        }
+       
+    </style>
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
   <div class="container-fluid">
@@ -22,7 +54,7 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav text-center">
         <li class="nav-item">
-          <a class="nav-link" href="http://192.168.253.41/BORRADORINTEGRADORA/index"><label>INICIO</label></a>
+          <a class="nav-link" href="#"><label>INICIO</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><label>NOSOTROS</label></a>
@@ -34,13 +66,13 @@
           <a class="nav-link" href="#"><label>SERVICIOS</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
+          <a class="nav-link" href="#"><label>CONTACTANOS</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#"><label>INICIAR SESION</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="192.168.253.32/INTEGRADORA_OFICIALE4/INTEGRADORAOFICIAL_E4/Calendario.php"><label>RESERVAR AHORA</label></a>
+          <a class="nav-link" href="#"><label>RESERVAR AHORA</label></a>
         </li>
       </ul>
     </div>
@@ -85,15 +117,61 @@
   </div>
 </div>
 
-<div class="barra_abajo text-center text-white mt-5">
-  <h2>Contáctanos</h2>
-  <p>Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
-  <h4>Acerca de este hotel </h4>
-    <p>Este hotel tranquilo se encuentra a 3 km del parque recreativo Bosque Venustiano Carranza, a 5 km de la animada Plaza Mayor Torreón y a 6 km del centro cultural Arocena Laguna, A.C.
-    
-    Hora de registro de entrada: 3:00 p.m.
-    Hora de registro de salida: 12:00 p.m.</p>
-</div>
+<!--PIE DE PAGINAA-->
+<footer  style="background-color:  rgb(116, 13, 13);" class="text-white pt-5 pb-4 pl-0 pr-0 no-compañero">
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Contáctanos</h2>
+                <hr class="mb-4">
+                <p class="text-left">
+                    <i class="fa-solid fa-house"></i>&nbsp;&nbsp; Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón , México
+                    <br>
+                    <i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;hotellagunainn@inn.com
+                    <br>
+                    <i class="fa-solid fa-phone"></i>&nbsp;&nbsp;+52 (614) 432-1500
+                    <br><br>
+                    <p class="diplay">
+                    <i class="fa-brands fa-instagram icono-si"></i>
+                    <i class="fa-brands fa-facebook icono-si diplay"></i>
+                    <i class="fa-brands fa-whatsapp icono-si"></i>
+                    </p>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Explora</h2>
+                <hr class="mb-4">
+                
+                    <p class="pagina">Inicio</p>
+                    <br>
+                    <p class="pagina">Nosotros</p>
+                    <br>
+                    <p class="pagina" >Habitaciones</p>
+                    <br>
+                    <p class="pagina">Amenidades</p>
+                    <br>
+                    
+            </div>
+        </div>
+    </div>
+    <div class="container text-center text-md-start">
+        <div class="row text-center text-md-start">
+            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
+                <h2 class="text-left">Novedades</h2>
+                <hr class="mb-4">
+                
+                    <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
+                    <br>
+                   <input type="text" placeholder="Email" >
+                   <i  style="color: black;"      class="fa-solid fa-paper-plane"></i>
+            </div>
+        </div>
+    </div>
+</footer>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
