@@ -16,30 +16,37 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wight@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-<style>
-/* Estilos de la barra de navegación */
-.navbar-nav {
-  width: 100%;
+    <style>
+        .container {
+    opacity: .9;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
+                0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    min-height: 450px;
+    width: 600px;
+    max-width: 100%;
 }
 
-.navbar-nav .nav-link {
-  display: block;
-  text-align: center;
-  font-weight: bold;
-  font-size: 1.1rem;
-  color: rgb(116, 13, 13); /* Color de texto normal */
-  transition: all 0.3s ease;
-  border-radius: 25px;
+@media (max-width: 1000px)
+{
+    .container {
+        min-height: 400px;
+        width: 550px;
+    }
 }
 
-.navbar-nav .nav-link:hover {
-  background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-  color: #fff !important; /* Color de texto al hacer hover */
-  padding: 12px 24px;
-  font-size: 1.2rem;
-  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+@media (max-width: 600px)
+{
+    .container {
+        min-height: 350px;
+        width: 440px;
+    }
 }
-</style>
+
+    </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
@@ -81,7 +88,7 @@
 </body>
 </html>
 <div class="row">
-    <div class="container media-breakpoint-up sm media-sm md media-md lg media-lg" style="width: 650px;">
+    <div class="container media-breakpoint-up sm media-sm md media-md lg media-lg" >
         <div class="form-container sign-up-container">
             <form action="#">
                 <h1>Registrarse</h1>
