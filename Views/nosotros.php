@@ -4,73 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nosotros</title>
-    <link rel="stylesheet" href="./nosotros.css">
-    <link rel="stylesheet" href="./bootstrap-5.3.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="../Estilos/nosotros.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header>
-        <style>
-            /* Estilos de la barra de navegación */
-            .navbar-nav {
-              width: 100%;
-            }
-      
-            .navbar-nav .nav-link {
-              display: block;
-              text-align: center;
-              font-weight: bold;
-              font-size: 1.1rem;
-              color: rgb(116, 13, 13); /* Color de texto normal */
-              transition: all 0.3s ease;
-              border-radius: 25px;
-            }
-      
-            .navbar-nav .nav-link:hover {
-              background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-              color: #fff !important; /* Color de texto al hacer hover */
-              padding: 12px 24px;
-              font-size: 1.2rem;
-              transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
-            }
-      
-        </style>
-            <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-                <div class="container-fluid">
-                  <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
-                    <img src="./imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
-                  </a>
-                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                    <ul class="navbar-nav text-center">
-                      <li class="nav-item">
-                        <a class="nav-link" href="./index.html"><label>INICIO</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="./nosotros.html"><label>NOSOTROS</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><label>HABITACIONES</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><label>SERVICIOS</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="http://192.168.253.32/INTEGRADORA_OFICIALE4/INTEGRADORAOFICIAL_E4/Contacto.php"><label>CONTACTANOS</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><label>INICIAR SESION</label></a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#"><label>RESERVAR AHORA</label></a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-    </header>
+<header>
+    <style>
+      /* Estilos de la barra de navegación */
+      .navbar-nav {
+        width: 100%;
+      }
+
+      .navbar-nav .nav-link {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: rgb(116, 13, 13); /* Color de texto normal */
+        transition: all 0.3s ease;
+        border-radius: 25px;
+      }
+
+      .navbar-nav .nav-link:hover {
+        background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+        color: #fff !important; /* Color de texto al hacer hover */
+        padding: 9px 18px;
+        font-size: 1.2rem;
+        transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+      }
+
+      </style>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
+              <img src="../INTEGRADORAOFICIAL_E4/Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+              <ul class="navbar-nav text-center">
+                <li class="nav-item">
+                  <a class="nav-link" href="./index.html"><label>INICIO</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Views/nosotros.php"><label>NOSOTROS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Views/vistahab.php"><label>HABITACIONES</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#2424"><label>SERVICIOS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Views/Contacto.php"><label>CONTACTANOS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Views/Calendario.php"><label>RESERVAR AHORA</label></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+  </header>
 <br><br><br><br>
     <div class="header">
         <div class="header-images">
