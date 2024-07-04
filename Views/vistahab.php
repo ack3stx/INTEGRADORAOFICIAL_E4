@@ -10,11 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 </head>
@@ -207,64 +204,53 @@
 <br><br>
 <hr class="mb-4">
     <!--AMENIDADES -->
-
-    <div>
-        <section class="header-section-custom claro">
-            <div class="header-content-custom">
-                <p style="text-align:center;font-size: 120%; font-family: Roboto Condensed, sans-serif;">HOTEL LAGUNA INN </p>
-                <h1 >Amenidades</h1>
-                <br><br>
-            </section>  
-                <div class="contenedorxd">
-                    <div class="row">
-                        <div class="ame col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-swimmer"></i>
-                            <h4>Piscina</h4>
-                            <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-parking"></i>
-                            <h4>Estacionamiento</h4>
-                            <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura
-                                exclusiavemnte para ti.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-wifi"></i>
-                            <h4>Wi-Fi</h4>
-                            <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-check"></i>
-                            <h4>Check-in y check-out exprés</h4>
-                            <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque
-                                siempre estamos a tu disposición.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-concierge-bell"></i>
-                            <h4>Recepción 24 horas</h4>
-                            <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en
-                                recepción. Listos para atenderte.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-utensils"></i>
-                            <h4>Desayuno gratis</h4>
-                            <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-snowflake"></i>
-                            <h4>Aire acondicionado</h4>
-                            <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no
-                                tendrás que preocuparte por sudar.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-suitcase"></i>
-                            <h4>Almacenaje de equipaje</h4>
-                            <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
-                        </div>
-                    </div>
-                </div>
-            
-</div>
+    <div class="contenedorpp" id="2424">
+    <div class="container contenedorxd">
+      <div class="row align-items-center">
+        <h1 class="headline">Nuestros Servicios</h1>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-swimmer"></i>
+              <h4>Piscina</h4>
+              <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-parking"></i>
+              <h4>Estacionamiento</h4>
+              <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura exclusiavemnte para ti.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-wifi"></i>
+              <h4>Wi-Fi</h4>
+              <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-check"></i>
+              <h4>Check-in y check-out exprés</h4>
+              <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque siempre estamos a tu disposición.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-concierge-bell"></i>
+              <h4>Recepción 24 horas</h4>
+              <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en recepción. Listos para atenderte.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-utensils"></i>
+              <h4>Desayuno gratis</h4>
+              <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-snowflake"></i>
+              <h4>Aire acondicionado</h4>
+              <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no tendrás que preocuparte por sudar.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-suitcase"></i>
+              <h4>Almacenaje de equipaje</h4>
+              <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
+          </div>
+      </div>
+    </div>
+  </div>
 
                 <!---->
                 <!--PIE DE PAGINAA-->
@@ -447,16 +433,10 @@
                         </div>
                     </div>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-                    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-                    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
-                        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-                        crossorigin="anonymous"></script>
-                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-                        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-                        crossorigin="anonymous"></script>
+                <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+
 
 </body>
 
