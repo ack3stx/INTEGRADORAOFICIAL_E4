@@ -117,7 +117,7 @@ padding: 20px;
 background-image:url(../../../INTEGRADORAOFICIAL_E4/img/shoreline_04.webp); 
 background-repeat: no-repeat;
 background-size: cover; /* O puedes usar 'contain' según tus necesidades */
-background-position: center;
+background-position: bottom;
 }
 .header-content h1 {
 font-size: 3rem;
