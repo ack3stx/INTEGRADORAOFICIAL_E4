@@ -340,26 +340,31 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     max-width: 1200px;
     width: 100%;
     padding: 0 20px;
+    color: white;
     }
     
     .footer-section {
     flex: 1;
     min-width: 200px;
     margin: 10px;
+    color: white;
     }
     
     .footer-section h2 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color: white;
     }
     
     .footer-section p {
     margin: 5px 0;
+    color: white;
     }
     
     .social-icons i {
     font-size: 1.2rem;
     margin-right: 10px;
+    color: white;
     }
     
     @media (min-width: 768px) {
