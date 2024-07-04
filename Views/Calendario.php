@@ -167,7 +167,7 @@
             <div id="inline-calendar"></div>
             <div id="inline-calendar-large"></div>
         </div>
-        <button class="btn btn-custom mt-4">Comprobar</button>
+        <button class="btn btn-custom mt-4" href="habitacionreserva.php">Comprobar</button>
     </div>
     <div class="barra_abajo text-center text-white mt-5">
         <h2>Contáctanos</h2>
