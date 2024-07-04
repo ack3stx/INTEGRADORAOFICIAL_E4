@@ -39,15 +39,15 @@
 }
 
 .imgBox:nth-child(1) {
-    background-image: url(../index/imagenes/HABITACION_S.png);
+    background-image: url(../Imagenes/HABITACION_S.png);
 }
 
 .imgBox:nth-child(2) {
-    background-image: url(../index/imagenes/HABITACION_D.png);
+    background-image: url(../Imagenes/HABITACION_D.png);
 }
 
 .imgBox:nth-child(3) {
-    background-image: url(../index/imagenes/HABITACION_K.png);
+    background-image: url(../Imagenes/HABITACION_K.png);
 }
 
 .imgBox h3 {
