@@ -249,7 +249,7 @@
 
 
   
-    <script src="../css/bootstrap/bootstrap-5.3.3-dist/js/bootstrap.jshttps://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
