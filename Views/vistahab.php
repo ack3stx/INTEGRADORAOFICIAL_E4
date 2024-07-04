@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
-                <img src="../../../INTEGRADORAOFICIAL_E4/img/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
+                <img src="../Imagenes/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
                     class="rounded-circle rounded-1">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -30,13 +30,13 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><label>INICIO</label></a>
+                        <a class="nav-link" href="../index.html"><label>INICIO</label></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><label>NOSOTROS</label></a>
+                        <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><label>HABITACIONES</label></a>
+                        <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#"><label>SERVICIOS</label></a>
