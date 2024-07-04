@@ -257,7 +257,28 @@ h1, h2, h5, h3 {
         <h1>¡Pago exitoso!</h1>
         <h2>Gracias por tu preferencia</h2>
         <h3>Disfruta tu estancia en nuestro hotel</h3>
+
+        <form id="autoSubmitForm" method="post" action="http://localhost:5000/sucess_email" style="display:none;">
+            <input type="hidden" name="pago_exitoso" value="true">
+        </form>
     </div>
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+      $(document).ready(function(){
+          $.ajax({
+              url: 'http://localhost:5000/sucess_email',
+              type: 'POST',
+              data: { pago_exitoso: 'true' },
+              success: function(response) {
+                  console.log(response.message);
+              },
+              error: function(xhr, status, error) {
+                  console.error(xhr.responseText);
+              }
+          });
+      });
+  </script>
 </body>
 </html>
