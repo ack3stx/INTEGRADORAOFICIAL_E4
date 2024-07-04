@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
-                <img src="../../../INTEGRADORAOFICIAL_E4/img/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
+                <img src="../Imagenes/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
                     class="rounded-circle rounded-1">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
