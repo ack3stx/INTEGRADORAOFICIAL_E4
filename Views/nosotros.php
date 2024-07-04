@@ -45,7 +45,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
               <ul class="navbar-nav text-center">
                 <li class="nav-item">
-                  <a class="nav-link" href="index.html"><label>INICIO</label></a>
+                  <a class="nav-link" href="../index.html"><label>INICIO</label></a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="Views/nosotros.php"><label>NOSOTROS</label></a>
