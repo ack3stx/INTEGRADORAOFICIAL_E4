@@ -95,7 +95,7 @@
                 <input type="text" placeholder="Nombre" />
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Contraseña" />
-                <button>Registrar</button>
+                <button onclick="location.href='Panel_Admin.php'">Registrar</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
@@ -103,7 +103,7 @@
                 <h1>Iniciar Sesión</h1>
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Contraseña" />
-                <button  onclick="location.href='habitacionreserva.php'">Iniciar Sesión</button>
+                <button>Iniciar Sesión</button>
             </form>
         </div>
         <div class="overlay-container">
