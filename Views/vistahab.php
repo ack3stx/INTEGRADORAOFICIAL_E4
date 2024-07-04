@@ -207,64 +207,53 @@
 <br><br>
 <hr class="mb-4">
     <!--AMENIDADES -->
-
-    <div>
-        <section class="header-section-custom claro">
-            <div class="header-content-custom">
-                <p style="text-align:center;font-size: 120%; font-family: Roboto Condensed, sans-serif;">HOTEL LAGUNA INN </p>
-                <h1 >Amenidades</h1>
-                <br><br>
-            </section>  
-                <div class="contenedorxd">
-                    <div class="row">
-                        <div class="ame col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-swimmer"></i>
-                            <h4>Piscina</h4>
-                            <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-parking"></i>
-                            <h4>Estacionamiento</h4>
-                            <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura
-                                exclusiavemnte para ti.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-wifi"></i>
-                            <h4>Wi-Fi</h4>
-                            <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-check"></i>
-                            <h4>Check-in y check-out exprés</h4>
-                            <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque
-                                siempre estamos a tu disposición.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-concierge-bell"></i>
-                            <h4>Recepción 24 horas</h4>
-                            <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en
-                                recepción. Listos para atenderte.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-utensils"></i>
-                            <h4>Desayuno gratis</h4>
-                            <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-snowflake"></i>
-                            <h4>Aire acondicionado</h4>
-                            <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no
-                                tendrás que preocuparte por sudar.</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-3 feature-box">
-                            <i class="fas fa-suitcase"></i>
-                            <h4>Almacenaje de equipaje</h4>
-                            <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
-                        </div>
-                    </div>
-                </div>
-            
-</div>
+    <div class="contenedorpp" id="2424">
+    <div class="container contenedorxd">
+      <div class="row align-items-center">
+        <h1 class="headline">Nuestros Servicios</h1>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-swimmer"></i>
+              <h4>Piscina</h4>
+              <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-parking"></i>
+              <h4>Estacionamiento</h4>
+              <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura exclusiavemnte para ti.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-wifi"></i>
+              <h4>Wi-Fi</h4>
+              <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-check"></i>
+              <h4>Check-in y check-out exprés</h4>
+              <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque siempre estamos a tu disposición.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-concierge-bell"></i>
+              <h4>Recepción 24 horas</h4>
+              <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en recepción. Listos para atenderte.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-utensils"></i>
+              <h4>Desayuno gratis</h4>
+              <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-snowflake"></i>
+              <h4>Aire acondicionado</h4>
+              <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no tendrás que preocuparte por sudar.</p>
+          </div>
+          <div class="col-12 col-md-6 col-lg-3 feature-box">
+              <i class="fas fa-suitcase"></i>
+              <h4>Almacenaje de equipaje</h4>
+              <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
+          </div>
+      </div>
+    </div>
+  </div>
 
                 <!---->
                 <!--PIE DE PAGINAA-->
