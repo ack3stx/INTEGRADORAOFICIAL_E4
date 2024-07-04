@@ -80,15 +80,15 @@
                 <div id="carouselExampleAutoplaying1" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacioon sencilla 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal1">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal1">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 3.webp" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal1">
                         </div>
                     </div>
@@ -123,15 +123,15 @@
                 <div id="carouselExampleAutoplaying2" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal2">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion doble 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal2">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion doble 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal2">
                         </div>
                     </div>
@@ -166,15 +166,15 @@
                 <div id="carouselExampleAutoplaying3" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal3">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal3">
                         </div>
                         <div class="carousel-item">
-                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
+                            <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
                                 data-bs-target="#exampleModal3">
                         </div>
                     </div>
@@ -314,13 +314,13 @@
                                 <div id="carouselExampleModal1" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 3.webp" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100" alt="...">
                                         </div>
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleModal1" data-bs-slide="prev">
@@ -363,13 +363,13 @@
                                 <div id="carouselExampleModal2" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion1.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion doble 2.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion doble 3.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="...">
                                         </div>
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleModal2" data-bs-slide="prev">
@@ -411,13 +411,13 @@
                                 <div id="carouselExampleModal3" class="carousel slide">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 1.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 2.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100" alt="...">
                                         </div>
                                         <div class="carousel-item">
-                                            <img src="../../../INTEGRADORAOFICIAL_E4/img/habitacion king size 3.avif" class="d-block w-100" alt="...">
+                                            <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100" alt="...">
                                         </div>
                                     </div>
                                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleModal3" data-bs-slide="prev">
