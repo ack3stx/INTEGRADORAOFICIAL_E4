@@ -95,7 +95,7 @@
                 <input type="text" placeholder="Nombre" />
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Contraseña" />
-                <button onclick="location.href='Panel_Admin.php'">Registrar</button>
+                <button>Registrar</button>
             </form>
         </div>
         <div class="form-container sign-in-container">
