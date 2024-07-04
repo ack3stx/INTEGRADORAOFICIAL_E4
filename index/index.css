@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+
+.contenedorxd2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color:rgb(116, 13, 13);
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+
+body, h1, h2, h3, h4, h5, h6, p, a, span, div {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333; /* Default text color */
+}
+
+.HC {
+    background-color: white; /* Color de fondo */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 20px auto; /* Espaciado externo */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    height: auto; /* Ajuste de altura */
+}
+
+.headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(116, 13, 13);
+    text-align: left; /* Ajuste del texto alineado a la izquierda */
+}
+
+.subheadline {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    text-align: left; /* Ajuste del texto alineado a la izquierda */
+}
+
+.highlight {
+    font-weight: bold;
+}
+
+.image-container {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 500px;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.image-overlay {
+    position: absolute;
+    top: 100px;
+    left: -30px;
+    width: 40%;
+    max-width: 150px;
+    height: auto;
+    border: 3px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.image-overlay img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.btn-custom {
+    background-color: #fff;
+    border: 1px solid #333;
+    color: #333;
+    font-weight: bold;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.btn-custom:hover {
+    background-color: #e0e0e0;
+}
+
+@media (max-width: 768px) {
+    .headline {
+        font-size: 2rem;
+    }
+    .image-overlay {
+        top: 10px;
+        left: 0;
+        width: 60%;
+        max-width: 120px;
+    }
+}
+
+@media (max-width: 576px) {
+    .image-overlay {
+        display: none;
+    }
+}
+
+.contenedorpp{
+    background-color: #ebe9f2; /* Color de fondo */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 20px auto; /* Espaciado externo */
+    max-width: 100vw; /* Ancho máximo del contenedor */
+    height: auto; /* Ajuste de altura */
+}
+
+.contenedorxd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    background-color: #ebe9f2;
+    width: 100%;
+    height: auto; /* Cambiar a auto para adaptarse al contenido */
+    padding: 20px;
+}
+
+.feature-box {
+    text-align: center;
+    margin-bottom: 20px; /* Añadir margen inferior para evitar que se corten los elementos */
+}
+
+.feature-box i {
+    font-size: 3rem; /* Ajustar el tamaño del ícono según sea necesario */
+    margin-bottom: 10px; /* Añadir margen inferior al ícono */
+}
+
+.feature-box h4 {
+    margin-bottom: 10px; /* Añadir margen inferior al encabezado */
+}
+
+.feature-box p {
+    margin-bottom: 0; /* Asegurar que no haya margen inferior en el párrafo */
+}
+
+.row {
+    text-align: center;
+}
+
+.contenedorxd label i {
+    font-size: 64px; /* Ajusta este tamaño según tus necesidades */
+    color: currentColor; /* Cambia el color si es necesario */
+}
+
+.IMGTEXT {
+    background-color: white; /* Color de fondo */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 20px auto; /* Espaciado externo */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    height: auto;
+}
+
+.my-custom-container {
+    padding: 20px;
+}
+
+.my-custom-row {
+    margin-bottom: 40px;
+}
+
+.my-custom-image-container {
+    text-align: center;
+}
+
+.my-custom-image {
+    border-radius: 15px;
+    max-width: 100%;
+    width: 90%;  /* Ajusta el tamaño de las imágenes */
+}
+
+.my-custom-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left; /* Alinea el texto a la izquierda */
+    margin: 0 auto; /* Centro el contenedor de texto */
+}
+
+.my-custom-title {
+    font-size: 2.5em; /* Aumenta el tamaño del título */
+    color: rgb(116, 13, 13); /* Cambia el color del título a verde */
+    margin-bottom: 20px;
+    font-weight: bold; /* Negrita */
+}
+
+.my-custom-description {
+    font-size: 1.2em; /* Ajusta el tamaño del texto */
+    color: #4a4a4a;
+    line-height: 1.6; /* Aumenta la altura de línea para mejor legibilidad */
+    margin-bottom: 20px;
+}
+
+.QCCON{
+    background-color: #f5f5f5; /* Color de fondo */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 20px auto; /* Espaciado externo */
+    max-width: 100vw; /* Ancho máximo del contenedor */
+    height: auto;
+}
+
+.QCON{
+    background-color: #f5f5f5; /* Color de fondo */
+    padding: 40px; /* Espaciado interno */
+    border-radius: 15px; /* Bordes redondeados */
+    margin: 20px auto; /* Espaciado externo */
+    max-width: 1200px; /* Ancho máximo del contenedor */
+    height: auto;
+}
+
+.my-faq-container {
+    padding: 40px;
+    background-color: #f5f5f5;
+
+}
+
+.my-faq-title {
+    font-size: 2.5em;
+    color: rgb(116, 13, 13);
+    margin-bottom: 20px;
+}
+
+.my-faq-card {
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.my-faq-button {
+    width: 100%;
+    text-align: left;
+    color: #333;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.my-faq-button:hover {
+    text-decoration: none;
+}
+
+.card-header {
+    background-color: #ffffff;
+}
+
+.card-body {
+    background-color: #ffffff;
+}
+
+.MAPCON{
+    text-align: center;
+}
+
+.CONTCON 
+{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    background-color: rgb(116, 13, 13);
+    width: 100%;
+    height: auto;
+    padding: 20px;
+}
+
+
+.feature-box {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.feature-box i {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #6c757d;
+}
+
+.feature-box h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.feature-box p {
+    font-size: 1em;
+    color: #6c757d;
+}
+
+@media (min-width: 768px) {
+    .feature-box {
+        margin-bottom: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .feature-box {
+        margin-bottom: 40px;
+    }
+}
+
+
+
+
