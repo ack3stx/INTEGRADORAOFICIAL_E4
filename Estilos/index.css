@@ -318,6 +318,19 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     }
 }
 
-
+@media (min-width: 768px) {
+    .footer-section h2 {
+        font-size: 1.5rem;
+    }
+    
+    .footer-section p {
+        font-size: 1rem;
+    }
+    
+    .social-icons i {
+        font-size: 1.5rem;
+    }
+    }
+    
 
 
