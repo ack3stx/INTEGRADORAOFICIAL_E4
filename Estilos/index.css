@@ -320,13 +320,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
 
 
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    }
+
     
     .footer {
     background-color: rgb(116, 13, 13);
