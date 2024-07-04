@@ -103,7 +103,7 @@
                 <h1>Iniciar Sesión</h1>
                 <input type="email" placeholder="Email" />
                 <input type="password" placeholder="Contraseña" />
-                <button  onclick="location.href='Panel_Admin.php'">Iniciar Sesión</button>
+                <button  onclick="location.href='habitacionreserva.php'">Iniciar Sesión</button>
             </form>
         </div>
         <div class="overlay-container">
