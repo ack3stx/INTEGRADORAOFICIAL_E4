@@ -21,8 +21,8 @@ body, html {
                 0 10px 10px rgba(0, 0, 0, 0.22);
     position: relative;
     overflow: hidden;
-    min-height: 500px;
-    width: 750px;
+    min-height: 450px;
+    width: 600px;
     max-width: 100%;
 }
 
@@ -34,11 +34,11 @@ body, html {
     }
 }
 
-@media (max-width: 560px)
+@media (max-width: 600px)
 {
     .container {
-        min-height: 300px;
-        width: 400px;
+        min-height: 350px;
+        width: 300px;
     }
 }
 
@@ -216,3 +216,25 @@ span {
     font-size: 12px;
 }
 
+/* Estilos de la barra de navegación */
+.navbar-nav {
+  width: 100%;
+}
+
+.navbar-nav .nav-link {
+  display: block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: rgb(116, 13, 13); /* Color de texto normal */
+  transition: all 0.3s ease;
+  border-radius: 25px;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+  color: #fff !important; /* Color de texto al hacer hover */
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+}
