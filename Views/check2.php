@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>check 2</title>
-    <link rel="stylesheet" href="../INTEGRADORAOFICIAL_E4/Views/check2.php">
+    <link rel="stylesheet" href="../Estilos/check2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -22,6 +22,6 @@
         <h3>Disfruta tu estancia en nuestro hotel</h3>
     </div>
   </div>
-  <script src="../INTEGRADORAOFICIAL_E4/Js/check2.js"></script>
+  <script src="../Js/check2.js"></script>
 </body>
 </html>
