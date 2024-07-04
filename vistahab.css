@@ -1,0 +1,395 @@
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.125); 
+  transition: all 0.4s ;
+
+}
+
+.ola{
+  background-color:white;
+}
+
+.card:hover{
+  transform: scale(1.10);
+}
+
+.card-custom {
+  background-color: rgb(116, 13, 13);  /* Color de fondo personalizado */
+  border-color: rgb(116, 13, 13); 
+  background-image:linear-gradient(white,rgb(116, 13, 13)); 
+  /* Color del borde personalizado */
+}
+
+.btn{
+  color:black; /* Color del texto */
+  background-color: #fff; /* Color de fondo */
+  border-color: #fff; /* Color del borde */
+}
+
+.btn:hover {
+  color: #fff; /* Color del texto al pasar el cursor */
+  background-color: #fff; /* Color de fondo al pasar el cursor */
+  border-color: #fff;
+   /* Color del borde al pasar el cursor */
+}
+
+.card-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  color: #fff; 
+  text-align: center; /* Fuente más gruesa para el título */
+}
+
+.modal-footer{
+  background-color:  rgb(116, 13, 13); ;
+  text-align: center;
+}
+
+.card-text {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  text-align: center; /* Fuente normal para el texto */
+  margin-top: -4%;
+}
+
+.img {
+  width: 30px; height: 30px;
+  margin-right: 15px;
+  vertical-align: middle;
+  color: #fff;
+  margin-bottom: -4%;
+  
+  
+}
+
+.card-texto {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #fff;
+  text-align: left; /* Fuente normal para el texto */
+}
+
+.modal-body-custom {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  background-color: rgb(116, 13, 13); /* Light grey background */
+  color: #333; /* Dark text */
+  padding: 20px;
+  border-radius: 5px;
+  
+  
+}
+
+.modal-title-custom {
+font-family: 'Georgia', serif;
+font-size: 24px;
+font-weight: bold;
+color:rgb(116, 13, 13); /* Bootstrap primary color */
+text-align: center;
+margin-bottom: 0;
+}
+
+.header-section {
+position: relative;
+background-size: cover;
+height: 210px;
+margin-top: 3%;
+}
+.header-content {
+position: absolute;
+bottom: 0;
+width: 100%;
+text-align: center;
+color: white;
+padding: 20px;
+background-image:url(../../../INTEGRADORAOFICIAL_E4/img/shoreline_04.webp); 
+background-repeat: no-repeat;
+background-size: cover; /* O puedes usar 'contain' según tus necesidades */
+background-position: center;
+}
+.header-content h1 {
+font-size: 3rem;
+font-weight: bold;
+}
+.header-content p {
+font-size: 1.5rem;
+}
+
+@media (min-width:768px) and (min-height:932px){
+
+.header-section {
+  position: relative;
+  background-size: cover;
+  height: 260px;
+  margin-top: 2%;
+  width: 1900px;
+  
+}
+
+.no{
+  align-items: center;
+  margin-left: 80%;
+  margin-right: -80%;
+  
+}
+
+.mb-4{
+  width: 240%;
+}
+
+.card:hover{
+  transform: scale(1.10);
+}
+
+
+
+
+.card {
+  margin-bottom: 2rem;
+ align-items: center;
+ margin-left: 100%;
+ margin-right: -100%;
+ width: 100%;
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1.2rem;
+}
+.claro{
+margin-left: 70%;
+margin-right: -70%;
+}
+
+
+
+
+}
+
+
+@media (max-width:770px) and (max-height:940px){
+
+.footer {
+  padding: 100px 0;
+}
+
+}
+
+
+.claro{
+text-align: center;
+}
+
+
+
+
+.no{
+background-color: white;
+}
+
+.header-section-custom {
+background-color:white;
+color: white;
+padding: 20px;
+text-align: center;
+}
+
+.header-content-custom {
+position: relative;
+max-width: 800px;
+margin: 0 auto;
+}
+
+.header-content-custom p{
+margin: 0;
+padding: 10px 0;
+color: black;
+}
+
+.header-content-custom h1 {
+margin: 0;
+padding: 10px 0;
+color:rgb(116, 13, 13)
+}
+
+.header-content-custom .col {
+margin-bottom: 20px;
+}
+
+.header-content-custom img {
+width: 50px;
+height: auto;
+margin-bottom: 10px;
+}
+
+.text-center {
+text-align: center;
+}
+
+.strong {
+color: black;
+}
+
+.div {
+align-items: flex-start;
+}
+
+.contenedorxd {
+margin-top: 20%;
+
+}
+
+
+.feature-box {
+text-align: center;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 8px;
+}
+
+.feature-box i {
+font-size: 3em;
+margin-bottom: 10px;
+color: #6c757d;
+}
+
+.feature-box h4 {
+font-size: 1.5em;
+margin-bottom: 10px;
+}
+
+.feature-box p {
+font-size: 1em;
+color: #6c757d;
+}
+
+@media (min-width: 768px) {
+.feature-box {
+    margin-bottom: 30px;
+}
+}
+
+@media (min-width: 992px) {
+.feature-box {
+    margin-bottom: 40px;
+}
+}
+
+.contenedorxd {
+display: flex;
+justify-content: center;
+align-items: center;
+margin-top: 20px;
+background-color: #ffff;
+width: 100%;
+height: 70vh;
+padding: 20px;
+overflow: hidden; /* Evitar scroll de la página */
+}
+
+/* Estilos de la barra de navegación */
+.navbar-nav {
+width: 100%;
+}
+
+.navbar-nav .nav-link {
+display: block;
+text-align: center;
+font-weight: bold;
+font-size: 1.1rem;
+color: rgb(116, 13, 13);
+transition: all 0.3s ease;
+border-radius: 25px;
+}
+
+.navbar-nav .nav-link:hover {
+background-color: rgb(116, 13, 13) !important;
+color: #fff !important;
+padding: 12px 24px;
+font-size: 1.2rem;
+transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+}
+
+
+/*DISEÑO DEL PIE DE PAGINA*/
+
+
+/* Para pantallas con un ancho mínimo de 768px y una altura mínima de 932px */
+
+
+body, html {
+margin: 0;
+padding: 0;
+width: 100%;
+height: 100%;
+box-sizing: border-box;
+}
+
+.footer {
+background-color: rgb(116, 13, 13);
+color: white;
+padding: 20px 0;
+width: 100%;
+box-sizing: border-box;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.footer-container {
+display: flex;
+flex-wrap: wrap;
+justify-content: space-between;
+max-width: 1200px;
+width: 100%;
+padding: 0 20px;
+}
+
+.footer-section {
+flex: 1;
+min-width: 200px;
+margin: 10px;
+}
+
+.footer-section h2 {
+font-size: 1.2rem;
+margin-bottom: 10px;
+}
+
+.footer-section p {
+margin: 5px 0;
+}
+
+.social-icons i {
+font-size: 1.2rem;
+margin-right: 10px;
+}
+
+@media (min-width: 768px) {
+.footer-section h2 {
+    font-size: 1.5rem;
+}
+
+.footer-section p {
+    font-size: 1rem;
+}
+
+.social-icons i {
+    font-size: 1.5rem;
+}
+}
