@@ -36,6 +36,12 @@
     background-position: center;
     transition: all 1s ease;
     flex-shrink: 1;
+
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
 }
 
 .imgBox:nth-child(1) {
