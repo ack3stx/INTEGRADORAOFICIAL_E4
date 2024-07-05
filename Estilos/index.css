@@ -68,8 +68,8 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     position: absolute;
     top: 100px;
     left: -50px;
-    width: 60%;
-    max-width: 165px;
+    width: 100%;
+    max-width: 200px;
     height: auto;
     border: 3px solid white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
