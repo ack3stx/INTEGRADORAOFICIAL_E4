@@ -74,16 +74,6 @@
 .imgBox:hover h3 {
     opacity: 1;
     bottom: 25px;
-    content: '';
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: linear-gradient(0deg, black 0%, black 5%, transparent);
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
 }
 
 .gallery:hover::before .imgBox:not(:hover)::before {
