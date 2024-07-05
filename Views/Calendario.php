@@ -169,15 +169,35 @@
         </div>
         <button class="btn btn-custom mt-4" onclick="location.href='habitacionreserva.php'">Comprobar</button>
     </div>
-    <div class="barra_abajo text-center text-white mt-5">
-        <h2>Contáctanos</h2>
-        <p>Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
-        <h4>Acerca de este hotel </h4>
-        <p>Este hotel tranquilo se encuentra a 3 km del parque recreativo Bosque Venustiano Carranza, a 5 km de la animada Plaza Mayor Torreón y a 6 km del centro cultural Arocena Laguna, A.C.
-        
-        Hora de registro de entrada: 3:00 p.m.
-        Hora de registro de salida: 12:00 p.m.</p>
-    </div>
+    <footer class="footer">
+  <div class="footer-container">
+      <div class="footer-section">
+          <h2>Contáctanos</h2>
+          <p><i class="fa-solid fa-house"></i> Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón, México</p>
+          <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
+          <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
+          <div class="social-icons">
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-facebook"></i>
+              <i class="fa-brands fa-whatsapp"></i>
+          </div>
+      </div>
+      <div class="footer-section">
+          <h2>Explora</h2>
+          <p>Inicio</p>
+          <p>Nosotros</p>
+          <p>Habitaciones</p>
+          <p>Amenidades</p>
+      </div>
+      <div class="footer-section">
+          <h2>Novedades</h2>
+          <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
+          <input type="text" placeholder="Email">
+          <i class="fa-solid fa-paper-plane"></i>
+      </div>
+  </div>
+</footer>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
