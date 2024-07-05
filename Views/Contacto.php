@@ -45,7 +45,7 @@
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
+    <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.html">
       <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -78,6 +78,8 @@
     </div>
   </div>
 </nav>
+<br>
+<br>
 </header>
 <div id="main-content" class="container mt-5 pt-5">
   <div class="row justify-content-center">
@@ -94,6 +96,8 @@
         <a href="https://www.instagram.com/hotellagunainntrc/"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
+    <br>
+    <br>
     <div class="col-lg-6 col-md-12">
       <form id="contact-form">
         <div class="row mb-3">
@@ -118,60 +122,35 @@
 </div>
 
 <!--PIE DE PAGINAA-->
-<footer  style="background-color:  rgb(116, 13, 13);" class="text-white pt-5 pb-4 pl-0 pr-0 no-compañero">
-    <div class="container text-center text-md-start">
-        <div class="row text-center text-md-start">
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
-                <h2 class="text-left">Contáctanos</h2>
-                <hr class="mb-4">
-                <p class="text-left">
-                    <i class="fa-solid fa-house"></i>&nbsp;&nbsp; Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón , México
-                    <br>
-                    <i class="fa-solid fa-envelope"></i>&nbsp;&nbsp;hotellagunainn@inn.com
-                    <br>
-                    <i class="fa-solid fa-phone"></i>&nbsp;&nbsp;+52 (614) 432-1500
-                    <br><br>
-                    <p class="diplay">
-                    <i class="fa-brands fa-instagram icono-si"></i>
-                    <i class="fa-brands fa-facebook icono-si diplay"></i>
-                    <i class="fa-brands fa-whatsapp icono-si"></i>
-                    </p>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="container text-center text-md-start">
-        <div class="row text-center text-md-start">
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
-                <h2 class="text-left">Explora</h2>
-                <hr class="mb-4">
-                
-                    <p class="pagina">Inicio</p>
-                    <br>
-                    <p class="pagina">Nosotros</p>
-                    <br>
-                    <p class="pagina" >Habitaciones</p>
-                    <br>
-                    <p class="pagina">Amenidades</p>
-                    <br>
-                    
-            </div>
-        </div>
-    </div>
-    <div class="container text-center text-md-start">
-        <div class="row text-center text-md-start">
-            <div class="col-md-3 col-lg-3 col-xl-3 mx-auto mt-3 ai">
-                <h2 class="text-left">Novedades</h2>
-                <hr class="mb-4">
-                
-                    <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
-                    <br>
-                   <input type="text" placeholder="Email" >
-                   <i  style="color: black;"      class="fa-solid fa-paper-plane"></i>
-            </div>
-        </div>
-    </div>
+<footer class="footer">
+  <div class="footer-container">
+      <div class="footer-section">
+          <h2>Contáctanos</h2>
+          <p><i class="fa-solid fa-house"></i> Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón, México</p>
+          <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
+          <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
+          <div class="social-icons">
+              <i class="fa-brands fa-instagram"></i>
+              <i class="fa-brands fa-facebook"></i>
+              <i class="fa-brands fa-whatsapp"></i>
+          </div>
+      </div>
+      <div class="footer-section">
+          <h2>Explora</h2>
+          <p>Inicio</p>
+          <p>Nosotros</p>
+          <p>Habitaciones</p>
+          <p>Amenidades</p>
+      </div>
+      <div class="footer-section">
+          <h2>Novedades</h2>
+          <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
+          <input type="text" placeholder="Email">
+          <i class="fa-solid fa-paper-plane"></i>
+      </div>
+  </div>
 </footer>
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
