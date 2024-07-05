@@ -76,10 +76,11 @@
     bottom: 25px;
     content: '';
     position: absolute;
-    top: -100;
+    align-items: center;
+    justify-content: center;
     left: 0;
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: auto;
     background: linear-gradient(0deg, black 0%, black 5%, transparent);
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
