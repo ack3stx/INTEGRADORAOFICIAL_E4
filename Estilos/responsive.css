@@ -76,13 +76,13 @@
     bottom: 25px;
     content: '';
     position: absolute;
-    top: -50;
+    top: -100;
     left: 0;
     height: 100%;
     width: 100%;
     background: linear-gradient(0deg, black 0%, black 5%, transparent);
-    border-bottom-left-radius: 60px;
-    border-bottom-right-radius: 60px;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
 }
 
 .gallery:hover::before .imgBox:not(:hover)::before {
