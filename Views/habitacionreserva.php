@@ -10,47 +10,76 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="Estilos/habitacionreserva.css">
+<link rel="stylesheet" href="../Estilos/habitacionreserva.css">
 </head>
 <body>
     <!--BARRA DE NAVEGACION-->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
-                <img src="../../../INTEGRADORAOFICIAL_E4/img/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
-                    class="rounded-circle rounded-1">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav text-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html"><label>INICIO</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <style>
+        .container {
+    opacity: .9;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
+                0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    min-height: 450px;
+    width: 600px;
+    max-width: 100%;
+}
+
+@media (max-width: 1000px)
+{
+    .container {
+        min-height: 400px;
+        width: 550px;
+    }
+}
+
+@media (max-width: 600px)
+{
+    .container {
+        min-height: 350px;
+        width: 440px;
+    }
+}
+
+    </style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
+        <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 180px; height: 80px;" class="rounded-circle rounded-1">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav text-center">
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 <!--BARRITA-->
     <section class="header-section">
         <div class="header-content">
