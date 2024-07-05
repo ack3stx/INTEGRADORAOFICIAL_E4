@@ -76,7 +76,7 @@
     bottom: 25px;
     content: '';
     position: absolute;
-    top: 50;
+    top: -50;
     left: 0;
     height: 100%;
     width: 100%;
