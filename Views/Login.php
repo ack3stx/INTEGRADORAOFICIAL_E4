@@ -115,7 +115,7 @@
                     <h1>¡Que tal, Bienvenido!</h1>
                     <p>Ingresa tus datos para registrarte en la pagina y poder reservar</p>
                     <p></p>
-                    <button class="ghost" id="signIn">Iniciar Sesión</button>
+                    <button class="ghost" id="signIn" onclick="location.href='Panel_Admin.php'">Iniciar Sesión</button>
                 </div>
                 <div class="overlay-panel overlay-right" style="padding: 0%; background:maroon;
                 background: -webkit-linear-gradient(to right, white, maroon);
