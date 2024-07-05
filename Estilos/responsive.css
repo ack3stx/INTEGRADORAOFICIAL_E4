@@ -79,8 +79,8 @@
     align-items: center;
     justify-content: center;
     left: 0;
-    height: auto;
-    width: auto;
+    height: 100%;
+    width: 100%;
     background: linear-gradient(0deg, black 0%, black 5%, transparent);
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;
