@@ -465,14 +465,15 @@
               <h1 class="text-center">Cuenta</h1>
               <div class="btn-group dropup">
                 <div class="rounded-circle w-50 mx-auto p-2 image-container">
-                <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"><input type="file"></a></li>
-    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
-    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
-                </ul>              </div>
+                  <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><input type="file"></a></li>
+                    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
+                    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
+                  </ul>              
+                </div>
               </div>
               <h3 class="text-center">Maluma_Baby</h3>
               <form>
