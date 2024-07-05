@@ -38,9 +38,9 @@
                         <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> Reservaciones</a></li>
                         <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> Habitaciones</a></li>
                         <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> Huéspedes</a></li>
-                        <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie"></i> Personal</a></li>
+                        <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie disabled  " aria-disabled="true" ></i> Personal</a></li>
                         <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> Back-Order</a></li>
-                        <li><a href="#" onclick="showSection('hotel')"><i class="fas fa-box"></i> Hotel</a></li>
+                        <li><a href="#" onclick="showSection('inventario')"><i class="fas fa-box"></i> Inventario</a></li>
                     </ul>
                   </div>
                 </div>
@@ -308,7 +308,7 @@
                     </tbody>
                 </table>
             </section>
-            <section id="#" class="content-section" style="display:none;">
+            <section id="personal" class="content-section" style="display:none;">
               <div class="alert alert-danger d-flex align-items-center" role="alert">
                 <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
                 <div>
@@ -316,7 +316,7 @@
                 </div>
               </div>
             </section>
-            <section id="personal" class="content-section" style="display:none;">
+            <section id="#" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Personal</h2>
                 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalpersonal">
@@ -391,7 +391,7 @@
                 <h2 class="color-hotel">Back-Order</h2>
                 
             </section>
-            <section id="hotel" class="content-section" style="display:none;">
+            <section id="inventario" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Inventario</h2>
                 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalinventario">
@@ -465,15 +465,14 @@
               <h1 class="text-center">Cuenta</h1>
               <div class="btn-group dropup">
                 <div class="rounded-circle w-50 mx-auto p-2 image-container">
-                  <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#"><input type="file"></a></li>
-                    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
-                    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
-                  </ul>              
-                </div>
+                <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#"><input type="file"></a></li>
+    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
+    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
+    <li><hr class="dropdown-divider"></li>
+    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
+                </ul>              </div>
               </div>
               <h3 class="text-center">Maluma_Baby</h3>
               <form>
