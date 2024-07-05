@@ -6,7 +6,6 @@
     <title class="color-hotel">Hotel Laguna Inn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/Panel_Admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -35,12 +34,10 @@
                   </div>
                   <div class="offcanvas-body">
                     <ul class="sidebar-menu">
-                        <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> Reservaciones</a></li>
-                        <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> Habitaciones</a></li>
-                        <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> Huéspedes</a></li>
-                        <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie disabled  " aria-disabled="true" ></i> Personal</a></li>
-                        <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> Back-Order</a></li>
-                        <li><a href="#" onclick="showSection('inventario')"><i class="fas fa-box"></i> Inventario</a></li>
+                        <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> -Reservaciones</a></li>
+                        <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
+                        <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
+                        <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> -Back-Order</a></li>
                     </ul>
                   </div>
                 </div>
@@ -308,171 +305,21 @@
                     </tbody>
                 </table>
             </section>
-            <section id="personal" class="content-section" style="display:none;">
-              <div class="alert alert-danger d-flex align-items-center" role="alert">
-                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
-                <div>
-                  <h1 class="fas fa-exclamation-triangle"></h1>NO CUENTAS CON PERMISO PARA VER ESTE APARTADO
-                </div>
-              </div>
-            </section>
-            <section id="#" class="content-section" style="display:none;">
-                <h2 class="color-hotel">Personal</h2>
-                <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalpersonal">
-    Agregar Nuevo Empleado
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="modalpersonal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nuevo Empleado</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form id="personalForm" class="toggle-form" onsubmit="addData(event, 'personal')">
-                <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="staffName" required><br>
-                <label for="staffPosition">Puesto:</label>
-                <input class="form-control me-2" type="text" id="staffPosition" name="staffPosition" required><br>
-                <label for="staffEmail">Email:</label>
-                <input class="form-control me-2" type="email" id="staffEmail" name="staffEmail" required><br>
-                <button class="btn btn-outline-success" type="submit">Agregar</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
-        </div>
-      </div>
-    </div>
-  </div>
-                <br><br>
-                <h4 class="color-hotel">Busqueda</h4>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Nombre">
-                    <select class="form-control me-2" name="Puestos">
-                        <option value="Gerente">Gerente</option>
-                        <option value="Recepcionista">Recepcionista</option>
-                        <option value="Limpieza">Limpieza</option>
-                      </select>
-                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
-                  </form><br><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Puesto</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Ana Pérez</td>
-                            <td>Gerente</td>
-                            <td>ana@example.com</td>
-                        </tr>
-                        <tr>
-                            <td>Carlos García</td>
-                            <td>Recepcionista</td>
-                            <td>carlos@example.com</td>
-                        </tr>
-                        <tr>
-                            <td>Laura López</td>
-                            <td>Limpieza</td>
-                            <td>laura@example.com</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
             <section id="informes" class="content-section" style="display:none;">
-                <h2 class="color-hotel">Back-Order</h2>
-                
-            </section>
-            <section id="inventario" class="content-section" style="display:none;">
-                <h2 class="color-hotel">Inventario</h2>
-                <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalinventario">
-    Agregar Nuevo Producto
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="modalinventario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nuevo Producto</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form id="inventarioForm" class="toggle-form" onsubmit="addData(event, 'inventario')">
-                <label for="itemName">Item:</label>
-                <input class="form-control me-2" type="text" id="itemName" name="itemName" required><br>
-                <label for="itemQuantity">Cantidad:</label>
-                <input class="form-control me-2" type="number" id="itemQuantity" name="itemQuantity" required><br>
-                <label for="itemStatus">Estado:</label>
-                <select class="form-control me-2" id="itemStatus" name="itemStatus" required><br>
-                    <option class="form-control me-2" value="Disponible">Disponible</option>
-                    <option class="form-control me-2" value="En uso">En uso</option>
-                </select><br>
-                <button class="btn btn-outline-success" type="submit">Agregar</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
-        </div>
-      </div>
-    </div>
-  </div>
-                <br><br>
-                <h4 class="color-hotel">Busqueda</h4>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nombre">
-                    <input class="form-control me-2" type="search" placeholder="Estado">
-                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
-                  </form><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Cantidad</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Toallas</td>
-                            <td>150</td>
-                            <td>Disponible</td>
-                        </tr>
-                        <tr>
-                            <td>Jabones</td>
-                            <td>300</td>
-                            <td>Disponible</td>
-                        </tr>
-                        <tr>
-                            <td>Camas</td>
-                            <td>50</td>
-                            <td>En uso</td>
-                        </tr>
-                    </tbody>
-                </table>
+              <h2 class="color-hotel">Back-Order</h2>
             </section>
             <section id="Cuenta" class="content-section">
               <h1 class="text-center">Cuenta</h1>
               <div class="btn-group dropup">
                 <div class="rounded-circle w-50 mx-auto p-2 image-container">
-                <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#"><input type="file"></a></li>
-    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
-    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
-    <li><hr class="dropdown-divider"></li>
-    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
-                </ul>              </div>
+                  <a href="#" type="button" data-bs-toggle="dropdown" aria-expanded="false"><img src="../Imagenes/maluma.jpeg" class="rounded mx-auto d-block w-25 rounded-circle w-50" alt="..." style="transform: scale(1.1); transition: transform 0.3s ease;"></a> 
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"><input type="file"></a></li>
+                    <li><a class="dropdown-item" href="#">Cambiar Foto</a></li>
+                    <li><a class="dropdown-item" href="#">Informacion Foto</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="#">Ver Foto</a></li>
+                  </ul>              </div>
               </div>
               <h3 class="text-center">Maluma_Baby</h3>
               <form>

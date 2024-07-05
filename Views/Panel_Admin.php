@@ -6,7 +6,6 @@
     <title class="color-hotel">Hotel Laguna Inn</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/Panel_Admin.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
@@ -35,12 +34,12 @@
                   </div>
                   <div class="offcanvas-body">
                     <ul class="sidebar-menu">
-                        <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> Reservaciones</a></li>
-                        <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> Habitaciones</a></li>
-                        <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> Huéspedes</a></li>
-                        <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie"></i> Personal</a></li>
-                        <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> Back-Order</a></li>
-                        <li><a href="#" onclick="showSection('hotel')"><i class="fas fa-box"></i> Hotel</a></li>
+                        <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> -Reservaciones</a></li>
+                        <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
+                        <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
+                        <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie"></i> -Personal</a></li>
+                        <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> -Back-Order</a></li>
+                        <li><a href="#" onclick="showSection('hotel')"><i class="fas fa-hotel"></i> -Hotel</a></li>
                     </ul>
                   </div>
                 </div>
@@ -389,77 +388,6 @@
             </section>
             <section id="informes" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Back-Order</h2>
-                
-            </section>
-            <section id="hotel" class="content-section" style="display:none;">
-                <h2 class="color-hotel">Inventario</h2>
-                <!-- Button trigger modal -->
-<button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalinventario">
-    Agregar Nuevo Producto
-  </button>
-  
-  <!-- Modal -->
-  <div class="modal fade" id="modalinventario" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nuevo Producto</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <form id="inventarioForm" class="toggle-form" onsubmit="addData(event, 'inventario')">
-                <label for="itemName">Item:</label>
-                <input class="form-control me-2" type="text" id="itemName" name="itemName" required><br>
-                <label for="itemQuantity">Cantidad:</label>
-                <input class="form-control me-2" type="number" id="itemQuantity" name="itemQuantity" required><br>
-                <label for="itemStatus">Estado:</label>
-                <select class="form-control me-2" id="itemStatus" name="itemStatus" required><br>
-                    <option class="form-control me-2" value="Disponible">Disponible</option>
-                    <option class="form-control me-2" value="En uso">En uso</option>
-                </select><br>
-                <button class="btn btn-outline-success" type="submit">Agregar</button>
-            </form>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
-        </div>
-      </div>
-    </div>
-  </div>
-                <br><br>
-                <h4 class="color-hotel">Busqueda</h4>
-                <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Nombre">
-                    <input class="form-control me-2" type="search" placeholder="Estado">
-                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
-                  </form><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Item</th>
-                            <th>Cantidad</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Toallas</td>
-                            <td>150</td>
-                            <td>Disponible</td>
-                        </tr>
-                        <tr>
-                            <td>Jabones</td>
-                            <td>300</td>
-                            <td>Disponible</td>
-                        </tr>
-                        <tr>
-                            <td>Camas</td>
-                            <td>50</td>
-                            <td>En uso</td>
-                        </tr>
-                    </tbody>
-                </table>
             </section>
             <section id="Cuenta" class="content-section">
               <h1 class="text-center">Cuenta</h1>
