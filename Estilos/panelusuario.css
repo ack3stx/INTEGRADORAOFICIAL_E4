@@ -32,8 +32,11 @@ body {
     margin-left: 89%;
 }
 
+.blanco {
+    background-color: white;
+}
 
-.olas {
+.ola {
    
     max-height: 10%;
 
