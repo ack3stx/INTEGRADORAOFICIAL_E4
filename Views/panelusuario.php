@@ -17,7 +17,7 @@
 
 
 
-    <section class="header-section ola chico ">
+    <section class="header-section olas chico glass">
         <button class="btn glass" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
             aria-controls="offcanvasExample">
             <span class="material-symbols-outlined">
