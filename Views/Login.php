@@ -16,7 +16,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin-top: 50px;
+            margin-top: 80px;
         }
         .login-card {
             width: 600px;
