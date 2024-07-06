@@ -228,24 +228,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-12 col-md-6 col-lg-4 box-icons">
-                <div class="d-flex align-items-center p-3">
-                    <i class="bi bi-brightness-high-fill"></i>
-                    <div class="ms-3 ms-md-4">
-                        <!-- Contenido adicional si es necesario -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4 box-icons">
-                <div class="d-flex align-items-center p-3">
-                    <i class="bi bi-brightness-high-fill"></i>
-                    <div class="ms-3 ms-md-4">
-                        <!-- Contenido adicional si es necesario -->
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>
