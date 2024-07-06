@@ -40,7 +40,7 @@
                             </span> Gestionar cuenta </a></li>
                     <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
                                 travel_explore
-                            </span>Viajes</a></li>
+                            </span>Historial de Reservación</a></li>
                     <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
                                 add_comment
                             </span>Comentarios</a></li>
@@ -120,7 +120,7 @@
 <h1 class="vidp">Configuración de la cuenta</h1>
     <p class="vidp">Gestiona tu experiencia en HotelLagunaInn.com</p>
     
-<section class="section-icons conta">
+<section class="section-icons conta siono">
     <div class="overlay "></div>
     <div class="container">
         <div class="row gy-4">
