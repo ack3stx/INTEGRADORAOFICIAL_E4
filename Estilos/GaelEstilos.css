@@ -8,7 +8,7 @@
   text-align: center;
   font-weight: bold;
   font-size: 1.1rem;
-  color: rgb(116, 13, 13); /* Color de texto normal */
+  color: rgb(116, 13, 13) !important; /* Color de texto normal */
   transition: all 0.3s ease;
   border-radius: 25px;
 }

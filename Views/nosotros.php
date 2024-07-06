@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/nosotros.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -11,68 +12,42 @@
 </head>
 <body>
 <header>
-    <style>
-      /* Estilos de la barra de navegación */
-      .navbar-nav {
-        width: 100%;
-      }
-
-      .navbar-nav .nav-link {
-        display: block;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: rgb(116, 13, 13); /* Color de texto normal */
-        transition: all 0.3s ease;
-        border-radius: 25px;
-      }
-
-      .navbar-nav .nav-link:hover {
-        background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-        color: #fff !important; /* Color de texto al hacer hover */
-        padding: 9px 18px;
-        font-size: 1.2rem;
-        transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
-      }
-
-
-      </style>
-      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-          <div class="container-fluid">
-            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
-              <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-              <ul class="navbar-nav text-center">
-                <li class="nav-item">
-                  <a class="nav-link" href="../index.html"><label>INICIO</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav>
-  </header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
+      <div class="container-fluid">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.html">
+          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+          <ul class="navbar-nav text-center">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    </header>
 <br><br><br><br>
     <div class="header mb-4">
         <div class="header-images">
