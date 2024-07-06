@@ -120,7 +120,7 @@
 <h1 class="vidp">Configuración de la cuenta</h1>
     <p class="vidp">Gestiona tu experiencia en HotelLagunaInn.com</p>
     
-<section class="section-icons conta siono">
+<section class="section-icons conta ">
     <div class="overlay "></div>
     <div class="container">
         <div class="row gy-4">
