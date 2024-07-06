@@ -35,6 +35,7 @@
         transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
       }
 
+
       </style>
       <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <div class="container-fluid">
@@ -73,7 +74,7 @@
         </nav>
   </header>
 <br><br><br><br>
-    <div class="header">
+    <div class="header mb-4">
         <div class="header-images">
             <img src="../Imagenes/SALAESTAR.png" alt="saladeestar">
         </div>
@@ -82,7 +83,7 @@
             <h1>Nosotros</h1>
         </div>
     </div>
-
+      <br>
     <div class="contenedorxd">
         <div class="contenedorxd2">
             <div class="content">
@@ -92,8 +93,7 @@
             </div>
         </div>
     </div>
-    
-
+  <br>  
     <div class="contenedorxd3">
         <div class="mision-vision">
             <div class="mision">
@@ -106,6 +106,7 @@
                 <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
             </div>
         </div>
+    </div>
     </div>
 
     <footer class="footer">
