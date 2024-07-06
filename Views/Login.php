@@ -8,17 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-            background-color: #f8f9fa;
+            background-image: url(../Imagenes/SILLONES.png);
         }
         .login-container {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin-top: 50px;
         }
         .login-card {
             width: 600px;
-            height: 500px;
+            height: 530px;
             padding: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -50,11 +51,73 @@
     </style>
 </head>
 <body>
-    <section id="Sesion">
+<header>
+    <style>
+      /* Estilos de la barra de navegación */
+      .navbar-nav {
+        width: 100%;
+      }
+
+      .navbar-nav .nav-link {
+        display: block;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: rgb(116, 13, 13) !important; /* Color de texto normal */
+        transition: all 0.3s ease;
+        border-radius: 25px;
+      }
+
+      .navbar-nav .nav-link:hover {
+        background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+        color: #fff !important; /* Color de texto al hacer hover */
+        padding: 9px 18px;
+        font-size: 1.2rem;
+        transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+      }
+
+      </style>
+      <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
+              <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+              <ul class="navbar-nav text-center">
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+  </header>
+    <section id="reservaciones" class="content-section">
         <div class="container login-container">
             <div class="card login-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">Laguna Inn - Iniciar Sesion</h3><br><br>
+                    <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
                     <form>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
@@ -66,7 +129,7 @@
                         </div><br>
                         <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
                     </form><br>
-                    <h6>No tienes cuenta?  <a href="#Registrate" onclick="showSection('Registrate')">Registrate aqui</a></h4>
+                    <h6>No tienes cuenta?  <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h4>
                 </div>
             </div>
         </div>
@@ -75,7 +138,7 @@
         <div class="container login-container">
             <div class="card login-card">
                 <div class="card-body">
-                    <h3 class="card-title text-center">Laguna Inn - Registrate</h3><br><br>
+                    <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
                     <form>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
@@ -89,16 +152,17 @@
                             <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
                             <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
                         </div><br>
-                        <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Entrar</button>
                     </form><br>
-                    <h6>No tienes cuenta?  <a href="#Sesion" onclick="showSection('Sesion')">Inicia Sesion aqui</a></h4>
+                    <h6>No tienes cuenta?  <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h4>
                 </div>
             </div>
         </div>
     </section>
-    <script src="../Js/Panel_Admin.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="../Js/Panel_Admin.js"></script>
 </body>
 </html>
