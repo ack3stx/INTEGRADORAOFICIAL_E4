@@ -44,6 +44,7 @@
         min-height: 350px;
         width: 440px;
     }
+    
 }
 
     </style>

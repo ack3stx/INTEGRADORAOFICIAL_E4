@@ -20,7 +20,7 @@ body {
 }
 
 .ola {
-    color: black;
+    color: white;
 }
 
 .btn:hover {
@@ -32,16 +32,19 @@ body {
     margin-left: 89%;
 }
 
+.blanco {
+    background-color: white;
+}
 
 .ola {
-    background-image:linear-gradient(rgb(116, 13, 13),white); 
+   
     max-height: 10%;
 
     background-size: cover;
     padding: 10px;
     margin: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: white;
     /* Fondo medio transparente */
 
 
@@ -201,7 +204,7 @@ p.como {
 }
 
 .conta {
-    margin-top: 20%;
+    margin-top: 10%;
 }
 
 .box-icons:hover .ditto:hover {

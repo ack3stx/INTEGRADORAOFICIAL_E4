@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Usuario</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="Estilos/panelusuario.css">
+    <link rel="stylesheet" href="../Estilos/panelusuario.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
@@ -17,7 +17,7 @@
 
 
 
-    <section class="header-section ola chico">
+    <section class="header-section ola chico ">
         <button class="btn glass" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample"
             aria-controls="offcanvasExample">
             <span class="material-symbols-outlined">
@@ -40,7 +40,7 @@
                             </span> Gestionar cuenta </a></li>
                     <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
                                 travel_explore
-                            </span>Viajes</a></li>
+                            </span>Historial de Reservación</a></li>
                     <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
                                 add_comment
                             </span>Comentarios</a></li>
@@ -120,7 +120,7 @@
 <h1 class="vidp">Configuración de la cuenta</h1>
     <p class="vidp">Gestiona tu experiencia en HotelLagunaInn.com</p>
     
-<section class="section-icons conta">
+<section class="section-icons conta ">
     <div class="overlay "></div>
     <div class="container">
         <div class="row gy-4">
@@ -225,24 +225,6 @@
                                 <p class="como">Añade o edita información sobre las personas con las que viajas.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4 box-icons">
-                <div class="d-flex align-items-center p-3">
-                    <i class="bi bi-brightness-high-fill"></i>
-                    <div class="ms-3 ms-md-4">
-                        <!-- Contenido adicional si es necesario -->
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-12 col-md-6 col-lg-4 box-icons">
-                <div class="d-flex align-items-center p-3">
-                    <i class="bi bi-brightness-high-fill"></i>
-                    <div class="ms-3 ms-md-4">
-                        <!-- Contenido adicional si es necesario -->
                     </div>
                 </div>
             </div>
