@@ -1,4 +1,4 @@
-DROP DATABASE INTEGRADORA_ROL_USUARIOSv2;
+
 CREATE DATABASE INTEGRADORA_ROL_USUARIOSv2;
 USE INTEGRADORA_ROL_USUARIOSv2;
 CREATE TABLE Roles (
@@ -124,7 +124,7 @@ ALTER TABLE facturacion AUTO_INCREMENT = 1;
 
 
 INSERT INTO roles (nombre) VALUES
-('huesped'),
+('usuario'),
 ('recepcionista'),
 ('administrador');
 
