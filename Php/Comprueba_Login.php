@@ -28,12 +28,15 @@
         $numero_registro=$resultado->rowCount();
         if ($numero_registro!=0)
         {
-            header("location:Panel_Recepcionista.php");
+            session_start();
+            $_SESSION["usuario"]=$_POST["correo"];
+            
+            header("location:../Views/Panel_Recepcionista.php");
         }
         else
         {
             echo "<div class='alert alert-danger'>Usario no existe</div>";
-            header("refresh:1;Login.php");
+            header("refresh:1;../Views/Login.php");
         }
     } 
     catch (Exception $e)

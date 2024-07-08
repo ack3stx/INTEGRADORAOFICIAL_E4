@@ -9,6 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
+  <?php
+    session_start();
+    if (!isset($_SESSION["usuario"]))
+    {
+      header("Location:Login.php");
+    }
+  ?>
   <style>
     .image-container {
             overflow: hidden;
@@ -54,7 +61,7 @@
                                 <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#">Historial</a></li>
                                 <li><a class="dropdown-item btn btn-outline-success list-group-item-action list-group-item-success" href="#">Opciones</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item bg bg-danger btn btn-outline-danger list-group-item-action list-group-item-danger" href="#">Cerrar Sesion</a></li>
+                                <li><a class="dropdown-item bg bg-danger btn btn-outline-danger list-group-item-action list-group-item-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesion</a></li>
                             </ul>
                         </div>
                           
