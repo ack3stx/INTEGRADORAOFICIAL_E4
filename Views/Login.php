@@ -94,14 +94,14 @@
             <div class="card login-card">
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
-                    <form>
+                    <form action="Comprueba_Login.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
-                            <input type="email" class="form-control" id="email" placeholder="Correo" required>
+                            <input type="email" class="form-control" id="email" placeholder="Correo" name="correo" required>
                         </div><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña" name="contra" required>
                         </div><br>
                         <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
                     </form><br>
