@@ -13,38 +13,7 @@
 <link rel="stylesheet" href="../Estilos/habitacionreserva.css">
 </head>
 <body>
-    <!--BARRA DE NAVEGACION-->
-    <style>
-        .container {
-    opacity: .9;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 
-                0 10px 10px rgba(0, 0, 0, 0.22);
-    position: relative;
-    overflow: hidden;
-    min-height: 450px;
-    width: 600px;
-    max-width: 100%;
-}
-
-@media (max-width: 1000px)
-{
-    .container {
-        min-height: 400px;
-        width: 550px;
-    }
-}
-
-@media (max-width: 600px)
-{
-    .container {
-        min-height: 350px;
-        width: 440px;
-    }
-}
-
-    </style>
+   
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
     <div class="container-fluid">
       <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
