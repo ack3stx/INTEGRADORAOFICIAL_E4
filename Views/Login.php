@@ -115,26 +115,31 @@
             <div class="card login-card">
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
-                    <form>
+                    <form action="Registra_Usuario.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                            <input type="email" class="form-control" id="user" placeholder="Nombre de Usuario" required>
+                            <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" required>
                         </div><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
-                            <input type="email" class="form-control" id="email" placeholder="Correo" required>
+                            <input type="email" class="form-control" id="email" placeholder="Correo" name="correo" required>
                         </div><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+                            <input type="password" class="form-control" id="password" placeholder="Contraseña" name="contra" required>
                         </div><br>
-                        <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Entrar</button>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
                     </form><br>
                     <h6>No tienes cuenta?  <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h4>
                 </div>
             </div>
         </div>
     </section>
+    <?php
+            include '../Clases/BasedeDatos.php';
+            $conexion = new Database();
+            $conexion->conectarDB();
+        ?>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
