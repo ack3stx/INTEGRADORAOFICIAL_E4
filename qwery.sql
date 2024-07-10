@@ -8,9 +8,9 @@ CREATE TABLE Roles (
 
 CREATE TABLE Usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(30),
+    nombre_usuario VARCHAR(30) UNIQUE,
     Contraseña VARCHAR(40),
-    correo VARCHAR(40)
+    correo VARCHAR(40) UNIQUE
 );
 
 CREATE TABLE ROL_USUARIO (
@@ -26,7 +26,7 @@ CREATE TABLE Persona (
     Nombre VARCHAR(30),
     Apellido_paterno VARCHAR(30),
     apellido_materno VARCHAR(30),
-    Fecha_de_Nacimiento DATE,
+    Fecha_de_Nacimiento DATE UNIQUE,
     direccion VARCHAR(100),
     ciudad VARCHAR(50),
     estado VARCHAR(50),
@@ -41,7 +41,7 @@ CREATE TABLE Persona (
 
 CREATE TABLE Recepcionista (
     id_recepcionista INT PRIMARY KEY AUTO_INCREMENT,
-    curp VARCHAR(18),
+    curp VARCHAR(18) UNIQUE,
     fecha_de_contratacion DATE,
     Numero_de_Seguridad_social VARCHAR(20),
     Afore VARCHAR(30),
@@ -113,7 +113,7 @@ CREATE TABLE facturacion (
     nombre VARCHAR(25),
     apellido_paterno VARCHAR(25),
     apellido_materno VARCHAR(25),
-    rfc VARCHAR(18),
+    rfc VARCHAR(18) UNIQUE,
     direccion VARCHAR(50),
     detalle_pago INT,
     CONSTRAINT fk_facturacion_detalle_pago FOREIGN KEY (detalle_pago) REFERENCES detalle_pago(id_detalle_pago)
