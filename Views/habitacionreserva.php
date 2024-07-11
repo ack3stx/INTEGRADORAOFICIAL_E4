@@ -10,8 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../Estilos/habitacionreserva.css">
+<link rel="stylesheet" href="../Estilos/reservavista.css">
 </head>
+<style>
+
+</style>
 <body>
    
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
@@ -69,13 +72,13 @@
          
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion sencilla 3.webp" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100" alt="...">
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -119,13 +122,13 @@
          
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion1.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion doble 2.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion doble 3.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -153,13 +156,13 @@
           
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion king size 1.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion king size 2.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100" alt="...">
             </div>
             <div class="carousel-item">
-              <img src="../INTEGRADORAOFICIAL_E4/img/habitacion king size 3.avif" class="d-block w-100" alt="...">
+              <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100" alt="...">
             </div>
           </div>
           <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

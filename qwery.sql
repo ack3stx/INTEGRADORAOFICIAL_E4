@@ -26,14 +26,14 @@ CREATE TABLE Persona (
     Nombre VARCHAR(30),
     Apellido_paterno VARCHAR(30),
     apellido_materno VARCHAR(30),
-    Fecha_de_Nacimiento DATE UNIQUE,
+    Fecha_de_Nacimiento DATE,
     direccion VARCHAR(100),
     ciudad VARCHAR(50),
     estado VARCHAR(50),
     codigo_postal VARCHAR(10),
     pais VARCHAR(50),
     Genero CHAR(1),
-    Numero_De_Telefono CHAR(10),
+    Numero_De_Telefono CHAR(10) UNIQUE,
     usuario INT,
 
     CONSTRAINT fk_persona_usuario FOREIGN KEY (usuario) REFERENCES Usuarios(id_usuario)
