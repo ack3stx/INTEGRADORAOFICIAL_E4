@@ -71,7 +71,7 @@
             </header>
             <section id="reservaciones" class="content-section">
                 <h2 class="color-hotel">Reservaciones</h2><br><br>
-                <form class="d-flex" role="search" action="" method="post">
+                <form class="d-flex" role="search" action="#1212" method="post">
                    <input class="form-control me-2" type="text" id="checkout" name="numero" placeholder=" Numero">&nbsp;
                     <label class="color-hotel" for="checkin">Fecha inicio:</label>&nbsp;
                     <input class="form-control me-2 width" type="date" id="checkin" name="fecha1" style="width: 150px;">&nbsp;
@@ -79,6 +79,7 @@
                     <input class="form-control me-2 width" type="date" id="checkout" name="fecha2" style="width: 150px;">&nbsp;
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
+                  <div id="1212">
                   <?php 
     include '../Clases/BasedeDatos.php';
     $conexion = new Database();
@@ -123,6 +124,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
 
     }
     ?>
+    </div>
             </section>
             <section id="habitaciones" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Habitaciones</h2>
@@ -161,7 +163,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
   </div>
                 <br><br>
                 <h4 class="color-hotel">Busqueda</h4>
-                <form class="d-flex" role="search">
+                <form class="d-flex" role="search" action="#1111" method="post">
                     <label class="color-hotel">Tipo:</label>&nbsp;
                     <select class="form-control me-2" name="tipo">
                         <option value="Sencilla">Sencilla</option>
@@ -176,6 +178,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
                     </select>&nbsp;
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
+                  <div id="1111">
                   <?php 
     include '../Clases/BasedeDatos.php';
     $conexion = new Database();
@@ -219,6 +222,7 @@ where t_habitacion.nombre=$tipo and habitacion.estado_habitacion=$estado";
 
     }
     ?>
+    </div>
             </section>
             <section id="huespedes" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Huéspedes</h2>
