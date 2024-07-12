@@ -45,10 +45,15 @@
                         <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> -Reservaciones</a></li>
                         <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
                         <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
-                        <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search"></i> -Back-Order</a></li>
                     </ul>
                   </div>
                 </div>
+                <button type="button" class="btn btn-danger position-relative fas fa-envelope" onclick="showSection('informes')">
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    99+
+                  <span class="visually-hidden">unread messages</span>
+                  </span>
+                </button>
                 <div class="header-left">
                     <h1 class="text color-hotel fw-bold fs fs-2">Hotel Laguna  Inn</h1>
                 </div>
