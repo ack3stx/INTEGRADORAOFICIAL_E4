@@ -62,123 +62,145 @@
       <!-- Tarjetas de habitaciones -->
   
     <!--TAREJETA 1-->
-    <div class="card">
-      <div class="card-body">
-       
-        <div id="carouselExampleIndicators1" class="carousel slide">
-         
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img  src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100 imagenes" alt="...">
+    <div class="card card-custom">
+        <div class="card-body">
+            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100 imagenes" alt="...">
+            <h5 class="card-title custom1">Habitación Doble</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
+            <br><br>
+            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
+            <a href="#" class="card-link">Ver detalles</a>
+            <div class="aa">
+                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100 imagenes" alt="...">
+            <div class="dropdown nala">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                    1
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="visually-hidden">Next</span>
-            </button>
-          </div>
-        
+            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
         </div>
-        <h5 class="card-title custom1">Habitación Sencilla</h5>
-        <h6 class="card-subtitle custom2 mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
-        <br><br>
-        <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
-        <a href="#" class="card-link">Ver detalles</a>
-        <div class="aa">
-          &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
-        </div> 
-        <div class="dropdown nala">
-          <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-            1
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </div> 
-        <button type="button"  id="btn-añadir"    class="btn btn-danger">Añadir</button> 
-      </div>
     </div>
 
     <!--TARJETA 2-->
-    <div class="card">
-      <div class="card-body">
-        
-        <div id="carouselExampleIndicators2" class="carousel slide">
-         
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../Imagenes/habitacion1.avif" class="d-block w-100 imagenes" alt="...">
+    <div class="card card-custom">
+        <div class="card-body">
+            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="imagen1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100 imagenes" alt="...">
+            <h5 class="card-title custom1">Habitación Sencilla</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
+            <br><br>
+            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
+            <a href="#" class="card-link">Ver detalles</a>
+            <div class="aa">
+                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100 imagenes" alt="...">
+            <div class="dropdown nala">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                    1
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
             </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
         </div>
-        <h5 class="card-title custom1">Habitación Doble</h5>
-        <h6 class="card-subtitle custom2 mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text custom3 ">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
     </div>
   
     <!--TARJETA 3-->
-    <div class="card">
-      <div class="card-body">
-       
-        <div id="carouselExampleIndicators3" class="carousel slide">
-          
-          <div class="carousel-inner">
-            <div class="carousel-item active">
-              <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100 imagenes" alt="...">
+    <div class="card card-custom">
+        <div class="card-body">
+            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="imagen1.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100 imagenes" alt="...">
+            <h5 class="card-title custom1">Habitación King Size</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
+            <br><br>
+            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
+            <a href="#" class="card-link">Ver detalles</a>
+            <div class="aa">
+                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
             </div>
-            <div class="carousel-item">
-              <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100 imagenes" alt="...">
+            <div class="dropdown nala">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                    1
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
             </div>
-          </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
+            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
         </div>
-        <h5 class="card-title custom1">Habitación King Size</h5>
-        <h6 class="card-subtitle custom2 mb-2 text-body-secondary">Card subtitle</h6>
-        <p class="card-text custom3">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-      </div>
     </div>
-
 
     <!--PIE DE PAGINA-->
     <br><br>

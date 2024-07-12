@@ -1,9 +1,9 @@
 /* Estilos de la barra de navegación */
 .navbar-nav {
     width: 100%;
-  }
+}
   
-  .navbar-nav .nav-link {
+.navbar-nav .nav-link {
     display: block;
     text-align: center;
     font-weight: bold;
@@ -11,24 +11,24 @@
     color: rgb(116, 13, 13) !important; /* Color de texto normal */
     transition: all 0.3s ease;
     border-radius: 25px;
-  }
+}
   
-  .navbar-nav .nav-link:hover {
+.navbar-nav .nav-link:hover {
     background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
     color: #fff !important; /* Color de texto al hacer hover */
     padding: 12px 24px;
     font-size: 1.2rem;
     transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
-  }
+}
 
-  /*BARRITAAA*/
-  .header-section {
+/*BARRITAAA*/
+.header-section {
     position: relative;
     background-size: cover;
     height: 240px;
     margin-top: 2%;
-  }
-  .header-content {
+}
+.header-content {
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -36,134 +36,108 @@
     color: white;
     padding: 20px;
     background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
-  
-  }
+}
 
-  .header-content h1 {
+.header-content h1 {
     font-size: 3rem;
     font-weight: bold;
-  }
-  .header-content p {
+}
+.header-content p {
     font-size: 1.5rem;
-  }
+}
   
-  .header-section-custom {
+.header-section-custom {
     background-color: white;
     color: white;
     padding: 20px;
     text-align: center;
-  }
+}
   
-  .header-content-custom {
+.header-content-custom {
     position: relative;
     max-width: 800px;
     margin: 0 auto;
-  }
+}
   
-  .header-content-custom p {
+.header-content-custom p {
     margin: 0;
     padding: 10px 0;
     color: black;
-  }
+}
   
-  .header-content-custom h1 {
+.header-content-custom h1 {
     margin: 0;
     padding: 10px 0;
-    color: rgb(116, 13, 13)
-  }
+    color: rgb(116, 13, 13);
+}
   
-  .header-content-custom .col {
+.header-content-custom .col {
     margin-bottom: 20px;
-  }
+}
   
-  
-  .barra-blanca {
+.barra-blanca {
     width: 100%;
     background-color: white;
     height: 60px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+}
 
 
-  .imagenes {
-    width: 50%;
-  }
-  
-  .card{
-    width: 45rem;
-    height: 29rem;
-    margin-top: 6%;
-    margin-left: 10%;
-  
-  }
-  
-  .carousel-inner{
-    width: 20rem;
-    
+
+
+
+/* Estilos personalizados para las tarjetas */
+
+
+
+.card-custom {
+    width: 40%;
+    margin-left: 6%; /* Centrar la tarjeta horizontalmente */
+    margin-top: 3%;
+    padding: 1rem; /* Añadir relleno */
+    border: 1px solid #ddd; /* Añadir borde */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+
+.carousel-inner img {
     border-radius: 20px;
-    
-  }
-  
-  .custom1{
-    margin-left:50%;
-    margin-top: -21%;
-  }
-  
-  .custom2{
-    margin-left:50%;
-    margin-top: 0%;
-  }
-  
-  .custom3{
-    margin-left:50%;
-    margin-top: 0%;
-  }
-  
-  
-  .card-link{
+    width: 30%; /* Ajustar al ancho de la tarjeta */
+    height: auto; /* Mantener proporciones */
+    object-fit: cover; /* Asegurar que las imágenes mantengan sus proporciones */
+}
+.custom1, .custom2, .custom3 {
+    text-align: center;
+    margin-top: 1rem; /* Espaciado superior */
+    margin-left: 2rem;
+}
+.card-link {
     color: black;
-  }
-  
-  .aa {
+}
+.aa {
     border-radius: 40px;
-    border-color: black;
-    border-style: solid;
-    margin-left: 55%;
-    margin-top: 20%;
-    margin-bottom: 68%;
-    width: 5rem;
-    height: 8%;
-    padding-top: 1%;
-  }
-  
-  .dropdown{
+    border: 1px solid black;
+    display: inline-block; /* Alinear en línea */
+    width: auto; /* Ajustar automáticamente al contenido */
+    padding: 0.5rem 1rem; /* Relleno alrededor del contenido */
+    text-align: center;
+}
+.dropdown {
     border-radius: 40px;
-    border-color: black;
-    border-style: solid;
-    margin-left:39%;
-    margin-top: -73.5%;
-    margin-bottom: 10%;
-    width: 5rem;
-  
-  
-  }
-  
-  .btn {
-    margin-left: 40%;
-  
-  }
-  
-  .btn {
+    border: 1px solid black;
+    display: inline-block; /* Alinear en línea */
+    width: auto; /* Ajustar automáticamente al contenido */
+    margin-top: 1rem; /* Espaciado superior */
+}
+.btn {
     border-radius: 40px;
-    margin-bottom: 10%;
-    margin-top: -20%;
-    margin-left: 70%;
-  }
-  
+    display: block; /* Mostrar como bloque */
+    margin: 1rem auto; /* Centrar horizontalmente */
+}
 
-  /*PIE DE PAGINA*/
-  
-  .footer {
+/*PIE DE PAGINA*/
+.footer {
     background-color: rgb(116, 13, 13);
     color: white;
     padding: 20px 0;
@@ -172,9 +146,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    }
-    
-    .footer-container {
+}
+.footer-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -182,48 +155,35 @@
     width: 100%;
     padding: 0 20px;
     color: white;
-    }
-    
-    .footer-section {
+}
+.footer-section {
     flex: 1;
     min-width: 200px;
     margin: 10px;
     color: white;
-    }
-    
-    .footer-section h2 {
+}
+.footer-section h2 {
     font-size: 1.2rem;
     margin-bottom: 10px;
     color: white;
-    }
-    
-    .footer-section p {
+}
+.footer-section p {
     margin: 5px 0;
     color: white;
-    }
-    
-    .social-icons i {
+}
+.social-icons i {
     font-size: 1.2rem;
     margin-right: 10px;
     color: white;
-    }
-    
-    @media (min-width: 768px) {
+}
+@media (min-width: 768px) {
     .footer-section h2 {
         font-size: 1.5rem;
     }
-    
     .footer-section p {
         font-size: 1rem;
     }
-    
     .social-icons i {
         font-size: 1.5rem;
     }
-    }
-    
-
-
-  
-      
-  
+}
