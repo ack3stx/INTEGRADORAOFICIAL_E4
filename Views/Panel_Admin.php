@@ -39,18 +39,12 @@
                       <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
                       <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
                       <li><a href="#" onclick="showSection('personal')"><i class="fas fa-user-tie"></i> -Personal</a></li>
-                      <li><a href="#" onclick="showSection('informes')"><i class="fas fa-search btn btn-success"></i> -Back-Order 
-                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                        99+
-                        <span class="visually-hidden">unread messages</span>
-                        </span> 
-                        </a></li>
                       <li><a href="#" onclick="showSection('hotel')"><i class="fas fa-hotel"></i> -Hotel</a></li>
                       <li><a href="#" onclick="showSection('facturacion')"><i class="fas fa-file-alt"></i> -Facturacion</a></li>
                     </ul>
                   </div>
                 </div>
-                <button type="button" class="btn btn-primary position-relative">
+                <button type="button" class="btn btn-danger position-relative fas fa-envelope" onclick="showSection('informes')">
                   <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     99+
                   <span class="visually-hidden">unread messages</span>
