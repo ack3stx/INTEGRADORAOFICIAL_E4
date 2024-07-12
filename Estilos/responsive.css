@@ -1,3 +1,8 @@
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 2.5rem;
+}
+
 .HCON {
     display: flex;
     justify-content: center;
@@ -54,7 +59,7 @@
     background-image: url(../Imagenes/HABITACION_K.png);
 }
 
-.imgBox h3 {
+.imgBox h2 {
     color: white;
     position: absolute;
     bottom: 0;
@@ -87,7 +92,7 @@
     opacity: 1;
 }
 
-.imgBox:hover h3 {
+.imgBox:hover h2 {
     opacity: 1;
     bottom: 25px;
 }
@@ -104,7 +109,7 @@
     .imgBox:hover {
         width: 100%;
     }
-    .imgBox h3 {
+    .imgBox h2 {
         opacity: 1;
         position: relative;
         bottom: auto;
@@ -114,7 +119,7 @@
         transition: none;
     }
 
-    .imgBox:hover h3 {
+    .imgBox:hover h2 {
         opacity: 1;
     }
 }
