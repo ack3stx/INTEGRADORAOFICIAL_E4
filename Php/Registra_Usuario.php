@@ -14,8 +14,10 @@
             $db->conectarDB();
 
             extract($_POST);
+            
+            $hash = password_hash($contra,PASSWORD_DEFAULT);
 
-            $cadena = "insert into usuarios(nombre_usuario,contraseña,correo) values('$usuario','$contra','$correo')";
+            $cadena = "insert into usuarios(nombre_usuario,password,correo) values('$usuario','$hash','$correo')";
 
             $db->ejecuta($cadena);
 
