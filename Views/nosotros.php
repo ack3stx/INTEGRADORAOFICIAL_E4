@@ -10,7 +10,7 @@
     <title>Nosotros</title>
     
 </head>
-<body>
+<div>
 <header>
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
@@ -71,22 +71,24 @@
             </div>
         </div>
     </div>
-  <br>  
-    <div class="contenedorxd3">
-        <div class="mision-vision">
-            <div class="mision">
+  <div class="container mt-5">
+    <div class="row justify-content-center text-center align-items-center">
+        <div class="col-lg-5 col-sm-12 mb-3">
+            <div class="bg-light p-3">
                 <h2>Misión</h2>
                 <p>Brindar a nuestros huéspedes un ambiente familiar, limpio, agradable y seguro. Nos esforzamos por ofrecer una experiencia acogedora, fundamentada en la excelencia y las buenas costumbres, donde cada visitante se sienta como en casa.</p>
             </div>
-            <div class="separator"></div>
-            <div class="vision">
+        </div>
+        <div class="separator"></div>
+        <div class="col-lg-5 col-sm-12 mb-3">
+            <div class="bg-light p-3">
                 <h2>Visión</h2>
                 <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
             </div>
         </div>
     </div>
-    </div>
-
+</div>
+<br>
     <footer class="footer">
   <div class="footer-container">
       <div class="footer-section">
