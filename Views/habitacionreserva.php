@@ -202,6 +202,20 @@
         </div>
     </div>
 
+
+<!--DIV DE QUE ESTA VACIO LA RESERVA-->
+<div class="container">
+<div class="card text-center" style="width: 30rem; height:20rem; margin-left:60%; margin-top:10%">
+    <div class="container">
+   <i class="fa-solid fa-bed"></i> 
+</div>
+  <div class="card-body">
+  <p>No se han agregado alojamientos</p>
+    <p></p>
+  </div>
+</div>
+</div>
+
     <!--PIE DE PAGINA-->
     <br><br>
     <br><br>
@@ -232,7 +246,7 @@
           <i class="fa-solid fa-paper-plane"></i>
       </div>
   </div>
-</footer>
+</footer> 
 
 
 
