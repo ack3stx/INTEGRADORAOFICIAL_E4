@@ -160,7 +160,7 @@
       event.preventDefault(); // Evita el envío tradicional del formulario
       $.ajax({
         type: 'POST',
-        url: 'http://192.168.255.95:5000/send_email',
+        url: 'http://192.168.255.81:5000/send_email',
         data: $(this).serialize(), // Serializa el formulario para enviar los datos
         success: function(response) {
           $('#form-messages').html('<div class="alert alert-success">' + response.message + '</div>');
