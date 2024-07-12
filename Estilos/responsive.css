@@ -6,16 +6,16 @@
     background-color: white;
     width: 100%;
     padding: 20px; 
-    height: auto; /* Cambiar a auto para adaptarse al contenido */
+    height: auto;
 }
 
 .HCG {
-    background-color: white; /* Color de fondo */
-    padding: 40px; /* Espaciado interno */
-    border-radius: 15px; /* Bordes redondeados */
-    margin: 20px auto; /* Espaciado externo */
-    max-width: 1200px; /* Ancho máximo del contenedor */
-    height: auto; /* Cambiar a auto para adaptarse al contenido */
+    background-color: white;
+    padding: 40px;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 1200px;
+    height: auto;
 }
 
 .gallery {
@@ -23,12 +23,12 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 1270px; /* Fijar un ancho máximo para la galería */
+    max-width: 1270px;
 }
 
 .imgBox {
     position: relative;
-    width: 350px; /* Ancho inicial */
+    width: 350px;
     height: 500px;
     margin: 10px;
     border-radius: 15px;
@@ -36,9 +36,7 @@
     background-position: center;
     transition: all 1s ease;
     flex-shrink: 1;
-
     display: flex;
-    position: relative;
     justify-content: center;
     align-items: center;
     overflow: hidden;
@@ -63,22 +61,35 @@
     left: 30px;
     opacity: 0;
     transition: all 1s ease;
+    z-index: 2; /* Asegura que el texto esté por encima del fondo negro */
+}
+
+.imgBox::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(1deg, black 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.5s ease;
+    border-radius: 15px;
+    z-index: 1; /* Asegura que el fondo negro esté detrás del texto */
 }
 
 .imgBox:hover {
-    width: 1250px; /* Ancho al pasar el cursor por encima */
+    width: 1250px;
     cursor: pointer;
-    
+}
+
+.imgBox:hover::after {
+    opacity: 1;
 }
 
 .imgBox:hover h3 {
     opacity: 1;
     bottom: 25px;
-}
-
-.gallery:hover::before .imgBox:not(:hover)::before {
-    width: 50px; /* Ancho de las imágenes que no están siendo activadas */
-    
 }
 
 @media (max-width: 1125px) {
@@ -100,11 +111,10 @@
         left: auto;
         text-align: center;
         padding: 10px;
-        transition: none; /* Desactivar transición para el texto */
+        transition: none;
     }
 
     .imgBox:hover h3 {
-        opacity: 1; /* Asegurarse de que la opacidad sea 1 en hover */
+        opacity: 1;
     }
 }
-

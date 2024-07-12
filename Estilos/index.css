@@ -29,29 +29,48 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     position: relative;
     background-color: black; /* Fondo negro para las imágenes */
 }
+
 .carousel-item img {
     height: 90vh;
     object-fit: cover;
 }
+
+.carousel-item::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; /* Fondo negro superpuesto */
+    opacity: 0.5; /* Ajusta la opacidad según tus necesidades */
+    z-index: 1; /* Asegúrate de que el fondo esté debajo del contenido */
+}
+
 .carousel-caption {
     position: absolute;
     top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 2;
+    z-index: 2; /* El texto debe estar por encima del fondo */
     text-align: center;
     color: white; /* Color del texto blanco */
 }
+
 .carousel-caption h4 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: rgb(116, 13, 13);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 .carousel-caption p {
     font-size: 1.5rem;
     font-weight: bold;
-    color: rgb(116, 13, 13);
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
 }
+
 
 .HC {
     background-color: white; /* Color de fondo */
