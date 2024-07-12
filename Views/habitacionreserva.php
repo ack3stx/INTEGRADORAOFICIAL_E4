@@ -70,10 +70,10 @@
                         <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
@@ -111,23 +111,23 @@
     <!--TARJETA 2-->
     <div class="card card-custom">
         <div class="card-body">
-            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="imagen1.jpg" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
                         <img src="imagen3.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
@@ -158,10 +158,10 @@
     <!--TARJETA 3-->
     <div class="card card-custom">
         <div class="card-body">
-            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
+            <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="imagen1.jpg" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
                         <img src="imagen2.jpg" class="d-block w-100" alt="...">
@@ -170,11 +170,11 @@
                         <img src="imagen3.jpg" class="d-block w-100" alt="...">
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
+                <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="sr-only">Previous</span>
                 </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
+                <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="sr-only">Next</span>
                 </a>
