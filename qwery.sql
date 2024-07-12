@@ -8,7 +8,7 @@ CREATE TABLE Roles (
 CREATE TABLE Usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(30) UNIQUE,
-    password VARCHAR(40),
+    password text,
     correo VARCHAR(40) UNIQUE
 );
 
@@ -142,7 +142,7 @@ INSERT INTO roles (nombre) VALUES
 
 
 
-INSERT INTO Usuarios (nombre_usuario, Contraseña, correo) VALUES
+INSERT INTO Usuarios (nombre_usuario, password, correo) VALUES
 ('johndoe', 'password123', 'johndoe@example.com'),
 ('janedoe', 'securepass', 'janedoe@example.com'),
 ('michaelb', 'mypassword', 'michaelb@example.com'),
