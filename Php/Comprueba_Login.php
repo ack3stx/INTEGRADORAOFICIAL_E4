@@ -30,7 +30,6 @@
         {
             session_start();
             $_SESSION["usuario"]=$_POST["correo"];
-            
             header("location:../Views/Panel_Recepcionista.php");
         }
         else
