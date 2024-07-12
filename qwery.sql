@@ -8,7 +8,7 @@ CREATE TABLE Roles (
 CREATE TABLE Usuarios (
     id_usuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre_usuario VARCHAR(30) UNIQUE,
-    Contraseña VARCHAR(40),
+    password VARCHAR(40),
     correo VARCHAR(40) UNIQUE
 );
 

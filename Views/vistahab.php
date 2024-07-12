@@ -66,7 +66,8 @@
 <p style="color: rgb(116, 13, 13);; font-size: 200%; "     class="col text-center font-weight-bold"><strong>Nuestras Habitaciones</strong></p>
 <p class="col text-center">¡Bienvenido a tu hogar en Torreón! Disfruta de la hospitalidad y el confort en nuestras acogedoras Habitaciones Sencillas o en las espaciosas King Size. <br> Ya sea que viajes por negocios o por placer, queremos que te sientas como en casa</p>
 </p>
-</div>
+</div> 
+<button class="btn btn-danger" type="button">Button</button> 
 <div class="container mt-7">
     <br><br>
     <br><br>
@@ -252,6 +253,7 @@
     </div>
   </div>
 
+
                 <!---->
                 <!--PIE DE PAGINAA-->
                 <footer class="footer">
@@ -428,11 +430,13 @@
                             </div>
                             <div class="modal-footer">
                                
-                                <a href="#" class="btn">Reservar</a>
+                                <a href="" class="btn">Reservar</a>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
                 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
