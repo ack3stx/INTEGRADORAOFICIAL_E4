@@ -83,18 +83,22 @@ class Database
                 inner join usuarios on usuarios.id_usuario=rol_usuario.usuario
                 where usuarios.nombre_usuario='$usuario'";
                 $resultado=$this->PDOLocal->query($consulta);
+                $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
 
-                switch ($resultado) {
-                    case 'usuario':
-                        echo"eres usuario";
-                    break;
-                    case 'recepcionista':
-                        echo"eres recepcionista";
-                        header("refresh:2;../Views/Panel_Recepcionista.php");
-                    break;
-                    case 'administrador':
-                        echo"eres admin";
-                    break;
+                foreach($fila as $reg)
+                {
+                    switch ($reg->nombre) {
+                        case 'usuario':
+                            echo"eres usuario";
+                            header("refresh:2;../Views/Panel_Recepcionista.php");
+                        break;
+                        case 'recepcionista':
+                            echo"eres recepcionista";
+                        break;
+                        case 'administrador':
+                            echo"eres admin";
+                        break;
+                    }
                 }
             }
             else
