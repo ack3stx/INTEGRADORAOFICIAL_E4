@@ -60,6 +60,7 @@
       <!--BARRITA BLANCA-->
       <div class="barra-blanca"></div>
       <!-- Tarjetas de habitaciones -->
+  
     <!--TAREJETA 1-->
     <div class="card card-custom">
         <div class="card-body">
@@ -160,7 +161,7 @@
             <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="...">
+                        <img src="../Imagenes/habitacion king size.avif" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
                         <img src="imagen2.jpg" class="d-block w-100" alt="...">
