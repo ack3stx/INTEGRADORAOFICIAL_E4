@@ -76,6 +76,7 @@ class Database
                 $_SESSION["usuario"]= $usuario;
                 echo "<div class='alert alert-success'>";
                 echo "<h2 align='center'>BIENVENIDO ".$_SESSION['usuario']."</h2></div>";
+                header("refresh:2;../Views/Panel_Recepcionista.php");
             }
             else
             {
