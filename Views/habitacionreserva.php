@@ -60,8 +60,62 @@
       <!--BARRITA BLANCA-->
       <div class="barra-blanca"></div>
       <!-- Tarjetas de habitaciones -->
-  
-    <!--TAREJETA 1-->
+
+
+      <!--DIV DE QUE ESTA VACIO LA RESERVA-->
+<div class="container">
+<div class="card text-center" style="width: 30rem; height:20rem; margin-left:60%; margin-top:10%">
+    <div class="container">
+   <i class="fa-solid fa-bed"></i> 
+</div>
+  <div class="card-body">
+  <p>No se han agregado alojamientos</p>
+    <p></p>
+  </div>
+</div>
+</div>
+<!---->
+<!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
+<div id="info1" class="container" style="width:60%; height:60%">
+<div class="card card-custom">
+        <div class="card-body">
+        <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+            <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
+</button>
+           
+            <br><br>
+            <hr class="mb-4">
+            <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
+            <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+            <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
+</button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+             &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
+</button>
+&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
+<br><br>
+<hr class="mb-4">
+<p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
+<br><br>
+<div class="d-grid gap-6 col-10 mx-auto">
+  <button class="btn btn-danger" type="button">Reservar Ahora</button>
+</div>
+           
+         
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!---->
+
+    <!--TARJETA 1-->
     <div class="card card-custom">
         <div class="card-body">
             <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
@@ -104,7 +158,7 @@
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </div>
-            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
+            <button type="button" id="añadir1" class="btn btn-danger">Añadir</button>
         </div>
     </div>
 
@@ -203,18 +257,7 @@
     </div>
 
 
-<!--DIV DE QUE ESTA VACIO LA RESERVA-->
-<div class="container">
-<div class="card text-center" style="width: 30rem; height:20rem; margin-left:60%; margin-top:10%">
-    <div class="container">
-   <i class="fa-solid fa-bed"></i> 
-</div>
-  <div class="card-body">
-  <p>No se han agregado alojamientos</p>
-    <p></p>
-  </div>
-</div>
-</div>
+
 
     <!--PIE DE PAGINA-->
     <br><br>
@@ -253,5 +296,6 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="habireserva.js"></script>
 </body>
 </html>
