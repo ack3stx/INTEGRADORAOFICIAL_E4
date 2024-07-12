@@ -209,18 +209,9 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     margin-bottom: 20px;
 }
 
-.QCCON {
-    background-color: #e99898; /* Color de fondo */
-    padding: 40px; /* Espaciado interno */
-    border-radius: 15px; /* Bordes redondeados */
-    margin: 20px auto; /* Espaciado externo */
-    width: 100%; /* Ancho máximo del contenedor */
-    height: auto;
-}
-
 .my-faq-container {
     padding: 40px;
-    background-color: #8cd4ee;
+    background-color: #ffffff;
 }
 
 .my-faq-title {
@@ -253,7 +244,7 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
 
 .my-faq-button:hover {
     text-decoration: none;
-    background-color: #f0f0f0; /* Añade un fondo al pasar el ratón */
+    background-color: #fffefe; /* Añade un fondo al pasar el ratón */
 }
 
 .card-header {

@@ -8,40 +8,15 @@
 </head>
 <body>
     <?php
-    
-    try
-    {
-        $conexion=new PDO("mysql:host=localhost; dbname=INTEGRADORA_ROL_USUARIOSv2","root","");
-        $conexion->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+        include '../Clases/BasedeDatos.php';
+        $db=new Database();
+        $db->conectarDB();
 
-        $sql = "select correo,contraseña from usuarios where correo= :correo and contraseña= :contra";
+        extract($_POST);
 
-        $resultado=$conexion->prepare($sql);
-        $correo=htmlentities(addslashes($_POST["correo"]));
-        $contra=htmlentities(addslashes($_POST["contra"]));
-
-        $resultado->bindValue(":correo",$correo);
-        $resultado->bindValue(":contra",$contra);
-
-        $resultado->execute();
-
-        $numero_registro=$resultado->rowCount();
-        if ($numero_registro!=0)
-        {
-            session_start();
-            $_SESSION["usuario"]=$_POST["correo"];
-            header("location:../Views/Panel_Recepcionista.php");
-        }
-        else
-        {
-            echo "<div class='alert alert-danger'>Usario no existe</div>";
-            header("refresh:1;../Views/Login.php");
-        }
-    } 
-    catch (Exception $e)
-    {
-        die ("ERROR: " . $e->getMessage());
-    }
+        $db->verificar($user,$pass);
+        
+        $db->desconectarBD();
     ?>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

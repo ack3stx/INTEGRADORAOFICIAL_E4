@@ -8,10 +8,9 @@
 </head>
 <body>
     <?php
-    session_start();
-    session_destroy();
-    echo "<div class='alert alert-warning'>Tu Sesion se a Cerrado Correctamente</div>";
-    header("refresh:1;../Views/Login.php");
+    include '../Clases/BasedeDatos.php';
+    $obj=new Database();
+    $obj->cerrarSesion();
     ?>
 </body>
 </html>
