@@ -41,6 +41,7 @@
                   </div>
                   <div class="offcanvas-body">
                     <ul class="sidebar-menu">
+                        <li><a href="../Views/Calendario.php"><i class="fas fa-check"></i> -Crear Reserva</a></li>
                         <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> -Reservaciones</a></li>
                         <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
                         <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
