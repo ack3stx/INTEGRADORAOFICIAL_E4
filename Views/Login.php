@@ -106,7 +106,7 @@
                         </div><br>
                         <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
                     </form><br>
-                    
+
                     <h6>No tienes cuenta?  <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h4>
                 </div>
             </div>
