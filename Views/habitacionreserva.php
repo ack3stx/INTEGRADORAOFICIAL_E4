@@ -60,7 +60,6 @@
       <!--BARRITA BLANCA-->
       <div class="barra-blanca"></div>
       <!-- Tarjetas de habitaciones -->
-  
     <!--TAREJETA 1-->
     <div class="card card-custom">
         <div class="card-body">

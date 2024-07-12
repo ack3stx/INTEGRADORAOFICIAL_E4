@@ -25,6 +25,34 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     color: #333; /* Default text color */
 }
 
+.carousel-item {
+    position: relative;
+    background-color: black; /* Fondo negro para las imágenes */
+}
+.carousel-item img {
+    height: 90vh;
+    object-fit: cover;
+}
+.carousel-caption {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    text-align: center;
+    color: white; /* Color del texto blanco */
+}
+.carousel-caption h4 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(116, 13, 13);
+}
+.carousel-caption p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: rgb(116, 13, 13);
+}
+
 .HC {
     background-color: white; /* Color de fondo */
     padding: 40px; /* Espaciado interno */
