@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Hotel</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wight@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+
     <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
 </head>
 <body>
     <style>
-        /* Estilos de la barra de navegación */
         .navbar-nav {
             width: 100%;
         }
@@ -22,7 +22,7 @@
             text-align: center;
             font-weight: bold;
             font-size: 1.1rem;
-            color: rgb(116, 13, 13); /* Color de texto normal */
+            color: rgb(116, 13, 13);
             transition: all 0.3s ease;
             border-radius: 25px;
         }
@@ -35,7 +35,6 @@
             transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
         }
 
-        /* Estilos personalizados para el calendario */
         .flatpickr-calendar {
             background-color: #f8f9fa;
             border: 1px solid rgb(116, 13, 13);
@@ -88,7 +87,6 @@
             color: #fff;
         }
 
-        /* Estilos adicionales para centrar y ampliar el calendario */
         .reservation-container {
             display: flex;
             flex-direction: column;
@@ -100,10 +98,9 @@
 
         #inline-calendar, #inline-calendar-large {
             width: 80%;
-            max-width: 1000px; /* Aumentar el tamaño del calendario */
+            max-width: 1000px;
         }
 
-        /* Estilo personalizado para el botón */
         .btn-custom {
             background-color: rgb(116, 13, 13);
             color: #fff;
@@ -114,7 +111,6 @@
             color: #fff;
         }
 
-        /* Estilo personalizado para el encabezado */
         .custom-header {
             color: rgb(116, 13, 13);
             font-family: 'PT Sans', sans-serif;
