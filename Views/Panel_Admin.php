@@ -34,7 +34,6 @@
                   </div>
                   <div class="offcanvas-body">
                     <ul class="sidebar-menu">
-                      <li><a href="../Views/Calendario.php"><i class="fas fa-check"></i> -Crear Reserva</a></li>
                       <li><a href="#" onclick="showSection('reservaciones')"><i class="fas fa-calendar-check"></i> -Reservaciones</a></li>
                       <li><a href="#" onclick="showSection('habitaciones')"><i class="fas fa-door-open"></i> -Habitaciones</a></li>
                       <li><a href="#" onclick="showSection('huespedes')"><i class="fas fa-users"></i> -Huéspedes</a></li>
@@ -72,48 +71,58 @@
             </header>
             <section id="reservaciones" class="content-section">
                 <h2 class="color-hotel">Reservaciones</h2><br><br>
-                <form class="d-flex" role="search">
-                   <input class="form-control me-2" type="number" id="checkout" name="checkout" placeholder=" Numero">&nbsp;
+                <form class="d-flex" role="search" action="" method="post">
+                   <input class="form-control me-2" type="text" id="checkout" name="numero" placeholder=" Numero">&nbsp;
                     <label class="color-hotel" for="checkin">Fecha inicio:</label>&nbsp;
-                    <input class="form-control me-2 width" type="date" id="checkin" name="checkin" style="width: 150px;">&nbsp;
+                    <input class="form-control me-2 width" type="date" id="checkin" name="fecha1" style="width: 150px;">&nbsp;
                     <label class="color-hotel" for="checkout">Fecha fin:</label>&nbsp;
-                    <input class="form-control me-2 width" type="date" id="checkout" name="checkout" style="width: 150px;">&nbsp;
+                    <input class="form-control me-2 width" type="date" id="checkout" name="fecha2" style="width: 150px;">&nbsp;
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Huésped</th>
-                            <th>Habitación</th>
-                            <th>Entrada</th>
-                            <th>Salida</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>John Doe</td>
-                            <td>101</td>
-                            <td>2023-06-01</td>
-                            <td>2023-06-05</td>
-                            <td>Registrado</td>
-                        </tr>
-                        <tr>
-                            <td>Jane Smith</td>
-                            <td>205</td>
-                            <td>2023-06-03</td>
-                            <td>2023-06-07</td>
-                            <td>Pendiente</td>
-                        </tr>
-                        <tr>
-                            <td>Bob Johnson</td>
-                            <td>301</td>
-                            <td>2023-06-05</td>
-                            <td>2023-06-10</td>
-                            <td>Registrado</td>
-                        </tr>
-                    </tbody>
-                </table>
+                  <?php 
+    include '../Clases/BasedeDatos.php';
+    $conexion = new Database();
+    $conexion->conectarDB();
+    extract($_POST);
+    if($_POST)
+    {
+        $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
+reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
+from usuarios
+inner join persona on persona.usuario=usuarios.id_usuario
+inner join huesped on huesped.persona_huesped=persona.id_persona
+inner join reservacion on reservacion.huesped=huesped.id_huesped
+inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
+where reservacion.id_reservacion=$numero
+group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estado_reservacion;";
+
+        $tabla = $conexion->seleccionar($consulta);
+
+        echo "
+            <table class='table table-hover'>
+                <thead class='table-dark'>
+                    <tr>
+                    <th>Nombre</th><th>Telefono</th><th>Fecha Reservacion</th><th>Estado Reservacion</th><th>Cantidad Habitaciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ";
+            foreach($tabla as $reg)
+            {
+                echo "<tr>";
+                echo "<td> $reg->Nombre_Huesped </td>";
+                echo "<td> $reg->numero_de_telefono </td>";
+                echo "<td> $reg->fecha_ </td>";
+                echo "<td> $reg->estado_reservacion </td>";
+                echo "<td> $reg->Cantidad_de_habitaciones </td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            $conexion->desconectarBD();
+
+    }
+    ?>
             </section>
             <section id="habitaciones" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Habitaciones</h2>
@@ -154,45 +163,62 @@
                 <h4 class="color-hotel">Busqueda</h4>
                 <form class="d-flex" role="search">
                     <label class="color-hotel">Tipo:</label>&nbsp;
-                    <select class="form-control me-2">
+                    <select class="form-control me-2" name="tipo">
                         <option value="Sencilla">Sencilla</option>
                         <option value="Doble">Doble</option>
                         <option value="King size">King size</option>
                     </select>&nbsp;
                     <label class="color-hotel">Estado:</label>&nbsp;
-                    <select>
+                    <select name="estado">
                         <option value="Ocupada">Ocupada</option>
                         <option value="Mantenimiento">Mantenimiento</option>
                         <option value="Disponible">Disponible</option>
                     </select>&nbsp;
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                   </form><br><br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Número</th>
-                            <th>Tipo</th>
-                            <th>Estado</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>101</td>
-                            <td>Individual</td>
-                            <td>Ocupada</td>
-                        </tr>
-                        <tr>
-                            <td>205</td>
-                            <td>Doble</td>
-                            <td>Disponible</td>
-                        </tr>
-                        <tr>
-                            <td>301</td>
-                            <td>Suite</td>
-                            <td>Ocupada</td>
-                        </tr>
-                    </tbody>
-                </table>
+                  <?php 
+    include '../Clases/BasedeDatos.php';
+    $conexion = new Database();
+    $conexion->conectarDB();
+    extract($_POST);
+    if($_POST)
+    {
+        $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
+t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
+from habitacion
+inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre=$tipo and habitacion.estado_habitacion=$estado";
+
+        $tabla = $conexion->seleccionar($consulta);
+
+        echo "
+            <table class='table table-hover'>
+                <thead class='table-dark'>
+                    <tr>
+                    <th>Num Habitacion</th><th>Piso</th><th>Estado</th><th>Tipo</th><th>Descripcion</th><th>Costo</th><th>Cant Max Adultos</th><th>Cant Max Niños</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ";
+            foreach($tabla as $reg)
+            {
+                echo "<tr>";
+                echo "<td> $reg->num_habitacion </td>";
+                echo "<td> $reg->piso </td>";
+                echo "<td> $reg->estado_habitacion </td>";
+                echo "<td> $reg->nombre </td>";
+                echo "<td> $reg->descripcion </td>";
+                echo "<td> $reg->precio </td>";
+                echo "<td> $reg->cantidad_max_adultos </td>";
+                echo "<td> $reg->cantidad_max_niños </td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            $conexion->desconectarBD();
+
+    }
+    ?>
             </section>
             <section id="huespedes" class="content-section" style="display:none;">
                 <h2 class="color-hotel">Huéspedes</h2>
