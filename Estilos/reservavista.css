@@ -92,24 +92,24 @@
 
 .card-custom {
     width: 40%;
-    margin-left: 6%; /* Centrar la tarjeta horizontalmente */
+    margin-left: 6%; 
     margin-top: 3%;
-    padding: 1rem; /* Añadir relleno */
-    border: 1px solid #ddd; /* Añadir borde */
-    border-radius: 10px; /* Bordes redondeados */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    padding: 1rem; 
+    border: 1px solid #ddd; 
+    border-radius: 10px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
 
 .carousel-inner img {
     border-radius: 20px;
-    width: 30%; /* Ajustar al ancho de la tarjeta */
-    height: auto; /* Mantener proporciones */
-    object-fit: cover; /* Asegurar que las imágenes mantengan sus proporciones */
+    width: 30%; 
+    height: auto; 
+    object-fit: cover; 
 }
 .custom1, .custom2, .custom3 {
     text-align: center;
-    margin-top: 1rem; /* Espaciado superior */
+    margin-top: 1rem; 
     margin-left: 2rem;
 }
 .card-link {
@@ -118,21 +118,21 @@
 .aa {
     border-radius: 40px;
     border: 1px solid black;
-    display: inline-block; /* Alinear en línea */
-    width: auto; /* Ajustar automáticamente al contenido */
-    padding: 0.5rem 1rem; /* Relleno alrededor del contenido */
+    display: inline-block;
+    width: auto; 
+    padding: 0.5rem 1rem; 
     text-align: center;
 }
 .dropdown {
     border-radius: 40px;
     border: 1px solid black;
-    display: inline-block; /* Alinear en línea */
-    width: auto; /* Ajustar automáticamente al contenido */
-    margin-top: 1rem; /* Espaciado superior */
+    display: inline-block; 
+    width: auto; 
+    margin-top: 1rem; 
 }
 .btn {
     border-radius: 40px;
-    display: block; /* Mostrar como bloque */
+    display: block; 
     margin: 1rem auto; /* Centrar horizontalmente */
 }
 
@@ -146,6 +146,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    
 }
 .footer-container {
     display: flex;
@@ -187,3 +188,6 @@
         font-size: 1.5rem;
     }
 }
+
+/*CUADRITO*/
+
