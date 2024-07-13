@@ -95,6 +95,7 @@ h2 {
 .imgBox:hover h2 {
     opacity: 1;
     bottom: 25px;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @media (max-width: 1125px) {
