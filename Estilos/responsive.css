@@ -53,9 +53,6 @@ h3 {
     background-position: center;
     transition: all 1s ease;
     flex-shrink: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
 }
 
@@ -71,22 +68,34 @@ h3 {
     background-image: url(../Imagenes/HABITACION_K.png);
 }
 
+.imgBox a {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    width: 100%;
+    height: 100%;
+    text-decoration: none; /* Elimina el subrayado de los enlaces */
+    color: inherit; /* Asegura que los colores del texto se hereden */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    padding-left: 30px; /* Ajusta el padding según sea necesario */
+}
+
 .imgBox h2, .imgBox h3 {
     color: white;
-    position: absolute;
     opacity: 0;
     transition: all 1s ease;
-    z-index: 2; /* Asegura que el texto esté por encima del fondo negro */
 }
 
 .imgBox h2 {
-    bottom: 25px;
-    left: 30px;
+    margin-bottom: 10px; /* Espacio entre h2 y h3 */
 }
 
 .imgBox h3 {
-    bottom: 0;
-    left: 30px;
+    margin-bottom: 20px; /* Ajusta el margen inferior según sea necesario */
 }
 
 .imgBox::after {
