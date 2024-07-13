@@ -86,19 +86,20 @@
 
 
 
-/* Estilos personalizados para las tarjetas */
+/* Estilos personalizados para las tarjetas 
 
 
 
 .card-custom {
     width: 40%;
     margin-left: 6%; 
-    margin-top: 0%;
+    margin-top: 10%;
     padding: 1rem; 
     border: 1px solid #ddd; 
     border-radius: 10px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    margin-bottom: -2%;
+    margin-bottom: 0%;
+    flex-wrap: nowrap;
 }
 
 
@@ -134,10 +135,11 @@
 .btn {
     border-radius: 40px;
     display: block; 
-    margin: 1rem auto; /* Centrar horizontalmente */
-}
+    margin: 1rem auto; /* Centrar horizontalmente 
+} 
 
-/*PIE DE PAGINA*/
+
+/*PIE DE PAGINA
 .footer {
     background-color: rgb(116, 13, 13);
     color: white;
@@ -191,12 +193,4 @@
 }
 
 /*CUADRITO DE RESUMEN DE RESERVA*/
-
-#info1 {
-    display: none;
-    margin-top: 2%;
-    margin-left: 30%;
-    
-}
-
 
