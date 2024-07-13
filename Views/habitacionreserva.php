@@ -19,6 +19,30 @@
 }
 
 
+.conca {
+        border-radius: 10px;
+        border: 2px solid black;
+        margin-left:10%
+        
+
+
+    }
+
+    #añadir1 {
+        margin-top: 40%;
+        margin-left: -3%
+    }
+
+ 
+  .dropdown-toggle{
+margin-bottom: 1%;
+
+  }
+
+  #info1{
+    display:none;
+  }
+
 </style>
 <body>
 <!--BARRA DE NAVEGACION-->
@@ -128,117 +152,113 @@
 <!---->
 
     <!--TARJETA 1 -->
-    <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:-33%; margin-left:5%">
+    <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:-33%; margin-left:5%; height: 30rem;">
   <div class="card-body">
   
 
     </div>
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
+    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
+    <h5 class="card-title">Habitación Doble</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+    <a href="#" class="card-link">Ver detalles</a>
+</div>
+   
+    <br><br>
+  
+<br><br>
+<div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
+   Huespedes
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
+<div>
+<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
+</div>
+
+    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir1" onclick="mostrar('añadir1');" class="btn btn-danger ">Añadir</button>
   </div>
+ 
+</div>
+    <br><br>
+
+    <!--TARJETA 2 -->
+     <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
+  <div class="card-body">
+  
+
+    </div>
+    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
+    <h5 class="card-title">Habitación Sencilla</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+    <a href="#" class="card-link">Ver detalles</a>
+</div>
+   
+    <br><br>
+  
+<br><br>
+<div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
+   Huespedes
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
+<div>
+<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
+</div>
+
+    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir2"  onclick="mostrar('añadir2');" class="btn btn-danger ">Añadir</button>
+  </div>
+ 
 </div>
     <br><br><br><br> 
 
-    <!--TARJETA 2
-    <div class="card card-custom">
-        <div class="card-body">
-            <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators2" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators2" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            <h5 class="card-title custom1">Habitación Sencilla</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
-            <br><br>
-            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
-            <a href="#" class="card-link">Ver detalles</a>
-            <div class="aa">
-                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
-            </div>
-            <div class="dropdown nala">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    1
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
-        </div>
-    </div>
-  <br><br><br><br>
--->
-    <!--TARJETA 3
-    <div class="card card-custom">
-        <div class="card-body">
-            <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../Imagenes/habitacion king size.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imagen2.jpg" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="imagen3.jpg" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators3" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators3" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            <h5 class="card-title custom1">Habitación King Size</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
-            <br><br>
-            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
-            <a href="#" class="card-link">Ver detalles</a>
-            <div class="aa">
-                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
-            </div>
-            <div class="dropdown nala">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    1
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-            <button type="button" id="btn-añadir"    class="btn btn-danger">Añadir</button>
-        </div>
-    </div>
 
+    <!--TARJETA 3 -->
+   <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
+  <div class="card-body">
+  
 
-<br><br><br><br> -->
+    </div>
+    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
+    <h5 class="card-title">Habitación King Size</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
+    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+    <a href="#" class="card-link">Ver detalles</a>
+</div>
+   
+    <br><br>
+  
+<br><br>
+<div class="dropdown">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
+   Huespedes
+  </button>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="#">Action</a></li>
+    <li><a class="dropdown-item" href="#">Another action</a></li>
+    <li><a class="dropdown-item" href="#">Something else here</a></li>
+  </ul>
+</div>
+<div>
+<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
+</div>
+
+    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-danger ">Añadir</button>
+  </div>
+ 
+</div>
+    <br><br><br><br> 
 
     <!--PIE DE PAGINA
     <br><br>
