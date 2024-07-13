@@ -17,10 +17,10 @@
             
             $hash = password_hash($contra,PASSWORD_DEFAULT);
 
-            $cadena = "insert into usuarios(nombre_usuario,password,correo) values('$usuario','$hash','$correo')";
+            $cadena = "CALL RegistrarUsuarioHuesped('$usuario','$hash','$correo');";
 
             $db->ejecuta($cadena);
-
+            
             echo "<div class='alert alert-success'>Tu usuario a sido registrado</div>";
             header("refresh:1;../Views/Login.php");
         ?>

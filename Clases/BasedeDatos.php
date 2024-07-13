@@ -76,7 +76,30 @@ class Database
                 $_SESSION["usuario"]= $usuario;
                 echo "<div class='alert alert-success'>";
                 echo "<h2 align='center'>BIENVENIDO ".$_SESSION['usuario']."</h2></div>";
-                header("refresh:2;../Views/Panel_Recepcionista.php");
+                
+                $consulta = "select roles.nombre
+                from roles
+                inner join rol_usuario on roles.id_rol=rol_usuario.rol
+                inner join usuarios on usuarios.id_usuario=rol_usuario.usuario
+                where usuarios.nombre_usuario='$usuario'";
+                $resultado=$this->PDOLocal->query($consulta);
+                $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
+
+                foreach($fila as $reg)
+                {
+                    switch ($reg->nombre) {
+                        case 'usuario':
+                            echo"eres usuario";
+                            header("refresh:2;../Views/Panel_Recepcionista.php");
+                        break;
+                        case 'recepcionista':
+                            echo"eres recepcionista";
+                        break;
+                        case 'administrador':
+                            echo"eres admin";
+                        break;
+                    }
+                }
             }
             else
             {
