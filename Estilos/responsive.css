@@ -1,6 +1,18 @@
 h2 {
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar relleno predeterminado */
     font-family: Arial, Helvetica, sans-serif;
     font-size: 2.5rem;
+    font-stretch: expanded; /* Ajusta la anchura del tipo de letra */
+    box-sizing: border-box;
+}
+
+h3 {
+    margin: 0; /* Eliminar márgenes predeterminados */
+    padding: 0; /* Eliminar relleno predeterminado */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.5rem;
+    box-sizing: border-box;
 }
 
 .HCON {
@@ -10,7 +22,7 @@ h2 {
     margin-top: 20px;
     background-color: white;
     width: 100%;
-    padding: 20px; 
+    padding: 20px;
     height: auto;
 }
 
@@ -59,14 +71,22 @@ h2 {
     background-image: url(../Imagenes/HABITACION_K.png);
 }
 
-.imgBox h2 {
+.imgBox h2, .imgBox h3 {
     color: white;
     position: absolute;
-    bottom: 0;
-    left: 30px;
     opacity: 0;
     transition: all 1s ease;
     z-index: 2; /* Asegura que el texto esté por encima del fondo negro */
+}
+
+.imgBox h2 {
+    bottom: 25px;
+    left: 30px;
+}
+
+.imgBox h3 {
+    bottom: 0;
+    left: 30px;
 }
 
 .imgBox::after {
@@ -92,10 +112,8 @@ h2 {
     opacity: 1;
 }
 
-.imgBox:hover h2 {
+.imgBox:hover h2, .imgBox:hover h3 {
     opacity: 1;
-    bottom: 25px;
-    font-family: Arial, Helvetica, sans-serif;
 }
 
 @media (max-width: 1125px) {
@@ -110,7 +128,7 @@ h2 {
     .imgBox:hover {
         width: 100%;
     }
-    .imgBox h2 {
+    .imgBox h2, .imgBox h3 {
         opacity: 1;
         position: relative;
         bottom: auto;
@@ -120,7 +138,8 @@ h2 {
         transition: none;
     }
 
-    .imgBox:hover h2 {
+    .imgBox:hover h2, .imgBox:hover h3 {
         opacity: 1;
     }
 }
+
