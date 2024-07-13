@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Habitacion Rserva</title>
 </head>
+<style>
+
+.container{
+    width: 30%;
+    height: 50%;
+    margin-left: 60%;
+    margin-top: 10%;
+    flex-wrap:wrap;
+}
+
+
+</style>
 <body>
 <!--BARRA DE NAVEGACION-->
 <header>
@@ -62,7 +74,7 @@
       <!-- Tarjetas de habitaciones -->
 
 
-      <!--DIV DE QUE ESTA VACIO LA RESERVA-->
+      <!--DIV DE QUE ESTA VACIO LA RESERVA
 <div class="container">
 <div class="card text-center" style="width: 30rem; height:20rem; margin-left:60%; margin-top:10%">
     <div class="container">
@@ -73,10 +85,10 @@
     <p></p>
   </div>
 </div>
-</div>
-<!---->
+</div> 
+-->
 <!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
-<div id="info1" class="container" style="width:60%; height:60%">
+<div id="info1" class="container" >
 <div class="card card-custom">
         <div class="card-body">
         <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -115,54 +127,22 @@
 
 <!---->
 
-    <!--TARJETA 1-->
-    <div class="card card-custom">
-        <div class="card-body">
-            <div id="carouselExampleIndicators1" class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="...">
-                    </div>
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators1" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators1" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </div>
-            <h5 class="card-title custom1">Habitación Doble</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">Card subtitle</h6>
-            <p class="card-text custom3">Descubre la elegancia de nuestra Habitación Máster, que cuenta con una cama King size para un descanso perfecto.</p>
-            <br><br>
-            <a href="#" class="card-link"><strong>Tarifa Estandar</strong></a><br>
-            <a href="#" class="card-link">Ver detalles</a>
-            <div class="aa">
-                &nbsp;-&nbsp;&nbsp;&nbsp;&nbsp;1&nbsp;&nbsp;&nbsp;&nbsp;+
-            </div>
-            <div class="dropdown nala">
-                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                    1
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
-            <button type="button" id="añadir1" class="btn btn-danger">Añadir</button>
-        </div>
-    </div>
+    <!--TARJETA 1 -->
+    <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:-33%; margin-left:5%">
+  <div class="card-body">
+  
 
-    <!--TARJETA 2-->
+    </div>
+    <h5 class="card-title">Card title</h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Card subtitle</h6>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+    <br><br><br><br> 
+
+    <!--TARJETA 2
     <div class="card card-custom">
         <div class="card-body">
             <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel">
@@ -208,8 +188,9 @@
             <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
         </div>
     </div>
-  
-    <!--TARJETA 3-->
+  <br><br><br><br>
+-->
+    <!--TARJETA 3
     <div class="card card-custom">
         <div class="card-body">
             <div id="carouselExampleIndicators3" class="carousel slide" data-ride="carousel">
@@ -252,14 +233,14 @@
                     <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>
             </div>
-            <button type="button" id="btn-añadir" class="btn btn-danger">Añadir</button>
+            <button type="button" id="btn-añadir"    class="btn btn-danger">Añadir</button>
         </div>
     </div>
 
 
+<br><br><br><br> -->
 
-
-    <!--PIE DE PAGINA-->
+    <!--PIE DE PAGINA
     <br><br>
     <br><br>
     <footer class="footer">
@@ -290,12 +271,13 @@
       </div>
   </div>
 </footer> 
+-->
 
 
 
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="habireserva.js"></script>
+    <script src="../Js/habireserva.js"  ></script>
 </body>
 </html>

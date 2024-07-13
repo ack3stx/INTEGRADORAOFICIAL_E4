@@ -86,19 +86,20 @@
 
 
 
-/* Estilos personalizados para las tarjetas */
+/* Estilos personalizados para las tarjetas 
 
 
 
 .card-custom {
     width: 40%;
     margin-left: 6%; 
-    margin-top: 0%;
+    margin-top: 10%;
     padding: 1rem; 
     border: 1px solid #ddd; 
     border-radius: 10px; 
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    margin-bottom: -2%;
+    margin-bottom: 0%;
+    flex-wrap: nowrap;
 }
 
 
@@ -134,10 +135,11 @@
 .btn {
     border-radius: 40px;
     display: block; 
-    margin: 1rem auto; /* Centrar horizontalmente */
-}
+    margin: 1rem auto; /* Centrar horizontalmente 
+} 
 
-/*PIE DE PAGINA*/
+
+/*PIE DE PAGINA
 .footer {
     background-color: rgb(116, 13, 13);
     color: white;
@@ -190,13 +192,86 @@
     }
 }
 
-/*CUADRITO DE RESUMEN DE RESERVA*/
+/*CAROUSEL
+body{
 
-#info1 {
+    margin:0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    background-color: #ffff;
+
+}
+
+.slider {
+    width: 40px;
+    height: 30px;
+    border-radius: 10px;
+overflow: hidden;
+
+}
+
+.slides {
+    width: 30%;
+    height: 30px;
+    display: flex;
+}
+
+.slides input {
     display: none;
-    margin-top: 2%;
-    margin-left: 30%;
-    
+}
+
+.slide {
+    width: 20%;
+ transition: 2s;
+}
+
+.slide img {
+    width: 800px;
+    height: 500px;
+
 }
 
 
+.navigation-manual{
+position: absolute;
+width: 40px;
+margin-top: -40px;
+display: flex;
+justify-content: center;
+}
+
+.manual-btn {
+    border: 2px solid #ffff;
+    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right: 40px;
+}
+
+.manual-btn:hover {
+    background: #fff;
+}
+
+#radio1:checked ~ .first{
+    margin-left: 0;
+}
+
+#radio2:checked ~ .first{
+    margin-left: -20%;
+}
+
+#radio3:checked ~ .first{
+    margin-left: -40%;
+}
+
+#radio4:checked ~ .first{
+    margin-left: -60%;
+}
+    */
