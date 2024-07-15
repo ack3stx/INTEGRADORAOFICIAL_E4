@@ -6,9 +6,58 @@
     <link rel="stylesheet" href="../Estilos/reservavista.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Habitacion Rserva</title>
 </head>
 <style>
+   .containers {
+            display: flex;
+            border: 1px solid black;
+            border-radius: 20px;
+            width: 40rem;
+            height: 2rem;
+            align-items: center;
+          gap: 10px;
+          padding: 0 90px;
+          margin-left: 30%;
+          margin-top: 3%;
+        }
+
+        .container input {
+            flex: 1;
+            height: 60%;
+            width: 30%;
+           
+        }
+
+        .ui-datepicker {
+    background-color: #ffff;
+        }
+        .ui-datepicker-calendar td {
+    background-color: rgb(116, 13, 13);
+}
+
+.ui-datepicker-header {
+    background-color: #ffff;
+}
+
+.ui-datepicker-calendar a {
+    color: #ffff;
+}
+
+.ui-datepicker-calendar .ui-state-active {
+    background-color: rgb(116, 13, 13);
+    border-color: rgb(116, 13, 13);;
+    color: #ffffff; }
+
+    .ui-datepicker .ui-datepicker-current-day a {
+  background-color:  rgb(116, 13, 13); /* Cambia esto al color que desees */
+  color: #ffffff; /* Cambia esto al color del texto que desees */
+}
+
+    /*rgb(116, 13, 13);*/
+
 
 .container{
     width: 30%;
@@ -92,11 +141,18 @@ margin-bottom: 1%;
             <p>HOTEL LAGUNA INN</p>
             <h1>RESERVACIONES</h1>
         </div>
+      
     </section>
       <!--BARRITA BLANCA-->
-      <div class="barra-blanca"></div>
+      <div class="barra-blanca">
+      <div class="containers">
+        <input type="text" id="date_picker1"> ->
+        <input type="text" id="date_picker2">
+    </div>
 
-2<!-- Tarjetas de habitaciones -->
+      </div>
+
+<!-- Tarjetas de habitaciones -->
 
 
       <!--DIV DE QUE ESTA VACIO LA RESERVA
@@ -300,6 +356,37 @@ margin-bottom: 1%;
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="../Js/habireserva.js"  ></script>
+    
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+    ///////
+    var startDate;
+    var endDate;
+     $( "#date_picker1" ).datepicker({
+    dateFormat: 'dd-mm-yy'
+    })
+    ///////
+    ///////
+     $( "#date_picker2" ).datepicker({
+    dateFormat: 'dd-mm-yy'
+    });
+    ///////
+    $('#date_picker1').change(function() {
+    startDate = $(this).datepicker('getDate');
+    $("#date_picker2").datepicker("option", "minDate", startDate );
+    })
+    
+    ///////
+    $('#date_picker2').change(function() {
+    endDate = $(this).datepicker('getDate');
+    $("#date_picker1").datepicker("option", "maxDate", endDate );
+    })
+    ////////////////
+    })
+    </script> 
   
 </body>
 </html>
