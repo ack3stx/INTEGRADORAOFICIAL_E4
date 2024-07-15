@@ -84,6 +84,156 @@
 
 
 
+.container-fluid {
+    padding: 0; /* Eliminar cualquier padding predeterminado */
+}
+
+.card-custom {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Ancho máximo de las tarjetas */
+    flex-wrap: wrap;
+}
+
+.image-container img {
+    width: 100%; /* Ajusta el tamaño según sea necesario */
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-body-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.card-footer-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.controls > * {
+    margin-right: 10px;
+}
+
+.btn-transparent {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+}
+
+.btn-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid black !important;
+    border-radius: 5px;
+}
+
+.btn-group span {
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
+
+.btn-success.custom-btn {
+    background-color: rgb(116, 13, 13);
+    color: white;
+    border: none;
+}
+
+.btn-success.custom-btn:hover {
+    background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
+    color: white;
+}
+
+.container-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear al inicio */
+    width: 100%;
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.price-info h6,
+.price-info p {
+    margin: 0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .card-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-body-custom {
+        padding: 10px;
+    }
+
+    .card-footer-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .controls > * {
+        margin-bottom: 10px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 /* Estilos personalizados para las tarjetas 

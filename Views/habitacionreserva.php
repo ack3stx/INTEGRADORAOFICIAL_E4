@@ -257,120 +257,126 @@ margin-bottom: 1%;
 </div>
 
 
+<div class="container-fluid d-flex justify-content-start flex-wrap"> <!-- Usamos container-fluid para ocupar todo el ancho de la pantalla y flex-wrap para que las tarjetas se acomoden -->
+    <div class="container-custom">
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación Doble">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación Doble</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 1290.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación Sencilla">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación Sencilla</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacioso espacio de 15 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad y escritorio con silla ejecutiva.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 690.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir2" onclick="mostrar('añadir2');" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-<!---->
-
-    <!--TARJETA 1 -->
-    <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:-33%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación King Size">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación King Size</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación King Size ofrece una cómoda cama king size en un espacioso espacio de 30 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 1290.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación Doble</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
 </div>
 
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir1" onclick="mostrar('añadir1');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br>
-
-    <!--TARJETA 2 -->
-     <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
-    </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación Sencilla</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
-</div>
-
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir2"  onclick="mostrar('añadir2');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br><br><br> 
 
 
-    <!--TARJETA 3 -->
-   <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
-    </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación King Size</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
-</div>
-
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br><br><br> 
 
     <!--PIE DE PAGINA-->
     <br><br>
