@@ -11,16 +11,16 @@
 <body>
   <style>
     .image-container {
-            overflow: hidden;
+          overflow: hidden;
         }
 
         .image-container img {
-            transition: opacity 0.5s ease;
+          transition: opacity 0.5s ease;
         }
 
         .image-container:hover img {
           filter: grayscale(100%);
-            opacity: 0.5;
+          opacity: 0.5;
         }
   </style>
     <div class="container-fluid p-0">
