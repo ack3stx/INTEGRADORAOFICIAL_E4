@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Estilos/GaelEstilos.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="../INTEGRADORAOFICIAL_E4/Estilos/index.css">
-    <link rel="stylesheet" href="../INTEGRADORAOFICIAL_E4/Estilos/responsive.css">
+    <link rel="stylesheet" href="Estilos/index.css">
+    <link rel="stylesheet" href="Estilos/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -104,51 +104,48 @@ else {
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">
       <div class="carousel-item active">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/EXHOTEL2.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
+          <img src="Imagenes/EXHOTEL2.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
               <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
+              <p>Somos tu mejor opción para tu estancia</p>
               <p>en la comarca lagunera</p>
           </div>
       </div>
       <div class="carousel-item">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/RECEPCION.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-              <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
-              <p>en la comarca lagunera</p>
+          <img src="Imagenes/RECEPCION.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+              <h4>¡Descubre</h4>
+              <p>el paraíso escondido</p>
+              <p>en la comarca lagunera!</p>
           </div>
       </div>
       <div class="carousel-item">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/PISCINA.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-              <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
-              <p>en la comarca lagunera</p>
+          <img src="Imagenes/PISCINA.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+              <h4>Tu refugio perfecto</h4>
+              <p>lejos de casa te espera.</p>
           </div>
       </div>
       <div class="carousel-item">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/EXHOTEL.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-              <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
-              <p>en la comarca lagunera</p>
+          <img src="Imagenes/EXHOTEL.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+              <h4>Tu comodidad</h4>
+              <p>es nuestra prioridad,</p>
+              <p>¡ven y compruébalo!</p>
           </div>
       </div>
       <div class="carousel-item">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/EXHOTEL3.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-              <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
-              <p>en la comarca lagunera</p>
+          <img src="Imagenes/EXHOTEL3.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+              <h4>Relájate y disfruta,</h4>
+              <p>¡nos encargamos del resto!</p>
           </div>
       </div>
       <div class="carousel-item">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/EXHOTEL4.png" class="d-block w-100" alt="...">
-          <div class="carousel-caption d-none d-md-block">
-              <h4>Ven y conocenos</h4>
-              <p>Somos tu mejor opción para tu estacia</p>
-              <p>en la comarca lagunera</p>
+          <img src="Imagenes/EXHOTEL4.png" class="d-block w-100" alt="...">
+          <div class="carousel-caption">
+              <h4>Haz de tu estancia</h4>
+              <p>un recuerdo para toda la vida.</p>
           </div>
       </div>
   </div>
@@ -162,6 +159,7 @@ else {
   </button>
 </div>
 
+
 <br><br>
 <div class="HC container">
   <div class="row align-items-center">
@@ -174,11 +172,11 @@ else {
           <p class="subheadline">
               Contamos con más de 15 años de experiencia dentro de nuestra hermosa ciudad <span class="highlight">Torreón Coahuila</span> atendiendo a nuestros huéspedes regionales e internacionales con la mejor calidad de servicios.
           </p>
-          <a href="../INTEGRADORAOFICIAL_E4/Views/nosotros.php" class="btn btn-custom">Conócenos</a>
+          <a href="Views/nosotros.php" class="btn btn-custom">Conócenos</a>
       </div>
       <div class="col-md-6">
           <div class="image-container">
-              <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONESV2.png" alt="Overlay Image">
+              <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
               
               <div class="image-overlay">
                 <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
@@ -191,7 +189,7 @@ else {
   <div class="HCON">
     <div class="HCG">
       <p class="text-muted">Hotel Laguna Inn</p>
-      <h1 class="headline">Nuestras Habitaciones</h1>
+      <h1 class="headline" style="text-align: left;">Nuestras Habitaciones</h1>
       <div class="gallery">
         <div class="imgBox">
           <a href="Views/vistahab.php">
@@ -223,8 +221,8 @@ else {
 
   <div class="contenedorpp" id="2424">
     <div class="container contenedorxd">
-      <div class="row align-items-center">
-        <h1 class="headline">Nuestros Servicios</h1>
+      <h1 class="headline">Nuestros Servicios</h1>
+      <div class="row align-items-stretch">
           <div class="col-12 col-md-6 col-lg-3 feature-box">
               <i class="fas fa-swimmer"></i>
               <h4>Piscina</h4>

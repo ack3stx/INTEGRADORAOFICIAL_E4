@@ -1,16 +1,19 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar Example</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
-</head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <title>busqueda_huesped</title>
+  </head>
+  <body>
+        
 
-<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
@@ -66,39 +69,11 @@
       </div>
     </div>
   </nav>
-  <form name="form_reloj">
-    <input type="text" name="reloj" value="00 : 00 : 00" readonly>
-  </form>
-  <script>
-    function mueveReloj() {
-      var momentoActual = new Date();
-      var hora = momentoActual.getHours();
-      var minuto = momentoActual.getMinutes();
-      var segundo = momentoActual.getSeconds();
-
-      var str_segundo = new String(segundo);
-      if (str_segundo.length == 1)
-        segundo = "0" + segundo;
-
-      var str_minuto = new String(minuto);
-      if (str_minuto.length == 1)
-        minuto = "0" + minuto;
-
-      var str_hora = new String(hora);
-      if (str_hora.length == 1)
-        hora = "0" + hora;
-
-      var horaImprimible = hora + " : " + minuto + " : " + segundo;
-
-      document.form_reloj.reloj.value = horaImprimible;
-
-      setTimeout(mueveReloj, 1000);
-    }
-    mueveReloj();
-  </script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
-
+  </body>
 </html>
+
+
+

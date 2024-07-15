@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulario de Contacto</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wight@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
+
 </head>
 <body>
   <style>
@@ -130,7 +131,7 @@
           <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
           <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
           <div class="social-icons">
-              <i class="fa-brands fa-instagram"></i>
+              <a href=""></a><i class="fa-brands fa-instagram"></i>
               <i class="fa-brands fa-facebook"></i>
               <i class="fa-brands fa-whatsapp"></i>
           </div>

@@ -28,14 +28,14 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
 .carousel-item {
     position: relative;
     background-color: black; /* Fondo negro para las imágenes */
-}
+  }
 
-.carousel-item img {
+  .carousel-item img {
     height: 90vh;
     object-fit: cover;
-}
+  }
 
-.carousel-item::before {
+  .carousel-item::before {
     content: "";
     position: absolute;
     top: 0;
@@ -45,9 +45,9 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     background-color: black; /* Fondo negro superpuesto */
     opacity: 0.5; /* Ajusta la opacidad según tus necesidades */
     z-index: 1; /* Asegúrate de que el fondo esté debajo del contenido */
-}
+  }
 
-.carousel-caption {
+  .carousel-caption {
     position: absolute;
     top: 80%;
     left: 50%;
@@ -55,22 +55,37 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     z-index: 2; /* El texto debe estar por encima del fondo */
     text-align: center;
     color: white; /* Color del texto blanco */
-}
+  }
 
-.carousel-caption h4 {
+  .carousel-caption h4, .carousel-caption p {
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .carousel-caption h4 {
     font-size: 2.5rem;
     font-weight: bold;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
+  }
 
-.carousel-caption p {
+  .carousel-caption p {
     font-size: 1.5rem;
     font-weight: bold;
-    color: white;
-    font-family: Arial, Helvetica, sans-serif;
-}
+  }
 
+  @media (max-width: 768px) {
+    .carousel-item img {
+      height: 40vh; /* Reduce la altura a menos de la mitad */
+    }
+    .carousel-caption {
+      top: 70%; /* Ajusta la posición del texto en pantallas pequeñas */
+    }
+    .carousel-caption h4 {
+      font-size: 1rem; /* Reduce el tamaño del texto */
+    }
+    .carousel-caption p {
+      font-size: 0.5rem; /* Reduce el tamaño del texto */
+    }
+  }
 
 .HC {
     background-color: white; /* Color de fondo */
@@ -154,14 +169,15 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
     }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 768px) {
     .image-overlay {
         display: none;
     }
 }
 
 
-.contenedorpp{
+
+.contenedorpp {
     background-color: #ebe9f2; /* Color de fondo */
     padding: 40px; /* Espaciado interno */
     border-radius: 15px; /* Bordes redondeados */
@@ -171,19 +187,28 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
 }
 
 .contenedorxd {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     margin-top: 20px;
-    background-color: #ebe9f2;
     width: 100%;
     height: auto; /* Cambiar a auto para adaptarse al contenido */
     padding: 20px;
 }
 
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    text-align: center;
+}
+
 .feature-box {
     text-align: center;
     margin-bottom: 20px; /* Añadir margen inferior para evitar que se corten los elementos */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100%;
 }
 
 .feature-box i {
@@ -193,19 +218,18 @@ body, h1, h2, h3, h4, h5, h6, p, a, span, div {
 
 .feature-box h4 {
     margin-bottom: 10px; /* Añadir margen inferior al encabezado */
+    min-height: 50px; /* Ajustar la altura mínima según sea necesario */
 }
 
 .feature-box p {
     margin-bottom: 0; /* Asegurar que no haya margen inferior en el párrafo */
 }
 
-.row {
+.headline {
     text-align: center;
-}
-
-.contenedorxd label i {
-    font-size: 64px; /* Ajusta este tamaño según tus necesidades */
-    color: currentColor; /* Cambia el color si es necesario */
+    margin-bottom: 30px; /* Espaciado inferior para la cabecera */
+    font-size: 2.5rem; /* Tamaño del texto de la cabecera */
+    font-weight: bold;
 }
 
 .IMGTEXT {

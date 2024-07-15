@@ -1,0 +1,52 @@
+.navbar-nav .nav-link {
+  color: white !important;
+  transition: color 0.3s ease;
+}
+.navbar-nav .nav-link:hover {
+  color: #f1f1f1;
+}
+.navbar-brand {
+  font-weight: bold;
+  color: white !important;
+}
+.navbar {
+  justify-content: center;
+}
+.navbar-collapse {
+  justify-content: center;
+}
+.header-right .dropdown-menu {
+  right: 0;
+  left: auto;
+}
+.nav-item {
+  display: inline-block;
+}
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+}
+.header-right {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+form[name="form_reloj"] {
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2em;
+  color: white;
+  background-color: rgba(214, 13, 13, 0.5);
+  padding: 10px;
+  border-radius: 10px;
+  font-weight: bold;
+}
+input[name="reloj"] {
+  background: none;
+  border: none;
+  color: white;
+  text-align: center;
+}
