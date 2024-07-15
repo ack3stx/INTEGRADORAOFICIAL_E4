@@ -18,8 +18,8 @@
             width: 40rem;
             height: 2rem;
             align-items: center;
-          gap: 10px;
-          padding: 0 90px;
+          gap: 40px;
+          padding: 0 120px;
           margin-left: 30%;
           margin-top: 3%;
         }
@@ -146,7 +146,7 @@ margin-bottom: 1%;
       <!--BARRITA BLANCA-->
       <div class="barra-blanca">
       <div class="containers">
-        <input type="text" id="date_picker1"> ->
+        <input type="text" id="date_picker1"> 
         <input type="text" id="date_picker2">
     </div>
 
@@ -317,7 +317,7 @@ margin-bottom: 1%;
 </div>
     <br><br><br><br> 
 
-    <!--PIE DE PAGINA
+    <!--PIE DE PAGINA-->
     <br><br>
     <br><br>
     <footer class="footer">
@@ -348,7 +348,7 @@ margin-bottom: 1%;
       </div>
   </div>
 </footer> 
--->
+
 
 
 
