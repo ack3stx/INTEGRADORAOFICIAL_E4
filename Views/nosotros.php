@@ -107,7 +107,7 @@
           <a href="../index.html" class="text-decoration-none hover-link"><p>Inicio</p></a>
           <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
           <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
-          <a href="#2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="../index.html #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
           <a href="Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
