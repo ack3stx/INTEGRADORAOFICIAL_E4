@@ -52,42 +52,39 @@
   </div>
     </header>
 <br><br><br><br>
-    <div class="header mb-4">
-        <div class="header-images">
-            <img src="../Imagenes/SALAESTAR.png" alt="saladeestar">
-        </div>
-        <div class="header-title">
-            <h6>Hotel Laguna Inn</h6>
-            <h1>Nosotros</h1>
-        </div>
+<div class="header mb-4">
+    <div class="header-images">
+      <img src="../Imagenes/SALAESTAR.png" alt="saladeestar">
     </div>
-      <br>
-    <div class="contenedorxd">
-        <div class="contenedorxd2">
-            <div class="content">
-                <p>Con más de 15 años de experiencia en el mercado hotelero, <strong>Hotel Laguna Inn</strong> se enorgullece de ofrecer una estancia excepcional en nuestra hermosa y querida ciudad Torreón Coahuila. Nuestras habitaciones han sido diseñadas para tu descanso y bienestar, ya sea que estés disfrutando de unas vacaciones en compañía de tu familia o amigos, o en un viaje de negocios. Nuestras instalaciones están equipadas con todos los servicios necesarios para asegurar una estadía completamente satisfactoria.</p>
-                <p>En <strong>Hotel Laguna Inn</strong> nos destacamos por crear un ambiente acogedor y familiar, ofreciendo un servicio de alta calidad que superará tus expectativas. Nuestras ubicaciones estratégicas te brindan acceso rápido y sencillo a plazas comerciales, parques industriales y al corazón de cada ciudad donde estamos presentes.</p>
-                <p>Con más de 20 habitaciones en cada uno de nuestros hoteles y una calificación de cuatro estrellas, te brindamos un entorno cálido a tarifas accesibles, asegurando que vivas una experiencia excepcional durante tu estancia. ¡Haz tu reserva hoy y descubre la diferencia de Hotel Laguna Inn!</p>
-            </div>
-        </div>
+    <div class="header-title">
+      <h6>Hotel Laguna Inn</h6>
+      <h1>Nosotros</h1>
     </div>
+  </div>
+  <br>
+  <div class="contenedorxd">
+    <div class="contenedorxd2">
+      <div class="content">
+        <p>Con más de 15 años de experiencia en el mercado hotelero, <strong>Hotel Laguna Inn</strong> se enorgullece de ofrecer una estancia excepcional en nuestra hermosa y querida ciudad Torreón Coahuila. Nuestras habitaciones han sido diseñadas para tu descanso y bienestar, ya sea que estés disfrutando de unas vacaciones en compañía de tu familia o amigos, o en un viaje de negocios. Nuestras instalaciones están equipadas con todos los servicios necesarios para asegurar una estadía completamente satisfactoria.</p>
+        <p>En <strong>Hotel Laguna Inn</strong> nos destacamos por crear un ambiente acogedor y familiar, ofreciendo un servicio de alta calidad que superará tus expectativas. Nuestras ubicaciones estratégicas te brindan acceso rápido y sencillo a plazas comerciales, parques industriales y al corazón de cada ciudad donde estamos presentes.</p>
+        <p>Con más de 20 habitaciones en cada uno de nuestros hoteles y una calificación de cuatro estrellas, te brindamos un entorno cálido a tarifas accesibles, asegurando que vivas una experiencia excepcional durante tu estancia. ¡Haz tu reserva hoy y descubre la diferencia de Hotel Laguna Inn!</p>
+      </div>
+    </div>
+  </div>
   <div class="container mt-5">
-    <div class="row justify-content-center text-center align-items-center">
-        <div class="col-lg-5 col-sm-12 mb-3">
-            <div class="bg-light p-3">
-                <h2>Misión</h2>
-                <p>Brindar a nuestros huéspedes un ambiente familiar, limpio, agradable y seguro. Nos esforzamos por ofrecer una experiencia acogedora, fundamentada en la excelencia y las buenas costumbres, donde cada visitante se sienta como en casa.</p>
-            </div>
-        </div>
-        <div class="separator"></div>
-        <div class="col-lg-5 col-sm-12 mb-3">
-            <div class="bg-light p-3">
-                <h2>Visión</h2>
-                <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
-            </div>
-        </div>
+    <div class="mision-vision">
+      <div class="mision">
+        <h2>Misión</h2>
+        <p>Brindar a nuestros huéspedes un ambiente familiar, limpio, agradable y seguro. Nos esforzamos por ofrecer una experiencia acogedora, fundamentada en la excelencia y las buenas costumbres, donde cada visitante se sienta como en casa.</p>
+      </div>
+      <div class="separator"></div>
+      <div class="vision">
+        <h2>Visión</h2>
+        <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
+      </div>
     </div>
-</div>
+  </div>
+  
 <br>
     <footer class="footer">
   <div class="footer-container">
@@ -118,11 +115,7 @@
       </div>
   </div>
 </footer>
-
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
