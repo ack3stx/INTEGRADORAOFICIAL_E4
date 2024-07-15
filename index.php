@@ -8,9 +8,16 @@
     <link rel="stylesheet" href="Estilos/index.css">
     <link rel="stylesheet" href="Estilos/responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>BORRADOR INTEGRADORA</title>
 </head>
 <body>
+
+
+<!---->
   <header>
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
@@ -25,7 +32,7 @@
         <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
-              <a class="nav-link" href="index.html"><label>INICIO</label></a>
+              <a class="nav-link" href="index.php"><label>INICIO</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Views/nosotros.php"><label>NOSOTROS</label></a>
@@ -38,19 +45,61 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Views/Contacto.php"><label>CONTACTANOS</label></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
-            </li>
+</li>
+
+         
+
             <li class="nav-item">
               <a class="nav-link" href="Views/Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
+
+<?php
+session_start();
+if(isset($_SESSION["usuario"])){
+
+  echo '<div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined ">
+                        account_circle
+
+                    </span>
+                </button>
+                <ul class="dropdown-menu glass">
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
+                                person
+                            </span> Gestionar cuenta </a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                travel_explore
+                            </span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                add_comment
+                            </span>Comentarios</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                favorite
+                            </span>Favoritos</a></li>
+                    <li><a class="dropdown-item" href="Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                                logout
+                            </span>Cerrar sesión</a></li>
+                </ul>
+            </div>';
+
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
+
           </ul>
         </div>
       </div>
     </nav>
   </div>
     </header>
+
 <br><br><br><br>
 <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
   <div class="carousel-inner">

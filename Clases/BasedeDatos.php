@@ -90,7 +90,7 @@ class Database
                     switch ($reg->nombre) {
                         case 'usuario':
                             echo"eres usuario";
-                            header("refresh:2;../Views/Panel_Recepcionista.php");
+                            header("refresh:2;../index.php");
                         break;
                         case 'recepcionista':
                             echo"eres recepcionista";
