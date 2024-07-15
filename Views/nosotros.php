@@ -93,27 +93,28 @@
   <div class="footer-container">
       <div class="footer-section">
           <h2>Contáctanos</h2>
-          <p><i class="fa-solid fa-house"></i> Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón, México</p>
-          <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
-          <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
+          <p><i class="fa-solid fa-house"></i> Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
+          <p><i class="fa-solid fa-envelope"></i> administracion@hotellagunainn.com</p>
+          <p><i class="fa-solid fa-phone"></i> +52 871 720 3020</p>
           <div class="social-icons">
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-facebook"></i>
-              <i class="fa-brands fa-whatsapp"></i>
+              <a href="https://www.instagram.com/hotellagunainntrc"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.facebook.com/hotellagunainntrc"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://wa.me/5218712112828"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
       </div>
-      <div class="footer-section">
+      <div class="footer-section" >
           <h2>Explora</h2>
-          <p>Inicio</p>
-          <p>Nosotros</p>
-          <p>Habitaciones</p>
-          <p>Amenidades</p>
+          <a href="../index.html" class="text-decoration-none hover-link"><p>Inicio</p></a>
+          <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
+          <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
+          <a href="#2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
           <h2>Novedades</h2>
           <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
-          <input type="text" placeholder="Email">
-          <i class="fa-solid fa-paper-plane"></i>
+          <input type="email" placeholder="Email">
+          <a href="" type="button"><i class="fa-solid fa-paper-plane"></i></a>
       </div>
   </div>
 </footer>

@@ -401,3 +401,8 @@ margin-right: 10px;
     font-size: 1.5rem;
 }
 }
+
+.hover-link a :hover
+{
+  color: #333;
+}
