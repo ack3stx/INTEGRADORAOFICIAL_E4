@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -187,7 +196,7 @@ margin-bottom: 1%;
               <a class="nav-link" href="Views/Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
             <?php
-session_start();
+
 if(isset($_SESSION["usuario"])){
 
   echo '<div class="dropdown">

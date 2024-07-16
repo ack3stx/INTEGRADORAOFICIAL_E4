@@ -204,15 +204,35 @@ else {
         </div>
     </nav>
 
-    
-    <div class="container mt-5 reservation-container">
+    <?php
+    if(isset($_SESSION["usuario"]))
+    {
+   echo '<div class="container mt-5 reservation-container">
         <h2 class="custom-header">Seleccione Las Fechas De Su Reservacion...</h2>
         <div id="calendar-container">
             <div id="inline-calendar"></div>
             <div id="inline-calendar-large"></div>
         </div>
-        <button class="btn btn-custom mt-4" onclick="location.href='habitacionreserva.php'">Comprobar</button>
-    </div>
+       
+        <button class="btn btn-custom mt-4" onclick="location.href="habitacionreserva.php"">Comprobar</button>
+    </div>';
+    }
+    else {
+        echo '<div class="container mt-5 reservation-container">
+        <h2 class="custom-header">Seleccione Las Fechas De Su Reservacion...</h2>
+        <div id="calendar-container">
+            <div id="inline-calendar"></div>
+            <div id="inline-calendar-large"></div>
+        </div>
+       
+        <button class="btn btn-custom mt-4" onclick="location.href="login.php"">Comprobar</button>
+    </div>';
+    }
+
+    ?>
+
+
+
     <footer class="footer">
   <div class="footer-container">
       <div class="footer-section">
