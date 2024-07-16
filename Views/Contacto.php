@@ -59,7 +59,7 @@
     <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
       <ul class="navbar-nav text-center">
         <li class="nav-item">
-          <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+          <a class="nav-link" href="../index.php"><label>INICIO</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
@@ -68,7 +68,7 @@
           <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
+          <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
