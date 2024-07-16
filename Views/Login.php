@@ -56,7 +56,7 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.html">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

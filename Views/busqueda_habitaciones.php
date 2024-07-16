@@ -1,21 +1,26 @@
-<!doctype html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <title>Busqueda Habitaciones</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Example</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
 </head>
 
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -41,12 +46,31 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_empleados.php">
+              <i class="fas fa-bed"></i> Personal
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reportes_hotel.php">
+              <i class="fas fa-bed"></i> Hotel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_facturacion.php">
+              <i class="fas fa-bed"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
-              <i class="fas fa-bed"></i> Notificaciones
+            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+    <span class="visually-hidden"></span>
+  </span>
+</button>
             </a>
           </li>
         </ul>
@@ -70,7 +94,7 @@
       </div>
     </div>
   </nav>
-    <BR>
+    <br>
     <div class="container">
         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
             Agregar Nueva Habitacion
@@ -110,36 +134,68 @@
         <BR>
         <br>
         <h4 class="color-hotel">Busqueda</h4>
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" method="post">
             <label class="color-hotel">Tipo:</label>&nbsp;
-            <select class="form-control me-2">
+            <select class="form-control me-2" name="tipo">
                 <option value="Sencilla">Sencilla</option>
                 <option value="Doble">Doble</option>
                 <option value="King size">King size</option>
             </select>&nbsp;
             <label class="color-hotel">Estado:</label>&nbsp;
-            <select>
-                <option value="Ocupada">Ocupada</option>
-                <option value="Mantenimiento">Mantenimiento</option>
-                <option value="Disponible">Disponible</option>
+            <select name="estado">
+                <option value="ocupada">Ocupada</option>
+                <option value="mantenimiento">Mantenimiento</option>
+                <option value="disponible">Disponible</option>
             </select>&nbsp;
             <button class="btn btn-outline-danger" type="submit">Buscar</button>
         </form>
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <!-- Optional JavaScript; choose one of the two! -->
+        <?php 
+    include '../Clases/BasedeDatos.php';
+    $conexion = new Database();
+    $conexion->conectarDB();
+    extract($_POST);
+    if($_POST)
+    {
+        $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
+t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
+from habitacion
+inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
 
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
-        <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+        $tabla = $conexion->seleccionar($consulta);
 
-        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+        echo "
+            <table class='table table-hover'>
+                <thead class='table-dark'>
+                    <tr>
+                    <th>Num Habitacion</th><th>Piso</th><th>Estado</th><th>Tipo</th><th>Descripcion</th><th>Costo</th><th>Cant Max Adultos</th><th>Cant Max Niños</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ";
+            foreach($tabla as $reg)
+            {
+                echo "<tr>";
+                echo "<td> $reg->num_habitacion </td>";
+                echo "<td> $reg->piso </td>";
+                echo "<td> $reg->estado_habitacion </td>";
+                echo "<td> $reg->nombre </td>";
+                echo "<td> $reg->descripcion </td>";
+                echo "<td> $reg->precio </td>";
+                echo "<td> $reg->cantidad_max_adultos </td>";
+                echo "<td> $reg->cantidad_max_niños </td>";
+                echo "</tr>";
+            }
+            echo "</tbody>";
+            echo "</table>";
+            $conexion->desconectarBD();
+
+    }
+    ?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
 </html>
