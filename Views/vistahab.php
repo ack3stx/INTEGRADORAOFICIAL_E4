@@ -14,6 +14,10 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <!---->
 <body>
@@ -44,12 +48,49 @@
                     <li class="nav-item">
                         <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-                    </li>
+             
                     <li class="nav-item">
                         <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
                     </li>
+                    <?php
+session_start();
+if(isset($_SESSION["usuario"])){
+
+  echo '<div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined ">
+                        account_circle
+
+                    </span>
+                </button>
+                <ul class="dropdown-menu glass">
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
+                                person
+                            </span> Gestionar cuenta </a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                travel_explore
+                            </span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                add_comment
+                            </span>Comentarios</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                favorite
+                            </span>Favoritos</a></li>
+                    <li><a class="dropdown-item" href="Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                                logout
+                            </span>Cerrar sesión</a></li>
+                </ul>
+            </div>';
+
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
                 </ul>
             </div>
         </div>
