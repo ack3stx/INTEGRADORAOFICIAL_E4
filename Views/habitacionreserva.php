@@ -158,7 +158,7 @@ margin-bottom: 1%;
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="index.html">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         
