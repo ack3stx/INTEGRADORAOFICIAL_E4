@@ -71,7 +71,7 @@ if(isset($_SESSION["usuario"])){
                     <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
                                 favorite
                             </span>Favoritos</a></li>
-                    <li><a class="dropdown-item" href="Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
                                 logout
                             </span>Cerrar sesión</a></li>
                 </ul>
