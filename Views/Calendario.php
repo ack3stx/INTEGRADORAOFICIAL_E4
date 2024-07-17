@@ -213,19 +213,8 @@ else {
         </div>
        
         <button class="btn btn-custom mt-4" onclick="location.href='Comprueba_Login.php'">Comprobar</button>
-        <?php
-if(isset($_SESSION["usuario"])){
-    
-        header("Location:../index.php");
-}
-else {
-    
-    header("Location:../Login.php");
-}
+     
 
-
-
-?>
     </div>
 
 
