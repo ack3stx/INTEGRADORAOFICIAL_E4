@@ -113,7 +113,7 @@ CREATE TABLE facturacion (
     nombre VARCHAR(25),
     apellido_paterno VARCHAR(25),
     apellido_materno VARCHAR(25),
-    rfc VARCHAR(18) UNIQUE,
+    rfc VARCHAR(18),
     direccion VARCHAR(50),
     detalle_pago INT,
     CONSTRAINT fk_facturacion_detalle_pago FOREIGN KEY (detalle_pago) REFERENCES detalle_pago(id_detalle_pago)
