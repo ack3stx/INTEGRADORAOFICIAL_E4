@@ -1,0 +1,144 @@
+
+
+.container {
+    width: 80%;
+    height: 80%;
+    margin: 200px auto;
+}
+
+.glass {
+    background: linear-gradient(125deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+body {
+    background-color: white;
+}
+
+.ola {
+    color: white;
+}
+
+.btn:hover {
+    background-color: black;
+    transform: scale(1.10);
+}
+
+.btn-close {
+    margin-left: 89%;
+}
+
+.blanco {
+    background-color: white;
+}
+
+.ola {
+   
+    max-height: 10%;
+
+    background-size: cover;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: white;
+    /* Fondo medio transparente */
+
+
+}
+
+.header-content {
+    color: white;
+    text-align: center;
+}
+
+
+
+
+.dropdown-toggle{
+    margin-left: 90%;
+    margin-top: -18%;
+}
+
+.chico {
+    height: 4.5rem;
+}
+
+
+
+.utt{
+
+width: 55%;
+margin-top: 2%;
+margin-left: 35%;
+color: #660033;
+
+
+
+
+}
+
+.list-group-item {
+    font-size: 18px;
+    color: #660033;
+}
+
+.lg{
+    margin-top: -66%;
+    margin-right: 7%;
+    
+}
+
+
+.lol{
+
+margin-left: 80%;
+margin-top: -10%;
+
+
+}
+
+#info {
+    display: none;
+    margin-top: -5%;
+    margin-left: 30%;
+    flex-wrap: nowrap;
+}
+
+#nommos{
+    display: none;
+
+
+}
+
+
+
+.aaa{
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+
+  .arreglar{
+    margin-left: 30%;
+  }
+
+
+
+.juntos{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+#no2{
+    margin-left: 30% ;
+}
+
+.lal{
+    margin-top: -15%;
+    margin-left: 10%;
+}
