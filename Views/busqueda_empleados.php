@@ -130,50 +130,14 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-            <form id="personalForm" class="toggle-form" onsubmit="addData(event, 'personal')">
-                <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="staffName" required><br>
-                <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
-                <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
-                <label for="staffName">Fecha Nacimiento:</label>
-                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
-                <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
-                <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
-                <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
-                <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
-                <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
-                <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="roomStatus" name="roomStatus" required>
-                  <option class="form-control me-2" value="Hombre">Hombre</option>
-                  <option class="form-control me-2" value="Mujer">Mujer</option>
-                </select><br>
-                <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
-                <h5>INFORMACION PERSONAL</h5><br>
-                <label for="staffEmail">Curp:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="correo" required><br>
-                <label for="staffEmail">RFC:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="correo" required><br>
-                <label for="staffEmail">Nss:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
-                <label for="staffEmail">Afore:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
-                <label for="staffEmail">Numero Emergencia:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
-                <h5>CREACION DE USUARIO</h5><br>
+            <form id="personalForm" class="toggle-form" onsubmit="addData(event, 'personal')" action="../Scripts/Registra_Usuario_Recepcionista.php" method="post">
+            <h5>CREACION DE USUARIO</h5><br>
                 <label for="staffEmail">Nombre de Usuario:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="usuario" required><br>
                 <label for="staffEmail">Email:</label>
                 <input class="form-control me-2" type="email" id="staffEmail" name="correo" required><br>
                 <label for="staffEmail">Contraseña:</label>
-                <input class="form-control me-2" type="password" id="staffEmail" name="contraseña" required><br>
+                <input class="form-control me-2" type="password" id="staffEmail" name="contra" required><br>
                 <button class="btn btn-outline-success" type="submit">Agregar</button>
             </form>
         </div>
