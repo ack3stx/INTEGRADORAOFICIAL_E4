@@ -341,7 +341,7 @@ else {
                             <span>1</span>
                             <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
                         </div>
-                        <button type="button" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-success custom-btn">Añadir</button>
+                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -379,7 +379,7 @@ else {
                             <span>1</span>
                             <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
                         </div>
-                        <button type="button" id="añadir2" onclick="mostrar('añadir2');" class="btn btn-success custom-btn">Añadir</button>
+                        <button type="button" id="añadir2" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -417,7 +417,7 @@ else {
                             <span>1</span>
                             <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
                         </div>
-                        <button type="button" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-success custom-btn">Añadir</button>
+                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
                     </div>
                 </div>
             </div>
