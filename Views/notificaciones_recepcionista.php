@@ -1,19 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar Example</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+  <title>Notificaciones</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-      <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+      <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +40,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped_recepcionista.php">
-              <i class="fas fa-users"></i> Huesped
+              <i class="fas fa-bed"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
@@ -68,7 +71,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item text-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
           </div>
           <i class="fas fa-user text-white ml-2"></i>
@@ -76,37 +79,19 @@
       </div>
     </div>
   </nav>
-  <form name="form_reloj">
-    <input type="text" name="reloj" value="00 : 00 : 00" readonly>
-  </form>
-  <script>
-    function mueveReloj() {
-      var momentoActual = new Date();
-      var hora = momentoActual.getHours();
-      var minuto = momentoActual.getMinutes();
-      var segundo = momentoActual.getSeconds();
+    <!-- Optional JavaScript; choose one of the two! -->
 
-      var str_segundo = new String(segundo);
-      if (str_segundo.length == 1)
-        segundo = "0" + segundo;
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
-      var str_minuto = new String(minuto);
-      if (str_minuto.length == 1)
-        minuto = "0" + minuto;
-
-      var str_hora = new String(hora);
-      if (str_hora.length == 1)
-        hora = "0" + hora;
-
-      var horaImprimible = hora + " : " + minuto + " : " + segundo;
-
-      document.form_reloj.reloj.value = horaImprimible;
-
-      setTimeout(mueveReloj, 1000);
-    }
-    mueveReloj();
-  </script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
