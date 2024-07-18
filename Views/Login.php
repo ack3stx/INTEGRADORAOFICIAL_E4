@@ -96,7 +96,7 @@
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
 
-                    <form action="../Php/Comprueba_Login.php" method="post">
+                    <form action="../Scripts/Comprueba_Login.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                             <input type="text" class="form-control" id="email" placeholder="Usuario" name="user" required>
@@ -118,7 +118,7 @@
             <div class="card login-card">
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
-                    <form action="../Php/Registra_Usuario.php" method="post">
+                    <form action="../Scripts/Registra_Usuario_Huesped.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                             <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" required>

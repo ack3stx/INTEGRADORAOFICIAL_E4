@@ -90,10 +90,11 @@ class Database
                     switch ($reg->nombre) {
                         case 'usuario':
                             echo"eres usuario";
-                            header("refresh:2;../index.php");
+                            header("refresh:1;../index.php");
                         break;
                         case 'recepcionista':
                             echo"eres recepcionista";
+                            header("refresh:1;../Views/Panel_Recepcionista.php");
                         break;
                         case 'administrador':
                             echo"eres admin";
