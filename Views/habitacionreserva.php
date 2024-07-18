@@ -1,3 +1,12 @@
+<?php
+
+session_start();
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +17,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Habitacion Rserva</title>
 </head>
 <style>
@@ -154,7 +167,7 @@ margin-bottom: 1%;
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="index.html">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         
@@ -164,7 +177,7 @@ margin-bottom: 1%;
         <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
-              <a class="nav-link" href="index.html"><label>INICIO</label></a>
+              <a class="nav-link" href="index.php"><label>INICIO</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Views/nosotros.php"><label>NOSOTROS</label></a>
@@ -173,17 +186,54 @@ margin-bottom: 1%;
               <a class="nav-link" href="Views/vistahab.php"><label>HABITACIONES</label></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#2424"><label>SERVICIOS</label></a>
+              <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Views/Contacto.php"><label>CONTACTANOS</label></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
-            </li>
+          
             <li class="nav-item">
               <a class="nav-link" href="Views/Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
+            <?php
+
+if(isset($_SESSION["usuario"])){
+
+  echo '<div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined ">
+                        account_circle
+
+                    </span>
+                </button>
+                <ul class="dropdown-menu glass">
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
+                                person
+                            </span> Gestionar cuenta </a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                travel_explore
+                            </span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                add_comment
+                            </span>Comentarios</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                favorite
+                            </span>Favoritos</a></li>
+                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                                logout
+                            </span>Cerrar sesión</a></li>
+                </ul>
+            </div>';
+
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
           </ul>
         </div>
       </div>
@@ -223,154 +273,160 @@ margin-bottom: 1%;
 </div>
 </div> 
 -->
-<!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
-<div id="info1" class="container" >
-<div class="card card-custom">
-        <div class="card-body">
-        <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-            <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
-</button>
-           
-            <br><br>
-            <hr class="mb-4">
-            <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
-            <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-            <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
-</button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-             &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
-</button>
-&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
-<br><br>
-<hr class="mb-4">
-<p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
-<br><br>
-<div class="d-grid gap-6 col-10 mx-auto">
-  <button class="btn btn-danger" type="button">Reservar Ahora</button>
-</div>
-           
-         
+        <!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
+        <div id="info1" class="container" >
+        <div class="card card-custom">
+                <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                    <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
+                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
+        </button>
+                
+                    <br><br>
+                    <hr class="mb-4">
+                    <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
+                    <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
+                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
+        </button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
+        <br><br>
+        <hr class="mb-4">
+        <p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
+        <br><br>
+        <div class="d-grid gap-6 col-10 mx-auto">
+        <button class="btn btn-danger" type="button">Reservar Ahora</button>
+        </div>
+                
+                
+                </div>
+            </div>
+        </div>
+
+
+<div class="container-fluid d-flex justify-content-start flex-wrap"> <!-- Usamos container-fluid para ocupar todo el ancho de la pantalla y flex-wrap para que las tarjetas se acomoden -->
+    <div class="container-custom">
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación Doble">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación Doble</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 1290.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación Sencilla">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación Sencilla</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacioso espacio de 15 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad y escritorio con silla ejecutiva.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 690.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir2" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="https://via.placeholder.com/300x200" alt="Habitación King Size">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación King Size</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación King Size ofrece una cómoda cama king size en un espacioso espacio de 30 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                    <a href="#" class="card-link">Ver detalles</a>
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 1290.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
+                                Huéspedes
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
+                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
+                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
+                            <span>1</span>
+                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
+                        </div>
+                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 
 
 
-
-
-
-<!---->
-
-    <!--TARJETA 1 -->
-    <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:-33%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
-    </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación Doble</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
-</div>
-
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir1" onclick="mostrar('añadir1');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br>
-
-    <!--TARJETA 2 -->
-     <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
-    </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación Sencilla</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
-</div>
-
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir2"  onclick="mostrar('añadir2');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br><br><br> 
-
-
-    <!--TARJETA 3 -->
-   <div class="card" style="width: 40rem; flex-wrap:wrap; margin-top:10%; margin-left:5%; height: 30rem;">
-  <div class="card-body">
-  
-
-    </div>
-    <div style="text-align:right; margin-top:0%; margin-bottom: 40%; width:25rem;margin-left:30%">
-    <h5 class="card-title">Habitación King Size</h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary"></h6>
-    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-    <a href="#" class="card-link">Ver detalles</a>
-</div>
-   
-    <br><br>
-  
-<br><br>
-<div class="dropdown">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="margin-left:-400%; margin-top:250%;">
-   Huespedes
-  </button>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" href="#">Action</a></li>
-    <li><a class="dropdown-item" href="#">Another action</a></li>
-    <li><a class="dropdown-item" href="#">Something else here</a></li>
-  </ul>
-</div>
-<div>
-<button type="button" class="btn" data-bs-toggle="button" style="margin-left:-20%; margin-bottom:10%; margin-top:-50%;margin-right:-210%">+</button>1<button type="button" class="btn" data-bs-toggle="button" style="margin-left:10%;">-</button>
-</div>
-
-    <button type="button" style="width:20%;  margin-left: -20% ; margin-top: -10%;" id="añadir3" onclick="mostrar('añadir3');" class="btn btn-danger ">Añadir</button>
-  </div>
- 
-</div>
-    <br><br><br><br> 
 
     <!--PIE DE PAGINA-->
     <br><br>

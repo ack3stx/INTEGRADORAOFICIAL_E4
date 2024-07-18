@@ -52,10 +52,11 @@
     </style>
 </head>
 <body>
+
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.html">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -95,7 +96,7 @@
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
 
-                    <form action="../Php/Comprueba_Login.php" method="post">
+                    <form action="../Scripts/Comprueba_Login.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                             <input type="text" class="form-control" id="email" placeholder="Usuario" name="user" required>
@@ -117,7 +118,7 @@
             <div class="card login-card">
                 <div class="card-body">
                     <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
-                    <form action="../Php/Registra_Usuario.php" method="post">
+                    <form action="../Scripts/Registra_Usuario_Huesped.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                             <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" required>
@@ -137,6 +138,7 @@
             </div>
         </div>
     </section>
+
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

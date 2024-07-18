@@ -7,6 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/nosotros.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Nosotros</title>
     
 </head>
@@ -15,7 +19,7 @@
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="index.html">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         
@@ -25,7 +29,7 @@
         <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
-              <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+              <a class="nav-link" href="../index.php"><label>INICIO</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
@@ -34,17 +38,54 @@
               <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../#2424"><label>SERVICIOS</label></a>
+              <a class="nav-link" href="./index.php #2424"><label>SERVICIOS</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
+            <?php
+session_start();
+if(isset($_SESSION["usuario"])){
+
+  echo '<div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined ">
+                        account_circle
+
+                    </span>
+                </button>
+                <ul class="dropdown-menu glass">
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
+                                person
+                            </span> Gestionar cuenta </a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                travel_explore
+                            </span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                add_comment
+                            </span>Comentarios</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                favorite
+                            </span>Favoritos</a></li>
+                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                                logout
+                            </span>Cerrar sesión</a></li>
+                </ul>
+            </div>';
+
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
           </ul>
         </div>
       </div>
@@ -52,42 +93,39 @@
   </div>
     </header>
 <br><br><br><br>
-    <div class="header mb-4">
-        <div class="header-images">
-            <img src="../Imagenes/SALAESTAR.png" alt="saladeestar">
-        </div>
-        <div class="header-title">
-            <h6>Hotel Laguna Inn</h6>
-            <h1>Nosotros</h1>
-        </div>
+<div class="header mb-4">
+    <div class="header-images">
+      <img src="../Imagenes/SALAESTAR.png" alt="saladeestar">
     </div>
-      <br>
-    <div class="contenedorxd">
-        <div class="contenedorxd2">
-            <div class="content">
-                <p>Con más de 15 años de experiencia en el mercado hotelero, <strong>Hotel Laguna Inn</strong> se enorgullece de ofrecer una estancia excepcional en nuestra hermosa y querida ciudad Torreón Coahuila. Nuestras habitaciones han sido diseñadas para tu descanso y bienestar, ya sea que estés disfrutando de unas vacaciones en compañía de tu familia o amigos, o en un viaje de negocios. Nuestras instalaciones están equipadas con todos los servicios necesarios para asegurar una estadía completamente satisfactoria.</p>
-                <p>En <strong>Hotel Laguna Inn</strong> nos destacamos por crear un ambiente acogedor y familiar, ofreciendo un servicio de alta calidad que superará tus expectativas. Nuestras ubicaciones estratégicas te brindan acceso rápido y sencillo a plazas comerciales, parques industriales y al corazón de cada ciudad donde estamos presentes.</p>
-                <p>Con más de 20 habitaciones en cada uno de nuestros hoteles y una calificación de cuatro estrellas, te brindamos un entorno cálido a tarifas accesibles, asegurando que vivas una experiencia excepcional durante tu estancia. ¡Haz tu reserva hoy y descubre la diferencia de Hotel Laguna Inn!</p>
-            </div>
-        </div>
+    <div class="header-title">
+      <h6>Hotel Laguna Inn</h6>
+      <h1>Nosotros</h1>
     </div>
+  </div>
+  <br>
+  <div class="contenedorxd">
+    <div class="contenedorxd2">
+      <div class="content">
+        <p>Con más de 15 años de experiencia en el mercado hotelero, <strong>Hotel Laguna Inn</strong> se enorgullece de ofrecer una estancia excepcional en nuestra hermosa y querida ciudad Torreón Coahuila. Nuestras habitaciones han sido diseñadas para tu descanso y bienestar, ya sea que estés disfrutando de unas vacaciones en compañía de tu familia o amigos, o en un viaje de negocios. Nuestras instalaciones están equipadas con todos los servicios necesarios para asegurar una estadía completamente satisfactoria.</p>
+        <p>En <strong>Hotel Laguna Inn</strong> nos destacamos por crear un ambiente acogedor y familiar, ofreciendo un servicio de alta calidad que superará tus expectativas. Nuestras ubicaciones estratégicas te brindan acceso rápido y sencillo a plazas comerciales, parques industriales y al corazón de cada ciudad donde estamos presentes.</p>
+        <p>Con más de 20 habitaciones en cada uno de nuestros hoteles y una calificación de cuatro estrellas, te brindamos un entorno cálido a tarifas accesibles, asegurando que vivas una experiencia excepcional durante tu estancia. ¡Haz tu reserva hoy y descubre la diferencia de Hotel Laguna Inn!</p>
+      </div>
+    </div>
+  </div>
   <div class="container mt-5">
-    <div class="row justify-content-center text-center align-items-center">
-        <div class="col-lg-5 col-sm-12 mb-3">
-            <div class="bg-light p-3">
-                <h2>Misión</h2>
-                <p>Brindar a nuestros huéspedes un ambiente familiar, limpio, agradable y seguro. Nos esforzamos por ofrecer una experiencia acogedora, fundamentada en la excelencia y las buenas costumbres, donde cada visitante se sienta como en casa.</p>
-            </div>
-        </div>
-        <div class="separator"></div>
-        <div class="col-lg-5 col-sm-12 mb-3">
-            <div class="bg-light p-3">
-                <h2>Visión</h2>
-                <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
-            </div>
-        </div>
+    <div class="mision-vision">
+      <div class="mision">
+        <h2>Misión</h2>
+        <p>Brindar a nuestros huéspedes un ambiente familiar, limpio, agradable y seguro. Nos esforzamos por ofrecer una experiencia acogedora, fundamentada en la excelencia y las buenas costumbres, donde cada visitante se sienta como en casa.</p>
+      </div>
+      <div class="separator"></div>
+      <div class="vision">
+        <h2>Visión</h2>
+        <p>Ser reconocidos como una cadena hotelera que ofrece estancias acogedoras y hogareñas, destacando por un servicio de calidad a precios accesibles en todas las áreas. Aspiramos a crear un entorno propicio para el desarrollo de nuestros colaboradores.</p>
+      </div>
     </div>
-</div>
+  </div>
+  
 <br>
     <footer class="footer">
   <div class="footer-container">
@@ -107,7 +145,7 @@
           <a href="../index.html" class="text-decoration-none hover-link"><p>Inicio</p></a>
           <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
           <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
-          <a href="../index.html #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="../index.php #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
           <a href="Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
@@ -118,11 +156,7 @@
       </div>
   </div>
 </footer>
-
-      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

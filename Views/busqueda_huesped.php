@@ -1,19 +1,25 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <title>busqueda_huesped</title>
-  </head>
-  <body>
-        
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Example</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+</head>
 
+<body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
@@ -40,12 +46,31 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_empleados.php">
+              <i class="fas fa-bed"></i> Personal
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reportes_hotel.php">
+              <i class="fas fa-bed"></i> Hotel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_facturacion.php">
+              <i class="fas fa-bed"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
-              <i class="fas fa-bed"></i> Notificaciones
+            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+    <span class="visually-hidden"></span>
+  </span>
+</button>
             </a>
           </li>
         </ul>
@@ -69,11 +94,9 @@
       </div>
     </div>
   </nav>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
-
-
-

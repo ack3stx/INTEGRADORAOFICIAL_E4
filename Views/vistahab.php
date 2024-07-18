@@ -14,12 +14,16 @@
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <!---->
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="#">
+            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.php">
                 <img src="../Imagenes/LOGOO.jpeg" alt="Logo" style="width: 220px; height: 80px;"
                     class="rounded-circle rounded-1">
             </a>
@@ -30,7 +34,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav text-center">
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html"><label>INICIO</label></a>
+                        <a class="nav-link" href="../index.php"><label>INICIO</label></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
@@ -39,17 +43,54 @@
                         <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.html #2424"><label>SERVICIOS</label></a>
+                        <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-                    </li>
+             
                     <li class="nav-item">
                         <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
                     </li>
+                    <?php
+session_start();
+if(isset($_SESSION["usuario"])){
+
+  echo '<div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="material-symbols-outlined ">
+                        account_circle
+
+                    </span>
+                </button>
+                <ul class="dropdown-menu glass">
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
+                                person
+                            </span> Gestionar cuenta </a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                travel_explore
+                            </span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                add_comment
+                            </span>Comentarios</a></li>
+                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
+                                favorite
+                            </span>Favoritos</a></li>
+                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
+                                logout
+                            </span>Cerrar sesión</a></li>
+                </ul>
+            </div>';
+
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
                 </ul>
             </div>
         </div>
@@ -67,7 +108,7 @@
 <p class="col text-center">¡Bienvenido a tu hogar en Torreón! Disfruta de la hospitalidad y el confort en nuestras acogedoras Habitaciones Sencillas o en las espaciosas King Size. <br> Ya sea que viajes por negocios o por placer, queremos que te sientas como en casa</p>
 </p>
 </div> 
-<button class="btn btn-danger" type="button">Button</button> 
+
 <div class="container mt-7">
     <br><br>
     <br><br>
@@ -206,52 +247,54 @@
 <hr class="mb-4">
     <!--AMENIDADES -->
     <div class="contenedorpp" id="2424">
-    <div class="container contenedorxd">
-      <div class="row align-items-center">
-        <h1 class="headline">Nuestros Servicios</h1>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-swimmer"></i>
-              <h4>Piscina</h4>
-              <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-parking"></i>
-              <h4>Estacionamiento</h4>
-              <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura exclusiavemnte para ti.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-wifi"></i>
-              <h4>Wi-Fi</h4>
-              <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-check"></i>
-              <h4>Check-in y check-out exprés</h4>
-              <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque siempre estamos a tu disposición.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-concierge-bell"></i>
-              <h4>Recepción 24 horas</h4>
-              <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en recepción. Listos para atenderte.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-utensils"></i>
-              <h4>Desayuno gratis</h4>
-              <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-snowflake"></i>
-              <h4>Aire acondicionado</h4>
-              <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no tendrás que preocuparte por sudar.</p>
-          </div>
-          <div class="col-12 col-md-6 col-lg-3 feature-box">
-              <i class="fas fa-suitcase"></i>
-              <h4>Almacenaje de equipaje</h4>
-              <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
-          </div>
+  <div class="container contenedorxd">
+    <h1 class="headline" style="color:rgb(116, 13, 13);">Nuestros Servicios</h1>
+    <div class="row align-items-stretch">
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-swimmer"></i>
+        <h4>Piscina</h4>
+        <p>Ven y disfruta un rato en nuestra piscina apta para ti y tu familia.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-parking"></i>
+        <h4>Estacionamiento</h4>
+        <p>Ahorrate la duda de donde tendras que estacionar tu auto, tenemos cobertura exclusiavemnte para ti.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-wifi"></i>
+        <h4>Wi-Fi</h4>
+        <p>Disfruta sin molestias tus redes sociales con nuestra red Wifi.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-check"></i>
+        <h4>Check-in y check-out exprés</h4>
+        <p>A la hora de tu check-in o tu check-out, te atenderemos lo más rápido posible, porque siempre estamos a tu disposición.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-concierge-bell"></i>
+        <h4>Recepción 24 horas</h4>
+        <p>Nos preocupan nuestros huéspedes, por ello, las 24 horas del día nos encontramos en recepción. Listos para atenderte.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-utensils"></i>
+        <h4>Desayuno gratis</h4>
+        <p>No te quedes sin probar nuestro delicioso desayuno continental único para ti.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-snowflake"></i>
+        <h4>Aire acondicionado</h4>
+        <p>Con estos calores laguneros es esencial que te mantengas fresco. Y en tu habitación no tendrás que preocuparte por sudar.</p>
+      </div>
+      <div class="col-12 col-md-6 col-lg-3 feature-box">
+        <i class="fas fa-suitcase"></i>
+        <h4>Almacenaje de equipaje</h4>
+        <p>Contamos con un almacén exclusivo y totalmente seguro para tu equipaje.</p>
       </div>
     </div>
   </div>
+</div>
+
+
 
 
                 <!---->

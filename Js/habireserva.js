@@ -1,4 +1,4 @@
-function mostrar (botonid) {
+function mostrar () {
 if(document.getElementById('añadir1'))
 {
 

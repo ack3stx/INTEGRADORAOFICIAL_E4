@@ -37,20 +37,30 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
-              <i class="fas fa-bed"></i> Notificaciones
+            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+    <span class="visually-hidden"></span>
+  </span>
+</button>
             </a>
           </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
-            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-              Tomasillo
-            </button>
+          <?php
+  session_start();
+  if (isset($_SESSION["usuario"])) 
+  {
+    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+              ".$_SESSION["usuario"]."
+            </button>";
+  }
+  ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
               <li><a class="dropdown-item" href="#">Historial</a></li>
@@ -58,7 +68,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
           </div>
           <i class="fas fa-user text-white ml-2"></i>

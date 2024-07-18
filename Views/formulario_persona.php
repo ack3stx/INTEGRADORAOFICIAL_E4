@@ -7,21 +7,22 @@
     <title>Document</title>
 </head>
 <body>
-
-<form>
-    <label class="form-label">Nombre: </label>
-    <input type="text" class="form-control w-25">
+<div class="container">
+<form class="w-100 mx-auto p-2">
+    
+    <label class="form-label -3">Nombre: </label>
+    <input type="text" class="form-control">
 
     <label for="exampleInputEmail1" class="form-label">Apellido Paterno: </label>
-    <input type="text" class="form-control w-25">
+    <input type="text" class="form-control">
 
     <label for="exampleInputEmail1" class="form-label">Apellido Materno: </label>
-    <input type="text" class="form-control w-25">
+    <input type="text" class="form-control">
 
     <label for="exampleInputEmail1" class="form-label">Fecha de Nacimiento: </label>
     <input type="date" class="form-control">
 
-    <label for="exampleInputEmail1" class="form-label">Direccion: </label>
+    <label for="exampleInputEmail1" class="form-label mx-auto">Direccion: </label>
     <input type="text" class="form-control">
 
     <label for="exampleInputEmail1" class="form-label">Ciudad: </label>
@@ -42,7 +43,7 @@
     <label for="exampleInputEmail1" class="form-label">Numero de Telefono: </label>
     <input type="text" class="form-control">
 </form>
-
+</div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>
