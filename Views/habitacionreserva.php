@@ -273,38 +273,38 @@ else {
 </div>
 </div> 
 -->
-<!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
-<div id="info1" class="container" >
-<div class="card card-custom">
-        <div class="card-body">
-        <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-            <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
-</button>
-           
-            <br><br>
-            <hr class="mb-4">
-            <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
-            <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-            <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
-</button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-             &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
-</button>
-&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
-<br><br>
-<hr class="mb-4">
-<p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
-<br><br>
-<div class="d-grid gap-6 col-10 mx-auto">
-  <button class="btn btn-danger" type="button">Reservar Ahora</button>
-</div>
-           
-         
+        <!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
+        <div id="info1" class="container" >
+        <div class="card card-custom">
+                <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                    <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
+                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
+        </button>
+                
+                    <br><br>
+                    <hr class="mb-4">
+                    <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
+                    <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
+                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
+        </button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
+        </button>
+        &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
+        <br><br>
+        <hr class="mb-4">
+        <p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
+        <br><br>
+        <div class="d-grid gap-6 col-10 mx-auto">
+        <button class="btn btn-danger" type="button">Reservar Ahora</button>
         </div>
-    </div>
-</div>
+                
+                
+                </div>
+            </div>
+        </div>
 
 
 <div class="container-fluid d-flex justify-content-start flex-wrap"> <!-- Usamos container-fluid para ocupar todo el ancho de la pantalla y flex-wrap para que las tarjetas se acomoden -->

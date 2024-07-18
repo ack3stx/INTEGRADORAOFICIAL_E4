@@ -212,7 +212,8 @@ else {
             <div id="inline-calendar-large"></div>
         </div>
        
-        <button class="btn btn-custom mt-4" onclick="location.href='Comprueba_Login.php'">Comprobar</button>
+                                                                    <!--NECESIDAD DE REDIRECCIONAR A ALO QUE TENGAN QUE REDIRECCIONAR, PERO DOCUMENTENLO PORFA PARO PAPUS-->
+        <button class="btn btn-custom mt-4" onclick="location.href='habitacionreserva.php'">Comprobar</button>
      
 
     </div>
