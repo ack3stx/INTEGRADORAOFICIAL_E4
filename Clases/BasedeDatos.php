@@ -115,12 +115,12 @@ class Database
             echo $e->getMessage();
         }
     }
-
     function cerrarSesion()
     {
         session_start();
         session_destroy();
         header("Location:../index.php");
     }
+
 }
 ?>
