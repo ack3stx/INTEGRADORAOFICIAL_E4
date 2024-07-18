@@ -1,378 +1,225 @@
-/* Estilos de la barra de navegación */
 .navbar-nav {
-    width: 100%;
-}
-  
-.navbar-nav .nav-link {
-    display: block;
-    text-align: center;
-    font-weight: bold;
-    font-size: 1.1rem;
-    color: rgb(116, 13, 13) !important; /* Color de texto normal */
-    transition: all 0.3s ease;
-    border-radius: 25px;
-}
-  
-.navbar-nav .nav-link:hover {
-    background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-    color: #fff !important; /* Color de texto al hacer hover */
-    padding: 12px 24px;
-    font-size: 1.2rem;
-    transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
-}
-
-/*BARRITAAA*/
-.header-section {
-    position: relative;
-    background-size: cover;
-    height: 240px;
-    margin-top: 2%;
-}
-.header-content {
+    
+     width: 100%;
+ }
+ 
+ .navbar-nav .nav-link {
+     display: block;
+     text-align: center;
+     font-weight: bold;
+     font-size: 1.1rem;
+     color: rgb(116, 13, 13) !important; /* Color de texto normal */
+     transition: all 0.3s ease;
+     border-radius: 25px;
+ }
+ 
+ .navbar-nav .nav-link:hover {
+     background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+     color: #fff !important; /* Color de texto al hacer hover */
+     padding: 12px 24px;
+     font-size: 1.2rem;
+     transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+ }
+ 
+ /*BARRITAAA*/
+ .header-section {
+     position: relative;
+     background-size: cover;
+     height: 240px;
+     margin-top: 2%;
+ }
+ 
+ .header-content {
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+     text-align: center;
+     color: white;
+     padding: 20px;
+     background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
+ }
+ 
+ .header-content h1 {
+     font-size: 3rem;
+     font-weight: bold;
+ }
+ 
+ .header-content p {
+     font-size: 1.5rem;
+ }
+ 
+ .header-section-custom {
+     background-color: white;
+     color: white;
+     padding: 20px;
+     text-align: center;
+ }
+ 
+ .header-content-custom {
+     position: relative;
+     max-width: 800px;
+     margin: 0 auto;
+ }
+ 
+ .header-content-custom p {
+     margin: 0;
+     padding: 10px 0;
+     color: black;
+ }
+ 
+ .header-content-custom h1 {
+     margin: 0;
+     padding: 10px 0;
+     color: rgb(116, 13, 13);
+ }
+ 
+ .header-content-custom .col {
+     margin-bottom: 20px;
+ }
+ 
+ .barra-blanca {
+     width: 100%;
+     background-color: white;
+     height: 60px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .container-fluid {
+     padding: 0; /* Eliminar cualquier padding predeterminado */
+     position: relative;
+ }
+ 
+ .move-right {
+     margin-left: 20px; /* Ajusta este valor según sea necesario */
+ }
+ 
+ .card-custom {
+     display: flex;
+     flex-direction: row;
+     margin: 20px 0;
+     padding: 20px;
+     border-radius: 10px;
+     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+     width: 100%;
+     max-width: 600px; /* Ancho máximo de las tarjetas */
+     flex-wrap: wrap;
+ }
+ 
+ .image-container img {
+     width: 100%; /* Ajusta el tamaño según sea necesario */
+     max-width: 200px;
+     height: auto;
+     border-radius: 10px;
+ }
+ 
+ .card-body-custom {
+     display: flex;
+     flex-direction: column;
+     justify-content: space-between;
+     padding: 20px;
+     width: 100%;
+ }
+ 
+ .card-footer-custom {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     border-top: 1px solid #ddd;
+     padding-top: 10px;
+ }
+ 
+ .controls {
+     display: flex;
+     align-items: center;
+ }
+ 
+ .controls > * {
+     margin-right: 10px;
+ }
+ 
+ .btn-transparent {
+     background-color: transparent;
+     border: none;
+     color: inherit;
+     font-size: 1.2rem;
+ }
+ 
+ .btn-group {
+     display: flex;
+     align-items: center;
+     border: 1px solid black !important;
+     border-radius: 5px;
+ }
+ 
+ .btn-group span {
+     font-size: 1.2rem;
+     margin: 0 10px;
+ }
+ 
+ .btn-success.custom-btn {
+     background-color: rgb(116, 13, 13);
+     color: white;
+     border: none;
+ }
+ 
+ .btn-success.custom-btn:hover {
+     background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
+     color: white;
+ }
+ 
+ .container-custom {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start; /* Alinear al inicio */
+     width: 100%;
+ }
+ 
+ .price-info {
+     display: flex;
+     flex-direction: column;
+     align-items: flex-end;
+ }
+ 
+ .price-info h6,
+ .price-info p {
+     margin: 0;
+ }
+ 
+ /* Estilos responsivos */
+ @media (max-width: 768px) {
+     .card-custom {
+         flex-direction: column;
+         align-items: center;
+     }
+ 
+     .image-container img {
+         width: 100%;
+         max-width: 100%;
+     }
+ 
+     .card-body-custom {
+         padding: 10px;
+     }
+ 
+     .card-footer-custom {
+         flex-direction: column;
+         align-items: center;
+     }
+ 
+     .controls {
+         flex-direction: column;
+         width: 100%;
+     }
+ 
+     .controls > * {
+         margin-bottom: 10px;
+     }
+ }
+ 
+/* Estilos para el contenedor info1 */
+#info1 {
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    color: white;
-    padding: 20px;
-    background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
+    display: none; /* Oculto por defecto */
+    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
+    width: 40vw; /* Ajusta el ancho según sea necesario */
 }
-
-.header-content h1 {
-    font-size: 3rem;
-    font-weight: bold;
-}
-.header-content p {
-    font-size: 1.5rem;
-}
-  
-.header-section-custom {
-    background-color: white;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-  
-.header-content-custom {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
-}
-  
-.header-content-custom p {
-    margin: 0;
-    padding: 10px 0;
-    color: black;
-}
-  
-.header-content-custom h1 {
-    margin: 0;
-    padding: 10px 0;
-    color: rgb(116, 13, 13);
-}
-  
-.header-content-custom .col {
-    margin-bottom: 20px;
-}
-  
-.barra-blanca {
-    width: 100%;
-    background-color: white;
-    height: 60px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-
-
-.container-fluid {
-    padding: 0; /* Eliminar cualquier padding predeterminado */
-}
-
-.card-custom {
-    display: flex;
-    flex-direction: row;
-    margin: 20px 0;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px; /* Ancho máximo de las tarjetas */
-    flex-wrap: wrap;
-}
-
-.image-container img {
-    width: 100%; /* Ajusta el tamaño según sea necesario */
-    max-width: 200px;
-    height: auto;
-    border-radius: 10px;
-}
-
-.card-body-custom {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 20px;
-    width: 100%;
-}
-
-.card-footer-custom {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #ddd;
-    padding-top: 10px;
-}
-
-.controls {
-    display: flex;
-    align-items: center;
-}
-
-.controls > * {
-    margin-right: 10px;
-}
-
-.btn-transparent {
-    background-color: transparent;
-    border: none;
-    color: inherit;
-    font-size: 1.2rem;
-}
-
-.btn-group {
-    display: flex;
-    align-items: center;
-    border: 1px solid black !important;
-    border-radius: 5px;
-}
-
-.btn-group span {
-    font-size: 1.2rem;
-    margin: 0 10px;
-}
-
-.btn-success.custom-btn {
-    background-color: rgb(116, 13, 13);
-    color: white;
-    border: none;
-}
-
-.btn-success.custom-btn:hover {
-    background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
-    color: white;
-}
-
-.container-custom {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start; /* Alinear al inicio */
-    width: 100%;
-}
-
-.price-info {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-}
-
-.price-info h6,
-.price-info p {
-    margin: 0;
-}
-
-/* Estilos responsivos */
-@media (max-width: 768px) {
-    .card-custom {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .image-container img {
-        width: 100%;
-        max-width: 100%;
-    }
-
-    .card-body-custom {
-        padding: 10px;
-    }
-
-    .card-footer-custom {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .controls {
-        flex-direction: column;
-        width: 100%;
-    }
-
-    .controls > * {
-        margin-bottom: 10px;
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* Estilos personalizados para las tarjetas 
-
-
-
-.card-custom {
-    width: 40%;
-    margin-left: 6%; 
-    margin-top: 10%;
-    padding: 1rem; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-    margin-bottom: 0%;
-    flex-wrap: nowrap;
-}
-
-
-.carousel-inner img {
-    border-radius: 20px;
-    width: 30%; 
-    height: auto; 
-    object-fit: cover; 
-}
-.custom1, .custom2, .custom3 {
-    text-align: center;
-    margin-top: 1rem; 
-    margin-left: 2rem;
-}
-.card-link {
-    color: black;
-}
-.aa {
-    border-radius: 40px;
-    border: 1px solid black;
-    display: inline-block;
-    width: auto; 
-    padding: 0.5rem 1rem; 
-    text-align: center;
-}
-.dropdown {
-    border-radius: 40px;
-    border: 1px solid black;
-    display: inline-block; 
-    width: auto; 
-    margin-top: 1rem; 
-}
-.btn {
-    border-radius: 40px;
-    display: block; 
-    margin: 1rem auto; /* Centrar horizontalmente 
-} 
-
-
-/*PIE DE PAGINA */
-
-
-/*CAROUSEL
-body{
-
-    margin:0;
-    padding: 0;
-    height: 100vh;
-    display: flex;
-    justify-content:center;
-    align-items: center;
-    background-color: #ffff;
-
-}
-
-.slider {
-    width: 40px;
-    height: 30px;
-    border-radius: 10px;
-overflow: hidden;
-
-}
-
-.slides {
-    width: 30%;
-    height: 30px;
-    display: flex;
-}
-
-.slides input {
-    display: none;
-}
-
-.slide {
-    width: 20%;
- transition: 2s;
-}
-
-.slide img {
-    width: 800px;
-    height: 500px;
-
-}
-
-
-.navigation-manual{
-position: absolute;
-width: 40px;
-margin-top: -40px;
-display: flex;
-justify-content: center;
-}
-
-.manual-btn {
-    border: 2px solid #ffff;
-    padding: 5px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: 1s;
-}
-
-.manual-btn:not(:last-child){
-    margin-right: 40px;
-}
-
-.manual-btn:hover {
-    background: #fff;
-}
-
-#radio1:checked ~ .first{
-    margin-left: 0;
-}
-
-#radio2:checked ~ .first{
-    margin-left: -20%;
-}
-
-#radio3:checked ~ .first{
-    margin-left: -40%;
-}
-
-#radio4:checked ~ .first{
-    margin-left: -60%;
-}
-    */
-

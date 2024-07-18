@@ -250,12 +250,11 @@ else {
     </section>
       <!--BARRITA BLANCA-->
       <div class="barra-blanca">
-      <div class="containers">
-        <input type="text" id="date_picker1"> 
-        <input type="text" id="date_picker2">
+        <div class="containers">
+            <input type="text" id="date_picker1"> 
+            <input type="text" id="date_picker2">
+        </div>
     </div>
-
-      </div>
 
 <!-- Tarjetas de habitaciones -->
 
@@ -273,45 +272,43 @@ else {
 </div>
 </div> 
 -->
-        <!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
-        <div id="info1" class="container" >
-        <div class="card card-custom">
-                <div class="card-body">
-                <h5 class="card-title custom1">Resumen de la Reserva</h5>
-                    <h6 class="card-subtitle custom2 mb-2 text-muted"> 12 jul ->  13 jul</h6> <!--ESTAS SON VARIABLES QUE DEBEMOS MOSTRAR SEGUN LAS FECHAS-->
-                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i> <!--SE VAN A MOSTRAR LA CANTIDAD DE NOCHES QUE SE VA A QUEDAR UNA PERSONAS-->
-        </button>
-                
-                    <br><br>
-                    <hr class="mb-4">
-                    <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
-                    <p style="color:gray;"> 2x Tarifa estándar</p> <!--EL 2X ES LA CANTIDAD DE HABITACIONES QUE QUIERE-->
-                    <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    <i class="fa-solid fa-person"> &nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--ADULTO--> 
-        </button>  <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i> <!--NIÑOS-->
-        </button>
-        &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
-        <br><br>
-        <hr class="mb-4">
-        <p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
-        <br><br>
-        <div class="d-grid gap-6 col-10 mx-auto">
-        <button class="btn btn-danger" type="button">Reservar Ahora</button>
-        </div>
-                
-                
-                </div>
+        
+<!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
+<div id="info1" class="container">
+    <div class="card card-custom">
+        <div class="card-body">
+            <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+            </button>
+            <br><br>
+            <hr class="mb-4">
+            <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
+            <p style="color:gray;"> 2x Tarifa estándar</p>
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-person">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
+            </button>
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
+            </button>
+            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
+            <br><br>
+            <hr class="mb-4">
+            <p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
+            <br><br>
+            <div class="d-grid gap-6 col-10 mx-auto">
+                <button class="btn btn-danger" type="button">Reservar Ahora</button>
             </div>
         </div>
+    </div>
+</div>
 
-
-<div class="container-fluid d-flex justify-content-start flex-wrap"> <!-- Usamos container-fluid para ocupar todo el ancho de la pantalla y flex-wrap para que las tarjetas se acomoden -->
-    <div class="container-custom">
+<div class="container-fluid d-flex justify-content-start flex-wrap position-relative">
+    <div class="container-custom move-right">
         <div class="card card-custom">
             <div class="image-container">
-                <img src="https://via.placeholder.com/300x200" alt="Habitación Doble">
+                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
             </div>
             <div class="card-body card-body-custom">
                 <div>
@@ -346,10 +343,12 @@ else {
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="container-custom move-right">
         <div class="card card-custom">
             <div class="image-container">
-                <img src="https://via.placeholder.com/300x200" alt="Habitación Sencilla">
+                <img src="../Imagenes/HABITACION_S.png" alt="Habitación Sencilla">
             </div>
             <div class="card-body card-body-custom">
                 <div>
@@ -384,10 +383,12 @@ else {
                 </div>
             </div>
         </div>
+    </div>
 
+    <div class="container-custom move-right">
         <div class="card card-custom">
             <div class="image-container">
-                <img src="https://via.placeholder.com/300x200" alt="Habitación King Size">
+                <img src="../Imagenes/HABITACION_K.png" alt="Habitación King Size">
             </div>
             <div class="card-body card-body-custom">
                 <div>
@@ -498,6 +499,22 @@ else {
     ////////////////
     })
     </script> 
+
+<script>
+      function mostrar() {
+        var info1 = document.getElementById('info1');
+
+        // Mostrar el contenedor y ajustar su posición
+        info1.style.display = 'block';
+        info1.style.position = 'absolute';
+
+        // Ajusta estas propiedades según tus necesidades
+        info1.style.top = '200px';  // Cambia el valor para ajustar la posición vertical
+        info1.style.left = '100px'; // Cambia el valor para ajustar la posición horizontal
+
+        
+    }
+</script>
   
 </body>
 </html>
