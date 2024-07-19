@@ -102,147 +102,138 @@ else {
     </div>
 </section>
 <br><br>
-<div class="no">
-<p style="margin-bottom: 3%;">
-<p style="color: rgb(116, 13, 13);; font-size: 200%; "     class="col text-center font-weight-bold"><strong>Nuestras Habitaciones</strong></p>
-<p class="col text-center">¡Bienvenido a tu hogar en Torreón! Disfruta de la hospitalidad y el confort en nuestras acogedoras Habitaciones Sencillas o en las espaciosas King Size. <br> Ya sea que viajes por negocios o por placer, queremos que te sientas como en casa</p>
-</p>
-</div> 
 
-<div class="container mt-7">
+<!-- Contenedor principal -->
+<div class="contenedor_cards_tittle">
+  <div class="no">
+    <p style="margin-bottom: 3%;">
+      <p style="color: rgb(116, 13, 13); font-size: 200%;" class="col text-center font-weight-bold"><strong>Nuestras Habitaciones</strong></p>
+      <p class="col text-center">¡Bienvenido a tu hogar en Torreón! Disfruta de la hospitalidad y el confort en nuestras acogedoras Habitaciones Sencillas o en las espaciosas King Size. <br> Ya sea que viajes por negocios o por placer, queremos que te sientas como en casa</p>
+    </p>
+  </div>
+  <div class="container mt-7">
     <br><br>
     <br><br>
-    <div class="row">
-        <div class="col-md-4">
-            <!--CARD 1-->
-            <div class="card card-custom">
-                <div id="carouselExampleAutoplaying1" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal1">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal1">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button"
-                        data-bs-target="#carouselExampleAutoplaying1" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button"
-                        data-bs-target="#carouselExampleAutoplaying1" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <div class="card-body col text-center">
-                    <h5 class="card-title">Habitacion Sencilla</h5>
-                    <p class="card-text">
-                        <br><br>
-                        <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>Aire Acondicionado
-                        <br><br>
-                        <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
-                    </p>
-                    <br><br>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
+    <div class="row justify-content-center">
+      <div class="col-md-4">
+        <!-- CARD 1 -->
+        <div class="card card-custom">
+          <div id="carouselExampleAutoplaying1" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../Imagenes/habitacioon sencilla 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion sencilla 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion sencilla 3.webp" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal1">
+              </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying1" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying1" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="card-body col text-center">
+            <h5 class="card-title">Habitacion Sencilla</h5>
+            <p class="card-text">
+              <br><br>
+              <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>Aire Acondicionado
+              <br><br>
+              <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
+            </p>
             <br><br>
+            <a href="#" class="btn">Reservar</a>
+          </div>
         </div>
-        <!--CARD 2-->
-        <div class="col-md-4">
-            <div class="card card-custom">
-                <div id="carouselExampleAutoplaying2" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal2">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal2">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button"
-                        data-bs-target="#carouselExampleAutoplaying2" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button"
-                        data-bs-target="#carouselExampleAutoplaying2" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <div class="card-body col text-center">
-                    <h5 class="card-title">Habitacion Doble</h5>
-                    <p class="card-text">
-                        <br><br>
-                        <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>&nbsp;Aire Acondicionado
-                        <br><br>
-                        <i class="fa-solid fa-bed img"></i>&nbsp;2 camas&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
-                    </p>
-                    <br><br>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
+        <br><br>
+      </div>
+      <!-- CARD 2 -->
+      <div class="col-md-4">
+        <div class="card card-custom">
+          <div id="carouselExampleAutoplaying2" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../Imagenes/habitacion1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion doble 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion doble 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal2">
+              </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying2" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying2" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="card-body col text-center">
+            <h5 class="card-title">Habitacion Doble</h5>
+            <p class="card-text">
+              <br><br>
+              <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>&nbsp;Aire Acondicionado
+              <br><br>
+              <i class="fa-solid fa-bed img"></i>&nbsp;2 camas&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
+            </p>
             <br><br>
+            <a href="#" class="btn">Reservar</a>
+          </div>
         </div>
-        <div class="col-md-4">
-            <!--CARD 3-->
-            <div class="card card-custom">
-                <div id="carouselExampleAutoplaying3" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-inner">
-                        <div class="carousel-item active">
-                            <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal3">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal3">
-                        </div>
-                        <div class="carousel-item">
-                            <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal"
-                                data-bs-target="#exampleModal3">
-                        </div>
-                    </div>
-                    <button class="carousel-control-prev" type="button"
-                        data-bs-target="#carouselExampleAutoplaying3" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button"
-                        data-bs-target="#carouselExampleAutoplaying3" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-                <div class="card-body col text-center">
-                    <h5 class="card-title">Habitacion King Size</h5>
-                    <p class="card-text">
-                        <br><br>
-                        <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>&nbsp;Aire Acondicionado
-                        <br><br>
-                        <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
-                    </p>
-                    <br><br>
-                    <a href="#" class="btn">Reservar</a>
-                </div>
+        <br><br>
+      </div>
+      <div class="col-md-4">
+        <!-- CARD 3 -->
+        <div class="card card-custom">
+          <div id="carouselExampleAutoplaying3" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="../Imagenes/habitacion king size 1.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal3">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion king size 2.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal3">
+              </div>
+              <div class="carousel-item">
+                <img src="../Imagenes/habitacion king size 3.avif" class="d-block w-100" alt="..." data-bs-toggle="modal" data-bs-target="#exampleModal3">
+              </div>
             </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying3" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying3" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+          <div class="card-body col text-center">
+            <h5 class="card-title">Habitacion King Size</h5>
+            <p class="card-text">
+              <br><br>
+              <i class="fa-solid fa-wifi img"></i>&nbsp;Wifi Gratuito &nbsp;&nbsp;&nbsp;<i class="fa-solid fa-wind img"></i>&nbsp;Aire Acondicionado
+              <br><br>
+              <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
+            </p>
+            <br><br>
+            <a href="#" class="btn">Reservar</a>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </div>
+
+
+
 <br><br>
 <hr class="mb-4">
     <!--AMENIDADES -->
