@@ -74,14 +74,12 @@ class Database
             {
                 session_start();
                 $_SESSION["usuario"]= $usuario;
-                echo "<div class='alert alert-success'>";
-                echo "<h2 align='center'>BIENVENIDO ".$_SESSION['usuario']."</h2></div>";
                 
                 $consulta = "select ROLES.nombre
                 from ROLES
                 inner join ROL_USUARIO on ROLES.id_rol=ROL_USUARIO.rol
                 inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario
-                where .nombre_usuario='$usuario'";
+                where USUARIOS.nombre_usuario='$usuario'";
                 $resultado=$this->PDOLocal->query($consulta);
                 $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
 
@@ -89,23 +87,19 @@ class Database
                 {
                     switch ($reg->nombre) {
                         case 'usuario':
-                            echo"eres usuario";
                             header("refresh:1;../index.php");
                         break;
                         case 'recepcionista':
-                            echo"eres recepcionista";
                             header("refresh:1;../Views/Panel_Recepcionista.php");
                         break;
                         case 'administrador':
-                            echo"eres admin";
+                            header("refresh:1;../Views/Panel_Admin.php");
                         break;
                     }
                 }
             }
             else
             {
-                echo "<div class='alert alert-danger'>";
-                echo "<h2 align='center'>USUARIO INCORRECTO</h2></div>";
                 header("Location=../Views/Iniciar_sesion.php");
             }
 

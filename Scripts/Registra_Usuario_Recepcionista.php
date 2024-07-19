@@ -21,7 +21,17 @@
 
             $db->ejecuta($cadena);
             
-            echo "<div class='alert alert-success'>Tu usuario a sido registrado</div>";
+            echo "<div class='contenedor mx-auto opacity-75'>
+            <div class='confirm'>
+              <svg class='confirm__progress'>
+                <circle class='confirm__value' cx='50%' cy='50%' r='54' />
+              </svg>
+              <div class='confirm__inner'></div>
+            </div>
+            <div class='contenedorxd' style='box-shadow: black;'>
+              <h1>¡REGISTRO EXITOSO!</h1>
+          </div>
+        </div>";
             header("refresh:1;../Views/Login.php");
         ?>
 </div>
