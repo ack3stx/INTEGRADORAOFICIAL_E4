@@ -87,13 +87,13 @@ class Database
                 {
                     switch ($reg->nombre) {
                         case 'usuario':
-                            header("refresh:1;../index.php");
+                            header("Location:../index.php");
                         break;
                         case 'recepcionista':
-                            header("refresh:1;../Views/Panel_Recepcionista.php");
+                            header("Location:../Views/Panel_Recepcionista.php");
                         break;
                         case 'administrador':
-                            header("refresh:1;../Views/Panel_Admin.php");
+                            header("Location:../Views/Panel_Admin.php");
                         break;
                     }
                 }
