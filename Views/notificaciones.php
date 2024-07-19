@@ -44,8 +44,27 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="busqueda_empleados.php">
+              <i class="fas fa-bed"></i> Personal
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reportes_hotel.php">
+              <i class="fas fa-bed"></i> Hotel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_facturacion.php">
+              <i class="fas fa-bed"></i> Facturacion
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
-              <i class="fas fa-bed"></i> Notificaciones
+            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+    <span class="visually-hidden"></span>
+  </span>
+</button>
             </a>
           </li>
         </ul>
