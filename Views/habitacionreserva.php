@@ -21,6 +21,7 @@ session_start();
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
     <title>Habitacion Rserva</title>
 </head>
 <style>
@@ -466,39 +467,60 @@ else {
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="../Js/habireserva.js"  ></script>
-    
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
-<script>
+    <script>
     $(document).ready(function() {
-    ///////
-    var startDate;
-    var endDate;
-     $( "#date_picker1" ).datepicker({
-    dateFormat: 'dd-mm-yy'
-    })
-    ///////
-    ///////
-     $( "#date_picker2" ).datepicker({
-    dateFormat: 'dd-mm-yy'
+        var startDate;
+        var endDate;
+        var diaactual = new Date();
+        var añoactual = diaactual.getFullYear();
+        var ultimo = new Date(añoactual, 12, 31);
+
+        $("#date_picker1").datepicker({
+            dateFormat: 'dd-mm-yy',
+            minDate: diaactual,
+            maxDate: ultimo,
+            yearRange: añoactual + ':' + añoactual,
+            beforeShowDay: checar
+        });
+
+        $("#date_picker2").datepicker({
+            dateFormat: 'dd-mm-yy',
+            minDate: diaactual,
+            maxDate: ultimo,
+            yearRange: añoactual + ':' + añoactual,
+            beforeShowDay: checar
+        });
+
+        $('#date_picker1').change(function() {
+            startDate = $(this).datepicker('getDate');
+            $("#date_picker2").datepicker("option", "minDate", startDate);
+        });
+
+        $('#date_picker2').change(function() {
+            endDate = $(this).datepicker('getDate');
+            $("#date_picker1").datepicker("option", "maxDate", endDate);
+        });
+
+        function checar(date) {
+            var fecha = new Date(date);
+            if (!startDate) {
+                return [true, "av", "Disponible"];
+            }
+            var primerafecha = new Date(startDate).toDateString();
+            var fechadehoy = fecha.toDateString();
+
+            if (fechadehoy === primerafecha) {
+                return [false, "notav", "No Disponible"];
+            } else {
+                return [true, "av", "Disponible"];
+            }
+        }
     });
-    ///////
-    $('#date_picker1').change(function() {
-    startDate = $(this).datepicker('getDate');
-    $("#date_picker2").datepicker("option", "minDate", startDate );
-    })
-    
-    ///////
-    $('#date_picker2').change(function() {
-    endDate = $(this).datepicker('getDate');
-    $("#date_picker1").datepicker("option", "maxDate", endDate );
-    })
-    ////////////////
-    })
-    </script> 
+    </script>
 
 <script>
       function mostrar() {

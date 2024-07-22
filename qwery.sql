@@ -1,139 +1,139 @@
 CREATE DATABASE INTEGRADORA_ROL_USUARIOSv2;
 USE INTEGRADORA_ROL_USUARIOSv2;
-CREATE TABLE Roles (
-    id_rol INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(50)
+CREATE TABLE ROLES (
+    ID_ROL INT PRIMARY KEY AUTO_INCREMENT,
+    NOMBRE VARCHAR(50)
 );
 
-CREATE TABLE Usuarios (
-    id_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    nombre_usuario VARCHAR(30) UNIQUE,
+CREATE TABLE USUARIOS (
+    ID_USUARIO INT PRIMARY KEY AUTO_INCREMENT,
+    NOMBRE_USUARIO VARCHAR(30) UNIQUE,
     password text,
-    correo VARCHAR(40) UNIQUE
+    CORREO VARCHAR(40) UNIQUE
 );
 
 CREATE TABLE ROL_USUARIO (
-    id_rol_usuario INT PRIMARY KEY AUTO_INCREMENT,
-    rol INT,
-    usuario INT,
-    CONSTRAINT fk_rol_usuario_usuario FOREIGN KEY (usuario) REFERENCES Usuarios(id_usuario),
-    CONSTRAINT fk_rol_usuario_rol FOREIGN KEY (rol) REFERENCES Roles(id_rol)
+    ID_ROL_USUARIO INT PRIMARY KEY AUTO_INCREMENT,
+    ROL INT,
+    USUARIO INT,
+    CONSTRAINT fk_rol_usuario_usuario FOREIGN KEY (USUARIO) REFERENCES USUARIOS(ID_USUARIO),
+    CONSTRAINT fk_rol_usuario_rol FOREIGN KEY (ROL) REFERENCES ROLES(ID_ROL)
 );
 
-CREATE TABLE Persona (
-    id_persona INT PRIMARY KEY AUTO_INCREMENT,
-    Nombre VARCHAR(30),
-    Apellido_paterno VARCHAR(30),
-    apellido_materno VARCHAR(30),
-    Fecha_de_Nacimiento DATE,
-    direccion VARCHAR(100),
-    ciudad VARCHAR(50),
-    estado VARCHAR(50),
-    codigo_postal VARCHAR(10),
-    pais VARCHAR(50),
-    Genero CHAR(1),
-    Numero_De_Telefono CHAR(10) UNIQUE,
-    usuario INT,
+CREATE TABLE PERSONA (
+    ID_PERSONA INT PRIMARY KEY AUTO_INCREMENT,
+    NOMBRE VARCHAR(30),
+    APELLIDO_PATERNO VARCHAR(30),
+    APELLIDO_MATERNO VARCHAR(30),
+    FECHA_DE_NACIMIENTO DATE,
+    DIRECCION VARCHAR(100),
+    CIUDAD VARCHAR(50),
+    ESTADO VARCHAR(50),
+    CODIGO_POSTAL VARCHAR(10),
+    PAIS VARCHAR(50),
+    GENERO CHAR(1),
+    NUMERO_DE_TELEFONO CHAR(10) UNIQUE,
+    USUARIO INT,
 
-    CONSTRAINT fk_persona_usuario FOREIGN KEY (usuario) REFERENCES Usuarios(id_usuario)
+    CONSTRAINT fk_persona_usuario FOREIGN KEY (USUARIO) REFERENCES USUARIOS (ID_USUARIO)
 );
 
-CREATE TABLE Recepcionista (
-    id_recepcionista INT PRIMARY KEY AUTO_INCREMENT,
-    curp VARCHAR(18) UNIQUE,
-    fecha_de_contratacion DATE,
-    Numero_de_Seguridad_social VARCHAR(20),
-    Afore VARCHAR(30),
-    Numero_De_Emergencia CHAR(10),
-    persona_recepcionista INT,
-    CONSTRAINT fk_recepcionista_persona FOREIGN KEY (persona_recepcionista) REFERENCES Persona(id_persona)
+CREATE TABLE RECEPCIONISTA (
+    ID_RECEPCIONISTA INT PRIMARY KEY AUTO_INCREMENT,
+    CURP VARCHAR(18) UNIQUE,
+    FECHA_DE_CONTRATACION DATE,
+    NUMERO_DE_SEGURIDAD_SOCIAL VARCHAR(20),
+    AFORE VARCHAR(30),
+    NUMERO_DE_EMERGENCIA CHAR(10),
+    PERSONA_RECEPCIONISTA INT,
+    CONSTRAINT fk_recepcionista_persona FOREIGN KEY (PERSONA_RECEPCIONISTA ) REFERENCES PERSONA (ID_PERSONA)
 );
 
 
-CREATE TABLE Huesped (
-id_huesped INT PRIMARY KEY AUTO_INCREMENT,
-persona_huesped INT,
- CONSTRAINT fk_huesped_persona FOREIGN KEY (persona_huesped) REFERENCES Persona(id_persona)
+CREATE TABLE HUESPED (
+ID_HUESPED INT PRIMARY KEY AUTO_INCREMENT,
+PERSONA_HUESPED INT,
+ CONSTRAINT fk_huesped_persona FOREIGN KEY (PERSONA_HUESPED) REFERENCES PERSONA (ID_PERSONA)
 );
 
-CREATE TABLE Reservacion (
-    id_reservacion INT PRIMARY KEY AUTO_INCREMENT,
-    huesped INT,
-    recepcionista INT NULL,
-    fecha_ DATETIME,
-    estado_reservacion VARCHAR(15),
-    CHECK (estado_reservacion IN ('cancelada', 'finalizada','activa','pendiente')),
-    CONSTRAINT fk_reservacion_huesped FOREIGN KEY (huesped) REFERENCES Huesped(id_huesped),
-    CONSTRAINT fk_reservacion_recepcionista FOREIGN KEY (recepcionista) REFERENCES Recepcionista(id_recepcionista)
+CREATE TABLE RESERVACION (
+    ID_RESERVACION INT PRIMARY KEY AUTO_INCREMENT,
+    HUESPED INT,
+    RECEPCIONISTA INT NULL,
+    FECHA_ DATETIME,
+    ESTADO_RESERVACION VARCHAR(15),
+    CHECK (ESTADO_RESERVACION  IN ('cancelada', 'finalizada','activa','pendiente')),
+    CONSTRAINT fk_reservacion_huesped FOREIGN KEY (HUESPED) REFERENCES HUESPED(ID_HUESPED),
+    CONSTRAINT fk_reservacion_recepcionista FOREIGN KEY (RECEPCIONISTA) REFERENCES RECEPCIONISTA(ID_RECEPCIONISTA)
 );
 
-CREATE TABLE t_habitacion (
-    id_tipo_habitacion INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(25),
-    descripcion TEXT,
-    precio DECIMAL(10,2),
-    cantidad_max_adultos INT,
-    cantidad_max_niños INT,
-     imagen TEXT null
+CREATE TABLE T_HABITACION (
+    ID_TIPO_HABITACION INT PRIMARY KEY AUTO_INCREMENT,
+    NOMBRE VARCHAR(25),
+    DESCRIPCION TEXT,
+    PRECIO DECIMAL(10,2),
+    CANTIDAD_MAX_ADULTOS INT,
+    CANTIDAD_MAX_NIÑOS INT,
+    IMAGEN TEXT null
 );
 
-CREATE TABLE Habitacion (
-    id_habitacion INT PRIMARY KEY AUTO_INCREMENT,
-    num_habitacion INT,
-    piso INT,
-    estado_habitacion VARCHAR(15),
-    tipo_habitacion INT,
-    CHECK (estado_habitacion IN ('ocupada', 'disponible', 'mantenimiento')),
-    CONSTRAINT fk_habitacion_tipo_habitacion FOREIGN KEY (tipo_habitacion) REFERENCES t_habitacion(id_tipo_habitacion)
+CREATE TABLE HABITACION (
+    ID_HABITACION INT PRIMARY KEY AUTO_INCREMENT,
+    NUM_HABITACION INT,
+    PISO INT,
+    ESTADO_HABITACION VARCHAR(15),
+    TIPO_HABITACION INT,
+    CHECK (ESTADO_HABITACION IN ('ocupada', 'disponible', 'mantenimiento')),
+    CONSTRAINT fk_habitacion_tipo_habitacion FOREIGN KEY (TIPO_HABITACION ) REFERENCES T_HABITACION (ID_TIPO_HABITACION)
 );
 
-CREATE TABLE detalle_reservacion (
-    id_detalle_reservacion INT PRIMARY KEY AUTO_INCREMENT,
-    fecha_inicio DATETIME,
-    fecha_fin DATETIME,
-	titular_habitacion varchar(60),
-    reservacion INT,
-    habitacion INT,
-    cantidad_niños int,
-    cantidad_adultos int,
-    CONSTRAINT fk_detalle_reservacion_reservacion FOREIGN KEY (reservacion) REFERENCES Reservacion(id_reservacion),
-    CONSTRAINT fk_detalle_reservacion_habitacion FOREIGN KEY (habitacion) REFERENCES Habitacion(id_habitacion)
+CREATE TABLE DETALLE_RESERVACION (
+    ID_DETALLE_RESRVACION INT PRIMARY KEY AUTO_INCREMENT,
+    FECHA_INICIO DATETIME,
+    FECHA_FIN DATETIME,
+	TITULAR_HABITACION varchar(60),
+    RESERVACION INT,
+    HABITACION INT,
+    CANTIDAD_NIÑOS int,
+    CANTIDAD_ADULTOS int,
+    CONSTRAINT fk_detalle_reservacion_reservacion FOREIGN KEY (RESERVACION) REFERENCES RESERVACION(ID_RESERVACION),
+    CONSTRAINT fk_detalle_reservacion_habitacion FOREIGN KEY (HABITACION) REFERENCES HABITACION(ID_HABITACION)
 );
 
-CREATE TABLE detalle_pago (
-    id_detalle_pago INT PRIMARY KEY AUTO_INCREMENT,
-    reservacion INT,
-    metodo_pago ENUM ('efectivo', 'tarjeta', 'transferencia'),
-    monto_total DECIMAL(8,2),
-    CONSTRAINT fk_detalle_pago_reservacion FOREIGN KEY (reservacion) REFERENCES Reservacion(id_reservacion)
+CREATE TABLE DETALLE_PAGO (
+    ID_DETALLE_PAGO INT PRIMARY KEY AUTO_INCREMENT,
+    RESERVACION INT,
+    METODO_PAGO ENUM ('efectivo', 'tarjeta', 'transferencia'),
+    MONTO_TOTAL DECIMAL(8,2),
+    CONSTRAINT fk_detalle_pago_reservacion FOREIGN KEY (RESERVACION) REFERENCES RESERVACION(ID_RESERVACION)
 );
 
-CREATE TABLE facturacion (
-    id_facturacion INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(25),
-    apellido_paterno VARCHAR(25),
-    apellido_materno VARCHAR(25),
-    rfc VARCHAR(18),
-    direccion VARCHAR(50),
-    detalle_pago INT,
-    CONSTRAINT fk_facturacion_detalle_pago FOREIGN KEY (detalle_pago) REFERENCES detalle_pago(id_detalle_pago)
+CREATE TABLE DATOS_FACTURACION (
+    ID_FACTURACION INT PRIMARY KEY AUTO_INCREMENT,
+    NOMBRE VARCHAR(25),
+    APELLIDO_PATERNO VARCHAR(25),
+    APELLIDO_MATERNO VARCHAR(25),
+    RFC VARCHAR(18),
+    DIRECCION VARCHAR(50),
+    DETALLE_PAGO INT,
+    CONSTRAINT fk_facturacion_detalle_pago FOREIGN KEY (DETALLE_PAGO) REFERENCES DETALLE_PAGO(ID_DETALLE_PAGOo)
 );
 
-ALTER TABLE Roles AUTO_INCREMENT = 1;
-ALTER TABLE Usuarios AUTO_INCREMENT = 1;
+ALTER TABLE ROLES AUTO_INCREMENT = 1;
+ALTER TABLE USUARIOS AUTO_INCREMENT = 1;
 ALTER TABLE ROL_USUARIO AUTO_INCREMENT = 1;
-ALTER TABLE persona AUTO_INCREMENT = 1;
-ALTER TABLE Recepcionista AUTO_INCREMENT = 1;
-ALTER TABLE Huesped AUTO_INCREMENT = 1;
-ALTER TABLE Reservacion AUTO_INCREMENT = 1;
-ALTER TABLE t_habitacion AUTO_INCREMENT = 1;
-ALTER TABLE Habitacion AUTO_INCREMENT = 1;
-ALTER TABLE detalle_reservacion AUTO_INCREMENT = 1;
-ALTER TABLE detalle_pago AUTO_INCREMENT = 1;
-ALTER TABLE facturacion AUTO_INCREMENT = 1;
+ALTER TABLE PERSONA AUTO_INCREMENT = 1;
+ALTER TABLE RECEPCIONISTA AUTO_INCREMENT = 1;
+ALTER TABLE HUESPED AUTO_INCREMENT = 1;
+ALTER TABLE RESERVACION AUTO_INCREMENT = 1;
+ALTER TABLE T_HABITACION AUTO_INCREMENT = 1;
+ALTER TABLE HABITACION AUTO_INCREMENT = 1;
+ALTER TABLE DETALLE_RESERVACION AUTO_INCREMENT = 1;
+ALTER TABLE DETALLE_PAGO AUTO_INCREMENT = 1;
+ALTER TABLE DATOS_FACTURACION AUTO_INCREMENT = 1;
 
 
-INSERT INTO roles (nombre) VALUES
+INSERT INTO ROLES (nombre) VALUES
 ('usuario'),
 ('recepcionista'),
 ('administrador');
@@ -143,7 +143,7 @@ INSERT INTO roles (nombre) VALUES
 
 
 
-INSERT INTO Usuarios (nombre_usuario, password, correo) VALUES
+INSERT INTO USUARIOS (nombre_usuario, password, correo) VALUES
 ('johndoe', 'password123', 'johndoe@example.com'),
 ('janedoe', 'securepass', 'janedoe@example.com'),
 ('michaelb', 'mypassword', 'michaelb@example.com'),
@@ -283,7 +283,7 @@ INSERT INTO ROL_USUARIO (rol, usuario) VALUES
 
 
 
-INSERT INTO Persona (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento, direccion, ciudad, estado, codigo_postal, pais, Genero, Numero_De_Telefono, usuario) VALUES
+INSERT INTO PERSONA (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento, direccion, ciudad, estado, codigo_postal, pais, Genero, Numero_De_Telefono, usuario) VALUES
 ('Juan', 'Perez', 'Lopez', '1990-01-01', 'Calle Falsa 123', 'Ciudad de México', 'CDMX', '01000', 'México', 'M', '5551234567', 1),
 ('Maria', 'Garcia', 'Hernandez', '1985-05-15', 'Avenida Siempre Viva 456', 'Guadalajara', 'Jalisco', '44100', 'México', 'F', '3331234567', 2),
 ('Pedro', 'Martinez', 'Rodriguez', '1978-07-23', 'Calle Olmo 789', 'Monterrey', 'Nuevo León', '64000', 'México', 'M', '8181234567', 3),
@@ -361,13 +361,13 @@ INSERT INTO Persona (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimi
 
 
 
-INSERT INTO Recepcionista (curp,fecha_de_contratacion, Numero_de_Seguridad_social, Afore, Numero_De_Emergencia, persona_recepcionista) VALUES
+INSERT INTO RECEPCIONISTA (curp,fecha_de_contratacion, Numero_de_Seguridad_social, Afore, Numero_De_Emergencia, persona_recepcionista) VALUES
 ('PEPJ900101HDFLNL00','2020-01-10', '12345678901234567890', 'Afore1', '5551234567', 49),
 ('GARM850515MDFNRR00','2019-05-15', '23456789012345678901', 'Afore2', '5552345678', 50),
 ('MARP780723HDFBRD00','2018-07-23', '34567890123456789012', 'Afore3', '5553456789', 51),
 ('FERG920730MDFNDL00','2021-11-30', '45678901234567890123', 'Afore4', '5554567890', 52);
 
-INSERT INTO Huesped (persona_huesped) values 
+INSERT INTO HUESPED (persona_huesped) values 
 ('1'),('2'),('3'),('4'),('5'),('6'),('7'),
 ('8'),('9'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),
 ('17'),('18'),('19'),('20'),('21'),('22'),('23'),('24'),('25'),('26'),
@@ -396,7 +396,7 @@ INSERT INTO Huesped (persona_huesped) values
 
 
 
-INSERT INTO Reservacion (huesped, fecha_, estado_reservacion) VALUES
+INSERT INTO RESERVACION (huesped, fecha_, estado_reservacion) VALUES
 (1,'2022-01-01 14:00:00', 'cancelada'),
 (2,'2022-01-11 01:30:00', 'cancelada'),
 (3,'2022-02-01 12:30:00', 'cancelada'),
@@ -495,7 +495,7 @@ INSERT INTO Reservacion (huesped, fecha_, estado_reservacion) VALUES
 (48, '2024-07-05 13:00:00', 'activa');
 
 
-INSERT INTO Reservacion (huesped, recepcionista, fecha_, estado_reservacion) VALUES
+INSERT INTO RESERVACION (huesped, recepcionista, fecha_, estado_reservacion) VALUES
 (49, 1, '2024-07-05 09:30:00', 'cancelada'),
 (50, 2, '2024-07-06 10:15:00', 'cancelada'),
 (51, 3, '2024-07-06 09:45:00', 'cancelada'),
@@ -521,14 +521,14 @@ INSERT INTO Reservacion (huesped, recepcionista, fecha_, estado_reservacion) VAL
 
 
 
-INSERT INTO t_habitacion (nombre, descripcion, precio, cantidad_max_adultos, cantidad_max_niños,imagen) VALUES
+INSERT INTO T_HABITACION (nombre, descripcion, precio, cantidad_max_adultos, cantidad_max_niños,imagen) VALUES
 ('Doble', 'Habitación doble con dos camas matrimoniales, ideal para familias pequeñas.', 900.00, 4,2,''),
 ('King Size', 'Habitación con una cama King Size, perfecta para parejas que buscan confort.', 1200.00, 2, 1,''),
 ('Sencilla', 'Habitación individual con una cama matrimonial, ideal para viajeros solitarios.', 700.00, 2, 1,'');
 
 
 
-INSERT INTO Habitacion (num_habitacion, piso, estado_habitacion, tipo_habitacion) VALUES
+INSERT INTO HABITACION (num_habitacion, piso, estado_habitacion, tipo_habitacion) VALUES
 (101, 1, 'disponible', 1),
 (102, 1, 'disponible', 1),
 (103, 1, 'disponible', 1),
@@ -560,7 +560,7 @@ INSERT INTO Habitacion (num_habitacion, piso, estado_habitacion, tipo_habitacion
 (303, 2, 'disponible', 3);
 
 --
-INSERT INTO detalle_reservacion (fecha_inicio, fecha_fin, titular_habitacion, reservacion, habitacion, cantidad_niños, cantidad_adultos) VALUES
+INSERT INTO DETALLE_RESERVACION (fecha_inicio, fecha_fin, titular_habitacion, reservacion, habitacion, cantidad_niños, cantidad_adultos) VALUES
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00','Juan Perez Lopez', 1, 1, 1, 2),
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00', 'Emiliano diaz fuentes',1, 2, 1, 2),
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00', 'juan manuel estrada',1, 3, 1, 2),
@@ -879,7 +879,7 @@ INSERT INTO detalle_reservacion (fecha_inicio, fecha_fin, titular_habitacion, re
 --
 
 
- INSERT INTO detalle_pago (reservacion, metodo_pago, monto_total) VALUES
+ INSERT INTO DETALLE_PAGO (reservacion, metodo_pago, monto_total) VALUES
 (1, 'tarjeta', 10800.00),
 (2, 'efectivo', 10800.00),
 (3, 'transferencia', 8100.00),
@@ -999,7 +999,7 @@ INSERT INTO detalle_reservacion (fecha_inicio, fecha_fin, titular_habitacion, re
 
 
 
-INSERT INTO facturacion (nombre, apellido_paterno, apellido_materno, rfc, direccion, detalle_pago) VALUES
+INSERT INTO DATOS_FACTURACION (nombre, apellido_paterno, apellido_materno, rfc, direccion, detalle_pago) VALUES
 ('Juan', 'Perez', 'Lopez', 'PERJ900101XXX', 'Calle Falsa 123', 1),
 ('Maria', 'Garcia', 'Hernandez', 'GAHM850515XXX', 'Avenida Siempre Viva 456', 2),
 ('Pedro', 'Martinez', 'Rodriguez', 'MARP780723XXX', 'Calle Olmo 789', 3),

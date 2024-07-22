@@ -81,7 +81,7 @@ class Database
                 from ROLES
                 inner join ROL_USUARIO on ROLES.id_rol=ROL_USUARIO.rol
                 inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario
-                where .nombre_usuario='$usuario'";
+                where USUARIOS.nombre_usuario='$usuario'";
                 $resultado=$this->PDOLocal->query($consulta);
                 $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
 
