@@ -97,6 +97,12 @@
       $conexion = new Database();
       $conexion->conectarDB();
       extract($_POST);
+      if(empty($numero) && empty($fecha1) && empty($fecha2))
+      {
+
+      }
+      else
+      {
         if (empty($numero)) {
           $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
           FROM usuarios
@@ -144,7 +150,7 @@
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-        
+      }
         $conexion->desconectarBD();
       
     ?>
