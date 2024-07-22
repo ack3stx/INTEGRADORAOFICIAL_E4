@@ -18,7 +18,9 @@
             $hash = password_hash($contra,PASSWORD_DEFAULT);
 
             $cadena = "CALL RegistrarUsuarioRecepcionista('$usuario','$hash','$correo');";
+            $db->ejecuta($cadena);
 
+            $cadena = "CALL Registrarrecepcionistapersona('$nombre', '$ap_paterno', '$ap_materno', '$f_nac', '$direccion', '$ciudad', '$estado', '$cd_postal', '$pais', '$genero', '$telefono','$curp', '$f_cont', '$nss', '$afore', '$num2');";
             $db->ejecuta($cadena);
             
             echo "<div class='contenedor mx-auto opacity-75'>
