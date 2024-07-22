@@ -105,6 +105,13 @@
     extract($_POST);
     if($_POST)
     {
+
+      if(empty($numero) && empty($fecha1) && empty($fecha2))
+      {
+
+      }
+      else
+      {
       if (empty($numero))
       {
         $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
@@ -154,6 +161,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
             }
             echo "</tbody>";
             echo "</table>";
+          }
             $conexion->desconectarBD();
 
     }
