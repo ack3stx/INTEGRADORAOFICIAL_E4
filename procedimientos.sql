@@ -50,21 +50,25 @@ DELIMITER ;
 
 -- Estre procedimiento toma los datos de nuestro usuario para poder darle de alta dentro de la aplicacion web con su respectivo rol
 DELIMITER //
-
 CREATE PROCEDURE RegistrarUsuarioHuesped(
-IN nombre_usuario VARCHAR(30), 
-IN n_password text,
-IN correo VARCHAR(40))
+    IN nombre_usuario VARCHAR(30),
+    IN n_password TEXT,
+    IN correo VARCHAR(40)
+)
 BEGIN
-DECLARE usuario_id INT;
-DECLARE rol_huesped INT DEFAULT 1; 
-INSERT INTO Usuarios(nombre_usuario, password, correo)VALUES (nombre_usuario, n_password, correo);
-SET usuario_id = LAST_INSERT_ID();
-INSERT INTO ROL_USUARIO(rol, usuario)
-VALUES (rol_huesped, usuario_id);
+    DECLARE usuario_id INT;
+    DECLARE rol_huesped INT DEFAULT 1;
+    INSERT INTO USUARIOS (nombre_usuario, password, correo)
+    VALUES (nombre_usuario, n_password, correo);
+    SET usuario_id = LAST_INSERT_ID();
+    INSERT INTO ROL_USUARIO (rol, usuario)
+    VALUES (rol_huesped, usuario_id);
 END //
+
 DELIMITER ;
+
  CALL RegistrarUsuarioHuesped('gaelenlinea','contraseña','holamundos1@gmail.com');
+
 
  ----------------------------------------------------------------------------------------------------------------------------
 
@@ -88,3 +92,69 @@ delimiter ;
 CALL Consultar_Informacion_Facturacion ('23');
 
 --------------------------------------------------------------------------------------------------------------------
+
+--PROCEDIMIENTO PARA DAR DE ALTA EL USUARIO DEL RECCEPCIONISTA YA CON SU ROL DE RECEPCIONISTA
+
+DELIMITER //
+CREATE PROCEDURE RegistrarUsuarioRecepcionista(
+IN nombre_usuario VARCHAR(30),
+IN n_password text,
+IN correo VARCHAR(40)
+)
+BEGIN
+DECLARE usuario_id INT;
+DECLARE rol_recepcionista INT DEFAULT 2;
+INSERT INTO USUARIOS(nombre_usuario, password, correo)
+VALUES (nombre_usuario, n_password, correo);
+SET usuario_id = LAST_INSERT_ID();
+INSERT INTO ROL_USUARIO(rol, usuario)
+VALUES (rol_recepcionista, usuario_id);
+END //
+DELIMITER ;
+CALL RegistrarUsuarioRecepcionista('examplessss','11223344','holassss@gmail.com');
+
+----------------------------------------------------------------------------------------------------
+
+--PROCEDIMIENTO PARA DAR DE ALTA LA INFORMACION COMPLETA DEL RECEPCIONISTA
+
+
+DELIMITER //
+
+CREATE PROCEDURE Registrarrecepcionistapersona(
+IN nombre VARCHAR(30),
+IN apellido_paterno VARCHAR(30),
+IN apellido_materno VARCHAR(30),
+IN fecha_nacimiento DATE,
+IN direccion VARCHAR(100),
+IN ciudad VARCHAR(50),
+IN estado VARCHAR(50),
+IN codigo_postal VARCHAR(10),
+IN pais VARCHAR(50),
+IN genero CHAR(1),
+IN numero_telefono CHAR(10),
+IN curp VARCHAR(18),
+IN fecha_de_contratacion DATE,
+IN Numero_de_Seguridad_social VARCHAR(20),
+IN Afore VARCHAR(30),
+IN Numero_De_Emergencia CHAR(10)
+)
+BEGIN
+DECLARE persona_id INT;
+DECLARE usuario_id INT;
+SELECT MAX(id_usuario) INTO usuario_id FROM USUARIOS;
+INSERT INTO PERSONA (
+Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento,
+direccion, ciudad, estado, codigo_postal, pais, Genero,
+Numero_De_Telefono, usuario) 
+VALUES (nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
+direccion, ciudad, estado, codigo_postal, pais, genero,
+numero_telefono, usuario_id);
+SET persona_id = LAST_INSERT_ID();
+INSERT INTO RECEPCIONISTA (
+curp, fecha_de_contratacion, Numero_de_Seguridad_social, Afore,
+Numero_De_Emergencia, persona_recepcionista) VALUES (
+curp, fecha_de_contratacion, Numero_de_Seguridad_social, Afore,
+Numero_De_Emergencia, persona_id);
+END //
+
+DELIMITER ;
