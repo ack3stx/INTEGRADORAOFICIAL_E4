@@ -4,6 +4,89 @@ session_start();
 
 
 ?>
+<?php
+
+session_start();
+
+?>
+
+<?php
+
+function renderDropdownItems($items) {
+    foreach ($items as $value => $label) {
+        echo '<li><a class="dropdown-item" href="#" data-value="' . $value . '">' . $label . '</a></li>';
+    }
+}
+
+$dobleAdultOptions = [
+    1 => '1 Adulto',
+    2 => '2 Adultos',
+    3 => '3 Adultos',
+    4 => '4 Adultos'
+];
+
+$dobleKidOptions = [
+    1 => '1 Niño',
+    2 => '2 Niños',
+    3 => '3 Niños'
+];
+
+$kingSizeAdultOptions = [
+    1 => '1 Adulto',
+    2 => '2 Adultos'
+];
+
+$kingSizeKidOptions = [
+    1 => '1 Niño',
+    2 => '2 Niños'
+];
+
+$sencillaAdultOptions = [
+    1 => '1 Adulto',
+    2 => '2 Adultos'
+];
+
+$sencillaKidOptions = [
+    1 => '1 Niño'
+];
+
+function getMaxKidsForDoble($adultsValue) {
+    switch ($adultsValue) {
+        case 1:
+            return 3;
+        case 2:
+            return 2;
+        case 3:
+            return 1;
+        case 4:
+            return 0;
+        default:
+            return 0;
+    }
+}
+
+function getMaxKidsForKingSize($adultsValue) {
+    switch ($adultsValue) {
+        case 1:
+            return 2;
+        case 2:
+            return 1;
+        default:
+            return 0;
+    }
+}
+
+function getMaxKidsForSencilla($adultsValue) {
+    switch ($adultsValue) {
+        case 1:
+            return 1;
+        case 2:
+            return 0;
+        default:
+            return 0;
+    }
+}
+?>
 
 
 
@@ -274,8 +357,149 @@ else {
 </div> 
 -->
         
-<!--DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR-->
-<div id="info1" class="container">
+<div class="container-fluid d-flex justify-content-start flex-wrap position-relative">
+        <!-- Habitación Doble -->
+        <div class="container-custom move-right" data-room-type="doble">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
+                </div>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación Doble</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                        <a class="card-link">Ver detalles</a>
+                    </div>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 1290.00</h6>
+                            <p>1 noche</p>
+                        </div>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="doble-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="doble-adults">
+                                    <?php renderDropdownItems($dobleAdultOptions); ?>
+                                </ul>
+
+                                <button class="btn dropdown-toggle" type="button" id="doble-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="doble-kids">
+                                    <?php renderDropdownItems($dobleKidOptions); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habitación King-Size -->
+        <div class="container-custom move-right" data-room-type="king-size">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
+                </div>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación King-Size</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                        <a class="card-link">Ver detalles</a>
+                    </div>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 1490.00</h6>
+                            <p>1 noche</p>
+                        </div>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="king-size-adults">
+                                    <?php renderDropdownItems($kingSizeAdultOptions); ?>
+                                </ul>
+
+                                <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="king-size-kids">
+                                    <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habitación Sencilla -->
+        <div class="container-custom move-right" data-room-type="sencilla">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
+                </div>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación Sencilla</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                        <a class="card-link">Ver detalles</a>
+                    </div>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 990.00</h6>
+                            <p>1 noche</p>
+                        </div>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
+                                    <?php renderDropdownItems($sencillaAdultOptions); ?>
+                                </ul>
+
+                                <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
+                                    <?php renderDropdownItems($sencillaKidOptions); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR -->
+<div id="info1" class="container" style="display: none;">
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -285,13 +509,13 @@ else {
             </button>
             <br><br>
             <hr class="mb-4">
-            <p>Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
+            <p id="room-type">Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
             <p style="color:gray;"> 2x Tarifa estándar</p>
             <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-person">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
+                <i class="fa-solid fa-person" id="num-adults">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
             </button>
             <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                &nbsp;&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-child">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
+                <i class="fa-solid fa-child" id="num-kids">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
             </button>
             &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
             <br><br>
@@ -305,127 +529,29 @@ else {
     </div>
 </div>
 
-<div class="container-fluid d-flex justify-content-start flex-wrap position-relative">
-    <div class="container-custom move-right">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Doble</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a href="#" class="card-link">Ver detalles</a>
+
+
+
+   <!-- Modal -->
+   <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1290.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                                Huéspedes
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
-                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
-                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
-                            <span>1</span>
-                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
-                        </div>
-                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
-                    </div>
+                <div class="modal-body">
+                    Seleccione la cantidad de personas que estarán en la habitación.
+                    <br>
+                    Hotel Laguna Inn.
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container-custom move-right">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_S.png" alt="Habitación Sencilla">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Sencilla</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacioso espacio de 15 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad y escritorio con silla ejecutiva.</p>
-                    <a href="#" class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 690.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                Huéspedes
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
-                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
-                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
-                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
-                            <span>1</span>
-                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
-                        </div>
-                        <button type="button" id="añadir2" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container-custom move-right">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_K.png" alt="Habitación King Size">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación King Size</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación King Size ofrece una cómoda cama king size en un espacioso espacio de 30 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a href="#" class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1290.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                                Huéspedes
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
-                                <li><a class="dropdown-item" href="#">1 huésped</a></li>
-                                <li><a class="dropdown-item" href="#">2 huéspedes</a></li>
-                                <li><a class="dropdown-item" href="#">3 huéspedes</a></li>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent" data-toggle="button">-</button>
-                            <span>1</span>
-                            <button type="button" class="btn btn-transparent" data-toggle="button">+</button>
-                        </div>
-                        <button type="button" id="añadir3" onclick="mostrar();" class="btn btn-success custom-btn">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 
@@ -522,21 +648,172 @@ else {
     });
     </script>
 
+
 <script>
-      function mostrar() {
-        var info1 = document.getElementById('info1');
+        document.addEventListener('DOMContentLoaded', function() {
+            const roomTypes = ['doble', 'king-size', 'sencilla'];
 
-        // Mostrar el contenedor y ajustar su posición
-        info1.style.display = 'block';
-        info1.style.position = 'absolute';
+            roomTypes.forEach(roomType => {
+                const adultDropdownItems = document.querySelectorAll(`#${roomType}-adults + .dropdown-menu .dropdown-item`);
+                
+                adultDropdownItems.forEach(item => {
+                    item.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const selectedValue = this.getAttribute('data-value');
+                        const selectedText = this.textContent;
 
-        // Ajusta estas propiedades según tus necesidades
-        info1.style.top = '200px';  // Cambia el valor para ajustar la posición vertical
-        info1.style.left = '100px'; // Cambia el valor para ajustar la posición horizontal
+                        // Update button text and store selected value
+                        const dropdownToggle = document.getElementById(`${roomType}-adults`);
+                        dropdownToggle.textContent = selectedText;
+                        dropdownToggle.setAttribute('data-selected-value', selectedValue);
 
-        
-    }
-</script>
+                        // Enable the kids dropdown
+                        const kidsDropdown = document.getElementById(`${roomType}-kids`);
+                        kidsDropdown.disabled = false;
+
+                        updateKidsOptions(roomType, selectedValue);
+                    });
+                });
+
+                const kidsDropdownItems = document.querySelectorAll(`#${roomType}-kids + .dropdown-menu .dropdown-item`);
+                kidsDropdownItems.forEach(item => {
+                    item.addEventListener('click', function(event) {
+                        event.preventDefault();
+                        const selectedValue = this.getAttribute('data-value');
+                        const selectedText = this.textContent;
+
+                        // Update button text and store selected value
+                        const dropdownToggle = document.getElementById(`${roomType}-kids`);
+                        dropdownToggle.textContent = selectedText;
+                        dropdownToggle.setAttribute('data-selected-value', selectedValue);
+                    });
+                });
+            });
+        });
+
+        function updateKidsOptions(roomType, adultsValue) {
+            let maxKids;
+            switch (roomType) {
+                case 'doble':
+                    maxKids = getMaxKidsForDoble(adultsValue);
+                    break;
+                case 'king-size':
+                    maxKids = getMaxKidsForKingSize(adultsValue);
+                    break;
+                case 'sencilla':
+                    maxKids = getMaxKidsForSencilla(adultsValue);
+                    break;
+                default:
+                    maxKids = 0;
+                    break;
+            }
+
+            const kidsDropdownMenu = document.querySelector(`#${roomType}-kids + .dropdown-menu`);
+            kidsDropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+                const kidValue = parseInt(item.getAttribute('data-value'));
+                item.style.display = kidValue <= maxKids ? 'block' : 'none';
+            });
+
+            // Adjust kids selection if it exceeds the max allowed
+            const kidsDropdown = document.getElementById(`${roomType}-kids`);
+            const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
+            if (selectedKidsValue > maxKids) {
+                kidsDropdown.textContent = `${maxKids} Niño${maxKids > 1 ? 's' : ''}`;
+                kidsDropdown.setAttribute('data-selected-value', maxKids);
+            }
+        }
+
+        function getMaxKidsForDoble(adultsValue) {
+            switch (adultsValue) {
+                case '1':
+                    return 3;
+                case '2':
+                    return 2;
+                case '3':
+                    return 1;
+                case '4':
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+
+        function getMaxKidsForKingSize(adultsValue) {
+            switch (adultsValue) {
+                case '1':
+                    return 2;
+                case '2':
+                    return 1;
+                default:
+                    return 0;
+            }
+        }
+
+        function getMaxKidsForSencilla(adultsValue) {
+            switch (adultsValue) {
+                case '1':
+                    return 1;
+                case '2':
+                    return 0;
+                default:
+                    return 0;
+            }
+        }
+
+        function mostrar(button) {
+            const roomContainer = button.closest('.container-custom');
+            const roomType = roomContainer.getAttribute('data-room-type');
+            const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+            const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+            const cantidad = roomContainer.querySelector('.quantity').textContent;
+
+            // Verificar si se han seleccionado opciones en ambos dropdowns
+            if (!adultos) {
+                var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+                myModal.show();
+                return;
+            }
+
+            console.log('Adultos seleccionados:', adultos);
+            console.log('Niños seleccionados:', niños);
+            console.log('Cantidad:', cantidad);
+
+            // Mostrar el contenedor y ajustar su posición
+            var info1 = document.getElementById('info1');
+            info1.style.display = 'block';
+            info1.style.position = 'absolute';
+            info1.style.top = '200px';  // Cambia el valor para ajustar la posición vertical
+            info1.style.left = '100px'; // Cambia el valor para ajustar la posición horizontal
+
+            // Actualizar el contenido de la tarjeta
+            document.getElementById('num-adults').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;${adultos}`;
+            document.getElementById('num-kids').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;${niños}`;
+            document.getElementById('room-type').innerHTML = `Habitación ${capitalizeFirstLetter(roomType)} &nbsp;&nbsp;&nbsp;&nbsp; MXN ${cantidad * 1100}.00`;
+        }
+
+        function capitalizeFirstLetter(string) {
+            return string.charAt(0).toUpperCase() + string.slice(1);
+        }
+
+        document.querySelectorAll('.increase-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const quantityElement = this.previousElementSibling;
+                let quantity = parseInt(quantityElement.textContent);
+                quantityElement.textContent = ++quantity;
+            });
+        });
+
+        document.querySelectorAll('.decrease-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const quantityElement = this.nextElementSibling;
+                let quantity = parseInt(quantityElement.textContent);
+                if (quantity > 1) {
+                    quantityElement.textContent = --quantity;
+                }
+            });
+        });
+    </script>
+
   
 </body>
 </html>
