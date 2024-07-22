@@ -2,8 +2,8 @@
 class Database
 {
     private $PDOLocal;
-    private $user="gaelico";
-    private $password="1234";
+    private $user="root";
+    private $password="";
     private $server="mysql:host=localhost; dbname=INTEGRADORA_ROL_USUARIOSv2";
     function conectarDB()
     {
@@ -74,8 +74,6 @@ class Database
             {
                 session_start();
                 $_SESSION["usuario"]= $usuario;
-                echo "<div class='alert alert-success'>";
-                echo "<h2 align='center'>BIENVENIDO ".$_SESSION['usuario']."</h2></div>";
                 
                 $consulta = "select ROLES.nombre
                 from ROLES
@@ -89,23 +87,19 @@ class Database
                 {
                     switch ($reg->nombre) {
                         case 'usuario':
-                            echo"eres usuario";
-                            header("refresh:1;../index.php");
+                            header("Location:../index.php");
                         break;
                         case 'recepcionista':
-                            echo"eres recepcionista";
-                            header("refresh:1;../Views/Panel_Recepcionista.php");
+                            header("Location:../Views/Panel_Recepcionista.php");
                         break;
                         case 'administrador':
-                            echo"eres admin";
+                            header("Location:../Views/Panel_Admin.php");
                         break;
                     }
                 }
             }
             else
             {
-                echo "<div class='alert alert-danger'>";
-                echo "<h2 align='center'>USUARIO INCORRECTO</h2></div>";
                 header("Location=../Views/Iniciar_sesion.php");
             }
 
