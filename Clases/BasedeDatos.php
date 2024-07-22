@@ -121,6 +121,19 @@ class Database
         session_destroy();
         header("Location:../index.php");
     }
+    function agregarHabitaciones($tipo)
+    {
+        try
+        {
+            $stmt = $this->PDOLocal->prepare("CALL agregar_habitaciones(:tipo)");
+            $stmt->bindParam(':tipo', $tipo, PDO::PARAM_INT);
+            $stmt->execute();
+        }
+        catch(PDOException $e)
+        {
+            echo $e->getMessage();
+        }
+    }
 
 }
 ?>
