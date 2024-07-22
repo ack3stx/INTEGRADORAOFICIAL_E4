@@ -141,8 +141,8 @@ IN Numero_De_Emergencia CHAR(10)
 BEGIN
 DECLARE persona_id INT;
 DECLARE usuario_id INT;
-SELECT MAX(id_usuario) INTO usuario_id FROM Usuarios;
-INSERT INTO Persona (
+SELECT MAX(id_usuario) INTO usuario_id FROM USUARIOS;
+INSERT INTO PERSONA (
 Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento,
 direccion, ciudad, estado, codigo_postal, pais, Genero,
 Numero_De_Telefono, usuario) 
@@ -150,7 +150,7 @@ VALUES (nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
 direccion, ciudad, estado, codigo_postal, pais, genero,
 numero_telefono, usuario_id);
 SET persona_id = LAST_INSERT_ID();
-INSERT INTO Recepcionista (
+INSERT INTO RECEPCIONISTA (
 curp, fecha_de_contratacion, Numero_de_Seguridad_social, Afore,
 Numero_De_Emergencia, persona_recepcionista) VALUES (
 curp, fecha_de_contratacion, Numero_de_Seguridad_social, Afore,
