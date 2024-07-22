@@ -169,11 +169,6 @@
                 <h4 class="color-hotel">Busqueda</h4>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Nombre">
-                    <select class="form-control me-2" name="Puestos">
-                        <option value="Gerente">Gerente</option>
-                        <option value="Recepcionista">Recepcionista</option>
-                        <option value="Limpieza">Limpieza</option>
-                      </select>
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                 </form>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

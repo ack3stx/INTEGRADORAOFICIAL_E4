@@ -84,11 +84,6 @@
 
   <div class="container d-flex justify-content-center mt-4">
     <form class="d-flex justify-content-center w-100 flex-wrap" role="search" method="post">
-      <select class="form-select me-2 mb-2" name="estado">
-        <option value="activa">Activa</option>
-        <option value="finalizada">Finalizada</option>
-        <option value="cancelada">Cancelada</option>
-      </select>
       <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
       <input class="form-control me-2 mb-2" type="date" name="fecha1">
       <input class="form-control me-2 mb-2" type="date" name="fecha2">
@@ -102,17 +97,7 @@
       $conexion = new Database();
       $conexion->conectarDB();
       extract($_POST);
-      if ($_POST) {
-        if (empty($numero) && empty($fecha1) && empty($fecha2)) {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.estado_reservacion='$estado'
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
-        } elseif (empty($numero)) {
+        if (empty($numero)) {
           $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
           FROM usuarios
           INNER JOIN persona ON persona.usuario=usuarios.id_usuario
@@ -159,9 +144,9 @@
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-
+        
         $conexion->desconectarBD();
-      }
+      
     ?>
   </div>
 
