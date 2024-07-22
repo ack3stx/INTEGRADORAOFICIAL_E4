@@ -69,4 +69,22 @@ DELIMITER ;
  ----------------------------------------------------------------------------------------------------------------------------
 
 
+-- PROCEDIMIENTO PARA BUSCAR LA INFORMACION DE MI FACTURACION CON MI NUMERO DE RESERVACION
 
+DELIMITER //
+
+CREATE PROCEDURE Consultar_Informacion_Facturacion(
+IN N_reservacion INT
+)
+BEGIN
+SELECT nombre,apellido_paterno,apellido_materno,rfc,direccion,monto_total,metodo_pago
+from reservacion
+JOIN detalle_pago on reservacion.id_reservacion = detalle_pago.reservacion
+JOIN facturacion on detalle_pago.id_detalle_pago = facturacion.detalle_pago 
+where reservacion.id_reservacion = N_reservacion ;
+END //
+delimiter ;
+
+CALL Consultar_Informacion_Facturacion ('23');
+
+--------------------------------------------------------------------------------------------------------------------
