@@ -1,10 +1,37 @@
-.contenedor_cards_tittle {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Estilo para mostrar/ocultar contenedor en función del tamaño de la pantalla */
+@media (max-width: 900px) {
+  #info1 {
+    display: none;
+  }
+  
+  #accordionButton {
+    display: block;
+  }
+}
+
+@media (min-width: 901px) and (max-width: 1500px) {
+  #accordionButton {
+    display: none;
+  }
+}
+
+@media (min-width: 1501px) {
+  #info1 {
+    display: none;
+  }
+
+  #accordionButton {
+    display: none;
+  }
+}
+
+.summary-container {
+  position: fixed;
+  top: 50px; /* Ajustar según sea necesario */
+  right: 20px; /* Ajustar según sea necesario */
+  max-width: 300px;
   width: 100%;
-  padding: 20px;
+  z-index: 1000;
 }
 
 .card {
@@ -22,43 +49,39 @@
   transition: all 0.4s;
 }
 
-.ola {
-  background-color: white;
-}
-
 .card:hover {
   transform: scale(1.10);
 }
 
 .card-custom {
-  background-color: rgb(116, 13, 13); /* Color de fondo personalizado */
+  background-color: rgb(116, 13, 13);
   border-color: rgb(116, 13, 13);
   background-image: linear-gradient(white, rgb(116, 13, 13));
-  /* Color del borde personalizado */
 }
 
 .btn {
-  color: black; /* Color del texto */
-  background-color: #fff; /* Color de fondo */
-  border-color: #fff; /* Color del borde */
+  color: black;
+  background-color: #fff;
+  border-color: #fff;
 }
 
 .btn:hover {
-  color: #fff; /* Color del texto al pasar el cursor */
-  background-color: #fff; /* Color de fondo al pasar el cursor */
+  color: #fff;
+  background-color: #fff;
   border-color: #fff;
-  /* Color del borde al pasar el cursor */
 }
 
 .card-title {
   font-family: 'Roboto', sans-serif;
   font-weight: 700;
   color: #fff;
-  text-align: center; /* Fuente más gruesa para el título */
+  text-align: center;
 }
 
-.modal-footer {
-  background-color: rgb(116, 13, 13);
+.card-subtitle {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #fff;
   text-align: center;
 }
 
@@ -66,17 +89,29 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   color: #fff;
-  text-align: center; /* Fuente normal para el texto */
-  margin-top: -4%;
+  text-align: left;
 }
 
-.img {
-  width: 30px;
-  height: 30px;
-  margin-right: 15px;
-  vertical-align: middle;
-  color: #fff;
-  margin-bottom: -4%;
+.card-footer-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1.25rem;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.contenedor_cards_tittle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.ola {
+  background-color: white;
 }
 
 .card-texto {
@@ -373,51 +408,52 @@ body, html {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.footer-container {
+  }
+  
+  .footer-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   max-width: 1200px;
   width: 100%;
   padding: 0 20px;
-}
-
-.footer-section {
+  }
+  
+  .footer-section {
   flex: 1;
   min-width: 200px;
   margin: 10px;
-}
-
-.footer-section h2 {
+  }
+  
+  .footer-section h2 {
   font-size: 1.2rem;
   margin-bottom: 10px;
-}
-
-.footer-section p {
+  }
+  
+  .footer-section p {
   margin: 5px 0;
-}
-
-.social-icons i {
+  }
+  
+  .social-icons i {
   font-size: 1.2rem;
   margin-right: 10px;
-}
-
-@media (min-width: 768px) {
+  }
+  
+  @media (min-width: 768px) {
   .footer-section h2 {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   }
-
+  
   .footer-section p {
-    font-size: 1rem;
+  font-size: 1rem;
   }
-
+  
   .social-icons i {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
   }
-}
-
-.hover-link a:hover {
+  }
+  
+  .hover-link a
+  {
   color: #333;
-}
+  }

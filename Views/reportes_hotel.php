@@ -5,8 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var chartDiv = document.getElementById('chart_div');
+
+        var data = google.visualization.arrayToDataTable([
+          ['Galaxy', 'Linea', 'Fisico'],
+          ['Julio Ahora', 15000, 19000],
+          ['Julio Esperado', 54000, 45000],
+        ]);
+
+        var materialOptions = {
+          chart: {
+            title: 'Nearby galaxies',
+            subtitle: 'distance on the left, brightness on the right'
+          },
+          series: {
+            0: { axis: 'distance' },
+            1: { axis: 'brightness' }
+          },
+          axes: {
+            y: {
+              distance: {label: 'parsecs', minValue: 0, maxValue: 100000},
+              brightness: {side: 'right', label: 'apparent magnitude'}
+            }
+          }
+        };
+
+        var classicOptions = {
+          series: {
+            0: {targetAxisIndex: 0},
+            1: {targetAxisIndex: 1}
+          },
+          title: 'Nearby galaxies - distance on the left, brightness on the right',
+          vAxes: {
+            0: {title: 'parsecs', viewWindow: {min: 0, max: 100000}},
+            1: {title: 'apparent magnitude', viewWindow: {min: 0, max: 100000}}
+          }
+        };
+
+        function drawClassicChart() {
+          var classicChart = new google.visualization.ColumnChart(chartDiv);
+          classicOptions.width = chartDiv.offsetWidth;
+          classicChart.draw(data, classicOptions);
+        }
+
+        drawClassicChart();
+        window.addEventListener('resize', drawClassicChart);
+      };
+    </script>
+
     <title>Document</title>
 </head>
 <body>
@@ -84,6 +138,7 @@
       </div>
     </div>
   </nav>
+    <div id="chart_div" class="container-fluid" style="height: 500px;"></div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
