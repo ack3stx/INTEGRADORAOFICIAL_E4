@@ -237,3 +237,22 @@ VALUES (rol_admin, usuario_id);
 END //
 DELIMITER ;
 CALL RegistrarUsuarioAdmin('examplessss','11223344','holassss@gmail.com');
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+-- procedimiento que nos ayudara a hacer un update en mi detalle reservacion para especificar que personas asistieron
+DELIMITER //
+CREATE PROCEDURE check_in_huesped(
+in detalle_reservacion int,
+in nombre_titular_reservacion varchar(60)
+)
+begin
+UPDATE detalle_reservacion
+SET detalle_reservacion.TITULAR_HABITACION = nombre_titular_reservacion
+WHERE detalle_reservacion.ID_DETALLE_RESRVACION = detalle_reservacion;
+END// 
+DELIMITER ;
+
+----------------------------------------------------------------------------------------------------------------------

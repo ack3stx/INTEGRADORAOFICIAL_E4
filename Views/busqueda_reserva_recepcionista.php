@@ -1,14 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Document</title>
-</head>
-<body>
-<!DOCTYPE html>
-<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -16,9 +7,20 @@
   <title>Navbar Example</title>
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+  
 </head>
 
+<body>
+<?php
+  session_start();
+  include '../Clases/BasedeDatos.php';
+$conexion = new Database();
+$conexion->conectarDB();
+
+  if($_SESSION["rol"]=="recepcionista")
+  {
+?>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
@@ -49,7 +51,14 @@
               <i class="fas fa-users"></i> Huesped
             </a>
           </li>
-</button>
+          <li class="nav-item">
+            <a class="nav-link" href="check_in.php">
+              <i class="fas fa-users"></i> Check-in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_out.php">
+              <i class="fas fa-users"></i> Check-out
             </a>
           </li>
           <li class="nav-item">
@@ -65,7 +74,6 @@
         <div class="header-right">
           <div class="btn-group">
           <?php
-  session_start();
   if (isset($_SESSION["usuario"])) 
   {
     echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
@@ -80,7 +88,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
           </div>
           <i class="fas fa-user text-white ml-2"></i>
@@ -99,9 +107,6 @@
     </form>
 </div>
 <?php 
-    include '../Clases/BasedeDatos.php';
-    $conexion = new Database();
-    $conexion->conectarDB();
     extract($_POST);
     if($_POST)
     {
@@ -115,7 +120,7 @@
       if (empty($numero))
       {
         $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
-reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
+reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.ID_DETALLE_RESRVACION) as Cantidad_de_habitaciones
 from usuarios
 inner join persona on persona.usuario=usuarios.id_usuario
 inner join huesped on huesped.persona_huesped=persona.id_persona
@@ -127,7 +132,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
       else
       {
         $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
-reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
+reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.ID_DETALLE_RESRVACION) as Cantidad_de_habitaciones
 from usuarios
 inner join persona on persona.usuario=usuarios.id_usuario
 inner join huesped on huesped.persona_huesped=persona.id_persona
@@ -162,7 +167,6 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
             echo "</tbody>";
             echo "</table>";
           }
-            $conexion->desconectarBD();
 
     }
     ?>
@@ -171,5 +175,57 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <?php
+  }
+  else
+  {
+  ?>
+  <head>
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .bg-dark {
+            background-color: #343a40 !important;
+        }
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: white;
+        }
+        .error-container {
+            text-align: center;
+        }
+        .error-icon {
+            font-size: 100px;
+        }
+        .error-code {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="container flex-center">
+        <div class="error-container">
+            <i class="fas fa-times-circle error-icon"></i>
+            <div class="error-code">404</div>
+            <div class="error-message">Pagina no Encontrada</div>
+            <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+            <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+        </div>
+    </div>
+    
+</body>
+<?php
+  }
+  $conexion->desconectarBD();
+?>
+
 </body>
 </html>
