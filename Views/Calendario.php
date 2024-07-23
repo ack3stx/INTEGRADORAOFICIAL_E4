@@ -211,10 +211,10 @@ else {
         <div id="calendar-container">
             <div id="inline-calendar"></div>
             <div id="inline-calendar-large"></div>
-            <form id="formsfechas" action="ejemplo.php" method="POST">
+            <form id="formsfechas" action="habitacionreserva.php" method="POST">
             <input type="hidden" id="fechaInicio">
             <input type="hidden" id="fechaFin">
-            <button class="btn btn-custom mt-4" type="submit" id="comprobar">Comprobar</button>
+            <button class="btn btn-custom mt-4" type="button" onclick="ingresar();" id="comprobar">Comprobar</button>
 </form>
         </div>
        
@@ -299,41 +299,58 @@ else {
 
         });
 
-        $('#comprobar').click(function() {
+        function ingresar () { 
+            
+            <?php 
+                if(isset($_SESSION["usuario"])):
+                
+                ?>
+            
+            $('#comprobar').click(function() {
  
-    var fechaInicio = $('#fechaInicio').val(); 
-    var fechaFin = $('#fechaFin').val();       
+ var fechaInicio = $('#fechaInicio').val(); 
+ var fechaFin = $('#fechaFin').val();       
 
-   
-    $.post('ejemplo.php', {
-        fechaInicio: fechaInicio,
-        fechaFin: fechaFin
-    }, function(datos, estado) {
+ if(fechaInicio === "" && fechaFin === ""){
+ 
+    alert("INGRESA LA FECHA RATA")
+    window.location.href='Calendario.php';
+     
+ }
+ else{
 
-        alert("Fechas recibidas con exito")
-    });
+ $.post('habitacionreserva.php', {
+     fechaInicio: fechaInicio,
+     fechaFin: fechaFin
+ }, function(datos, estado) {
+
+     if(estado === 'success'){
+     window.location.href='habitacionreserva.php';
+     }
+     else {
+        window.location.href='Calendario.php';
+     }
+ });
+ }
+
+     
 });
+
+<?php else: ?>
+    window.location.href = 'Login.php';
+    <?php endif; ?>
+}
+    
+
+        
+
+      
 
 
 
         
 
 </script>
-    <script>
-function ingreso(){
-<?php if(isset($_SESSION["usuario"])): ?> //si el usuario ya se logeo puede reservar sino lo redirecciona al login
-location.href= 'habitacionreserva.php';
-<?php else: ?>
-location.href = 'Login.php';
-<?php endif; ?>
-
-}
-
-
-
-
-
-
-    </script>
+ 
 </body>
 </html>
