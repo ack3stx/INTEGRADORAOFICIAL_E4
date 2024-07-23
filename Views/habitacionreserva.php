@@ -3,7 +3,9 @@
 session_start();
 
 
+
 ?>
+
 
 <?php
 function renderDropdownItems($items) {
@@ -102,153 +104,143 @@ function getMaxKidsForSencilla($adultsValue) {
     <title>Habitacion Rserva</title>
 </head>
 <style>
-        .containers {
+   .containers {
             display: flex;
             border: 1px solid black;
             border-radius: 20px;
             width: 40rem;
             height: 2rem;
             align-items: center;
-            gap: 40px;
-            padding: 0 120px;
-            margin-left: 30%;
-            margin-top: 3%;
+          gap: 40px;
+          padding: 0 120px;
+          margin-left: 30%;
+          margin-top: 3%;
         }
 
         .container input {
             flex: 1;
             height: 60%;
             width: 30%;
+           
         }
 
         .ui-datepicker {
-            background-color: #ffff;
+    background-color: #ffff;
         }
-
         .ui-datepicker-calendar td {
-            background-color: rgb(116, 13, 13);
-        }
+    background-color: rgb(116, 13, 13);
+}
 
-        .ui-datepicker-header {
-            background-color: #ffff;
-        }
+.ui-datepicker-header {
+    background-color: #ffff;
+}
 
-        .ui-datepicker-calendar a {
-            color: #ffff;
-        }
+.ui-datepicker-calendar a {
+    color: #ffff;
+}
 
-        .ui-datepicker-calendar .ui-state-active {
-            background-color: rgb(116, 13, 13);
-            border-color: rgb(116, 13, 13);
-            color: #ffffff;
-        }
+.ui-datepicker-calendar .ui-state-active {
+    background-color: rgb(116, 13, 13);
+    border-color: rgb(116, 13, 13);;
+    color: #ffffff; }
 
-        .ui-datepicker .ui-datepicker-current-day a {
-            background-color: rgb(116, 13, 13);
-            color: #ffffff;
-        }
+    .ui-datepicker .ui-datepicker-current-day a {
+  background-color:  rgb(116, 13, 13); /* Cambia esto al color que desees */
+  color: #ffffff; /* Cambia esto al color del texto que desees */
+}
 
-        .footer {
-            background-color: rgb(116, 13, 13);
-            color: white;
-            padding: 20px 0;
-            width: 100%;
-            box-sizing: border-box;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    /*rgb(116, 13, 13);*/
 
-        .footer-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            max-width: 1200px;
-            width: 100%;
-            padding: 0 20px;
-            color: white;
-        }
+    /*PIE DE PAGINA */
 
-        .footer-section {
-            flex: 1;
-            min-width: 200px;
-            margin: 10px;
-            color: white;
-        }
+    .footer {
+    background-color: rgb(116, 13, 13);
+    color: white;
+    padding: 20px 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    padding: 0 20px;
+    color: white;
+}
+.footer-section {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+    color: white;
+}
+.footer-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: white;
+}
+.footer-section p {
+    margin: 5px 0;
+    color: white;
+}
+.social-icons i {
+    font-size: 1.2rem;
+    margin-right: 10px;
+    color: white;
+}
+@media (min-width: 768px) {
+    .footer-section h2 {
+        font-size: 1.5rem;
+    }
+    .footer-section p {
+        font-size: 1rem;
+    }
+    .social-icons i {
+        font-size: 1.5rem;
+    }
+}
 
-        .footer-section h2 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: white;
-        }
 
-        .footer-section p {
-            margin: 5px 0;
-            color: white;
-        }
 
-        .social-icons i {
-            font-size: 1.2rem;
-            margin-right: 10px;
-            color: white;
-        }
+.container{
+    width: 30%;
+    height: 50%;
+    margin-left: 60%;
+    margin-top: 10%;
+    flex-wrap:wrap;
+}
 
-        @media (min-width: 768px) {
-            .footer-section h2 {
-                font-size: 1.5rem;
-            }
 
-            .footer-section p {
-                font-size: 1rem;
-            }
+.conca {
+        border-radius: 10px;
+        border: 2px solid black;
+        margin-left:10%
+        
 
-            .social-icons i {
-                font-size: 1.5rem;
-            }
-        }
 
-        .container {
-            width: 30%;
-            height: 50%;
-            margin-left: 60%;
-            margin-top: 10%;
-            flex-wrap: wrap;
-        }
+    }
 
-        .conca {
-            border-radius: 10px;
-            border: 2px solid black;
-            margin-left: 10%;
-        }
+    #añadir1 {
+        margin-top: 40%;
+        margin-left: -3%
+    }
 
-        #añadir1 {
-            margin-top: 40%;
-            margin-left: -3%;
-        }
+ 
+  .dropdown-toggle{
+margin-bottom: 1%;
 
-        .dropdown-toggle {
-            margin-bottom: 1%;
-        }
+  }
 
-        #info1 {
-            display: none;
-        }
+  #info1{
+    display:none;
+  }
 
-        /* Estilos para el botón acordeón */
-        .accordion-button {
-            width: 100%;
-            text-align: center;
-        }
-
-        @media (max-width: 900px) {
-            #info1 {
-                display: none;
-            }
-            #accordionButton {
-                display: block;
-            }
-        }
-    </style>
+</style>
 <body>
 <!--BARRA DE NAVEGACION-->
 <header>
@@ -362,184 +354,167 @@ else {
 -->
         
 <div class="container-fluid d-flex justify-content-start flex-wrap position-relative">
-    <!-- Habitación Doble -->
-    <div class="container-custom move-right" data-room-type="doble">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Doble</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
+        <!-- Habitación Doble -->
+        <div class="container-custom move-right" data-room-type="doble">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
                 </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1290.00</h6>
-                        <p>1 noche</p>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación Doble</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                        <a class="card-link">Ver detalles</a>
                     </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="doble-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="doble-adults">
-                                <?php renderDropdownItems($dobleAdultOptions); ?>
-                            </ul>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 1290.00</h6>
+                            <p>1 noche</p>
+                        </div>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="doble-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="doble-adults">
+                                    <?php renderDropdownItems($dobleAdultOptions); ?>
+                                </ul>
 
-                            <button class="btn dropdown-toggle" type="button" id="doble-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="doble-kids">
-                                <?php renderDropdownItems($dobleKidOptions); ?>
-                            </ul>
+                                <button class="btn dropdown-toggle" type="button" id="doble-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="doble-kids">
+                                    <?php renderDropdownItems($dobleKidOptions); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
                         </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent decrease-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button type="button" class="btn btn-transparent increase-btn">+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habitación King-Size -->
+        <div class="container-custom move-right" data-room-type="king-size">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
+                </div>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación King-Size</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                        <a class="card-link">Ver detalles</a>
+                    </div>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 1490.00</h6>
+                            <p>1 noche</p>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrarResumen()">Añadir</button>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="king-size-adults">
+                                    <?php renderDropdownItems($kingSizeAdultOptions); ?>
+                                </ul>
+
+                                <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="king-size-kids">
+                                    <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Habitación Sencilla -->
+        <div class="container-custom move-right" data-room-type="sencilla">
+            <div class="card card-custom">
+                <div class="image-container">
+                    <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
+                </div>
+                <div class="card-body card-body-custom">
+                    <div>
+                        <h5 class="card-title">Habitación Sencilla</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                        <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                        <a class="card-link">Ver detalles</a>
+                    </div>
+                    <div class="card-footer-custom">
+                        <div class="price-info">
+                            <h6>MXN 990.00</h6>
+                            <p>1 noche</p>
+                        </div>
+                        <div class="controls">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Adultos
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
+                                    <?php renderDropdownItems($sencillaAdultOptions); ?>
+                                </ul>
+
+                                <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                    Niños
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
+                                    <?php renderDropdownItems($sencillaKidOptions); ?>
+                                </ul>
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-transparent decrease-btn">-</button>
+                                <span class="quantity">1</span>
+                                <button type="button" class="btn btn-transparent increase-btn">+</button>
+                            </div>
+                            <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Habitación King-Size -->
-    <div class="container-custom move-right" data-room-type="king-size">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación King-Size</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1490.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-adults">
-                                <?php renderDropdownItems($kingSizeAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-kids">
-                                <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent decrease-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button type="button" class="btn btn-transparent increase-btn">+</button>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrarResumen()">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Habitación Sencilla -->
-    <div class="container-custom move-right" data-room-type="sencilla">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Sencilla</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    <a class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 990.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
-                                <?php renderDropdownItems($sencillaAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
-                                <?php renderDropdownItems($sencillaKidOptions); ?>
-                            </ul>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-transparent decrease-btn">-</button>
-                            <span class="quantity">1</span>
-                            <button type="button" class="btn btn-transparent increase-btn">+</button>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrarResumen()">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Resumen de la Reserva -->
-    <div id="info1" class="container-custom summary-container" style="display: none;">
-        <div class="card card-custom">
-            <div class="card-body">
-                <h5 class="card-title custom1">Resumen de la Reserva</h5>
-                <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
-                <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-                </button>
-                <br><br>
-                <hr class="mb-4">
-                <div id="room-summary"></div>
-                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-                <br><br>
-                <div class="d-grid gap-6 col-10 mx-auto">
-                    <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
-                    <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Botón acordeón para pantallas pequeñas -->
-<div class="accordion d-md-none" id="accordionButton">
-    <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                Ver más información de mi reserva
+<!-- DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR -->
+<div id="info1" class="container" style="display: none;">
+    <div class="card card-custom">
+        <div class="card-body">
+            <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
             </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionButton">
-            <div class="accordion-body">
-                <!-- Contenido del resumen de la reserva para pantallas pequeñas -->
-                <div id="room-summary-small"></div>
-                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price-small">0.00</span></strong></p>
+            <br><br>
+            <hr class="mb-4">
+            <div id="room-summary"></div>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+            <br><br>
+            <div class="d-grid gap-6 col-10 mx-auto">
+                <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
+                <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
             </div>
         </div>
     </div>
 </div>
+
 
    <!-- Modal -->
    <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -560,6 +535,8 @@ else {
             </div>
         </div>
     </div>
+
+
 
 
 
@@ -594,6 +571,10 @@ else {
       </div>
   </div>
 </footer> 
+
+
+
+
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
@@ -693,53 +674,6 @@ else {
             });
         });
     });
-
-    
- $(document).ready(function () {
-  // Mostrar contenido del resumen de la reserva en el acordeón
-  $('#accordionButton .accordion-button').click(function () {
-    if (!$(this).hasClass('collapsed')) {
-      $('#room-summary-small').html($('#room-summary').html());
-      $('#total-price-small').text($('#total-price').text());
-    }
-  });
-
-  // Función para ocultar el contenedor del resumen de la reserva en pantallas pequeñas
-  function toggleSummaryContainer() {
-    if ($(window).width() <= 900 || $(window).width() > 1500) {
-      $('#info1').hide();
-      $('#accordionButton').show();
-    } else {
-      $('#accordionButton').hide();
-    }
-  }
-
-  // Ejecutar la función al cargar la página y al redimensionar la ventana
-  toggleSummaryContainer();
-  $(window).resize(toggleSummaryContainer);
-});
-
-// Función para mostrar el contenedor del resumen de la reserva
-function mostrarResumen() {
-  if ($(window).width() > 900 && $(window).width() <= 1500) {
-    $('#info1').show();
-    ajustarPosicionResumen();
-  }
-}
-
-// Función para ajustar la posición del contenedor del resumen de la reserva
-function ajustarPosicionResumen() {
-  var resumen = $('#info1');
-  var containerFluid = $('.container-fluid');
-  var offsetTop = containerFluid.offset().top;
-  var offsetLeft = containerFluid.offset().left + containerFluid.width() - resumen.width() - 20; // Ajusta según sea necesario
-
-  resumen.css({
-    top: offsetTop + 20 + 'px',
-    left: offsetLeft + 'px'
-  });
-}
-
 
     function updateKidsOptions(roomType, adultsValue) {
         let maxKids;
