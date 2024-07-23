@@ -218,3 +218,22 @@ CALL actualizar_informacion_nombre_usuario('gaelhacker',1);
 ----------------------------------------------------------------------------------------------------------------------------------------
 
 
+--PROCEDIMIENTO PARA DAR DE ALTA EL USUARIO DE ADMINISTRADOR YA CON SU ROL DE ADMINISTRADOR
+
+DELIMITER //
+CREATE PROCEDURE RegistrarUsuarioAdmin(
+IN nombre_usuario VARCHAR(30),
+IN n_password text,
+IN correo VARCHAR(40)
+)
+BEGIN
+DECLARE usuario_id INT;
+DECLARE rol_admin INT DEFAULT 2;
+INSERT INTO USUARIOS(nombre_usuario, password, correo)
+VALUES (nombre_usuario, n_password, correo);
+SET usuario_id = LAST_INSERT_ID();
+INSERT INTO ROL_USUARIO(rol, usuario)
+VALUES (rol_admin, usuario_id);
+END //
+DELIMITER ;
+CALL RegistrarUsuarioAdmin('examplessss','11223344','holassss@gmail.com');
