@@ -158,3 +158,63 @@ Numero_De_Emergencia, persona_id);
 END //
 
 DELIMITER ;
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_correo_electronico(
+in correo_electronico varchar(40),
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+correo = correo_electronico
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_correo_electronico('correoejemplo@gmail.com',1);
+
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_contraseña(
+in contraseña_usuario text,
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+password = contraseña_usuario
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_contraseña('12345',1);
+
+
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_nombre_usuario(
+in nombre_usuario_logueado varchar(30),
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+nombre_usuario = nombre_usuario_logueado
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_nombre_usuario('gaelhacker',1);
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
