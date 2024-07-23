@@ -94,7 +94,7 @@
       </div>
     </div>
   </nav>
-  
+
   <h2 class="color-hotel">Personal</h2>
                 <!-- Button trigger modal -->
 <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalpersonal">
@@ -138,23 +138,23 @@
                 <label for="staffName">Pais:</label>
                 <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="roomStatus" name="roomStatus" required>
-                  <option class="form-control me-2" value="Hombre">Hombre</option>
-                  <option class="form-control me-2" value="Mujer">Mujer</option>
+                <select class="form-control me-2" id="roomStatus" name="genero" required>
+                  <option class="form-control me-2" value="H">Hombre</option>
+                  <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
               <h5>INFORMACION PERSONAL</h5><br>
                 <label for="staffEmail">Curp:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="correo" required><br>
-                <label for="staffEmail">RFC:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="correo" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="curp" required><br>
+                <label for="staffEmail">Fecha Contratacion:</label>
+                <input class="form-control me-2" type="date" id="staffEmail" name="f_cont" required><br>
                 <label for="staffEmail">Nss:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="nss" required><br>
                 <label for="staffEmail">Afore:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="afore" required><br>
                 <label for="staffEmail">Numero Emergencia:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="contraseña" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="num2" required><br>
                 <button class="btn btn-outline-success" type="submit">Agregar</button>
             </form>
         </div>
@@ -169,11 +169,6 @@
                 <h4 class="color-hotel">Busqueda</h4>
                 <form class="d-flex" role="search">
                     <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Nombre">
-                    <select class="form-control me-2" name="Puestos">
-                        <option value="Gerente">Gerente</option>
-                        <option value="Recepcionista">Recepcionista</option>
-                        <option value="Limpieza">Limpieza</option>
-                      </select>
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                 </form>
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

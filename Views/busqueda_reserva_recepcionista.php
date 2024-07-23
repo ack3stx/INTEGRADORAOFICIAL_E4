@@ -90,11 +90,6 @@
   </nav>
         <div class="container d-flex justify-content-center">
     <form class="d-flex justify-content-center w-100" role="search" method="post">
-      <select name="estado" id="">
-        <option value="activa">activa</option>
-        <option value="finalizada">finalizada</option>
-        <option value="cancelada">cancelada</option>
-      </select>
         <input class="form-control me-2" type="number" id="checkout" name="numero" placeholder="Numero De La Reservacion">
         <label class="color-hotel" for="checkin">Fecha inicio:</label>
         <input class="form-control me-2 width" type="date" id="checkin" name="fecha1" style="width: 150px;">
@@ -110,20 +105,14 @@
     extract($_POST);
     if($_POST)
     {
-      if (empty($numero) and empty($fecha1) and empty($fecha2))
+
+      if(empty($numero) && empty($fecha1) && empty($fecha2))
       {
-        $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
-reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
-from usuarios
-inner join persona on persona.usuario=usuarios.id_usuario
-inner join huesped on huesped.persona_huesped=persona.id_persona
-inner join reservacion on reservacion.huesped=huesped.id_huesped
-inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-where reservacion.estado_reservacion='$estado'
-group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estado_reservacion";
 
       }
-      else if (empty($numero))
+      else
+      {
+      if (empty($numero))
       {
         $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
 reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
@@ -172,6 +161,7 @@ group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estad
             }
             echo "</tbody>";
             echo "</table>";
+          }
             $conexion->desconectarBD();
 
     }
