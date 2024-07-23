@@ -129,12 +129,5 @@ class Database
         }
     }
 
-    function obtenerid()
-    {
-        try{
-            $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'"; 
-
-        }
-    }
 }
 ?>
