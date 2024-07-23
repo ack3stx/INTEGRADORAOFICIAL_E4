@@ -128,6 +128,7 @@ class Database
             echo $e->getMessage();
         }
     }
+
     function obtenerid()
     {
         try{
@@ -135,6 +136,5 @@ class Database
 
         }
     }
-
 }
 ?>
