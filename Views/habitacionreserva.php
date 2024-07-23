@@ -3,15 +3,11 @@
 session_start();
 
 
-?>
-<?php
-
-session_start();
 
 ?>
 
-<?php
 
+<?php
 function renderDropdownItems($items) {
     foreach ($items as $value => $label) {
         echo '<li><a class="dropdown-item" href="#" data-value="' . $value . '">' . $label . '</a></li>';
@@ -497,7 +493,6 @@ else {
         </div>
     </div>
 
-
 <!-- DIV A MOSTRAR CUANDO SE PRESIONA EL BOTON DE AÑADIR -->
 <div id="info1" class="container" style="display: none;">
     <div class="card card-custom">
@@ -509,27 +504,16 @@ else {
             </button>
             <br><br>
             <hr class="mb-4">
-            <p id="room-type">Habitación Doble &nbsp;&nbsp;&nbsp;&nbsp; MXN 2,200.00</p>
-            <p style="color:gray;"> 2x Tarifa estándar</p>
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-person" id="num-adults">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
-            </button>
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-child" id="num-kids">&nbsp;&nbsp;&nbsp;&nbsp;1</i>
-            </button>
-            &nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn" data-bs-toggle="button"><i class="fa-solid fa-trash"></i></button>
-            <br><br>
-            <hr class="mb-4">
-            <p><strong>Total  &nbsp;&nbsp;&nbsp;&nbsp; MXN 1,100.00</strong></p>
+            <div id="room-summary"></div>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-danger" type="button">Reservar Ahora</button>
+                <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
+                <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
             </div>
         </div>
     </div>
 </div>
-
-
 
 
    <!-- Modal -->
@@ -650,169 +634,227 @@ else {
 
 
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const roomTypes = ['doble', 'king-size', 'sencilla'];
+    document.addEventListener('DOMContentLoaded', function() {
+        const roomTypes = ['doble', 'king-size', 'sencilla'];
 
-            roomTypes.forEach(roomType => {
-                const adultDropdownItems = document.querySelectorAll(`#${roomType}-adults + .dropdown-menu .dropdown-item`);
-                
-                adultDropdownItems.forEach(item => {
-                    item.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const selectedValue = this.getAttribute('data-value');
-                        const selectedText = this.textContent;
+        roomTypes.forEach(roomType => {
+            const adultDropdownItems = document.querySelectorAll(`#${roomType}-adults + .dropdown-menu .dropdown-item`);
 
-                        // Update button text and store selected value
-                        const dropdownToggle = document.getElementById(`${roomType}-adults`);
-                        dropdownToggle.textContent = selectedText;
-                        dropdownToggle.setAttribute('data-selected-value', selectedValue);
+            adultDropdownItems.forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const selectedValue = this.getAttribute('data-value');
+                    const selectedText = this.textContent;
 
-                        // Enable the kids dropdown
-                        const kidsDropdown = document.getElementById(`${roomType}-kids`);
-                        kidsDropdown.disabled = false;
+                    // Update button text and store selected value
+                    const dropdownToggle = document.getElementById(`${roomType}-adults`);
+                    dropdownToggle.textContent = selectedText;
+                    dropdownToggle.setAttribute('data-selected-value', selectedValue);
 
-                        updateKidsOptions(roomType, selectedValue);
-                    });
-                });
+                    // Enable the kids dropdown
+                    const kidsDropdown = document.getElementById(`${roomType}-kids`);
+                    kidsDropdown.disabled = false;
 
-                const kidsDropdownItems = document.querySelectorAll(`#${roomType}-kids + .dropdown-menu .dropdown-item`);
-                kidsDropdownItems.forEach(item => {
-                    item.addEventListener('click', function(event) {
-                        event.preventDefault();
-                        const selectedValue = this.getAttribute('data-value');
-                        const selectedText = this.textContent;
-
-                        // Update button text and store selected value
-                        const dropdownToggle = document.getElementById(`${roomType}-kids`);
-                        dropdownToggle.textContent = selectedText;
-                        dropdownToggle.setAttribute('data-selected-value', selectedValue);
-                    });
+                    updateKidsOptions(roomType, selectedValue);
                 });
             });
-        });
 
-        function updateKidsOptions(roomType, adultsValue) {
-            let maxKids;
-            switch (roomType) {
-                case 'doble':
-                    maxKids = getMaxKidsForDoble(adultsValue);
-                    break;
-                case 'king-size':
-                    maxKids = getMaxKidsForKingSize(adultsValue);
-                    break;
-                case 'sencilla':
-                    maxKids = getMaxKidsForSencilla(adultsValue);
-                    break;
-                default:
-                    maxKids = 0;
-                    break;
-            }
+            const kidsDropdownItems = document.querySelectorAll(`#${roomType}-kids + .dropdown-menu .dropdown-item`);
+            kidsDropdownItems.forEach(item => {
+                item.addEventListener('click', function(event) {
+                    event.preventDefault();
+                    const selectedValue = this.getAttribute('data-value');
+                    const selectedText = this.textContent;
 
-            const kidsDropdownMenu = document.querySelector(`#${roomType}-kids + .dropdown-menu`);
-            kidsDropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
-                const kidValue = parseInt(item.getAttribute('data-value'));
-                item.style.display = kidValue <= maxKids ? 'block' : 'none';
-            });
-
-            // Adjust kids selection if it exceeds the max allowed
-            const kidsDropdown = document.getElementById(`${roomType}-kids`);
-            const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
-            if (selectedKidsValue > maxKids) {
-                kidsDropdown.textContent = `${maxKids} Niño${maxKids > 1 ? 's' : ''}`;
-                kidsDropdown.setAttribute('data-selected-value', maxKids);
-            }
-        }
-
-        function getMaxKidsForDoble(adultsValue) {
-            switch (adultsValue) {
-                case '1':
-                    return 3;
-                case '2':
-                    return 2;
-                case '3':
-                    return 1;
-                case '4':
-                    return 0;
-                default:
-                    return 0;
-            }
-        }
-
-        function getMaxKidsForKingSize(adultsValue) {
-            switch (adultsValue) {
-                case '1':
-                    return 2;
-                case '2':
-                    return 1;
-                default:
-                    return 0;
-            }
-        }
-
-        function getMaxKidsForSencilla(adultsValue) {
-            switch (adultsValue) {
-                case '1':
-                    return 1;
-                case '2':
-                    return 0;
-                default:
-                    return 0;
-            }
-        }
-
-        function mostrar(button) {
-            const roomContainer = button.closest('.container-custom');
-            const roomType = roomContainer.getAttribute('data-room-type');
-            const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
-            const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
-            const cantidad = roomContainer.querySelector('.quantity').textContent;
-
-            // Verificar si se han seleccionado opciones en ambos dropdowns
-            if (!adultos) {
-                var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
-                myModal.show();
-                return;
-            }
-
-            console.log('Adultos seleccionados:', adultos);
-            console.log('Niños seleccionados:', niños);
-            console.log('Cantidad:', cantidad);
-
-            // Mostrar el contenedor y ajustar su posición
-            var info1 = document.getElementById('info1');
-            info1.style.display = 'block';
-            info1.style.position = 'absolute';
-            info1.style.top = '200px';  // Cambia el valor para ajustar la posición vertical
-            info1.style.left = '100px'; // Cambia el valor para ajustar la posición horizontal
-
-            // Actualizar el contenido de la tarjeta
-            document.getElementById('num-adults').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;${adultos}`;
-            document.getElementById('num-kids').innerHTML = `&nbsp;&nbsp;&nbsp;&nbsp;${niños}`;
-            document.getElementById('room-type').innerHTML = `Habitación ${capitalizeFirstLetter(roomType)} &nbsp;&nbsp;&nbsp;&nbsp; MXN ${cantidad * 1100}.00`;
-        }
-
-        function capitalizeFirstLetter(string) {
-            return string.charAt(0).toUpperCase() + string.slice(1);
-        }
-
-        document.querySelectorAll('.increase-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const quantityElement = this.previousElementSibling;
-                let quantity = parseInt(quantityElement.textContent);
-                quantityElement.textContent = ++quantity;
+                    // Update button text and store selected value
+                    const dropdownToggle = document.getElementById(`${roomType}-kids`);
+                    dropdownToggle.textContent = selectedText;
+                    dropdownToggle.setAttribute('data-selected-value', selectedValue);
+                });
             });
         });
+    });
 
-        document.querySelectorAll('.decrease-btn').forEach(button => {
-            button.addEventListener('click', function() {
-                const quantityElement = this.nextElementSibling;
-                let quantity = parseInt(quantityElement.textContent);
-                if (quantity > 1) {
-                    quantityElement.textContent = --quantity;
-                }
-            });
+    function updateKidsOptions(roomType, adultsValue) {
+        let maxKids;
+        switch (roomType) {
+            case 'doble':
+                maxKids = getMaxKidsForDoble(adultsValue);
+                break;
+            case 'king-size':
+                maxKids = getMaxKidsForKingSize(adultsValue);
+                break;
+            case 'sencilla':
+                maxKids = getMaxKidsForSencilla(adultsValue);
+                break;
+            default:
+                maxKids = 0;
+                break;
+        }
+
+        const kidsDropdownMenu = document.querySelector(`#${roomType}-kids + .dropdown-menu`);
+        kidsDropdownMenu.querySelectorAll('.dropdown-item').forEach(item => {
+            const kidValue = parseInt(item.getAttribute('data-value'));
+            item.style.display = kidValue <= maxKids ? 'block' : 'none';
         });
-    </script>
+
+        // Adjust kids selection if it exceeds the max allowed
+        const kidsDropdown = document.getElementById(`${roomType}-kids`);
+        const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
+        if (selectedKidsValue > maxKids) {
+            kidsDropdown.textContent = `${maxKids} Niño${maxKids > 1 ? 's' : ''}`;
+            kidsDropdown.setAttribute('data-selected-value', maxKids);
+        }
+    }
+
+    function getMaxKidsForDoble(adultsValue) {
+        switch (adultsValue) {
+            case '1':
+                return 3;
+            case '2':
+                return 2;
+            case '3':
+                return 1;
+            case '4':
+                return 0;
+            default:
+                return 0;
+        }
+    }
+
+    function getMaxKidsForKingSize(adultsValue) {
+        switch (adultsValue) {
+            case '1':
+                return 2;
+            case '2':
+                return 1;
+            default:
+                return 0;
+        }
+    }
+
+    function getMaxKidsForSencilla(adultsValue) {
+        switch (adultsValue) {
+            case '1':
+                return 1;
+            case '2':
+                return 0;
+            default:
+                return 0;
+        }
+    }
+
+    function mostrar(button) {
+        const roomContainer = button.closest('.container-custom');
+        const roomType = roomContainer.getAttribute('data-room-type');
+        const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+        const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+        const cantidad = roomContainer.querySelector('.quantity').textContent;
+
+        // Verificar si se han seleccionado opciones en ambos dropdowns
+        if (!adultos) {
+            var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+            myModal.show();
+            return;
+        }
+
+        console.log('Adultos seleccionados:', adultos);
+        console.log('Niños seleccionados:', niños);
+        console.log('Cantidad:', cantidad);
+
+        // Mostrar el contenedor y ajustar su posición
+        var info1 = document.getElementById('info1');
+        info1.style.display = 'block';
+        info1.style.position = 'absolute';
+        info1.style.top = '200px';  // Cambia el valor para ajustar la posición vertical
+        info1.style.left = '100px'; // Cambia el valor para ajustar la posición horizontal
+
+        // Crear un nuevo contenedor de resumen de habitación
+        const roomSummaryContainer = document.createElement('div');
+        roomSummaryContainer.classList.add('room-summary-item');
+        roomSummaryContainer.innerHTML = `
+            <p id="room-type">Habitación ${capitalizeFirstLetter(roomType)} &nbsp;&nbsp;&nbsp;&nbsp; MXN ${cantidad * 1100}.00</p>
+            <p style="color:gray;"> 2x Tarifa estándar</p>
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-person" id="num-adults">&nbsp;&nbsp;&nbsp;&nbsp;${adultos}</i>
+            </button>
+            ${niños ? `
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-child" id="num-kids">&nbsp;&nbsp;&nbsp;&nbsp;${niños}</i>
+            </button>` : ''}
+            <button type="button" class="btn btn-danger btn-remove-room" onclick="eliminar(this);">
+                <i class="fa-solid fa-trash"></i>
+            </button>
+            <hr class="mb-4">
+        `;
+
+        document.getElementById('room-summary').appendChild(roomSummaryContainer);
+
+        // Actualizar el precio total
+        const totalPriceElement = document.getElementById('total-price');
+        let totalPrice = parseFloat(totalPriceElement.textContent.replace('MXN ', '').replace(',', ''));
+        totalPrice += cantidad * 1100;
+        totalPriceElement.textContent = totalPrice.toFixed(2);
+    }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
+    function eliminar(button) {
+        const roomSummaryItem = button.closest('.room-summary-item');
+        const roomPriceText = roomSummaryItem.querySelector('#room-type').textContent;
+        const roomPrice = parseFloat(roomPriceText.split('MXN ')[1].replace(',', ''));
+
+        // Actualizar el precio total
+        const totalPriceElement = document.getElementById('total-price');
+        let totalPrice = parseFloat(totalPriceElement.textContent.replace('MXN ', '').replace(',', ''));
+        totalPrice -= roomPrice;
+        totalPriceElement.textContent = totalPrice.toFixed(2);
+
+        // Eliminar el resumen de habitación
+        roomSummaryItem.remove();
+
+        // Verificar si no hay más habitaciones en el resumen
+        const roomSummary = document.getElementById('room-summary');
+        if (roomSummary.children.length === 0) {
+            document.getElementById('info1').style.display = 'none';
+        }
+    }
+
+    function borrarCambios() {
+        // Eliminar todos los elementos del resumen de habitación
+        const roomSummary = document.getElementById('room-summary');
+        while (roomSummary.firstChild) {
+            roomSummary.removeChild(roomSummary.firstChild);
+        }
+
+        // Reiniciar el precio total
+        const totalPriceElement = document.getElementById('total-price');
+        totalPriceElement.textContent = '0.00';
+
+        // Ocultar el contenedor de resumen de la reserva
+        document.getElementById('info1').style.display = 'none';
+    }
+
+    document.querySelectorAll('.increase-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const quantityElement = this.previousElementSibling;
+            let quantity = parseInt(quantityElement.textContent);
+            quantityElement.textContent = ++quantity;
+        });
+    });
+
+    document.querySelectorAll('.decrease-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const quantityElement = this.nextElementSibling;
+            let quantity = parseInt(quantityElement.textContent);
+            if (quantity > 1) {
+                quantityElement.textContent = --quantity;
+            }
+        });
+    });
+</script>
 
   
 </body>
