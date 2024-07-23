@@ -133,7 +133,7 @@
                         </div><br>
                         <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
                     </form><br>
-                    <h6>No tienes cuenta?  <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h4>
+                    <h6>Ya tienes cuenta?  <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h4>
                 </div>
             </div>
         </div>

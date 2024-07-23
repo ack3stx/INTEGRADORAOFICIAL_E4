@@ -15,12 +15,7 @@
 $db = new Database();
 $db->conectarDB();
 
-  $usuario=$_SESSION["usuario"];
-  $consulta="select ROL_USUARIO.rol from ROL_USUARIO inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario where USUARIOS.nombre_usuario='$usuario'";
-
-  $rol = $db->seleccionar($consulta);
-
-  if($rol==2)
+  if($_SESSION["rol"]=="recepcionista")
   {
 ?>
 <body>

@@ -9,8 +9,16 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
 </head>
-
 <body>
+<?php
+  session_start();
+  include '../Clases/BasedeDatos.php';
+$db = new Database();
+$db->conectarDB();
+
+  if($_SESSION["rol"]=="administrador")
+  {
+?> 
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
@@ -68,7 +76,6 @@
         <div class="header-right">
           <div class="btn-group">
           <?php
-  session_start();
   if (isset($_SESSION["usuario"])) 
   {
     echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
@@ -124,6 +131,55 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <?php
+  }
+  else
+  {
+  ?>
+    <head>
+    <style>
+        body, html {
+            height: 100%;
+        }
+        .bg-dark {
+            background-color: #343a40 !important;
+        }
+        .flex-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: white;
+        }
+        .error-container {
+            text-align: center;
+        }
+        .error-icon {
+            font-size: 100px;
+        }
+        .error-code {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+        .error-message {
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="bg-dark">
+    <div class="container flex-center">
+        <div class="error-container">
+            <i class="fas fa-times-circle error-icon"></i>
+            <div class="error-code">404</div>
+            <div class="error-message">Pagina no Encontrada</div>
+            <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+            <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+        </div>
+    </div>
+</body>
+<?php
+  }
+?>
 </body>
 
 </html>

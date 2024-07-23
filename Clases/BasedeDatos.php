@@ -96,6 +96,7 @@ class Database
                             header("Location:../Views/Panel_Admin.php");
                         break;
                     }
+                    $_SESSION["rol"]=$reg->nombre;
                 }
             }
             else
@@ -128,13 +129,5 @@ class Database
             echo $e->getMessage();
         }
     }
-    function obtenerid()
-    {
-        try{
-            $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'"; 
-
-        }
-    }
-
 }
 ?>
