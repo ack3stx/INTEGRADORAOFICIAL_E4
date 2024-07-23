@@ -196,6 +196,7 @@ else {
   echo '   <li class="nav-item">
               <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
             </li>';
+            
 }
 
 ?>
@@ -210,10 +211,15 @@ else {
         <div id="calendar-container">
             <div id="inline-calendar"></div>
             <div id="inline-calendar-large"></div>
+            <form id="formsfechas" action="ejemplo.php" method="POST">
+            <input type="hidden" id="fechaInicio">
+            <input type="hidden" id="fechaFin">
+            <button class="btn btn-custom mt-4" type="submit" id="comprobar">Comprobar</button>
+</form>
         </div>
        
                                                                     <!--NECESIDAD DE REDIRECCIONAR A ALO QUE TENGAN QUE REDIRECCIONAR, PERO DOCUMENTENLO PORFA PARO PAPUS-->
-        <button class="btn btn-custom mt-4" onclick="location.href='habitacionreserva.php'">Comprobar</button>
+        
      
 
     </div>
@@ -259,43 +265,75 @@ else {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var screenWidth = window.innerWidth;
+            var flatpickrConfig = {
+                mode: "range",
+                minDate: "today",
+                dateFormat: "Y-m-d", 
+                inline: true,
+                onChange: function(selectedDates) {
+                    if (selectedDates.length === 2) {
+                        // Cuando se seleccionan dos fechas, capturarlas como inicio y fin
+                        var fechaInicio = selectedDates[0].toISOString().slice(0, 10);
+                        var fechaFin = selectedDates[1].toISOString().slice(0, 10); 
+                        document.getElementById('fechaInicio').value = fechaInicio;
+                        document.getElementById('fechaFin').value = fechaFin;
+                    }
+                },
+                locale: {
+                    firstDayOfWeek: 1, // La semana empieza el lunes
+                    weekdays: {
+                        shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
+                        longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+                    }
+                }
+            };
 
             if (screenWidth < 768) {
                 document.getElementById('inline-calendar-large').style.display = 'none';
-                flatpickr("#inline-calendar", {
-                    mode: "range",
-                    minDate: "today",
-                    dateFormat: "d-m-Y",
-                    inline: true,
-                    showMonths: 1,
-                    monthSelectorType: "static",
-                    locale: {
-                        firstDayOfWeek: 1, // start week on Monday
-                        weekdays: {
-                            shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-                        }
-                    }
-                });
+                flatpickr("#inline-calendar", {...flatpickrConfig, showMonths: 1});
             } else {
                 document.getElementById('inline-calendar').style.display = 'none';
-                flatpickr("#inline-calendar-large", {
-                    mode: "range",
-                    minDate: "today",
-                    dateFormat: "d-m-Y",
-                    inline: true,
-                    showMonths: 2,
-                    monthSelectorType: "static",
-                    locale: {
-                        firstDayOfWeek: 1, // start week on Monday
-                        weekdays: {
-                            shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
-                            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-                        }
-                    }
-                });
+                flatpickr("#inline-calendar-large", {...flatpickrConfig, showMonths: 2});
             }
+           
+
         });
+
+        $('#comprobar').click(function() {
+ 
+    var fechaInicio = $('#fechaInicio').val(); 
+    var fechaFin = $('#fechaFin').val();       
+
+   
+    $.post('ejemplo.php', {
+        fechaInicio: fechaInicio,
+        fechaFin: fechaFin
+    }, function(datos, estado) {
+
+        alert("Fechas recibidas con exito")
+    });
+});
+
+
+
+        
+
+</script>
+    <script>
+function ingreso(){
+<?php if(isset($_SESSION["usuario"])): ?> //si el usuario ya se logeo puede reservar sino lo redirecciona al login
+location.href= 'habitacionreserva.php';
+<?php else: ?>
+location.href = 'Login.php';
+<?php endif; ?>
+
+}
+
+
+
+
+
+
     </script>
 </body>
 </html>
