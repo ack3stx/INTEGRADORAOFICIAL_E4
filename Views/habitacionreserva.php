@@ -33,12 +33,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = new Database();
             $data->conectarDB();
             $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
-            
-            // Mostrar resultados
-            echo '<pre>';
-            var_dump($disponibilidad);
-            echo '</pre>';
-            
+            $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
+            $disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
+
+
+            $cantidad = [
+                "status" => "success",
+                "message" => "Datos recibidos",
+                "data" => [
+                    "Doble" => $disponibilidad,
+                    "King Size" => $disponibilidadkingsize,
+                    "Sencilla" => $disponibilidadsencilla
+                ]
+
+
+            ];
+
+            echo json_encode($cantidad);
             $data->desconectarBD();
         } else {
             echo "Error al convertir las fechas.";
@@ -687,20 +698,7 @@ else {
     });
 
 
-    function convertirfecha(fecha){
-
-        var partes = fecha.split('-');
-        var dia = partes [0];
-        var mes = partes [1];
-        var año = partes [2];
-
-        if(año.length == 2){
-            año = '20' + año ;
-        }
-
-        return año + '-' + mes + '-' + dia;
-    }
-
+     
 
     $('#buscar').click(function(){
             $.ajax({
@@ -937,14 +935,52 @@ else {
         document.getElementById('info1').style.display = 'none';
     }
 
+
+    $(document).ready(function(){
+
+        $('#form').submit(function(event){
+            event.preventDefault(); 
+
+            var datos = $(this).serialize();
+
+            $.ajax({
+                url:'habitacionreserva.php',
+                type:'POST',
+                data: datos,
+                datatype:'json',
+                success: function(response){
+
+                },
+                error:
+
+
+
+            })
+        })
+
+    
+
+
+
+
+
+    });
+
+
+
+    
+
+
     document.querySelectorAll('.increase-btn').forEach(button => {
         button.addEventListener('click', function() {
             const quantityElement = this.previousElementSibling;
             let quantity = parseInt(quantityElement.textContent);
+        
             quantityElement.textContent = ++quantity;
+            
+            
         });
     });
-
     document.querySelectorAll('.decrease-btn').forEach(button => {
         button.addEventListener('click', function() {
             const quantityElement = this.nextElementSibling;
