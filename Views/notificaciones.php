@@ -106,7 +106,17 @@ $db->conectarDB();
 
 extract($_POST);
 
-    $cadena = "";
+    $cadena = "select RESERVACION.id_reservacion as folio, RESERVACION.fecha_,concat(PERSONA.nombre,PERSONA.apellido_paterno,PERSONA.apellido_materno) as nombre,
+PERSONA.numero_de_telefono,USUARIOS.correo,DETALLE_PAGO.monto_total,DETALLE_PAGO.metodo_pago,count(DETALLE_RESERVACION.id_detalle_reservacion) as CANTIDAD
+from USUARIOS
+inner join persona on persona.usuario=usuarios.id_usuario
+inner join huesped on huesped.persona_huesped=persona.id_persona
+inner join reservacion on reservacion.huesped=huesped.id_huesped
+inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
+inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
+where reservacion.estado_reservacion='activa'
+group by folio, RESERVACION.fecha_,nombre,
+PERSONA.numero_de_telefono,USUARIOS.correo,DETALLE_PAGO.monto_total,DETALLE_PAGO.metodo_pago";
     $tabla = $db->seleccionar($cadena);
 
     echo "
@@ -114,13 +124,15 @@ extract($_POST);
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
                 <tr>
+                    <th text-white>Folio</th>
+                    <th text-white>Fecha</th>
                     <th text-white>Nombre</th>
-                    <th text-white>Apellido Paterno</th>
-                    <th text-white>Apellido Materno</th>
-                    <th text-white>RFC</th>
-                    <th text-white>Dirección</th>
+                    <th text-white>Telefono</th>
+                    <th text-white>Correo</th>
                     <th text-white>Monto Total</th>
                     <th text-white>Método de Pago</th>
+                    <th text-white>Habitaciones</th>
+                    <th text-white>Detalles</th>
                 </tr>
             </thead>
             <tbody>
@@ -129,13 +141,38 @@ extract($_POST);
     foreach ($tabla as $reg) {
         echo "
                 <tr>
+                    <td>{$reg->folio}</td>
+                    <td>{$reg->fecha_}</td>
                     <td>{$reg->nombre}</td>
-                    <td>{$reg->apellido_paterno}</td>
-                    <td>{$reg->apellido_materno}</td>
-                    <td>{$reg->rfc}</td>
-                    <td>{$reg->direccion}</td>
+                    <td>{$reg->numero_de_telefono}</td>
+                    <td>{$reg->correo}</td>
                     <td>{$reg->monto_total}</td>
                     <td>{$reg->metodo_pago}</td>
+                    <td>{$reg->CANTIDAD}</td>
+                    <td><!-- Button trigger modal -->
+<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop'>
+  Ver
+</button>
+
+<!-- Modal -->
+<div class='modal fade' id='staticBackdrop' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel' aria-hidden='true'>
+  <div class='modal-dialog'>
+    <div class='modal-content'>
+      <div class='modal-header'>
+        <h1 class='modal-title fs-5' id='staticBackdropLabel'>Detalles</h1>
+        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+      </div>
+      <div class='modal-body'>
+        
+      </div>
+      <div class='modal-footer'>
+        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
+        <button type='button' class='btn btn-primary'>Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
+</td>
                 </tr>
         ";
     }
