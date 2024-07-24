@@ -158,3 +158,152 @@ Numero_De_Emergencia, persona_id);
 END //
 
 DELIMITER ;
+
+----------------------------------------------------------------------------------------------------------------------
+-- Este procedimiento nos sera muy util para poder obtener la cantidad de las habitaciones disponibles que se encuentren en el rango de fechas
+-- para poder ajustarlo a la disponibilidad de nuestras habitaciones 
+DELIMITER //
+create procedure Disponibilidad_habitaciones_doble
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as doble
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'Doble'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
+
+
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_correo_electronico(
+in correo_electronico varchar(40),
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+correo = correo_electronico
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_correo_electronico('correoejemplo@gmail.com',1);
+
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_contraseña(
+in contraseña_usuario text,
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+password = contraseña_usuario
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_contraseña('12345',1);
+
+
+
+DELIMITER //
+CREATE PROCEDURE actualizar_informacion_nombre_usuario(
+in nombre_usuario_logueado varchar(30),
+in usuario int
+)
+BEGIN
+UPDATE usuarios
+SET
+nombre_usuario = nombre_usuario_logueado
+WHERE
+usuarios.id_usuario = usuario;
+END// 
+DELIMITER ;
+
+CALL actualizar_informacion_nombre_usuario('gaelhacker',1);
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------
+
+
+--PROCEDIMIENTO PARA DAR DE ALTA EL USUARIO DE ADMINISTRADOR YA CON SU ROL DE ADMINISTRADOR
+
+DELIMITER //
+CREATE PROCEDURE RegistrarUsuarioAdmin(
+IN nombre_usuario VARCHAR(30),
+IN n_password text,
+IN correo VARCHAR(40)
+)
+BEGIN
+DECLARE usuario_id INT;
+DECLARE rol_admin INT DEFAULT 2;
+INSERT INTO USUARIOS(nombre_usuario, password, correo)
+VALUES (nombre_usuario, n_password, correo);
+SET usuario_id = LAST_INSERT_ID();
+INSERT INTO ROL_USUARIO(rol, usuario)
+VALUES (rol_admin, usuario_id);
+END //
+DELIMITER ;
+CALL RegistrarUsuarioAdmin('examplessss','11223344','holassss@gmail.com');
+
+
+--------------------------------------------------------------------------------------------------------------------
+
+
+-- procedimiento que nos ayudara a hacer un update en mi detalle reservacion para especificar que personas asistieron
+DELIMITER //
+CREATE PROCEDURE check_in_huesped(
+in detalle_reservacion int,
+in nombre_titular_reservacion varchar(60)
+)
+begin
+UPDATE detalle_reservacion
+SET detalle_reservacion.TITULAR_HABITACION = nombre_titular_reservacion
+WHERE detalle_reservacion.ID_DETALLE_RESRVACION = detalle_reservacion;
+END// 
+DELIMITER ;
+
+----------------------------------------------------------------------------------------------------------------------
+
+-- PROCEDIMIENTO PARA BUSCAR LA INFORMACION DE CONTACTO DE UN HUESPED
+DELIMITER //
+CREATE PROCEDURE info_huesped(
+in N_reservacion int
+)
+begin
+SELECT
+CONCAT(NOMBRE, ' ', APELLIDO_PATERNO, ' ', APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
+FECHA_DE_NACIMIENTO,
+CONCAT(DIRECCION, ', ', CIUDAD, ', ', ESTADO, ', ', CODIGO_POSTAL, ', ', PAIS) AS DIRECCION_COMPLETA,
+GENERO,NUMERO_DE_TELEFONO
+from persona
+join huesped on huesped.PERSONA_HUESPED = persona.ID_PERSONA
+join reservacion on reservacion.HUESPED = huesped.ID_HUESPED
+WHERE reservacion.id_reservacion = N_reservacion;
+end //
+delimiter ;
+
+CALL info_huesped(1)
+

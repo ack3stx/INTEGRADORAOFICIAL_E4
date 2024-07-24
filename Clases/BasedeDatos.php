@@ -129,13 +129,69 @@ class Database
             echo $e->getMessage();
         }
     }
-    function obtenerid()
-    {
-        try{
-            $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'"; 
-
+   
+    function obtenerMesActualn() {
+        date_default_timezone_set('America/Monterrey');
+        $meses = array(
+            1 => 'Enero', 
+            2 => 'Febrero', 
+            3 => 'Marzo', 
+            4 => 'Abril', 
+            5 => 'Mayo', 
+            6 => 'Junio', 
+            7 => 'Julio', 
+            8 => 'Agosto', 
+            9 => 'Septiembre', 
+            10 => 'Octubre', 
+            11 => 'Noviembre', 
+            12 => 'Diciembre'
+        );
+    
+        $mesActual = date('n');
+        return $mesActual;
         }
+
+function obtenerMesYAñoActual() {
+    date_default_timezone_set('America/Monterrey');
+    $meses = array(
+        1 => 'Enero', 
+        2 => 'Febrero', 
+        3 => 'Marzo', 
+        4 => 'Abril', 
+        5 => 'Mayo', 
+        6 => 'Junio', 
+        7 => 'Julio', 
+        8 => 'Agosto', 
+        9 => 'Septiembre', 
+        10 => 'Octubre', 
+        11 => 'Noviembre', 
+        12 => 'Diciembre'
+    );
+
+    $mesActual = $meses[date('n')];
+    $añoActual = date('Y');
+    
+    return array($mesActual, $añoActual);
+}
+
+function disponibilidad($fechaInicio,$fechaFin)
+{
+    try{
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_doble(:fecha_inicio,:fecha_fin)");
+    $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
+    $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
+    $stmt->execute();
+    
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $resultados;
     }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
 
 }
+}
+
+
 ?>
