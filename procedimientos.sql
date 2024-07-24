@@ -256,3 +256,26 @@ END//
 DELIMITER ;
 
 ----------------------------------------------------------------------------------------------------------------------
+
+-- PROCEDIMIENTO PARA BUSCAR LA INFORMACION DE CONTACTO DE UN HUESPED
+DELIMITER //
+CREATE PROCEDURE info_huesped(
+in N_reservacion int
+)
+begin
+SELECT
+CONCAT(NOMBRE, ' ', APELLIDO_PATERNO, ' ', APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
+FECHA_DE_NACIMIENTO,
+CONCAT(DIRECCION, ', ', CIUDAD, ', ', ESTADO, ', ', CODIGO_POSTAL, ', ', PAIS) AS DIRECCION_COMPLETA,
+GENERO,NUMERO_DE_TELEFONO
+from persona
+join huesped on huesped.PERSONA_HUESPED = persona.ID_PERSONA
+join reservacion on reservacion.HUESPED = huesped.ID_HUESPED
+WHERE reservacion.id_reservacion = N_reservacion;
+end //
+delimiter ;
+
+CALL info_huesped(1)
+
+
+---------------------------------------------------------------------------------------------------------------------------------------

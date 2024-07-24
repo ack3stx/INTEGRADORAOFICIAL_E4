@@ -13,8 +13,8 @@
   session_start();
   include '../Clases/BasedeDatos.php';
   
-  $conexion = new Database();
-  $conexion->conectarDB();
+  $db = new Database();
+  $db->conectarDB();
 
   if($_SESSION["rol"]=="recepcionista")
   {
@@ -94,13 +94,83 @@
       </div>
     </div>
   </nav>
+
+  <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="search-form">
+                    <h1 class="text-center">Buscar Información De Los Huéspedes</h1>
+                    <form action="" method="POST">
+                        <div class="form-group">
+                            <label for="inputBusqueda">Número de Reservación</label>
+                            <input type="text" class="form-control" id="inputBusqueda" placeholder="Ingrese el número de la reservación." name="n_reservacion">
+                        </div>
+                        <button type="submit" class="btn btn-danger btn-block">Buscar</button>
+                        <br>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <?php
+extract($_POST);
+
+if (!empty($n_reservacion)) {
+    $cadena = "CALL info_huesped('$n_reservacion');";
+    $tabla = $db->seleccionar($cadena);
+
+    echo "
+    <div class='table-responsive'>
+        <table class='table table-hover table-bordered table-danger'>
+            <thead class='table-dark'>
+                <tr>
+                    <th text-white>NOMBRE_COMPLETO</th>
+                    <th text-white>FECHA_DE_NACIMIENTO</th>
+                    <th text-white>DIRECCION_COMPLETA</th>
+                    <th text-white>GENERO</th>
+                    <th text-white>NUMERO_DE_TELEFONO</th>
+                </tr>
+            </thead>
+            <tbody>
+    ";
+
+    foreach ($tabla as $reg) {
+        echo "
+                <tr>
+                    <td>{$reg->NOMBRE_COMPLETO}</td>
+                    <td>{$reg->FECHA_DE_NACIMIENTO}</td>
+                    <td>{$reg->DIRECCION_COMPLETA}</td>
+                    <td>{$reg->GENERO}</td>
+                    <td>{$reg->NUMERO_DE_TELEFONO}</td>
+                </tr>
+        ";
+    }
+
+    echo "
+            </tbody>
+        </table>
+
+    </div>
+    <br>
+    ";
+
+    $db->desconectarBD();
+}
+?>
+
+
+
+          </div>
+
+
+
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <?php
-    $conexion->desconectarBD();
+    $db->desconectarBD();
   }
   else
   {
