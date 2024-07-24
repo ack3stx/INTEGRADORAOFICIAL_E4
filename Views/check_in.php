@@ -4,36 +4,35 @@ $db = new Database();
 $db->conectarDB();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Procesar los datos enviados del formulario
-    $reservacionIds = $_POST['reservacionId'];
+    $detalleIds = $_POST['detalleId'];
     $titularHabitaciones = $_POST['titularHabitacion'];
-    
+
     try {
-        for ($i = 0; $i < count($reservacionIds); $i++) {
-            $numeroReservacion = $reservacionIds[$i];
+        for ($i = 0; $i < count($detalleIds); $i++) {
+            $detalleReservacion = $detalleIds[$i];
             $nombreTitularReservacion = $titularHabitaciones[$i];
 
             if (trim($nombreTitularReservacion) === '') {
                 throw new Exception("Todos los campos de Titular Habitación deben estar llenos.");
             }
 
-            $consulta = "CALL check_in_huesped($numeroReservacion, '$nombreTitularReservacion')";
+            $consulta = "CALL check_in_huesped($detalleReservacion, '$nombreTitularReservacion')";
             $db->ejecuta($consulta);
         }
         $db->desconectarBD();
-        header("Location: panel_recepcionista.php?success=1");
+        header("Location: check_in.php?success=1");
         exit;
     } catch (Exception $e) {
         $db->desconectarBD();
-        header("Location: panel_recepcionista.php?error=" . urlencode($e->getMessage()));
+        header("Location: check_in.php?error=" . urlencode($e->getMessage()));
         exit;
     }
 } else {
-    // Mostrar el formulario
     $consulta = "
         SELECT 
             reservacion.id_reservacion as 'Numero_Reservacion',
             CONCAT(persona.Nombre, ' ', persona.Apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Completo,
+            detalle_reservacion.ID_DETALLE_RESRVACION,
             detalle_reservacion.FECHA_INICIO,
             detalle_reservacion.FECHA_FIN,
             detalle_reservacion.TITULAR_HABITACION,
@@ -194,34 +193,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
+        let detallesArray = [];
+
         function openModal(reservacionId) {
             const reservaciones = <?php echo json_encode($reservaciones); ?>;
             const detalles = reservaciones[reservacionId];
             let modalContent = '';
 
-            detalles.forEach(detalle => {
+            detalles.forEach((detalle, index) => {
                 let titularHabitacion = detalle.TITULAR_HABITACION !== null ? detalle.TITULAR_HABITACION : '';
                 modalContent += `
                     <div class="detalleSection">
-                      <input type="hidden" name="reservacionId[]" value="${detalle.Numero_Reservacion}">
+                      <input type="hidden" name="detalleId[]" value="${detalle.ID_DETALLE_RESRVACION}">
                       <div class="mb-3">
-                        <label for="fechaInicio" class="form-label">Fecha Inicio</label>
+                        <label for="fechaInicio${index}" class="form-label">Fecha Inicio</label>
                         <input type="text" class="form-control" name="fechaInicio[]" value="${detalle.FECHA_INICIO}" readonly>
                       </div>
                       <div class="mb-3">
-                        <label for="fechaFin" class="form-label">Fecha Fin</label>
+                        <label for="fechaFin${index}" class="form-label">Fecha Fin</label>
                         <input type="text" class="form-control" name="fechaFin[]" value="${detalle.FECHA_FIN}" readonly>
                       </div>
                       <div class="mb-3">
-                        <label for="titularHabitacion" class="form-label">Titular Habitación</label>
+                        <label for="titularHabitacion${index}" class="form-label">Titular Habitación</label>
                         <input type="text" class="form-control" name="titularHabitacion[]" value="${titularHabitacion}" required>
                       </div>
                       <div class="mb-3">
-                        <label for="numHabitacion" class="form-label">Número Habitación</label>
+                        <label for="numHabitacion${index}" class="form-label">Número Habitación</label>
                         <input type="text" class="form-control" name="numHabitacion[]" value="${detalle.NUM_HABITACION}" readonly>
                       </div>
                       <div class="mb-3">
-                        <label for="nombreHabitacion" class="form-label">Nombre Habitación</label>
+                        <label for="nombreHabitacion${index}" class="form-label">Nombre Habitación</label>
                         <input type="text" class="form-control" name="nombreHabitacion[]" value="${detalle.NOMBRE_HABITACION}" readonly>
                       </div>
                       <hr>
