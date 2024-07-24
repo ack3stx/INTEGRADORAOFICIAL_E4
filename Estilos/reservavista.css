@@ -1,225 +1,228 @@
 .navbar-nav {
     
-     width: 100%;
- }
- 
- .navbar-nav .nav-link {
-     display: block;
-     text-align: center;
-     font-weight: bold;
-     font-size: 1.1rem;
-     color: rgb(116, 13, 13) !important; /* Color de texto normal */
-     transition: all 0.3s ease;
-     border-radius: 25px;
- }
- 
- .navbar-nav .nav-link:hover {
-     background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-     color: #fff !important; /* Color de texto al hacer hover */
-     padding: 12px 24px;
-     font-size: 1.2rem;
-     transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
- }
- 
- /*BARRITAAA*/
- .header-section {
-     position: relative;
-     background-size: cover;
-     height: 240px;
-     margin-top: 2%;
- }
- 
- .header-content {
-     position: absolute;
-     bottom: 0;
-     width: 100%;
-     text-align: center;
-     color: white;
-     padding: 20px;
-     background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
- }
- 
- .header-content h1 {
-     font-size: 3rem;
-     font-weight: bold;
- }
- 
- .header-content p {
-     font-size: 1.5rem;
- }
- 
- .header-section-custom {
-     background-color: white;
-     color: white;
-     padding: 20px;
-     text-align: center;
- }
- 
- .header-content-custom {
-     position: relative;
-     max-width: 800px;
-     margin: 0 auto;
- }
- 
- .header-content-custom p {
-     margin: 0;
-     padding: 10px 0;
-     color: black;
- }
- 
- .header-content-custom h1 {
-     margin: 0;
-     padding: 10px 0;
-     color: rgb(116, 13, 13);
- }
- 
- .header-content-custom .col {
-     margin-bottom: 20px;
- }
- 
- .barra-blanca {
-     width: 100%;
-     background-color: white;
-     height: 60px;
-     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
- }
- 
- .container-fluid {
-     padding: 0; /* Eliminar cualquier padding predeterminado */
-     position: relative;
- }
- 
- .move-right {
-     margin-left: 20px; /* Ajusta este valor según sea necesario */
- }
- 
- .card-custom {
-     display: flex;
-     flex-direction: row;
-     margin: 20px 0;
-     padding: 20px;
-     border-radius: 10px;
-     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-     width: 100%;
-     max-width: 600px; /* Ancho máximo de las tarjetas */
-     flex-wrap: wrap;
- }
- 
- .image-container img {
-     width: 100%; /* Ajusta el tamaño según sea necesario */
-     max-width: 200px;
-     height: auto;
-     border-radius: 10px;
- }
- 
- .card-body-custom {
-     display: flex;
-     flex-direction: column;
-     justify-content: space-between;
-     padding: 20px;
-     width: 100%;
- }
- 
- .card-footer-custom {
-     display: flex;
-     justify-content: space-between;
-     align-items: center;
-     border-top: 1px solid #ddd;
-     padding-top: 10px;
- }
- 
- .controls {
-     display: flex;
-     align-items: center;
- }
- 
- .controls > * {
-     margin-right: 10px;
- }
- 
- .btn-transparent {
-     background-color: transparent;
-     border: none;
-     color: inherit;
-     font-size: 1.2rem;
- }
- 
- .btn-group {
-     display: flex;
-     align-items: center;
-     border: 1px solid black !important;
-     border-radius: 5px;
- }
- 
- .btn-group span {
-     font-size: 1.2rem;
-     margin: 0 10px;
- }
- 
- .btn-success.custom-btn {
-     background-color: rgb(116, 13, 13);
-     color: white;
-     border: none;
- }
- 
- .btn-success.custom-btn:hover {
-     background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
-     color: white;
- }
- 
- .container-custom {
-     display: flex;
-     flex-direction: column;
-     align-items: flex-start; /* Alinear al inicio */
-     width: 100%;
- }
- 
- .price-info {
-     display: flex;
-     flex-direction: column;
-     align-items: flex-end;
- }
- 
- .price-info h6,
- .price-info p {
-     margin: 0;
- }
- 
- /* Estilos responsivos */
- @media (max-width: 768px) {
-     .card-custom {
-         flex-direction: column;
-         align-items: center;
-     }
- 
-     .image-container img {
-         width: 100%;
-         max-width: 100%;
-     }
- 
-     .card-body-custom {
-         padding: 10px;
-     }
- 
-     .card-footer-custom {
-         flex-direction: column;
-         align-items: center;
-     }
- 
-     .controls {
-         flex-direction: column;
-         width: 100%;
-     }
- 
-     .controls > * {
-         margin-bottom: 10px;
-     }
- }
- 
+    width: 100%;
+}
+
+.navbar-nav .nav-link {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: rgb(116, 13, 13) !important; /* Color de texto normal */
+    transition: all 0.3s ease;
+    border-radius: 25px;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
+    color: #fff !important; /* Color de texto al hacer hover */
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+}
+
+/*BARRITAAA*/
+.header-section {
+    position: relative;
+    background-size: cover;
+    height: 240px;
+    margin-top: 2%;
+}
+
+.header-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.header-content p {
+    font-size: 1.5rem;
+}
+
+.header-section-custom {
+    background-color: white;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.header-content-custom {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header-content-custom p {
+    margin: 0;
+    padding: 10px 0;
+    color: black;
+}
+
+.header-content-custom h1 {
+    margin: 0;
+    padding: 10px 0;
+    color: rgb(116, 13, 13);
+}
+
+.header-content-custom .col {
+    margin-bottom: 20px;
+}
+
+.barra-blanca {
+    width: 100%;
+    background-color: white;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-fluid {
+    padding: 0; /* Eliminar cualquier padding predeterminado */
+    position: relative;
+}
+
+.move-right {
+    margin-left: 20px; /* Ajusta este valor según sea necesario */
+}
+
+.card-custom {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Ancho máximo de las tarjetas */
+    flex-wrap: wrap;
+}
+
+.image-container img {
+    width: 100%; /* Ajusta el tamaño según sea necesario */
+    max-width: 200px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-body-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.card-footer-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.controls > * {
+    margin-right: 10px;
+}
+
+.btn-transparent {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+}
+
+.btn-group {
+    display: flex;
+    align-items: center;
+    border: 1px solid black !important;
+    border-radius: 5px;
+}
+
+.btn-group span {
+    font-size: 1.2rem;
+    margin: 0 10px;
+}
+
+.btn-success.custom-btn {
+    background-color: rgb(116, 13, 13);
+    color: white;
+    border: none;
+}
+
+.btn-success.custom-btn:hover {
+    background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
+    color: white;
+}
+
+.container-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear al inicio */
+    width: 100%;
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.price-info h6,
+.price-info p {
+    margin: 0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .card-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-body-custom {
+        padding: 10px;
+    }
+
+    .card-footer-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .controls > * {
+        margin-bottom: 10px;
+    }
+}
+
 /* Estilos para el contenedor info1 */
 #info1 {
-    position: absolute;
     display: none; /* Oculto por defecto */
-    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
-    width: 40vw; /* Ajusta el ancho según sea necesario */
+}
+
+@media (min-width: 951px) {
+    #info1 {
+        display: block;
+    }
 }
