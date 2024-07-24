@@ -96,6 +96,7 @@ class Database
                             header("Location:../Views/Panel_Admin.php");
                         break;
                     }
+                    $_SESSION["rol"]=$reg->nombre;
                 }
             }
             else
@@ -134,32 +135,7 @@ class Database
             $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'"; 
 
         }
-        catch(PDOException $e)
-        {
-            echo $e->getMessage();
-        }
     }
-    
-    function disponibilidad($fechaInicio,$fechaFin)
-    {
-        try{
-        $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_doble(:fecha_inicio,:fecha_fin)");
-        $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
-        $stmt->execute();
-
-        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        return $resultados;
-        }
-        catch(PDOException $e){
-            echo $e->getMessage();
-        }
-
-
-
-
-    }
-       
-
 
 }
+?>

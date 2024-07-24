@@ -15,12 +15,7 @@
 $db = new Database();
 $db->conectarDB();
 
-  $usuario=$_SESSION["usuario"];
-  $consulta="select ROL_USUARIO.rol from ROL_USUARIO inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario where USUARIOS.nombre_usuario='$usuario'";
-
-  $rol = $db->seleccionar($consulta);
-
-  if($rol==2)
+  if($_SESSION["rol"]=="recepcionista")
   {
 ?>
 <body>
@@ -51,6 +46,16 @@ $db->conectarDB();
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped_recepcionista.php">
               <i class="fas fa-users"></i> Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_in.php">
+              <i class="fas fa-users"></i> Check-in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_out.php">
+              <i class="fas fa-users"></i> Check-out
             </a>
           </li>
           <li class="nav-item">

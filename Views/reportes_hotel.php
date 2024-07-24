@@ -7,8 +7,42 @@
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/estilos_panel_busqueda.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
+    <?php
+    include '../Clases/BasedeDatos.php';
+    $db = new Database();
+    $db->conectarDB();
+    list($mes, $año) = $db->obtenerMesYAñoActual();
+    $mesn=$db->obtenerMesActualn();
+    $consulta="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
+FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
+FROM reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS not NULL and month(reservacion.fecha_)=$mesn and year(reservacion.fecha_)=$año) as X,reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS NULL and month(reservacion.fecha_)=$mesn and year(reservacion.fecha_)=$año";
+    $array=$db->seleccionar($consulta);
+    foreach($array as $monto_total)
+    {
+      $montola=$monto_total->Total_MontoL;
+      $montofa=$monto_total->Total_MontoF;
+    }
+    $mesn2=$mesn-1;
+    $consulta2="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
+FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
+FROM reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS not NULL and month(reservacion.fecha_)=$mesn2 and year(reservacion.fecha_)=$año) as X,reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS NULL and month(reservacion.fecha_)=$mesn2 and year(reservacion.fecha_)=$año";
+    $array2=$db->seleccionar($consulta2);
+    foreach($array2 as $monto_total2)
+    {
+      $montole=$monto_total2->Total_MontoL;
+      $montofe=$monto_total2->Total_MontoF;
+    }
+    echo
+    "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
       google.charts.load('current', {'packages':['corechart', 'bar']});
       google.charts.setOnLoadCallback(drawStuff);
 
@@ -17,8 +51,8 @@
 
         var data = google.visualization.arrayToDataTable([
           ['Galaxy', 'Linea', 'Fisico'],
-          ['Julio Ahora', 15000, 19000],
-          ['Julio Esperado', 54000, 45000],
+          ['$mes ahora', $montola, $montofa],
+          ['$mes Esperado', $montole, $montofe],
         ]);
 
         var materialOptions = {
@@ -59,8 +93,44 @@
         drawClassicChart();
         window.addEventListener('resize', drawClassicChart);
       };
-    </script>
+    </script>";
 
+    echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+          ['Opening Move', 'Percentage'],
+          ['King\'s pawn (e4)', 44],
+          ['Queen\'s pawn (d4)', 31],
+          ['Knight to King 3 (Nf3)', 12],
+          ['Queen\'s bishop pawn (c4)', 10],
+          ['Other', 3]
+        ]);
+
+        var options = {
+          title: 'Chess opening moves',
+          width: 900,
+          legend: { position: 'none' },
+          chart: { title: 'Chess opening moves',
+                   subtitle: 'popularity by percentage' },
+          bars: 'horizontal', // Required for Material Bar Charts.
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Percentage'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: '90%' }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        chart.draw(data, options);
+      };
+    </script>
+";
+?>
     <title>Document</title>
 </head>
 <body>
@@ -138,7 +208,23 @@
       </div>
     </div>
   </nav>
-    <div id="chart_div" class="container-fluid" style="height: 500px;"></div>
+  <form action="" method="post">
+    <select name="Grafica">
+      <option value="1">Grafica Meta Del Mes</option>
+      <option value="2">Grafica Ventas Del Mes Empleados</option>
+    </select>
+    <button type="submit">Buscar</button>
+  </form>
+  <?php
+    extract($_POST);
+    if($Grafica==1)
+    {
+      echo "<div id='chart_div' class='container-fluid' style='height: 500px;'></div>";
+    }
+    if ($Grafica==2) {
+      echo "<div id='top_x_div' style='width: 900px; height: 500px;'></div>";
+    }
+  ?>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
