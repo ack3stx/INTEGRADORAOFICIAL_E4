@@ -1,6 +1,54 @@
 <?php
 
+include '../Clases/BasedeDatos.php';
+
 session_start();
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
+        $fechaInicio = $_POST['fechainicio'];
+        $fechaFin = $_POST['fechafin'];
+
+
+
+        //esta funcion esta porque las fechas que recibo de javascript estan en el formato dd-mm-yyyy
+        function convertirFecha($fecha) {
+            $date = DateTime::createFromFormat('d-m-Y', $fecha);
+            if ($date === false) {
+                return null; 
+            }
+            return $date->format('Y-m-d'); //con format se crea un nuevo formato
+        }
+
+        // con la funcion que hicimos convertimos las fechas
+        $fechaInicioConvertida = convertirFecha($fechaInicio);
+        $fechaFinConvertida = convertirFecha($fechaFin);
+
+        echo 'Fecha Inicio Convertida: ' . htmlspecialchars($fechaInicioConvertida) . '<br>';
+        echo 'Fecha Fin Convertida: ' . htmlspecialchars($fechaFinConvertida) . '<br>';
+
+        // despues de convertirlas llamamos al procedimiento
+        if ($fechaInicioConvertida && $fechaFinConvertida) {
+            $data = new Database();
+            $data->conectarDB();
+            $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
+            
+            // Mostrar resultados
+            echo '<pre>';
+            var_dump($disponibilidad);
+            echo '</pre>';
+            
+            $data->desconectarBD();
+        } else {
+            echo "Error al convertir las fechas.";
+        }
+
+
+    } else {
+        echo "Fechas no recibidas correctamente.";
+    }
+}
 
 
 
@@ -242,7 +290,7 @@ margin-bottom: 1%;
 
 </style>
 <body>
-<!--BARRA DE NAVEGACION-->
+<!--BARRA DE NAVEGACION
 <header>
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
@@ -319,7 +367,7 @@ else {
       </div>
     </nav>
   </div>
-    </header>
+    </header> -->
     <!--BARRITA-->
     <section class="header-section">
         <div class="header-content">
@@ -328,13 +376,17 @@ else {
         </div>
       
     </section>
-      <!--BARRITA BLANCA-->
+     <!-- BARRITA BLANCA-->
+      <form id="form" method="POST">
       <div class="barra-blanca">
         <div class="containers">
-            <input type="text" id="date_picker1"> 
-            <input type="text" id="date_picker2">
+            <input type="text" id="date_picker1" name="fechainicio" placeholder="Ingresa tu fecha"> 
+            <input type="text" id="date_picker2" name="fechafin" placeholder="Ingresa tu fecha">
         </div>
+
+        <button style="margin-top:-5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
     </div>
+</form>
 
 <!-- Tarjetas de habitaciones -->
 
@@ -629,7 +681,55 @@ else {
                 return [true, "av", "Disponible"];
             }
         }
+
+
+
     });
+
+
+    function convertirfecha(fecha){
+
+        var partes = fecha.split('-');
+        var dia = partes [0];
+        var mes = partes [1];
+        var año = partes [2];
+
+        if(año.length == 2){
+            año = '20' + año ;
+        }
+
+        return año + '-' + mes + '-' + dia;
+    }
+
+
+    $('#buscar').click(function(){
+            $.ajax({
+                url:"habitacionreserva.php",
+                type:'POST',
+                data: $('#form').serialize(),
+                success:function(res){
+                    $('#respuesta').html(res);
+                }
+            });
+
+
+
+
+
+        });
+
+
+
+
+
+
+    
+
+
+
+
+
+
     </script>
 
 
