@@ -38,18 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $cantidad = [
-                "status" => "success",
-                "message" => "Datos recibidos",
-                "data" => [
+                
                     "Doble" => $disponibilidad,
                     "King Size" => $disponibilidadkingsize,
                     "Sencilla" => $disponibilidadsencilla
-                ]
+                
 
 
             ];
 
-            echo json_encode($cantidad);
+            
+            $var =json_encode($cantidad);
+            echo '<script>console.log("var",'.$var.');</script>';
             $data->desconectarBD();
         } else {
             echo "Error al convertir las fechas.";
@@ -64,13 +64,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 ?>
-
-
-<?php
-
-session_start();
-?>
-
 
 <?php
 function renderDropdownItems($items) {
