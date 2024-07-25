@@ -308,33 +308,25 @@ else {
             
             $('#comprobar').click(function() {
  
- var fechaInicio = $('#fechaInicio').val(); 
- var fechaFin = $('#fechaFin').val();       
+                var fechaInicio = document.getElementById('fechaInicio').value;
+                var fechaFin = document.getElementById('fechaFin').value;     
 
  if(fechaInicio === "" && fechaFin === ""){
  
-    alert("INGRESA LA FECHA RATA")
+    alert("INGRESA LAS FECHAS")
     window.location.href='Calendario.php';
      
  }
  else{
 
- $.post('habitacionreserva.php', {
-     fechaInicio: fechaInicio,
-     fechaFin: fechaFin
- }, function(datos, estado) {
+    localStorage.setItem('fechaInicio',fechaInicio);
+    localStorage.setItem('fechaFin',fechaFin);
 
-     if(estado === 'success'){
-     window.location.href='habitacionreserva.php';
-     }
-     else {
-        window.location.href='Calendario.php';
-     }
- });
- }
+    window.location.href = 'habitacionreserva.php';
+
 
      
-});
+}});
 
 <?php else: ?>
     window.location.href = 'Login.php';
