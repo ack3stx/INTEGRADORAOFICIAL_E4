@@ -38,18 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $cantidad = [
-                
+                "status" => "success",
+                "message" => "Datos recibidos",
+                "data" => [
                     "Doble" => $disponibilidad,
                     "King Size" => $disponibilidadkingsize,
                     "Sencilla" => $disponibilidadsencilla
-                
+                ]
 
 
             ];
 
-            
-            $var =json_encode($cantidad);
-            echo '<script>console.log("var",'.$var.');</script>';
+            echo json_encode($cantidad);
             $data->desconectarBD();
         } else {
             echo "Error al convertir las fechas.";
@@ -64,6 +64,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 ?>
+
+
+<?php
+
+session_start();
+?>
+
 
 <?php
 function renderDropdownItems($items) {
@@ -300,7 +307,7 @@ margin-bottom: 1%;
 
 </style>
 <body>
-<!--BARRA DE NAVEGACION-->
+<!--BARRA DE NAVEGACION
 <header>
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
@@ -377,7 +384,7 @@ else {
       </div>
     </nav>
   </div>
-    </header> 
+    </header> -->
     <!--BARRITA-->
     <section class="header-section">
         <div class="header-content">
@@ -394,11 +401,11 @@ else {
             <input type="text" id="date_picker2" name="fechafin" placeholder="Ingresa tu fecha">
         </div>
 
-        <button style="margin-top:-4.5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
+        <button style="margin-top:-5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
     </div>
 </form>
 
-<div class="container-fluid d-flex justify-content-start flex-wrap position-relative">
+<div class="container-fluid d-flex justify-content-between align-items-start" style="margin-top: 30px;">
     <!-- Habitación Doble -->
     <div class="container-custom move-right" data-room-type="doble">
         <div class="card card-custom">
@@ -439,89 +446,112 @@ else {
             </div>
         </div>
     </div>
-
-    <!-- Habitación King-Size -->
-    <div class="container-custom move-right" data-room-type="king-size">
+    
+    <!-- Resumen de la Reserva -->
+    <div id="info1" class="container" style="position: relative; top: 0;">
         <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación King-Size</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1490.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-adults">
-                                <?php renderDropdownItems($kingSizeAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-kids">
-                                <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Habitación Sencilla -->
-    <div class="container-custom move-right" data-room-type="sencilla">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Sencilla</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    <a class="card-link">Ver detalles</a>
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 990.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
-                                <?php renderDropdownItems($sencillaAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
-                                <?php renderDropdownItems($sencillaKidOptions); ?>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                    </div>
+            <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+                <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+                </button>
+                <br><br>
+                <hr class="mb-4">
+                <div id="room-summary"></div>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+                <br><br>
+                <div class="d-grid gap-6 col-10 mx-auto">
+                    <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
+                    <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Habitación King-Size -->
+<div class="container-custom move-right" data-room-type="king-size">
+    <div class="card card-custom">
+        <div class="image-container">
+            <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
+        </div>
+        <div class="card-body card-body-custom">
+            <div>
+                <h5 class="card-title">Habitación King-Size</h5>
+                <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
+                <a class="card-link">Ver detalles</a>
+            </div>
+            <div class="card-footer-custom">
+                <div class="price-info">
+                    <h6>MXN 1490.00</h6>
+                    <p>1 noche</p>
+                </div>
+                <div class="controls">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                            Adultos
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="king-size-adults">
+                            <?php renderDropdownItems($kingSizeAdultOptions); ?>
+                        </ul>
+
+                        <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                            Niños
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="king-size-kids">
+                            <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Habitación Sencilla -->
+<div class="container-custom move-right" data-room-type="sencilla">
+    <div class="card card-custom">
+        <div class="image-container">
+            <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
+        </div>
+        <div class="card-body card-body-custom">
+            <div>
+                <h5 class="card-title">Habitación Sencilla</h5>
+                <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                <a class="card-link">Ver detalles</a>
+            </div>
+            <div class="card-footer-custom">
+                <div class="price-info">
+                    <h6>MXN 990.00</h6>
+                    <p>1 noche</p>
+                </div>
+                <div class="controls">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                            Adultos
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
+                            <?php renderDropdownItems($sencillaAdultOptions); ?>
+                        </ul>
+
+                        <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                            Niños
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
+                            <?php renderDropdownItems($sencillaKidOptions); ?>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
@@ -593,31 +623,6 @@ else {
     </div>
 </div>
 
-<div id="info1" class="container" style="display: none;">
-    <div class="card card-custom">
-        <div class="card-body">
-            <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted"><?php echo $fechaInicioConvertida; ?> -> <?php echo $fechaFinConvertida; ?></h6>
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-            </button>
-            <br><br>
-            <hr class="mb-4">
-            <div id="room-summary"></div>
-            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-            <br><br>
-            <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
-                <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
     <!--PIE DE PAGINA-->
     <br><br>
     <br><br>
@@ -660,34 +665,9 @@ else {
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
-
-
-
-
-
-
-
     $(document).ready(function() {
-
-
-  var startDate = localStorage.getItem('fechaInicio');
-            var endDate = localStorage.getItem('fechaFin');
-
-            
-            //esta funcion convierte los datos que recogo del localstroage para convertirlo en objeto date
-            function conversion(fecha) {
-                if (!fecha) return null;
-                var partes = fecha.split('-');
-                return new Date(partes[0], partes[1] - 1, partes[2]);
-            }
-
-          
-            
-            startDate = conversion(startDate);
-            endDate = conversion(endDate);
-
-    
-
+        var startDate;
+        var endDate;
         var diaactual = new Date();
         var añoactual = diaactual.getFullYear();
         var ultimo = new Date(añoactual, 12, 31);
@@ -708,33 +688,15 @@ else {
             beforeShowDay: checar
         });
 
+        $('#date_picker1').change(function() {
+            startDate = $(this).datepicker('getDate');
+            $("#date_picker2").datepicker("option", "minDate", startDate);
+        });
 
-            if (startDate) {
-                $("#date_picker1").datepicker("setDate", startDate);
-            }
-            if (endDate) {
-                $("#date_picker2").datepicker("setDate", endDate);
-            }
-
-           
-
-                $('#date_picker1').change(function() {
-                    startDate = $(this).datepicker('getDate');
-                $("#date_picker2").datepicker("option", "minDate", startDate);
-                localStorage.setItem('fechaInicio', $.datepicker.formatDate('yy-mm-dd', startDate));
-                });
-
-                 $('#date_picker2').change(function() {
-                 endDate = $(this).datepicker('getDate');
-                 $("#date_picker1").datepicker("option", "maxDate", endDate);
-                localStorage.setItem('fechaFin', $.datepicker.formatDate('yy-mm-dd', endDate));
-                });
-
-            
-            
-
-
-      
+        $('#date_picker2').change(function() {
+            endDate = $(this).datepicker('getDate');
+            $("#date_picker1").datepicker("option", "maxDate", endDate);
+        });
 
         function checar(date) {
             var fecha = new Date(date);
@@ -757,8 +719,8 @@ else {
 
 
      
-//mando los datos por ajax
-$('#buscar').click(function(){
+
+    $('#buscar').click(function(){
             $.ajax({
                 url:"habitacionreserva.php",
                 type:'POST',
@@ -767,7 +729,7 @@ $('#buscar').click(function(){
                     $('#respuesta').html(res);
                 }
             });
-        }); 
+        });
     </script>
 
 <script>

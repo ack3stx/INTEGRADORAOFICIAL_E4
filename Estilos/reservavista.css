@@ -85,9 +85,10 @@
  }
  
  .container-fluid {
-     padding: 0; /* Eliminar cualquier padding predeterminado */
-     position: relative;
- }
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
  
  .move-right {
      margin-left: 20px; /* Ajusta este valor según sea necesario */
@@ -174,6 +175,12 @@
      width: 100%;
  }
  
+.container-custom,
+#info1 {
+    flex: 1;
+    margin: 0 10px;
+}
+
  .price-info {
      display: flex;
      flex-direction: column;
@@ -186,7 +193,7 @@
  }
  
  /* Estilos responsivos */
- @media (max-width: 768px) {
+ @media (max-width: 950px) {
      .card-custom {
          flex-direction: column;
          align-items: center;
@@ -218,8 +225,11 @@
  
 /* Estilos para el contenedor info1 */
 #info1 {
-    position: absolute;
-    display: none; /* Oculto por defecto */
-    z-index: 1000; /* Asegura que se muestre sobre otros elementos */
-    width: 40vw; /* Ajusta el ancho según sea necesario */
+    max-width: 30%;
+}
+
+@media (min-width: 951px) {
+    #info1 {
+        display: block;
+    }
 }
