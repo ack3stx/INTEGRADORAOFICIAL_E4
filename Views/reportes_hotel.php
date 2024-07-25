@@ -13,123 +13,6 @@
     $db->conectarDB();
     list($mes, $año) = $db->obtenerMesYAñoActual();
     $mesn=$db->obtenerMesActualn();
-    $consulta="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
-FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
-FROM reservacion
-INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
-WHERE reservacion.recepcionista IS not NULL and month(reservacion.fecha_)=$mesn and year(reservacion.fecha_)=$año) as X,reservacion
-INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
-WHERE reservacion.recepcionista IS NULL and month(reservacion.fecha_)=$mesn and year(reservacion.fecha_)=$año";
-    $array=$db->seleccionar($consulta);
-    foreach($array as $monto_total)
-    {
-      $montola=$monto_total->Total_MontoL;
-      $montofa=$monto_total->Total_MontoF;
-    }
-    $mesn2=$mesn-1;
-    $consulta2="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
-FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
-FROM reservacion
-INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
-WHERE reservacion.recepcionista IS not NULL and month(reservacion.fecha_)=$mesn2 and year(reservacion.fecha_)=$año) as X,reservacion
-INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
-WHERE reservacion.recepcionista IS NULL and month(reservacion.fecha_)=$mesn2 and year(reservacion.fecha_)=$año";
-    $array2=$db->seleccionar($consulta2);
-    foreach($array2 as $monto_total2)
-    {
-      $montole=$monto_total2->Total_MontoL;
-      $montofe=$monto_total2->Total_MontoF;
-    }
-    echo
-    "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
-    <script type='text/javascript'>
-      google.charts.load('current', {'packages':['corechart', 'bar']});
-      google.charts.setOnLoadCallback(drawStuff);
-
-      function drawStuff() {
-        var chartDiv = document.getElementById('chart_div');
-
-        var data = google.visualization.arrayToDataTable([
-          ['Galaxy', 'Linea', 'Fisico'],
-          ['$mes ahora', $montola, $montofa],
-          ['$mes Esperado', $montole, $montofe],
-        ]);
-
-        var materialOptions = {
-          chart: {
-            title: 'Nearby galaxies',
-            subtitle: 'distance on the left, brightness on the right'
-          },
-          series: {
-            0: { axis: 'distance' },
-            1: { axis: 'brightness' }
-          },
-          axes: {
-            y: {
-              distance: {label: 'parsecs', minValue: 0, maxValue: 100000},
-              brightness: {side: 'right', label: 'apparent magnitude'}
-            }
-          }
-        };
-
-        var classicOptions = {
-          series: {
-            0: {targetAxisIndex: 0},
-            1: {targetAxisIndex: 1}
-          },
-          title: 'Nearby galaxies - distance on the left, brightness on the right',
-          vAxes: {
-            0: {title: 'parsecs', viewWindow: {min: 0, max: 100000}},
-            1: {title: 'apparent magnitude', viewWindow: {min: 0, max: 100000}}
-          }
-        };
-
-        function drawClassicChart() {
-          var classicChart = new google.visualization.ColumnChart(chartDiv);
-          classicOptions.width = chartDiv.offsetWidth;
-          classicChart.draw(data, classicOptions);
-        }
-
-        drawClassicChart();
-        window.addEventListener('resize', drawClassicChart);
-      };
-    </script>";
-
-    echo "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
-    <script type='text/javascript'>
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawStuff);
-
-      function drawStuff() {
-        var data = new google.visualization.arrayToDataTable([
-          ['Opening Move', 'Percentage'],
-          ['King\'s pawn (e4)', 44],
-          ['Queen\'s pawn (d4)', 31],
-          ['Knight to King 3 (Nf3)', 12],
-          ['Queen\'s bishop pawn (c4)', 10],
-          ['Other', 3]
-        ]);
-
-        var options = {
-          title: 'Chess opening moves',
-          width: 900,
-          legend: { position: 'none' },
-          chart: { title: 'Chess opening moves',
-                   subtitle: 'popularity by percentage' },
-          bars: 'horizontal', // Required for Material Bar Charts.
-          axes: {
-            x: {
-              0: { side: 'top', label: 'Percentage'} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: '90%' }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        chart.draw(data, options);
-      };
-    </script>
-";
 ?>
     <title>Document</title>
 </head>
@@ -208,21 +91,268 @@ WHERE reservacion.recepcionista IS NULL and month(reservacion.fecha_)=$mesn2 and
       </div>
     </div>
   </nav>
-  <form action="" method="post">
-    <select name="Grafica">
+  <br>
+  <form action="" method="post" class="d-flex">
+    <select name="Grafica" class="form-select w-75">
       <option value="1">Grafica Meta Del Mes</option>
       <option value="2">Grafica Ventas Del Mes Empleados</option>
-    </select>
-    <button type="submit">Buscar</button>
+      <option value="3">Grafica Estadisticas Reservaciones Del Año</option>
+    </select>&nbsp;
+    <button type="submit" class="btn btn-outline-danger">Buscar</button>
   </form>
   <?php
     extract($_POST);
     if($Grafica==1)
     {
-      echo "<div id='chart_div' class='container-fluid' style='height: 500px;'></div>";
+    $consulta="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
+FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
+FROM reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS NOT NULL AND MONTH(reservacion.fecha_) = $mesn AND YEAR(reservacion.fecha_) = $año) AS X
+LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND MONTH(reservacion.fecha_) = $mesn AND YEAR(reservacion.fecha_) = $año
+LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion;";
+    $array=$db->seleccionar($consulta);
+    foreach($array as $monto_total)
+    {
+      $montola=$monto_total->Total_MontoL;
+      $montofa=$monto_total->Total_MontoF;
     }
-    if ($Grafica==2) {
-      echo "<div id='top_x_div' style='width: 900px; height: 500px;'></div>";
+    if (!isset($montola)) {
+      $montola = 0;
+    }
+    if (!isset($montofa)) {
+      $montofa = 0;
+    }
+    $mesn2=$mesn-1;
+    $consulta2="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
+FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
+FROM reservacion
+INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
+WHERE reservacion.recepcionista IS NOT NULL 
+AND MONTH(reservacion.fecha_) = $mesn2
+AND YEAR(reservacion.fecha_) = $año) AS X
+LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND MONTH(reservacion.fecha_) = $mesn2 AND YEAR(reservacion.fecha_) = $año
+LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion";
+    $array2=$db->seleccionar($consulta2);
+    foreach($array2 as $monto_total2)
+    {
+      $montole=$monto_total2->Total_MontoL;
+      $montofe=$monto_total2->Total_MontoF;
+    }
+    if (!isset($montole)) {
+      $montole = 0;
+    }
+    if (!isset($montofe)) {
+      $montofe = 0;
+    }
+    echo
+    "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var chartDiv = document.getElementById('ventas_mes');
+
+        var data = google.visualization.arrayToDataTable([
+          ['Galaxy', 'Linea', 'Fisico'],
+          ['$mes ahora', $montola, $montofa],
+          ['$mes Esperado', $montole, $montofe],
+        ]);
+
+        var classicOptions = {
+          series: {
+            0: {targetAxisIndex: 0}
+          },
+          title: 'Meta de $mes',
+          vAxes: {
+            0: {title: 'Nivel de Ventas'}
+          }
+        };
+
+        function drawClassicChart() {
+          var classicChart = new google.visualization.ColumnChart(chartDiv);
+          classicOptions.width = chartDiv.offsetWidth;
+          classicChart.draw(data, classicOptions);
+        }
+
+        drawClassicChart();
+        window.addEventListener('resize', drawClassicChart);
+      };
+    </script>";
+      echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
+    }
+    if ($Grafica==2) 
+    {
+      $consulta3="SELECT CONCAT(persona.nombre, ' ', persona.Apellido_paterno) AS Nombre,sum(detalle_pago.monto_total) as Total_Ventas
+FROM roles
+INNER JOIN rol_usuario ON rol_usuario.rol = roles.id_rol
+INNER JOIN usuarios ON usuarios.id_usuario = rol_usuario.usuario
+INNER JOIN persona ON persona.usuario = usuarios.id_usuario
+inner join recepcionista on recepcionista.persona_recepcionista=persona.id_persona
+inner join reservacion on reservacion.recepcionista=recepcionista.id_recepcionista
+inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
+WHERE roles.nombre = 'recepcionista' and reservacion.recepcionista is not null
+group by Nombre
+order by Total_Ventas desc
+LIMIT 5";
+$array3=$db->seleccionar($consulta3);
+$empleado1=$array3[0]->Nombre;
+$empleado2=$array3[1]->Nombre;
+$empleado3=$array3[2]->Nombre;
+$empleado4=$array3[3]->Nombre;
+$empleado5=$array3[4]->Nombre;
+
+$ventas1=$array3[0]->Total_Ventas;
+$ventas2=$array3[1]->Total_Ventas;
+$ventas3=$array3[2]->Total_Ventas;
+$ventas4=$array3[3]->Total_Ventas;
+$ventas5=$array3[4]->Total_Ventas;
+
+    echo "
+    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var data = new google.visualization.arrayToDataTable([
+          ['Empleados', 'Nivel de Ventas'],
+          ['$empleado1', $ventas1],
+          ['$empleado2', $ventas2],
+          ['$empleado3', $ventas3],
+          ['$empleado4', $ventas4],
+          ['$empleado5', $ventas5]
+        ]);
+
+        var options = {
+          title: 'Chess opening moves',
+          legend: { position: 'none' },
+          chart: {
+            title: 'Reportes de $mes',
+            subtitle: 'Reportes de ventas de los Empleados'
+          },
+          bars: 'horizontal',
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Nivel de Ventas'}
+            }
+          },
+          bar: { groupWidth: '90%' }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('ventas_empleados'));
+        
+        function drawChart() {
+          var chartWidth = document.getElementById('ventas_empleados').offsetWidth;
+          var chartHeight = document.getElementById('ventas_empleados').offsetHeight;
+          options.width = chartWidth;
+          options.height = chartHeight;
+          chart.draw(data, options);
+        }
+
+        drawChart();
+        window.addEventListener('resize', drawChart);
+      }
+    </script>
+    <style>
+        #ventas_empleados {
+            width: 100%;
+            height: 500px;
+        }
+    </style>";
+
+      echo "<div id='ventas_empleados'></div>";
+    }
+    if ($Grafica==3)
+    {
+      $consult1="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult2="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=2
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult3="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=3
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult4="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult5="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult6="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult7="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult8="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult9="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year (reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult10="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult11="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+$consult12="select count(reservacion.id_reservacion) as cantidad_reservaciones
+from reservacion
+where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
+and reservacion.estado_reservacion not in ('cancelada')";
+
+      echo "
+    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+    <script type='text/javascript'>
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Year', 'Sales', 'Expenses'],
+          ['2013',  1000,      400],
+          ['2014',  1170,      460],
+          ['2015',  660,       1120],
+          ['2016',  1030,      540]
+        ]);
+
+        var options = {
+          title: 'Company Performance',
+          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
+        chart.draw(data, options);
+      }
+    </script>";
+
+      echo"<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";
     }
   ?>
 </body>
