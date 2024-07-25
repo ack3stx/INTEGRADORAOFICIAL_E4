@@ -38,18 +38,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
             $cantidad = [
-                "status" => "success",
-                "message" => "Datos recibidos",
-                "data" => [
+                
                     "Doble" => $disponibilidad,
                     "King Size" => $disponibilidadkingsize,
                     "Sencilla" => $disponibilidadsencilla
-                ]
+                
 
 
             ];
 
-            echo json_encode($cantidad);
+            
+            $var =json_encode($cantidad);
+            echo '<script>console.log("var",'.$var.');</script>';
             $data->desconectarBD();
         } else {
             echo "Error al convertir las fechas.";
@@ -63,12 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-?>
-
-
-<?php
-
-session_start();
 ?>
 
 
@@ -710,73 +704,109 @@ else {
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
-    $(document).ready(function() {
-        var startDate;
-        var endDate;
-        var diaactual = new Date();
-        var añoactual = diaactual.getFullYear();
-        var ultimo = new Date(añoactual, 12, 31);
 
-        $("#date_picker1").datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: diaactual,
-            maxDate: ultimo,
-            yearRange: añoactual + ':' + añoactual,
-            beforeShowDay: checar
-        });
+$(document).ready(function() {
 
-        $("#date_picker2").datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: diaactual,
-            maxDate: ultimo,
-            yearRange: añoactual + ':' + añoactual,
-            beforeShowDay: checar
-        });
 
-        $('#date_picker1').change(function() {
-            startDate = $(this).datepicker('getDate');
-            $("#date_picker2").datepicker("option", "minDate", startDate);
-        });
-
-        $('#date_picker2').change(function() {
-            endDate = $(this).datepicker('getDate');
-            $("#date_picker1").datepicker("option", "maxDate", endDate);
-        });
-
-        function checar(date) {
-            var fecha = new Date(date);
-            if (!startDate) {
-                return [true, "av", "Disponible"];
-            }
-            var primerafecha = new Date(startDate).toDateString();
-            var fechadehoy = fecha.toDateString();
-
-            if (fechadehoy === primerafecha) {
-                return [false, "notav", "No Disponible"];
-            } else {
-                return [true, "av", "Disponible"];
-            }
-        }
-
+var startDate = localStorage.getItem('fechaInicio');
+        var endDate = localStorage.getItem('fechaFin');
 
         
+        //esta funcion convierte los datos que recogo del localstroage para convertirlo en objeto date
+        function conversion(fecha) {
+            if (!fecha) return null;
+            var partes = fecha.split('-');
+            return new Date(partes[0], partes[1] - 1, partes[2]);
+        }
 
+      
+        
+        startDate = conversion(startDate);
+        endDate = conversion(endDate);
+
+
+
+    var diaactual = new Date();
+    var añoactual = diaactual.getFullYear();
+    var ultimo = new Date(añoactual, 12, 31);
+
+    $("#date_picker1").datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: diaactual,
+        maxDate: ultimo,
+        yearRange: añoactual + ':' + añoactual,
+        beforeShowDay: checar
+    });
+
+    $("#date_picker2").datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: diaactual,
+        maxDate: ultimo,
+        yearRange: añoactual + ':' + añoactual,
+        beforeShowDay: checar
     });
 
 
-     
+        if (startDate) {
+            $("#date_picker1").datepicker("setDate", startDate);
+        }
+        if (endDate) {
+            $("#date_picker2").datepicker("setDate", endDate);
+        }
 
-    $('#buscar').click(function(){
-            $.ajax({
-                url:"habitacionreserva.php",
-                type:'POST',
-                data: $('#form').serialize(),
-                success:function(res){
-                    $('#respuesta').html(res);
-                }
+       
+
+            $('#date_picker1').change(function() {
+                startDate = $(this).datepicker('getDate');
+            $("#date_picker2").datepicker("option", "minDate", startDate);
+            localStorage.setItem('fechaInicio', $.datepicker.formatDate('yy-mm-dd', startDate));
             });
+
+             $('#date_picker2').change(function() {
+             endDate = $(this).datepicker('getDate');
+             $("#date_picker1").datepicker("option", "maxDate", endDate);
+            localStorage.setItem('fechaFin', $.datepicker.formatDate('yy-mm-dd', endDate));
+            });
+
+        
+        
+
+
+  
+
+    function checar(date) {
+        var fecha = new Date(date);
+        if (!startDate) {
+            return [true, "av", "Disponible"];
+        }
+        var primerafecha = new Date(startDate).toDateString();
+        var fechadehoy = fecha.toDateString();
+
+        if (fechadehoy === primerafecha) {
+            return [false, "notav", "No Disponible"];
+        } else {
+            return [true, "av", "Disponible"];
+        }
+    }
+
+
+
+});
+
+
+ 
+//mando los datos por ajax
+$('#buscar').click(function(){
+        $.ajax({
+            url:"habitacionreserva.php",
+            type:'POST',
+            data: $('#form').serialize(),
+            success:function(res){
+                $('#respuesta').html(res);
+            }
         });
-    </script>
+    }); 
+</script>
 
 
 
