@@ -279,3 +279,16 @@ CALL info_huesped(1)
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------
+-- ESTE PROCEDIMIENTO SE ENCARGA DE VEIRIFICAR LA DISPONIBILIDAD DE UNA HABITACION EN BASE A LA FECHA DE FIN
+DELIMITER //
+CREATE PROCEDURE Verificar_Disponibilidad_Habitacion(IN numero_de_habitacion INT, IN nueva_fecha_fin DATE)
+BEGIN
+SELECT CASE WHEN EXISTS (SELECT 1 FROM detalle_reservacion JOIN habitacion ON habitacion.ID_HABITACION = detalle_reservacion.HABITACION
+WHERE habitacion.NUM_HABITACION = numero_de_habitacion AND fecha_inicio <= nueva_fecha_fin AND fecha_fin >= nueva_fecha_fin) THEN 'No Disponible'ELSE 'Disponible'
+END AS Disponibilidad;
+END //
+DELIMITER ;
+
+
+CALL Verificar_Disponibilidad_Habitacion(124,'2024-07-27');
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
