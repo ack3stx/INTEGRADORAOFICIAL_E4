@@ -300,7 +300,7 @@ margin-bottom: 1%;
 
 </style>
 <body>
-<!--BARRA DE NAVEGACION
+<!--BARRA DE NAVEGACION-->
 <header>
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
@@ -377,7 +377,7 @@ else {
       </div>
     </nav>
   </div>
-    </header> -->
+    </header> 
     <!--BARRITA-->
     <section class="header-section">
         <div class="header-content">
@@ -394,7 +394,7 @@ else {
             <input type="text" id="date_picker2" name="fechafin" placeholder="Ingresa tu fecha">
         </div>
 
-        <button style="margin-top:-5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
+        <button style="margin-top:-4.5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
     </div>
 </form>
 
@@ -597,7 +597,7 @@ else {
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+            <h6 class="card-subtitle custom2 mb-2 text-muted"><?php echo $fechaInicioConvertida; ?> -> <?php echo $fechaFinConvertida; ?></h6>
             <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
                 <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
             </button>
@@ -660,9 +660,34 @@ else {
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
+
+
+
+
+
+
+
     $(document).ready(function() {
-        var startDate;
-        var endDate;
+
+
+  var startDate = localStorage.getItem('fechaInicio');
+            var endDate = localStorage.getItem('fechaFin');
+
+            
+            //esta funcion convierte los datos que recogo del localstroage para convertirlo en objeto date
+            function conversion(fecha) {
+                if (!fecha) return null;
+                var partes = fecha.split('-');
+                return new Date(partes[0], partes[1] - 1, partes[2]);
+            }
+
+          
+            
+            startDate = conversion(startDate);
+            endDate = conversion(endDate);
+
+    
+
         var diaactual = new Date();
         var añoactual = diaactual.getFullYear();
         var ultimo = new Date(añoactual, 12, 31);
@@ -683,15 +708,33 @@ else {
             beforeShowDay: checar
         });
 
-        $('#date_picker1').change(function() {
-            startDate = $(this).datepicker('getDate');
-            $("#date_picker2").datepicker("option", "minDate", startDate);
-        });
 
-        $('#date_picker2').change(function() {
-            endDate = $(this).datepicker('getDate');
-            $("#date_picker1").datepicker("option", "maxDate", endDate);
-        });
+            if (startDate) {
+                $("#date_picker1").datepicker("setDate", startDate);
+            }
+            if (endDate) {
+                $("#date_picker2").datepicker("setDate", endDate);
+            }
+
+           
+
+                $('#date_picker1').change(function() {
+                    startDate = $(this).datepicker('getDate');
+                $("#date_picker2").datepicker("option", "minDate", startDate);
+                localStorage.setItem('fechaInicio', $.datepicker.formatDate('yy-mm-dd', startDate));
+                });
+
+                 $('#date_picker2').change(function() {
+                 endDate = $(this).datepicker('getDate');
+                 $("#date_picker1").datepicker("option", "maxDate", endDate);
+                localStorage.setItem('fechaFin', $.datepicker.formatDate('yy-mm-dd', endDate));
+                });
+
+            
+            
+
+
+      
 
         function checar(date) {
             var fecha = new Date(date);
@@ -714,8 +757,8 @@ else {
 
 
      
-
-    $('#buscar').click(function(){
+//mando los datos por ajax
+$('#buscar').click(function(){
             $.ajax({
                 url:"habitacionreserva.php",
                 type:'POST',
@@ -724,7 +767,7 @@ else {
                     $('#respuesta').html(res);
                 }
             });
-        });
+        }); 
     </script>
 
 <script>
