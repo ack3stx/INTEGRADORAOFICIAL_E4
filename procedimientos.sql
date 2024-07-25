@@ -188,6 +188,58 @@ end //
 DELIMITER ;
 
 
+--------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER //
+create procedure Disponibilidad_habitaciones_kingsize
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as 'King Size'
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'King Size'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+create procedure Disponibilidad_habitaciones_sencilla
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as 'Sencilla'
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'Sencilla'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
 
 
 -----------------------------------------------------------------------------------------------------------------------

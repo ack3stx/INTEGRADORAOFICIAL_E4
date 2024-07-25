@@ -191,6 +191,47 @@ function disponibilidad($fechaInicio,$fechaFin)
     
 
 }
+
+function disponibilidad_kingsize($fechaInicio,$fechaFin)
+{
+    try{
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_kingsize(:fecha_inicio,:fecha_fin)");
+    $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
+    $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
+    $stmt->execute();
+    
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $resultados;
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
+
+}
+
+
+function disponibilidad_sencilla($fechaInicio,$fechaFin)
+{
+    try{
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_sencilla(:fecha_inicio,:fecha_fin)");
+    $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
+    $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
+    $stmt->execute();
+    
+    $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $resultados;
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
+
+}
+
+
+
+
 }
 
 
