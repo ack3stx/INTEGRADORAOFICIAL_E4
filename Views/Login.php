@@ -99,7 +99,7 @@
                     <form action="../Scripts/Comprueba_Login.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                            <input type="text" class="form-control" id="email" placeholder="Usuario" name="user" required>
+                            <input type="text" class="form-control" id="email" placeholder="Usuario" name="user">
                         </div><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
@@ -121,7 +121,7 @@
                     <form action="../Scripts/Registra_Usuario_Huesped.php" method="post">
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                            <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" required>
+                            <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" >
                         </div><br>
                         <div class="input-group mb-3">
                             <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>

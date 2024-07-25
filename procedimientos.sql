@@ -159,6 +159,88 @@ END //
 
 DELIMITER ;
 
+----------------------------------------------------------------------------------------------------------------------
+-- Este procedimiento nos sera muy util para poder obtener la cantidad de las habitaciones disponibles que se encuentren en el rango de fechas
+-- para poder ajustarlo a la disponibilidad de nuestras habitaciones 
+DELIMITER //
+create procedure Disponibilidad_habitaciones_doble
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as doble
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'Doble'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
+
+
+--------------------------------------------------------------------------------------------------------------------------
+
+DELIMITER //
+create procedure Disponibilidad_habitaciones_kingsize
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as 'King Size'
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'King Size'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
+
+-------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+create procedure Disponibilidad_habitaciones_sencilla
+(in fecha_inicio date , in fecha_fin date)
+begin
+
+DECLARE fecha_inicioo date;
+DECLARE fecha_finn date;
+
+SET fecha_inicioo = fecha_inicio;
+SET fecha_finn = fecha_fin;
+
+select count(habitacion.id_habitacion) as 'Sencilla'
+from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre = 'Sencilla'
+AND HABITACION.ID_HABITACION NOT IN (
+SELECT DETALLE_RESERVACION.HABITACION 
+FROM DETALLE_RESERVACION
+WHERE DETALLE_RESERVACION.FECHA_INICIO <= fecha_finn
+and DETALLE_RESERVACION.FECHA_FIN >= fecha_inicioo );
+
+
+
+end //
+DELIMITER ;
+
 
 -----------------------------------------------------------------------------------------------------------------------
 
@@ -279,16 +361,3 @@ CALL info_huesped(1)
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------
--- ESTE PROCEDIMIENTO SE ENCARGA DE VEIRIFICAR LA DISPONIBILIDAD DE UNA HABITACION EN BASE A LA FECHA DE FIN
-DELIMITER //
-CREATE PROCEDURE Verificar_Disponibilidad_Habitacion(IN numero_de_habitacion INT, IN nueva_fecha_fin DATE)
-BEGIN
-SELECT CASE WHEN EXISTS (SELECT 1 FROM detalle_reservacion JOIN habitacion ON habitacion.ID_HABITACION = detalle_reservacion.HABITACION
-WHERE habitacion.NUM_HABITACION = numero_de_habitacion AND fecha_inicio <= nueva_fecha_fin AND fecha_fin >= nueva_fecha_fin) THEN 'No Disponible'ELSE 'Disponible'
-END AS Disponibilidad;
-END //
-DELIMITER ;
-
-
-CALL Verificar_Disponibilidad_Habitacion(124,'2024-07-27');
------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
