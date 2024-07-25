@@ -30,34 +30,40 @@ $db->conectarDB();
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="calendario.php">
-              <i class="fas fa-calendar-plus"></i> Crear Reserva
+              <i class="fas fa-calendar-plus"></i>Crear Reserva
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva_recepcionista.php">
-              <i class="fas fa-book"></i> Reservaciones
+              <i class="fas fa-book"></i>Reservaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
-              <i class="fas fa-bed"></i> Habitaciones
+              <i class="fas fa-bed"></i>Habitaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped_recepcionista.php">
-              <i class="fas fa-users"></i> Huesped
+              <i class="fas fa-users"></i>Huesped
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="check_in.php">
-              <i class="fas fa-users"></i> Check-in
+              <i class="fas fa-users"></i>Check-in
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="check_out.php">
-              <i class="fas fa-users"></i> Check-out
+              <i class="fas fa-users"></i>Check-out
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_activas.php">
+              <i class="fas fa-users"></i>Extender
+            </a>
+          </li>
+
           <li class="nav-item">
             <a class="nav-link" href="notificaciones_recepcionista.php">
             <button type="button" class="btn btn-danger position-relative fas fa-envelope">
