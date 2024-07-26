@@ -145,6 +145,12 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
     if (!isset($montofe)) {
       $montofe = 0;
     }
+    $totala=$montola+$montofa;
+    $totale=$montole+$montofe;
+    $aumento=$totale*.20;
+    $montole=$montole+$aumento;
+    $montofe=$montofe+$aumento;
+    $totale=($aumento*2)+$totale;
     echo
     "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script type='text/javascript'>
@@ -155,7 +161,7 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
         var chartDiv = document.getElementById('ventas_mes');
 
         var data = google.visualization.arrayToDataTable([
-          ['Galaxy', 'Linea', 'Fisico'],
+          ['Mes', 'Linea', 'Fisico'],
           ['$mes ahora', $montola, $montofa],
           ['$mes Esperado', $montole, $montofe],
         ]);
@@ -179,7 +185,10 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
         drawClassicChart();
         window.addEventListener('resize', drawClassicChart);
       };
-    </script>";
+    </script>
+    <div style='width: 100%; text-align: center; margin-bottom: 20px;'>
+  <h5>Total ahora: $totala &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Esperado: $totale</h5>
+</div>";
       echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
     }
     if ($Grafica==2) 
@@ -341,48 +350,66 @@ ORDER BY meses.mes";
     $noviembref=$array5[10]->cantidad_reservaciones;
     $diciembref=$array5[11]->cantidad_reservaciones;
 
+    $consulta6="SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesl, X.total_reservacionesf
+FROM (SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesf
+FROM reservacion
+WHERE reservacion.recepcionista IS NOT NULL 
+AND YEAR(reservacion.fecha_) = 2024) AS X
+LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND YEAR(reservacion.fecha_) = 2024";
+
+    $array6=$db->seleccionar($consulta6);
+    foreach($array6 as $total_lof)
+    {
+      $total_fisico=$total_lof->total_reservacionesf;
+      $total_linea=$total_lof->total_reservacionesl;
+    }
+    $total_reservas=$total_fisico+$total_linea;
     echo "
-    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
-    <script type='text/javascript'>
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+<script type='text/javascript'>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Mes', 'Linea', 'Fisico'],
+      ['Enero', $enerol, $enerof],
+      ['Febrero', $febrerol, $febrerof],
+      ['Marzo', $marzol, $marzof],
+      ['Abril', $abrill, $abrilf],
+      ['Mayo', $mayol, $mayof],
+      ['Junio', $juniol, $juniof],
+      ['Julio', $juliol, $juliof],
+      ['Agosto', $agostol, $agostof],
+      ['Septiembre', $septiembrel, $septiembref],
+      ['Octubre', $octubrel, $octubref],
+      ['Noviembre', $noviembrel, $noviembref],
+      ['Diciembre', $diciembrel, $diciembref]
+    ]);
+
+    var options = {
+      title: 'Reservaciones Del Año $año',
+      hAxis: {title: 'Mes', titleTextStyle: {color: '#333'}},
+      vAxis: {minValue: 0}
+    };
+
+    var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
     
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Mes', 'Linea', 'Fisico'],
-          ['Enero', $enerol, $enerof],
-          ['Febrero', $febrerol, $febrerof],
-          ['Marzo', $marzol, $marzof],
-          ['Abril', $abrill, $abrilf],
-          ['Mayo', $mayol, $mayof],
-          ['Junio', $juniol, $juniof],
-          ['Julio', $juliol, $juliof],
-          ['Agosto', $agostol, $agostof],
-          ['Septiembre', $septiembrel, $septiembref],
-          ['Octubre', $octubrel, $octubref],
-          ['Noviembre', $noviembrel, $noviembref],
-          ['Diciembre', $diciembrel, $diciembref]
-        ]);
+    function drawResponsiveChart() {
+      var container = document.getElementById('reservaciones_año');
+      options.width = container.offsetWidth;
+      options.height = container.offsetHeight;
+      chart.draw(data, options);
+    }
     
-        var options = {
-          title: 'Reservaciones Del Año',
-          hAxis: {title: 'Mes', titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
-    
-        var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
-        
-        function drawResponsiveChart() {
-          var container = document.getElementById('reservaciones_año');
-          options.width = container.offsetWidth;
-          options.height = container.offsetHeight;
-          chart.draw(data, options);
-        }
-        
-        drawResponsiveChart();
-        window.addEventListener('resize', drawResponsiveChart);
-      }
-    </script>";
+    drawResponsiveChart();
+    window.addEventListener('resize', drawResponsiveChart);
+  }
+</script>
+
+<div style='width: 100%; text-align: center; margin-bottom: 20px;'>
+  <h5>Total De Reservaciones: $total_reservas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total En Linea: $total_linea &nbsp;&nbsp; Total En Fisico: $total_fisico</h5>
+</div>";
     
     echo "<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";    
     }
