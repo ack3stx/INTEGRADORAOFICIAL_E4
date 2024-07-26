@@ -815,11 +815,7 @@ $('#buscar').click(function(){
 var disponibilidad = <?php echo $var; ?>;
 console.log(disponibilidad);
 
-/*var data1 =  //echo $var1; ?>;
-console.log("Datos analizados", data1);
 
-var data2 =  //echo $var2; ?>;
-console.log("Datos analizados", data2);*/
 
 let roomCount = 0;
 const roomData = [];
