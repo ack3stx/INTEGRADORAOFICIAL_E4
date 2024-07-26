@@ -12,11 +12,11 @@
 <?php
   session_start();
   include '../Clases/BasedeDatos.php';
-$db = new Database();
-$db->conectarDB();
+  
+  $db = new Database();
+  $db->conectarDB();
 
-  if($_SESSION["rol"]=="recepcionista")
-  {
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "recepcionista") {
 ?>
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -63,27 +63,25 @@ $db->conectarDB();
               <i class="fas fa-users"></i>Extender
             </a>
           </li>
-
           <li class="nav-item">
             <a class="nav-link" href="notificaciones_recepcionista.php">
-            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
-    <span class="visually-hidden"></span>
-  </span>
-</button>
+              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden"></span>
+                </span>
+              </button>
             </a>
           </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
           <?php
-  if (isset($_SESSION["usuario"])) 
-  {
-    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
-              ".$_SESSION["usuario"]."
-            </button>";
-  }
-  ?>
+            if (isset($_SESSION["usuario"])) {
+              echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+                      ".$_SESSION["usuario"]."
+                    </button>";
+            }
+          ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
               <li><a class="dropdown-item" href="#">Historial</a></li>
@@ -133,50 +131,49 @@ $db->conectarDB();
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <?php
-  }
-  else
-  {
+    $db->desconectarBD();
+  } else {
   ?>
-  <head>
-    <style>
-        body, html {
-            height: 100%;
-        }
-        .bg-dark {
-            background-color: #343a40 !important;
-        }
-        .flex-center {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            color: white;
-        }
-        .error-container {
-            text-align: center;
-        }
-        .error-icon {
-            font-size: 100px;
-        }
-        .error-code {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-        .error-message {
-            font-size: 24px;
-        }
-    </style>
+<head>
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .bg-dark {
+      background-color: #343a40 !important;
+    }
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+    }
+    .error-container {
+      text-align: center;
+    }
+    .error-icon {
+      font-size: 100px;
+    }
+    .error-code {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .error-message {
+      font-size: 24px;
+    }
+  </style>
 </head>
 <body class="bg-dark">
-    <div class="container flex-center">
-        <div class="error-container">
-            <i class="fas fa-times-circle error-icon"></i>
-            <div class="error-code">404</div>
-            <div class="error-message">Pagina no Encontrada</div>
-            <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-            <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
-        </div>
+  <div class="container flex-center">
+    <div class="error-container">
+      <i class="fas fa-times-circle error-icon"></i>
+      <div class="error-code">404</div>
+      <div class="error-message">Pagina no Encontrada</div>
+      <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
     </div>
+  </div>
 </body>
 <?php
   }

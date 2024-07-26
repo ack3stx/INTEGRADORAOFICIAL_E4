@@ -1,4 +1,61 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || $_SESSION['rol'] !== 'recepcionista') {
+    ?>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>404 - Página no Encontrada</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+            }
+            .bg-dark {
+                background-color: #343a40 !important;
+            }
+            .flex-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                color: white;
+            }
+            .error-container {
+                text-align: center;
+            }
+            .error-icon {
+                font-size: 100px;
+            }
+            .error-code {
+                font-size: 80px;
+                margin-bottom: 20px;
+            }
+            .error-message {
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body class="bg-dark">
+        <div class="container flex-center">
+            <div class="error-container">
+                <i class="fas fa-times-circle error-icon"></i>
+                <div class="error-code">404</div>
+                <div class="error-message">Página no Encontrada</div>
+                <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+                <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit();
+}
+
 include '../Clases/BasedeDatos.php';
 $db = new Database();
 $db->conectarDB();
@@ -118,7 +175,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="header-right">
               <div class="btn-group">
               <?php
-          session_start();
           if (isset($_SESSION["usuario"])) 
           {
             echo "<button class='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
@@ -149,7 +205,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <thead class='table-dark'>
                 <tr>
                     <th class='text-white'>Numero_Reservacion</th>
-                    <th class='text-white'>Nombre_Completo</th>
+                    <th class='text-white'>Nombre Completo</th>
                     <th class='text-white'>Registrar Check-IN</th>
                 </tr>
             </thead>
@@ -189,7 +245,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="post">
                 <div id="modalContent"></div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <button type="submit" class="btn btn-danger">Registrar Titulares en la Habitación</button>
                 </div>
             </form>
           </div>

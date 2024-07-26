@@ -361,3 +361,65 @@ CALL info_huesped(1)
 
 
 ---------------------------------------------------------------------------------------------------------------------------------------
+
+
+-- PROCEDIMIENTO QUE USO PARA VERIFICAR LA DISPONIBILIDAD POR UNA SOLA HABITACION
+DELIMITER //
+CREATE PROCEDURE Verificar_Disponibilidad_Habitacion(
+IN numero_de_habitacion INT, 
+IN nueva_fecha_inicio DATE, 
+IN nueva_fecha_fin DATE)
+BEGIN
+DECLARE inicio_datetime DATETIME;
+DECLARE fin_datetime DATETIME;
+SET inicio_datetime = CONCAT(nueva_fecha_inicio, ' 15:00:00');
+SET fin_datetime = CONCAT(nueva_fecha_fin, ' 12:00:00');
+SELECT CASE 
+WHEN EXISTS (SELECT 1 FROM detalle_reservacion JOIN habitacion ON habitacion.ID_HABITACION = detalle_reservacion.HABITACION
+WHERE habitacion.NUM_HABITACION = numero_de_habitacion AND ((fecha_inicio <= fin_datetime AND fecha_fin >= inicio_datetime))) THEN 'No Disponible'
+ELSE 'Disponible'
+END AS Disponibilidad;
+END //
+DELIMITER ;
+
+CALL Verificar_Disponibilidad_Habitacion(124, '2024-07-26', '2024-07-30');
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+-- procedimiento para registrar el pago de la reservacion
+-- este procedimiento inserta los detalles del monto del pago al finalizar nuestra reserva
+DELIMITER //
+CREATE PROCEDURE RegistrarPagoReservacion(
+IN N_Reservacion INT,
+IN metodo_pago ENUM('efectivo', 'tarjeta', 'transferencia'),
+IN monto_total DECIMAL(8,2)
+)
+BEGIN
+INSERT INTO detalle_pago(reservacion, metodo_pago, monto_total)VALUES (N_Reservacion, metodo_pago, monto_total);
+END //
+DELIMITER ;
+
+CALL RegistrarPagoReservacion(125,'tarjeta', 4500.00);
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- Procedimiento para registrar los datos de facturacion de una persona
+-- este procedimiente registra la informacion de mi tabla datos_facturacion para darle sobrecarga a la informacion de mi persona
+DELIMITER //
+ create procedure registro_facturacion 
+(in nombre  varchar (25),in a_paterno varchar (25), in a_materno varchar (25),
+in rfc varchar (18),in direccion varchar (50))
+begin
+declare max_detalle_pago int;
+SELECT MAX(id_detalle_pago) INTO max_detalle_pago FROM detalle_pago;
+insert into datos_facturacion(nombre,apellido_paterno,apellido_materno,rfc,direccion,detalle_pago) values 
+(nombre,a_paterno,a_materno,rfc,direccion,max_detalle_pago);
+END //
+DELIMITER ;
+
+call registro_facturacion('Victor Gael','Barajas','Vazquez','8715732505','calle centro 224 Norte');
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
