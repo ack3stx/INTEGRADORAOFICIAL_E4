@@ -34,20 +34,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = new Database();
             $data->conectarDB();
             $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
-           // $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
-            //$disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
+           $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
+            $disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
 
 
-            $cantidaddoble  = $disponibilidad;
-            //$cantidadking = $disponibilidadkingsize;
-            //$cantidadsencilla = $disponibilidadsencilla;
-                
+            $cantidad = [
+                "doble" => $disponibilidad,
+                "kingsize " => $disponibilidadkingsize,
+                 "sencilla" => $disponibilidadsencilla
+        ];
               
 
             
             $data->desconectarBD();
 
-            $var =json_encode($cantidaddoble);
+            $var =json_encode($cantidad);
             echo "<script>console.log('Debug Objects: " . $var . "' );</script>";
            // $var1 =json_encode($cantidadking);
            // $var2 =json_encode($cantidadsencilla);
@@ -481,7 +482,7 @@ else {
                                 <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar2(this);">Añadir</button>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -522,7 +523,7 @@ else {
                                 <?php renderDropdownItems($sencillaKidOptions); ?>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar3(this);">Añadir</button>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -642,7 +643,7 @@ else {
     </div>
 </div>
 
-<!-- Modal de Advertencia -->
+<!-- Modal de Advertencia 
 <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -658,7 +659,7 @@ else {
       </div>
     </div>
   </div>
-</div>
+</div> -->
 
      <!--PIE DE PAGINA
      <br><br>
@@ -811,8 +812,8 @@ $('#buscar').click(function(){
 
 <script>
 
-var disponibilidadDoble = <?php echo $var; ?>;
-console.log(disponibilidadDoble);
+var disponibilidad = <?php echo $var; ?>;
+console.log(disponibilidad);
 
 /*var data1 =  //echo $var1; ?>;
 console.log("Datos analizados", data1);
@@ -883,88 +884,24 @@ function mostrar(button) {
     const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
     const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
 
-    if (!adultos) {
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
-        myModal.show();
-        return;
-    }
+        const roomDetails = {
+            roomType: capitalizeFirstLetter(roomType),
+            adultos,
+            niños,
+            price: 1100
+        };
 
-    --disponibilidaddoble;
+        roomData.push(roomDetails);
 
-    const roomDetails = {
-        roomType: capitalizeFirstLetter(roomType),
-        adultos,
-        niños,
-        price: 1100
-    };
+        updateRoomSummaries();
+        updateTotalPrice(1100);
 
-    roomData.push(roomDetails);
-
-    updateRoomSummaries();
-    updateTotalPrice(1100);
-
-    roomCount++;
-    checkScreenWidth();
+        roomCount++;
+        checkScreenWidth();
+    
 }
 
-/*mostrar de las kingsize
 
-function mostrar2(button) {
-    const roomContainer = button.closest('.container-custom');
-    const roomType = roomContainer.getAttribute('data-room-type');
-    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
-    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
-
-    if (!adultos) {
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
-        myModal.show();
-        return;
-    }
-
-    const roomDetails = {
-        roomType: capitalizeFirstLetter(roomType),
-        adultos,
-        niños,
-        price: 1100
-    };
-
-    roomData.push(roomDetails);
-
-    updateRoomSummaries();
-    updateTotalPrice(1100);
-
-    roomCount++;
-    checkScreenWidth();
-}
-//mostrar de las sencillas
-
-function mostrar3(button) {
-    const roomContainer = button.closest('.container-custom');
-    const roomType = roomContainer.getAttribute('data-room-type');
-    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
-    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
-
-    if (!adultos) {
-        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
-        myModal.show();
-        return;
-    }
-
-    const roomDetails = {
-        roomType: capitalizeFirstLetter(roomType),
-        adultos,
-        niños,
-        price: 1100
-    };
-
-    roomData.push(roomDetails);
-
-    updateRoomSummaries();
-    updateTotalPrice(1100);
-
-    roomCount++;
-    checkScreenWidth();
-} */
 
 
 
@@ -1005,6 +942,9 @@ function updateRoomSummaries() {
     const roomSummaryElement = document.getElementById('room-summary');
     const cardRoomSummaryElement = document.getElementById('card-room-summary');
     const modalBodyContent = document.getElementById('modal-body-content');
+
+
+   
 
     roomSummaryElement.innerHTML = '';
     cardRoomSummaryElement.innerHTML = '';
@@ -1058,6 +998,7 @@ document.querySelectorAll('.btn.btn-success').forEach(button => {
             var warningModal = new bootstrap.Modal(document.getElementById('warningModal'), {});
             warningModal.show();
         } else {
+            
             // Aquí se agrega el proceso de la reserva
         }
     });
