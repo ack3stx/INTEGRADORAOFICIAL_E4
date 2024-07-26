@@ -1,9 +1,7 @@
 <?php
-
 include '../Clases/BasedeDatos.php';
 
 session_start();
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
@@ -28,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Fecha Inicio Convertida: ' . htmlspecialchars($fechaInicioConvertida) . '<br>';
         echo 'Fecha Fin Convertida: ' . htmlspecialchars($fechaFinConvertida) . '<br>';
 
+
+    
+
         // despues de convertirlas llamamos al procedimiento
         if ($fechaInicioConvertida && $fechaFinConvertida) {
             $data = new Database();
@@ -39,20 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $cantidad = [
                 
-                    "Doble" => $disponibilidad,
-                    "King Size" => $disponibilidadkingsize,
-                    "Sencilla" => $disponibilidadsencilla
-                
-
-
+                "doble" => $disponibilidad,
+                "king" => $disponibilidadkingsize,
+                "sencilla" => $disponibilidadsencilla
             ];
 
             
-            $var =json_encode($cantidad);
-            echo '<script>console.log("var",'.$var.');</script>';
             $data->desconectarBD();
+
+            $var =json_encode($cantidad);
+            echo '<pre>' . htmlspecialchars($var) . '</pre>';
+            
         } else {
             echo "Error al convertir las fechas.";
+            
         }
 
 
@@ -60,9 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Fechas no recibidas correctamente.";
     }
 }
-
-
-
 ?>
 
 
@@ -378,8 +376,8 @@ else {
       </div>
     </nav>
   </div>
-    </header> -->
-    <!--BARRITA-->
+    </header> 
+    BARRITA-->
     <section class="header-section">
         <div class="header-content">
             <p>HOTEL LAGUNA INN</p>
@@ -437,7 +435,7 @@ else {
                                 <?php renderDropdownItems($dobleKidOptions); ?>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        <button  type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -626,7 +624,7 @@ else {
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--CONVERTIR LA FECHA Q ELEGIMOS-->
             <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
                 <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
             </button>
@@ -662,7 +660,7 @@ else {
   </div>
 </div>
 
-    <!--PIE DE PAGINA-->
+    <!--PIE DE PAGINA
     <br><br>
     <br><br>
     <footer class="footer">
@@ -692,7 +690,7 @@ else {
           <i class="fa-solid fa-paper-plane"></i>
       </div>
   </div>
-</footer> 
+</footer> -->
 
 
 
@@ -789,6 +787,7 @@ var startDate = localStorage.getItem('fechaInicio');
         }
     }
 
+    
 
 
 });
@@ -806,11 +805,19 @@ $('#buscar').click(function(){
             }
         });
     }); 
+
+
 </script>
 
 
-
 <script>
+var data = <?php echo $var; ?>;
+console.log("Datos analizados", data);
+
+console.log("Doble:", data.doble);
+console.log("King:", data.king);
+console.log("Sencilla:", data.sencilla);
+
 let roomCount = 0;
 const roomData = [];
 
@@ -872,14 +879,17 @@ window.onresize = checkScreenWidth;
 function mostrar(button) {
     const roomContainer = button.closest('.container-custom');
     const roomType = roomContainer.getAttribute('data-room-type');
-    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
-    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+    const adultos = roomContainer.querySelector(button[id="${roomType}-adults"]).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(button[id="${roomType}-kids"]).getAttribute('data-selected-value');
 
     if (!adultos) {
         var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
         myModal.show();
         return;
     }
+
+
+    
 
     const roomDetails = {
         roomType: capitalizeFirstLetter(roomType),
@@ -896,6 +906,8 @@ function mostrar(button) {
     roomCount++;
     checkScreenWidth();
 }
+
+
 
 function borrarCambios() {
     var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
