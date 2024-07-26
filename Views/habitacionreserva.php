@@ -1,9 +1,7 @@
 <?php
-
 include '../Clases/BasedeDatos.php';
 
 session_start();
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
@@ -28,31 +26,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo 'Fecha Inicio Convertida: ' . htmlspecialchars($fechaInicioConvertida) . '<br>';
         echo 'Fecha Fin Convertida: ' . htmlspecialchars($fechaFinConvertida) . '<br>';
 
+
+    
+
         // despues de convertirlas llamamos al procedimiento
         if ($fechaInicioConvertida && $fechaFinConvertida) {
             $data = new Database();
             $data->conectarDB();
             $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
-            $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
-            $disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
+           // $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
+            //$disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
 
 
-            $cantidad = [
-                "status" => "success",
-                "message" => "Datos recibidos",
-                "data" => [
-                    "Doble" => $disponibilidad,
-                    "King Size" => $disponibilidadkingsize,
-                    "Sencilla" => $disponibilidadsencilla
-                ]
+            $cantidaddoble  = $disponibilidad;
+            //$cantidadking = $disponibilidadkingsize;
+            //$cantidadsencilla = $disponibilidadsencilla;
+                
+              
 
-
-            ];
-
-            echo json_encode($cantidad);
+            
             $data->desconectarBD();
+
+            $var =json_encode($cantidaddoble);
+            echo "<script>console.log('Debug Objects: " . $var . "' );</script>";
+           // $var1 =json_encode($cantidadking);
+           // $var2 =json_encode($cantidadsencilla);
+           
+            
         } else {
             echo "Error al convertir las fechas.";
+            
         }
 
 
@@ -60,15 +63,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "Fechas no recibidas correctamente.";
     }
 }
-
-
-
-?>
-
-
-<?php
-
-session_start();
 ?>
 
 
@@ -87,6 +81,7 @@ $dobleAdultOptions = [
 ];
 
 $dobleKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño',
     2 => '2 Niños',
     3 => '3 Niños'
@@ -98,6 +93,7 @@ $kingSizeAdultOptions = [
 ];
 
 $kingSizeKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño',
     2 => '2 Niños'
 ];
@@ -108,6 +104,7 @@ $sencillaAdultOptions = [
 ];
 
 $sencillaKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño'
 ];
 
@@ -384,8 +381,8 @@ else {
       </div>
     </nav>
   </div>
-    </header> -->
-    <!--BARRITA-->
+    </header> 
+    BARRITA-->
     <section class="header-section">
         <div class="header-content">
             <p>HOTEL LAGUNA INN</p>
@@ -405,7 +402,10 @@ else {
     </div>
 </form>
 
-<div class="container-fluid d-flex justify-content-between align-items-start" style="margin-top: 30px;">
+
+
+
+<div class="container-fluid d-flex justify-content-start flex-wrap position-relative" id="contenedor-fluido">
     <!-- Habitación Doble -->
     <div class="container-custom move-right" data-room-type="doble">
         <div class="card card-custom">
@@ -415,9 +415,9 @@ else {
             <div class="card-body card-body-custom">
                 <div>
                     <h5 class="card-title">Habitación Doble</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 4 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                    
                 </div>
                 <div class="card-footer-custom">
                     <div class="price-info">
@@ -446,111 +446,90 @@ else {
             </div>
         </div>
     </div>
-    
-    <!-- Resumen de la Reserva -->
-    <div id="info1" class="container" style="position: relative; top: 0;">
+
+    <!-- Habitación King-Size -->
+    <div class="container-custom move-right" data-room-type="king-size">
         <div class="card card-custom">
-            <div class="card-body">
-                <h5 class="card-title custom1">Resumen de la Reserva</h5>
-                <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
-                <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-                </button>
-                <br><br>
-                <hr class="mb-4">
-                <div id="room-summary"></div>
-                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-                <br><br>
-                <div class="d-grid gap-6 col-10 mx-auto">
-                    <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
-                    <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
-                </div>
+            <div class="image-container">
+                <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- Habitación King-Size -->
-<div class="container-custom move-right" data-room-type="king-size">
-    <div class="card card-custom">
-        <div class="image-container">
-            <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
-        </div>
-        <div class="card-body card-body-custom">
-            <div>
-                <h5 class="card-title">Habitación King-Size</h5>
-                <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                <a class="card-link">Ver detalles</a>
-            </div>
-            <div class="card-footer-custom">
-                <div class="price-info">
-                    <h6>MXN 1490.00</h6>
-                    <p>1 noche</p>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación King-Size</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 3 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación King-Size ofrece una lujosa cama king-size en un espacioso ambiente de 35 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                    
                 </div>
-                <div class="controls">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                            Adultos
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="king-size-adults">
-                            <?php renderDropdownItems($kingSizeAdultOptions); ?>
-                        </ul>
-
-                        <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                            Niños
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="king-size-kids">
-                            <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
-                        </ul>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 1490.00</h6>
+                        <p>1 noche</p>
                     </div>
-                    <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                Adultos
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="king-size-adults">
+                                <?php renderDropdownItems($kingSizeAdultOptions); ?>
+                            </ul>
 
-<!-- Habitación Sencilla -->
-<div class="container-custom move-right" data-room-type="sencilla">
-    <div class="card card-custom">
-        <div class="image-container">
-            <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
-        </div>
-        <div class="card-body card-body-custom">
-            <div>
-                <h5 class="card-title">Habitación Sencilla</h5>
-                <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                <a class="card-link">Ver detalles</a>
-            </div>
-            <div class="card-footer-custom">
-                <div class="price-info">
-                    <h6>MXN 990.00</h6>
-                    <p>1 noche</p>
-                </div>
-                <div class="controls">
-                    <div class="dropdown">
-                        <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                            Adultos
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
-                            <?php renderDropdownItems($sencillaAdultOptions); ?>
-                        </ul>
-
-                        <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                            Niños
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
-                            <?php renderDropdownItems($sencillaKidOptions); ?>
-                        </ul>
+                            <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                Niños
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="king-size-kids">
+                                <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar2(this);">Añadir</button>
                     </div>
-                    <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Habitación Sencilla -->
+    <div class="container-custom move-right" data-room-type="sencilla">
+        <div class="card card-custom">
+            <div class="image-container">
+                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
+            </div>
+            <div class="card-body card-body-custom">
+                <div>
+                    <h5 class="card-title">Habitación Sencilla</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 2 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                    
+                </div>
+                <div class="card-footer-custom">
+                    <div class="price-info">
+                        <h6>MXN 990.00</h6>
+                        <p>1 noche</p>
+                    </div>
+                    <div class="controls">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
+                                Adultos
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
+                                <?php renderDropdownItems($sencillaAdultOptions); ?>
+                            </ul>
+
+                            <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                                Niños
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
+                                <?php renderDropdownItems($sencillaKidOptions); ?>
+                            </ul>
+                        </div>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar3(this);">Añadir</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
@@ -573,14 +552,12 @@ else {
     </div>
 </div>
 
-
-
    <!-- Modal -->
-   <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+   <div class="modal fade" id="exampleModalTogglee" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Advertencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -612,19 +589,79 @@ else {
     </div>
 </div>
 
-<div class="card" id="card-container" style="max-width: 600px; display: none;">
-    <img src="..." class="card-img-top" alt="...">
-    <div class="card-body">
-        <h5 class="card-title">Tus habitaciones</h5>
-        <p class="card-text">Mira el resumen de tu reserva</p>
-        <div id="card-room-summary"></div>
-        <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="card-total-price">0.00</span></strong></p>
-        <a href="#" class="btn btn-primary" id="ver-mas-btn">Ver más</a>
+<div class="card" id="card-container" style="max-width: 550px; display: none;">
+        <img src="../Imagenes/RECEPCION.png" class="card-img-top" alt="...">
+        <div class="card-body">
+            <h5 class="card-title">Tus habitaciones</h5>
+            <p class="card-text">Mira el resumen de tu reserva</p>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="card-total-price">0.00</span></strong></p>
+            <a href="#" class="btn btn-primary" id="ver-mas-btn">Ver más</a>
+            <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="scrollableModalLabel">Resumen de la Reserva</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" id="modal-body-content">
+                            <div id="card-room-summary">
+                                <!-- Resumen breve de habitaciones -->
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                            <button class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
+                            <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="info1" class="container" style="display: none;">
+    <div class="card card-custom">
+        <div class="card-body">
+            <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
+            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+            </button>
+            <br><br>
+            <hr class="mb-4">
+            <div id="room-summary">
+                <!-- Resumen breve de habitaciones -->
+            </div>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+            <br><br>
+            <div class="d-grid gap-6 col-10 mx-auto">
+                <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
+                <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
+            </div>
+        </div>
     </div>
 </div>
 
-    <!--PIE DE PAGINA-->
-    <br><br>
+<!-- Modal de Advertencia -->
+<div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="warningModalLabel">Advertencia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>Para poder reservar, debes de seleccionar una habitación</h3>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+     <!--PIE DE PAGINA
+     <br><br>
     <br><br>
     <footer class="footer">
   <div class="footer-container">
@@ -653,8 +690,7 @@ else {
           <i class="fa-solid fa-paper-plane"></i>
       </div>
   </div>
-</footer> 
-
+</footer>-->
 
 
 
@@ -665,84 +701,156 @@ else {
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 
     <script>
-    $(document).ready(function() {
-        var startDate;
-        var endDate;
-        var diaactual = new Date();
-        var añoactual = diaactual.getFullYear();
-        var ultimo = new Date(añoactual, 12, 31);
 
-        $("#date_picker1").datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: diaactual,
-            maxDate: ultimo,
-            yearRange: añoactual + ':' + añoactual,
-            beforeShowDay: checar
-        });
+$(document).ready(function() {
 
-        $("#date_picker2").datepicker({
-            dateFormat: 'dd-mm-yy',
-            minDate: diaactual,
-            maxDate: ultimo,
-            yearRange: añoactual + ':' + añoactual,
-            beforeShowDay: checar
-        });
 
-        $('#date_picker1').change(function() {
-            startDate = $(this).datepicker('getDate');
-            $("#date_picker2").datepicker("option", "minDate", startDate);
-        });
+var startDate = localStorage.getItem('fechaInicio');
+        var endDate = localStorage.getItem('fechaFin');
 
-        $('#date_picker2').change(function() {
-            endDate = $(this).datepicker('getDate');
-            $("#date_picker1").datepicker("option", "maxDate", endDate);
-        });
-
-        function checar(date) {
-            var fecha = new Date(date);
-            if (!startDate) {
-                return [true, "av", "Disponible"];
-            }
-            var primerafecha = new Date(startDate).toDateString();
-            var fechadehoy = fecha.toDateString();
-
-            if (fechadehoy === primerafecha) {
-                return [false, "notav", "No Disponible"];
-            } else {
-                return [true, "av", "Disponible"];
-            }
+        
+        //esta funcion convierte los datos que recogo del localstroage para convertirlo en objeto date
+        function conversion(fecha) {
+            if (!fecha) return null;
+            var partes = fecha.split('-');
+            return new Date(partes[0], partes[1] - 1, partes[2]);
         }
 
+      
+        
+        startDate = conversion(startDate);
+        endDate = conversion(endDate);
 
 
+
+    var diaactual = new Date();
+    var añoactual = diaactual.getFullYear();
+    var ultimo = new Date(añoactual, 12, 31);
+
+    $("#date_picker1").datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: diaactual,
+        maxDate: ultimo,
+        yearRange: añoactual + ':' + añoactual,
+        beforeShowDay: checar
+    });
+
+    $("#date_picker2").datepicker({
+        dateFormat: 'dd-mm-yy',
+        minDate: diaactual,
+        maxDate: ultimo,
+        yearRange: añoactual + ':' + añoactual,
+        beforeShowDay: checar
     });
 
 
-     
+        if (startDate) {
+            $("#date_picker1").datepicker("setDate", startDate);
+        }
+        if (endDate) {
+            $("#date_picker2").datepicker("setDate", endDate);
+        }
 
-    $('#buscar').click(function(){
-            $.ajax({
-                url:"habitacionreserva.php",
-                type:'POST',
-                data: $('#form').serialize(),
-                success:function(res){
-                    $('#respuesta').html(res);
-                }
+       
+
+            $('#date_picker1').change(function() {
+                startDate = $(this).datepicker('getDate');
+            $("#date_picker2").datepicker("option", "minDate", startDate);
+            localStorage.setItem('fechaInicio', $.datepicker.formatDate('yy-mm-dd', startDate));
             });
+
+             $('#date_picker2').change(function() {
+             endDate = $(this).datepicker('getDate');
+             $("#date_picker1").datepicker("option", "maxDate", endDate);
+            localStorage.setItem('fechaFin', $.datepicker.formatDate('yy-mm-dd', endDate));
+            });
+
+        
+        
+
+
+  
+
+    function checar(date) {
+        var fecha = new Date(date);
+        if (!startDate) {
+            return [true, "av", "Disponible"];
+        }
+        var primerafecha = new Date(startDate).toDateString();
+        var fechadehoy = fecha.toDateString();
+
+        if (fechadehoy === primerafecha) {
+            return [false, "notav", "No Disponible"];
+        } else {
+            return [true, "av", "Disponible"];
+        }
+    }
+
+    
+
+
+});
+
+
+ 
+//mando los datos por ajax
+$('#buscar').click(function(){
+        $.ajax({
+            url:"habitacionreserva.php",
+            type:'POST',
+            data: $('#form').serialize(),
+            success:function(res){
+                $('#respuesta').html(res);
+            }
         });
-    </script>
+    }); 
+
+
+</script>
+
 
 <script>
- // Variable para llevar la cuenta de las habitaciones añadidas
- let roomCount = 0;
 
-// Función para verificar el tamaño de la pantalla
+var disponibilidadDoble = <?php echo $var; ?>;
+console.log(disponibilidadDoble);
+
+/*var data1 =  //echo $var1; ?>;
+console.log("Datos analizados", data1);
+
+var data2 =  //echo $var2; ?>;
+console.log("Datos analizados", data2);*/
+
+let roomCount = 0;
+const roomData = [];
+
+function adjustCardPosition() {
+    var cardContainer = document.getElementById('card-container');
+    var containerFluid = document.getElementById('contenedor-fluido');
+    
+    if (window.innerWidth < 950) {
+        
+        cardContainer.style.position = 'relative';
+        cardContainer.style.top = 'initial';
+        cardContainer.style.marginLeft = '50px'; 
+        cardContainer.style.marginTop = '20px'; 
+        containerFluid.style.maxHeight = 'initial';
+    } else {
+        cardContainer.style.top = '-2030px'; //POSICION DE LA CARD CUANDO APARECE CUANDO LA RESOLUCION SEA MAYOR 950
+        cardContainer.style.marginLeft = '50%';
+    }
+}
+
+window.addEventListener('resize', adjustCardPosition);
+
+adjustCardPosition();
+
 function checkScreenWidth() {
     const contenedor = document.getElementById('info1');
     const cardContainer = document.getElementById('card-container');
+    const body = document.body; // Aquí se selecciona el body del documento
 
     if (window.innerWidth <= 950) {
-        if (roomCount > 0 && contenedor) {
+        if (roomCount > 0) {
             contenedor.style.display = 'none';
             cardContainer.style.display = 'block';
         } else {
@@ -750,27 +858,24 @@ function checkScreenWidth() {
             cardContainer.style.display = 'none';
         }
     } else {
-        if (roomCount > 0 && roomCount < 5 && contenedor) {
+        if (roomCount > 0 && roomCount < 5) {
             contenedor.style.display = 'block';
             contenedor.style.position = 'absolute';
-            contenedor.style.top = '200px';
+            contenedor.style.top = '-40px';
             contenedor.style.left = '100px';
-        } else {
+            cardContainer.style.display = 'none';
+        } else if (roomCount >= 5) {
             contenedor.style.display = 'none';
-        }
-        if (roomCount >= 5) {
             cardContainer.style.display = 'block';
         } else {
+            contenedor.style.display = 'none';
             cardContainer.style.display = 'none';
         }
     }
 }
 
-// Verificar el tamaño de la pantalla cuando se carga la página
-window.onload = checkScreenWidth;
-
-// Verificar el tamaño de la pantalla cuando se redimensiona la ventana
-window.onresize = checkScreenWidth;
+window.addEventListener('load', checkScreenWidth);
+window.addEventListener('resize', checkScreenWidth);
 
 function mostrar(button) {
     const roomContainer = button.closest('.container-custom');
@@ -784,108 +889,150 @@ function mostrar(button) {
         return;
     }
 
-    const resumenHTML = `
-        <div class="room-summary-item">
-            <p id="room-type">Habitación ${capitalizeFirstLetter(roomType)} &nbsp;&nbsp;&nbsp;&nbsp; MXN 1100.00</p>
-            <p style="color:gray;"> 2x Tarifa estándar</p>
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-person" id="num-adults">&nbsp;&nbsp;&nbsp;&nbsp;${adultos}</i>
-            </button>
-            ${niños ? `
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-child" id="num-kids">&nbsp;&nbsp;&nbsp;&nbsp;${niños}</i>
-            </button>` : ''}
-            <button type="button" class="btn btn-danger btn-remove-room" onclick="eliminar(this);">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-            <hr class="mb-4">
-        </div>
-    `;
+    --disponibilidaddoble;
 
-    // Determinar dónde agregar el resumen de la habitación
-    if (window.innerWidth <= 950) {
-        const cardContainer = document.getElementById('card-container');
-        const cardRoomSummaryElement = document.getElementById('card-room-summary');
-        cardRoomSummaryElement.insertAdjacentHTML('beforeend', resumenHTML);
-        cardContainer.style.display = 'block';
-    } else {
-        const roomSummaryElement = document.getElementById('room-summary');
-        roomSummaryElement.insertAdjacentHTML('beforeend', resumenHTML);
-    }
+    const roomDetails = {
+        roomType: capitalizeFirstLetter(roomType),
+        adultos,
+        niños,
+        price: 1100
+    };
 
+    roomData.push(roomDetails);
+
+    updateRoomSummaries();
     updateTotalPrice(1100);
 
     roomCount++;
-
-    // Verificar el tamaño de la pantalla y la cantidad de habitaciones para mostrar u ocultar la card
     checkScreenWidth();
-
-    // Verificar si se han añadido 5 habitaciones
-    if (roomCount >= 5) {
-        const modalBodyContent = document.getElementById('modal-body-content');
-        const roomSummaryItems = document.querySelectorAll('.room-summary-item');
-        roomSummaryItems.forEach(item => {
-            modalBodyContent.appendChild(item);
-        });
-        document.getElementById('info1').style.display = 'none';
-        var scrollableModal = new bootstrap.Modal(document.getElementById('scrollableModal'), {});
-        scrollableModal.show();
-    }
 }
 
+/*mostrar de las kingsize
+
+function mostrar2(button) {
+    const roomContainer = button.closest('.container-custom');
+    const roomType = roomContainer.getAttribute('data-room-type');
+    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+
+    if (!adultos) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+        myModal.show();
+        return;
+    }
+
+    const roomDetails = {
+        roomType: capitalizeFirstLetter(roomType),
+        adultos,
+        niños,
+        price: 1100
+    };
+
+    roomData.push(roomDetails);
+
+    updateRoomSummaries();
+    updateTotalPrice(1100);
+
+    roomCount++;
+    checkScreenWidth();
+}
+//mostrar de las sencillas
+
+function mostrar3(button) {
+    const roomContainer = button.closest('.container-custom');
+    const roomType = roomContainer.getAttribute('data-room-type');
+    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+
+    if (!adultos) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+        myModal.show();
+        return;
+    }
+
+    const roomDetails = {
+        roomType: capitalizeFirstLetter(roomType),
+        adultos,
+        niños,
+        price: 1100
+    };
+
+    roomData.push(roomDetails);
+
+    updateRoomSummaries();
+    updateTotalPrice(1100);
+
+    roomCount++;
+    checkScreenWidth();
+} */
+
+
+
 function borrarCambios() {
-    // Mostrar el modal de confirmación
     var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
     modal.show();
 
-    // Ocultar todas las habitaciones en el resumen
-    const roomSummaryElement = document.getElementById('room-summary');
-    roomSummaryElement.innerHTML = '';
-
-    // Ocultar todas las habitaciones en el modal-body-content del card
-    const modalBodyContent = document.getElementById('modal-body-content');
-    modalBodyContent.innerHTML = '';
-
-    // Ocultar todas las habitaciones en el card-room-summary
-    const cardRoomSummaryElement = document.getElementById('card-room-summary');
-    cardRoomSummaryElement.innerHTML = '';
-
+    roomData.length = 0; 
+    updateRoomSummaries();
     updateTotalPrice(0, true);
 
-    roomCount = 0; // Reiniciar el contador de habitaciones
-
-    // Ocultar el contenedor y la card
-    const info1 = document.getElementById('info1');
-    info1.style.display = 'none';
-
-    const cardContainer = document.getElementById('card-container');
-    cardContainer.style.display = 'none';
+    roomCount = 0;
+    checkScreenWidth();
 }
 
 function eliminar(button) {
     const roomSummaryItem = button.closest('.room-summary-item');
-    roomSummaryItem.remove();
+    const roomType = roomSummaryItem.querySelector('#room-type').textContent.split(' ')[1];
 
-    updateTotalPrice(-1100);
-
-    roomCount--; // Decrementar el contador de habitaciones
-
-    // Verificar el tamaño de la pantalla y la cantidad de habitaciones para mostrar u ocultar la card
-    checkScreenWidth();
-
-    // Ocultar el contenedor y la card si las habitaciones son menores a 5
-    if (roomCount < 5) {
-        const info1 = document.getElementById('info1');
-        info1.style.display = 'block';
-
-        const cardContainer = document.getElementById('card-container');
-        cardContainer.style.display = 'none';
+    const index = roomData.findIndex(room => room.roomType === roomType);
+    if (index > -1) {
+        roomData.splice(index, 1);
     }
 
-    // Mostrar el modal de confirmación si no hay habitaciones restantes
+    updateRoomSummaries();
+    updateTotalPrice(-1100);
+
+    roomCount--;
+
+    checkScreenWidth();
+
     if (roomCount === 0) {
         borrarCambios();
     }
+}
+
+function updateRoomSummaries() {
+    const roomSummaryElement = document.getElementById('room-summary');
+    const cardRoomSummaryElement = document.getElementById('card-room-summary');
+    const modalBodyContent = document.getElementById('modal-body-content');
+
+    roomSummaryElement.innerHTML = '';
+    cardRoomSummaryElement.innerHTML = '';
+    modalBodyContent.innerHTML = '';
+
+    roomData.forEach(room => {
+        const resumenHTML = `
+            <div class="room-summary-item">
+                <p id="room-type">Habitación ${room.roomType} &nbsp;&nbsp;&nbsp;&nbsp; MXN 1100.00</p>
+                <p style="color:gray;"> 2x Tarifa estándar</p>
+                <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-person" id="num-adults">&nbsp;&nbsp;&nbsp;&nbsp;${room.adultos}</i>
+                </button>
+                ${room.niños ? `
+                <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-child" id="num-kids">&nbsp;&nbsp;&nbsp;&nbsp;${room.niños}</i>
+                </button>` : ''}
+                <button type="button" class="btn btn-danger btn-remove-room" onclick="eliminar(this);">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+                <hr class="mb-4">
+            </div>
+        `;
+
+        roomSummaryElement.insertAdjacentHTML('beforeend', resumenHTML);
+        cardRoomSummaryElement.insertAdjacentHTML('beforeend', resumenHTML);
+        modalBodyContent.insertAdjacentHTML('beforeend', resumenHTML);
+    });
 }
 
 function capitalizeFirstLetter(string) {
@@ -900,21 +1047,35 @@ function closeModal() {
 }
 
 document.getElementById('ver-mas-btn').addEventListener('click', function() {
+    updateRoomSummaries();
     var scrollableModal = new bootstrap.Modal(document.getElementById('scrollableModal'), {});
     scrollableModal.show();
 });
 
+document.querySelectorAll('.btn.btn-success').forEach(button => {
+    button.addEventListener('click', function() {
+        if (roomCount === 0) {
+            var warningModal = new bootstrap.Modal(document.getElementById('warningModal'), {});
+            warningModal.show();
+        } else {
+            // Aquí se agrega el proceso de la reserva
+        }
+    });
+});
+
 function updateTotalPrice(amount, reset = false) {
-    const totalPriceElement = window.innerWidth <= 950 ? document.getElementById('card-total-price') : document.getElementById('total-price');
+    const totalPriceElement = document.getElementById('card-total-price');
+    const mainTotalPriceElement = document.getElementById('total-price');
     if (reset) {
         totalPriceElement.textContent = '0.00';
+        mainTotalPriceElement.textContent = '0.00';
         return;
     }
     let totalPrice = parseFloat(totalPriceElement.textContent.replace('MXN ', '').replace(',', ''));
     totalPrice += amount;
     totalPriceElement.textContent = totalPrice.toFixed(2);
+    mainTotalPriceElement.textContent = totalPrice.toFixed(2);
 }
-// YA NO SE MUEVEN NI HACEN CONFIDGURACIONES
 
 document.addEventListener('DOMContentLoaded', function() {
     const roomTypes = ['doble', 'king-size', 'sencilla'];
@@ -928,12 +1089,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedValue = this.getAttribute('data-value');
                 const selectedText = this.textContent;
 
-                // Update button text and store selected value
                 const dropdownToggle = document.getElementById(`${roomType}-adults`);
                 dropdownToggle.textContent = selectedText;
                 dropdownToggle.setAttribute('data-selected-value', selectedValue);
 
-                // Enable the kids dropdown
                 const kidsDropdown = document.getElementById(`${roomType}-kids`);
                 kidsDropdown.disabled = false;
 
@@ -948,7 +1107,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedValue = this.getAttribute('data-value');
                 const selectedText = this.textContent;
 
-                // Update button text and store selected value
                 const dropdownToggle = document.getElementById(`${roomType}-kids`);
                 dropdownToggle.textContent = selectedText;
                 dropdownToggle.setAttribute('data-selected-value', selectedValue);
@@ -980,11 +1138,10 @@ function updateKidsOptions(roomType, adultsValue) {
         item.style.display = kidValue <= maxKids ? 'block' : 'none';
     });
 
-    // Adjust kids selection if it exceeds the max allowed
     const kidsDropdown = document.getElementById(`${roomType}-kids`);
     const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
     if (selectedKidsValue > maxKids) {
-        kidsDropdown.textContent = `${maxKids} Niño${maxKids > 1 ? 's' : ''}`;
+        kidsDropdown.textContent = `${maxKids} Niño${maxKids !== 1 ? 's' : ''}`;
         kidsDropdown.setAttribute('data-selected-value', maxKids);
     }
 }

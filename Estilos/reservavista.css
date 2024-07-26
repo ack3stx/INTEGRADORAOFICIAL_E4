@@ -85,13 +85,43 @@
 }
 
 .container-fluid {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    padding: 0; 
+    position: relative;
+}
+
+
+.container-custom {
+    flex: 1 0 auto; 
+}
+
+
+#card-container {
+    order: 99; 
+    max-width: 600px;
+    display: none;
+    margin-left: initial; 
+    top: initial;
+}
+
+
+@media (min-width: 950px) {
+    .container-fluid {
+        max-height: initial; 
+        height: 100vh; 
+    }
+
+    #card-container {
+        margin-left: 50%;
+        top: -1420px;
+    }
+}
+
+#card-container{
+    top: -1420px; margin-left: 50%;
 }
 
 .move-right {
-    margin-left: 20px; /* Ajusta este valor según sea necesario */
+    margin-left: 20px; 
 }
 
 .card-custom {
@@ -107,8 +137,8 @@
 }
 
 .image-container img {
-    width: 100%; /* Ajusta el tamaño según sea necesario */
-    max-width: 200px;
+    width: 200%; /* Ajusta el tamaño según sea necesario */
+    max-width: 560px;
     height: auto;
     border-radius: 10px;
 }
@@ -127,6 +157,42 @@
     align-items: center;
     border-top: 1px solid #ddd;
     padding-top: 10px;
+}
+
+@media (min-width: 950px) {
+    #contenedor-fluido {
+        margin-bottom: 1090px; /* Aqui se ajusta el top en el que quiero el footer*/
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    
+    body {
+        position: relative;
+        margin-bottom: 100px;
+        padding-bottom: 100px; /* Ajuste según el tamaño del footer */
+        box-sizing: border-box;
+    }
+}
+
+
+#card-container {
+    position: relative; /* o absolute, dependiendo del diseño */
+    width: 100%; /* Ajustar según sea necesario */
+    z-index: 1;
+}
+
+@media (max-width: 951px) {
+    #card-container {
+        position: relative;
+        margin-top: 20px; /* Ajustar según sea necesario */
+        margin-left: 0;
+    } 
 }
 
 .controls {
@@ -175,12 +241,6 @@
     width: 100%;
 }
 
-.container-custom,
-#info1 {
-    flex: 1;
-    margin: 0 10px;
-}
-
 .price-info {
     display: flex;
     flex-direction: column;
@@ -193,7 +253,7 @@
 }
 
 /* Estilos responsivos */
-@media (max-width: 950px) {
+@media (max-width: 768px) {
     .card-custom {
         flex-direction: column;
         align-items: center;
@@ -225,7 +285,9 @@
 
 /* Estilos para el contenedor info1 */
 #info1 {
-    max-width: 30%;
+    margin-top: 400px;
+    display: none; /* Oculto por defecto */
+    margin-left: 50%; 
 }
 
 @media (min-width: 951px) {
@@ -233,3 +295,4 @@
         display: block;
     }
 }
+

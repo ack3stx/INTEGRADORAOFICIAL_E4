@@ -145,6 +145,12 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
     if (!isset($montofe)) {
       $montofe = 0;
     }
+    $totala=$montola+$montofa;
+    $totale=$montole+$montofe;
+    $aumento=$totale*.20;
+    $montole=$montole+$aumento;
+    $montofe=$montofe+$aumento;
+    $totale=($aumento*2)+$totale;
     echo
     "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script type='text/javascript'>
@@ -155,7 +161,7 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
         var chartDiv = document.getElementById('ventas_mes');
 
         var data = google.visualization.arrayToDataTable([
-          ['Galaxy', 'Linea', 'Fisico'],
+          ['Mes', 'Linea', 'Fisico'],
           ['$mes ahora', $montola, $montofa],
           ['$mes Esperado', $montole, $montofe],
         ]);
@@ -179,7 +185,10 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
         drawClassicChart();
         window.addEventListener('resize', drawClassicChart);
       };
-    </script>";
+    </script>
+    <div style='width: 100%; text-align: center; margin-bottom: 20px;'>
+  <h5>Total ahora: $totala &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Esperado: $totale</h5>
+</div>";
       echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
     }
     if ($Grafica==2) 
@@ -266,93 +275,143 @@ $ventas5=$array3[4]->Total_Ventas;
     }
     if ($Grafica==3)
     {
-      $consult1="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+      $consulta4="WITH meses AS (
+    SELECT 1 AS mes UNION ALL
+    SELECT 2 UNION ALL
+    SELECT 3 UNION ALL
+    SELECT 4 UNION ALL
+    SELECT 5 UNION ALL
+    SELECT 6 UNION ALL
+    SELECT 7 UNION ALL
+    SELECT 8 UNION ALL
+    SELECT 9 UNION ALL
+    SELECT 10 UNION ALL
+    SELECT 11 UNION ALL
+    SELECT 12
+)
+SELECT meses.mes, COALESCE(COUNT(reservacion.id_reservacion), 0) AS cantidad_reservaciones
+FROM meses
+LEFT JOIN reservacion ON MONTH(reservacion.fecha_) = meses.mes 
+AND YEAR(reservacion.fecha_) = 2024
+AND reservacion.estado_reservacion NOT IN ('cancelada')
+AND reservacion.recepcionista IS NULL
+GROUP BY meses.mes
+ORDER BY meses.mes";
+    $array4=$db->seleccionar($consulta4);
 
-$consult2="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=2
-and reservacion.estado_reservacion not in ('cancelada')";
+    $enerol=$array4[0]->cantidad_reservaciones;
+    $febrerol=$array4[1]->cantidad_reservaciones;
+    $marzol=$array4[2]->cantidad_reservaciones;
+    $abrill=$array4[3]->cantidad_reservaciones;
+    $mayol=$array4[4]->cantidad_reservaciones;
+    $juniol=$array4[5]->cantidad_reservaciones;
+    $juliol=$array4[6]->cantidad_reservaciones;
+    $agostol=$array4[7]->cantidad_reservaciones;
+    $septiembrel=$array4[8]->cantidad_reservaciones;
+    $octubrel=$array4[9]->cantidad_reservaciones;
+    $noviembrel=$array4[10]->cantidad_reservaciones;
+    $diciembrel=$array4[11]->cantidad_reservaciones;
 
-$consult3="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=3
-and reservacion.estado_reservacion not in ('cancelada')";
+    $consulta5="WITH meses AS (
+    SELECT 1 AS mes UNION ALL
+    SELECT 2 UNION ALL
+    SELECT 3 UNION ALL
+    SELECT 4 UNION ALL
+    SELECT 5 UNION ALL
+    SELECT 6 UNION ALL
+    SELECT 7 UNION ALL
+    SELECT 8 UNION ALL
+    SELECT 9 UNION ALL
+    SELECT 10 UNION ALL
+    SELECT 11 UNION ALL
+    SELECT 12
+)
+SELECT meses.mes, COALESCE(COUNT(reservacion.id_reservacion), 0) AS cantidad_reservaciones
+FROM meses
+LEFT JOIN reservacion ON MONTH(reservacion.fecha_) = meses.mes 
+AND YEAR(reservacion.fecha_) = 2024
+AND reservacion.estado_reservacion NOT IN ('cancelada')
+AND reservacion.recepcionista IS NOT NULL
+GROUP BY meses.mes
+ORDER BY meses.mes";
 
-$consult4="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    $array5=$db->seleccionar($consulta5);
 
-$consult5="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    $enerof=$array5[0]->cantidad_reservaciones;
+    $febrerof=$array5[1]->cantidad_reservaciones;
+    $marzof=$array5[2]->cantidad_reservaciones;
+    $abrilf=$array5[3]->cantidad_reservaciones;
+    $mayof=$array5[4]->cantidad_reservaciones;
+    $juniof=$array5[5]->cantidad_reservaciones;
+    $juliof=$array5[6]->cantidad_reservaciones;
+    $agostof=$array5[7]->cantidad_reservaciones;
+    $septiembref=$array5[8]->cantidad_reservaciones;
+    $octubref=$array5[9]->cantidad_reservaciones;
+    $noviembref=$array5[10]->cantidad_reservaciones;
+    $diciembref=$array5[11]->cantidad_reservaciones;
 
-$consult6="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    $consulta6="SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesl, X.total_reservacionesf
+FROM (SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesf
+FROM reservacion
+WHERE reservacion.recepcionista IS NOT NULL 
+AND YEAR(reservacion.fecha_) = 2024) AS X
+LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND YEAR(reservacion.fecha_) = 2024";
 
-$consult7="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    $array6=$db->seleccionar($consulta6);
+    foreach($array6 as $total_lof)
+    {
+      $total_fisico=$total_lof->total_reservacionesf;
+      $total_linea=$total_lof->total_reservacionesl;
+    }
+    $total_reservas=$total_fisico+$total_linea;
+    echo "
+<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+<script type='text/javascript'>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
 
-$consult8="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+      ['Mes', 'Linea', 'Fisico'],
+      ['Enero', $enerol, $enerof],
+      ['Febrero', $febrerol, $febrerof],
+      ['Marzo', $marzol, $marzof],
+      ['Abril', $abrill, $abrilf],
+      ['Mayo', $mayol, $mayof],
+      ['Junio', $juniol, $juniof],
+      ['Julio', $juliol, $juliof],
+      ['Agosto', $agostol, $agostof],
+      ['Septiembre', $septiembrel, $septiembref],
+      ['Octubre', $octubrel, $octubref],
+      ['Noviembre', $noviembrel, $noviembref],
+      ['Diciembre', $diciembrel, $diciembref]
+    ]);
 
-$consult9="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year (reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    var options = {
+      title: 'Reservaciones Del Año $año',
+      hAxis: {title: 'Mes', titleTextStyle: {color: '#333'}},
+      vAxis: {minValue: 0}
+    };
 
-$consult10="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
+    var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
+    
+    function drawResponsiveChart() {
+      var container = document.getElementById('reservaciones_año');
+      options.width = container.offsetWidth;
+      options.height = container.offsetHeight;
+      chart.draw(data, options);
+    }
+    
+    drawResponsiveChart();
+    window.addEventListener('resize', drawResponsiveChart);
+  }
+</script>
 
-$consult11="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
-
-$consult12="select count(reservacion.id_reservacion) as cantidad_reservaciones
-from reservacion
-where year(reservacion.fecha_)=$año and month(reservacion.fecha_)=1
-and reservacion.estado_reservacion not in ('cancelada')";
-
-      echo "
-    <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
-    <script type='text/javascript'>
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-          ['Year', 'Sales', 'Expenses'],
-          ['2013',  1000,      400],
-          ['2014',  1170,      460],
-          ['2015',  660,       1120],
-          ['2016',  1030,      540]
-        ]);
-
-        var options = {
-          title: 'Company Performance',
-          hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-          vAxis: {minValue: 0}
-        };
-
-        var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
-        chart.draw(data, options);
-      }
-    </script>";
-
-      echo"<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";
+<div style='width: 100%; text-align: center; margin-bottom: 20px;'>
+  <h5>Total De Reservaciones: $total_reservas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total En Linea: $total_linea &nbsp;&nbsp; Total En Fisico: $total_fisico</h5>
+</div>";
+    
+    echo "<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";    
     }
   ?>
 </body>
