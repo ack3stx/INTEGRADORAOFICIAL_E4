@@ -34,22 +34,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $data = new Database();
             $data->conectarDB();
             $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
-            $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
-            $disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
+           // $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
+            //$disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
 
 
-            $cantidad = [
+            $cantidaddoble  = $disponibilidad;
+            //$cantidadking = $disponibilidadkingsize;
+            //$cantidadsencilla = $disponibilidadsencilla;
                 
-                "doble" => $disponibilidad,
-                "king" => $disponibilidadkingsize,
-                "sencilla" => $disponibilidadsencilla
-            ];
+              
 
             
             $data->desconectarBD();
 
-            $var =json_encode($cantidad);
-            echo '<pre>' . htmlspecialchars($var) . '</pre>';
+            $var =json_encode($cantidaddoble);
+            echo "<script>console.log('Debug Objects: " . $var . "' );</script>";
+           // $var1 =json_encode($cantidadking);
+           // $var2 =json_encode($cantidadsencilla);
+           
             
         } else {
             echo "Error al convertir las fechas.";
@@ -476,7 +478,7 @@ else {
                                 <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar2(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -517,7 +519,7 @@ else {
                                 <?php renderDropdownItems($sencillaKidOptions); ?>
                             </ul>
                         </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar3(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -655,7 +657,7 @@ else {
   </div>
 </div>
 
-     <!--PIE DE PAGINA-->
+     <!--PIE DE PAGINA
      <br><br>
     <br><br>
     <footer class="footer">
@@ -685,7 +687,7 @@ else {
           <i class="fa-solid fa-paper-plane"></i>
       </div>
   </div>
-</footer>
+</footer>-->
 
 
 
@@ -805,6 +807,16 @@ $('#buscar').click(function(){
 
 
 <script>
+
+var disponibilidadDoble = <?php echo $var; ?>;
+console.log(disponibilidadDoble);
+
+/*var data1 =  //echo $var1; ?>;
+console.log("Datos analizados", data1);
+
+var data2 =  //echo $var2; ?>;
+console.log("Datos analizados", data2);*/
+
 let roomCount = 0;
 const roomData = [];
 
@@ -874,6 +886,8 @@ function mostrar(button) {
         return;
     }
 
+    --disponibilidaddoble;
+
     const roomDetails = {
         roomType: capitalizeFirstLetter(roomType),
         adultos,
@@ -889,6 +903,67 @@ function mostrar(button) {
     roomCount++;
     checkScreenWidth();
 }
+
+/*mostrar de las kingsize
+
+function mostrar2(button) {
+    const roomContainer = button.closest('.container-custom');
+    const roomType = roomContainer.getAttribute('data-room-type');
+    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+
+    if (!adultos) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+        myModal.show();
+        return;
+    }
+
+    const roomDetails = {
+        roomType: capitalizeFirstLetter(roomType),
+        adultos,
+        niños,
+        price: 1100
+    };
+
+    roomData.push(roomDetails);
+
+    updateRoomSummaries();
+    updateTotalPrice(1100);
+
+    roomCount++;
+    checkScreenWidth();
+}
+//mostrar de las sencillas
+
+function mostrar3(button) {
+    const roomContainer = button.closest('.container-custom');
+    const roomType = roomContainer.getAttribute('data-room-type');
+    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
+
+    if (!adultos) {
+        var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
+        myModal.show();
+        return;
+    }
+
+    const roomDetails = {
+        roomType: capitalizeFirstLetter(roomType),
+        adultos,
+        niños,
+        price: 1100
+    };
+
+    roomData.push(roomDetails);
+
+    updateRoomSummaries();
+    updateTotalPrice(1100);
+
+    roomCount++;
+    checkScreenWidth();
+} */
+
+
 
 function borrarCambios() {
     var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
