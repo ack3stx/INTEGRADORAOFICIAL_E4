@@ -341,12 +341,12 @@ ORDER BY meses.mes";
     $noviembref=$array5[10]->cantidad_reservaciones;
     $diciembref=$array5[11]->cantidad_reservaciones;
 
-      echo "
+    echo "
     <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script type='text/javascript'>
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
-
+    
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Mes', 'Linea', 'Fisico'],
@@ -363,19 +363,28 @@ ORDER BY meses.mes";
           ['Noviembre', $noviembrel, $noviembref],
           ['Diciembre', $diciembrel, $diciembref]
         ]);
-
+    
         var options = {
           title: 'Reservaciones Del Año',
-          hAxis: {title: 'Mes',  titleTextStyle: {color: '#333'}},
+          hAxis: {title: 'Mes', titleTextStyle: {color: '#333'}},
           vAxis: {minValue: 0}
         };
-
+    
         var chart = new google.visualization.AreaChart(document.getElementById('reservaciones_año'));
-        chart.draw(data, options);
+        
+        function drawResponsiveChart() {
+          var container = document.getElementById('reservaciones_año');
+          options.width = container.offsetWidth;
+          options.height = container.offsetHeight;
+          chart.draw(data, options);
+        }
+        
+        drawResponsiveChart();
+        window.addEventListener('resize', drawResponsiveChart);
       }
     </script>";
-
-      echo"<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";
+    
+    echo "<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";    
     }
   ?>
 </body>
