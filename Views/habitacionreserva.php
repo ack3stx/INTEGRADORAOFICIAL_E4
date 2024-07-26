@@ -79,6 +79,7 @@ $dobleAdultOptions = [
 ];
 
 $dobleKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño',
     2 => '2 Niños',
     3 => '3 Niños'
@@ -90,6 +91,7 @@ $kingSizeAdultOptions = [
 ];
 
 $kingSizeKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño',
     2 => '2 Niños'
 ];
@@ -100,6 +102,7 @@ $sencillaAdultOptions = [
 ];
 
 $sencillaKidOptions = [
+    0 => '0 Niños',
     1 => '1 Niño'
 ];
 
@@ -816,7 +819,7 @@ function adjustCardPosition() {
         
         cardContainer.style.position = 'relative';
         cardContainer.style.top = 'initial';
-        cardContainer.style.marginLeft = '40px'; 
+        cardContainer.style.marginLeft = '50px'; 
         cardContainer.style.marginTop = '20px'; 
         containerFluid.style.maxHeight = 'initial';
     } else {
@@ -1063,7 +1066,7 @@ function updateKidsOptions(roomType, adultsValue) {
     const kidsDropdown = document.getElementById(`${roomType}-kids`);
     const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
     if (selectedKidsValue > maxKids) {
-        kidsDropdown.textContent = `${maxKids} Niño${maxKids > 1 ? 's' : ''}`;
+        kidsDropdown.textContent = `${maxKids} Niño${maxKids !== 1 ? 's' : ''}`;
         kidsDropdown.setAttribute('data-selected-value', maxKids);
     }
 }
@@ -1104,6 +1107,7 @@ function getMaxKidsForSencilla(adultsValue) {
             return 0;
     }
 }
+
 </script>
 
   
