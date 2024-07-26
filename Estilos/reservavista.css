@@ -87,7 +87,6 @@
 .container-fluid {
     padding: 0; 
     position: relative;
-    width: 200vh;
 }
 
 
@@ -138,8 +137,8 @@
 }
 
 .image-container img {
-    width: 100%; /* Ajusta el tamaño según sea necesario */
-    max-width: 200px;
+    width: 200%; /* Ajusta el tamaño según sea necesario */
+    max-width: 560px;
     height: auto;
     border-radius: 10px;
 }
@@ -158,6 +157,42 @@
     align-items: center;
     border-top: 1px solid #ddd;
     padding-top: 10px;
+}
+
+@media (min-width: 950px) {
+    #contenedor-fluido {
+        margin-bottom: 1090px; /* Aqui se ajusta el top en el que quiero el footer*/
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    
+    body {
+        position: relative;
+        margin-bottom: 100px;
+        padding-bottom: 100px; /* Ajuste según el tamaño del footer */
+        box-sizing: border-box;
+    }
+}
+
+
+#card-container {
+    position: relative; /* o absolute, dependiendo del diseño */
+    width: 100%; /* Ajustar según sea necesario */
+    z-index: 1;
+}
+
+@media (max-width: 951px) {
+    #card-container {
+        position: relative;
+        margin-top: 20px; /* Ajustar según sea necesario */
+        margin-left: 0;
+    } 
 }
 
 .controls {
@@ -250,7 +285,7 @@
 
 /* Estilos para el contenedor info1 */
 #info1 {
-    margin-top: 250px;
+    margin-top: 400px;
     display: none; /* Oculto por defecto */
     margin-left: 50%; 
 }
@@ -260,3 +295,4 @@
         display: block;
     }
 }
+

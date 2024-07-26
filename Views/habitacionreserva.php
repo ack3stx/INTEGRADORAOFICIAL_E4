@@ -410,9 +410,9 @@ else {
             <div class="card-body card-body-custom">
                 <div>
                     <h5 class="card-title">Habitación Doble</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 4 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                    
                 </div>
                 <div class="card-footer-custom">
                     <div class="price-info">
@@ -435,7 +435,7 @@ else {
                                 <?php renderDropdownItems($dobleKidOptions); ?>
                             </ul>
                         </div>
-                        <button  type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
+                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
                     </div>
                 </div>
             </div>
@@ -451,9 +451,9 @@ else {
             <div class="card-body card-body-custom">
                 <div>
                     <h5 class="card-title">Habitación King-Size</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación King-Size ofrece una cómoda cama tamaño king en un espacioso espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y dos sillones individuales.</p>
-                    <a class="card-link">Ver detalles</a>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 3 huéspedes</h6>
+                    <p class="card-text">Nuestra Habitación King-Size ofrece una lujosa cama king-size en un espacioso ambiente de 35 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
+                    
                 </div>
                 <div class="card-footer-custom">
                     <div class="price-info">
@@ -492,9 +492,9 @@ else {
             <div class="card-body card-body-custom">
                 <div>
                     <h5 class="card-title">Habitación Sencilla</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">2 huéspedes</h6>
+                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 2 huéspedes</h6>
                     <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    <a class="card-link">Ver detalles</a>
+                    
                 </div>
                 <div class="card-footer-custom">
                     <div class="price-info">
@@ -547,18 +547,12 @@ else {
     </div>
 </div>
 
-
-
-
-
-
-
    <!-- Modal -->
-   <div class="modal fade" id="exampleModalToggle" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
+   <div class="modal fade" id="exampleModalTogglee" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Modal</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalToggleLabel">Advertencia</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -590,7 +584,7 @@ else {
     </div>
 </div>
 
-<div class="card" id="card-container" style="max-width: 600px; display: none;">
+<div class="card" id="card-container" style="max-width: 550px; display: none;">
         <img src="../Imagenes/RECEPCION.png" class="card-img-top" alt="...">
         <div class="card-body">
             <h5 class="card-title">Tus habitaciones</h5>
@@ -611,7 +605,7 @@ else {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
+                            <button class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
                             <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
                         </div>
                     </div>
@@ -620,11 +614,11 @@ else {
         </div>
     </div>
 
-<div id="info1" class="container" style="display: none;">
+    <div id="info1" class="container" style="display: none;">
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--CONVERTIR LA FECHA Q ELEGIMOS-->
+            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
             <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
                 <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
             </button>
@@ -636,13 +630,14 @@ else {
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button">Reservar Ahora</button> <br>
+                <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
                 <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal de Advertencia -->
 <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -660,8 +655,8 @@ else {
   </div>
 </div>
 
-    <!--PIE DE PAGINA
-    <br><br>
+     <!--PIE DE PAGINA-->
+     <br><br>
     <br><br>
     <footer class="footer">
   <div class="footer-container">
@@ -690,8 +685,7 @@ else {
           <i class="fa-solid fa-paper-plane"></i>
       </div>
   </div>
-</footer> -->
-
+</footer>
 
 
 
@@ -811,42 +805,34 @@ $('#buscar').click(function(){
 
 
 <script>
-var data = <?php echo $var; ?>;
-console.log("Datos analizados", data);
-
-console.log("Doble:", data.doble);
-console.log("King:", data.king);
-console.log("Sencilla:", data.sencilla);
-
 let roomCount = 0;
 const roomData = [];
 
-
 function adjustCardPosition() {
     var cardContainer = document.getElementById('card-container');
+    var containerFluid = document.getElementById('contenedor-fluido');
+    
     if (window.innerWidth < 950) {
-        cardContainer.style.marginLeft = 'initial'; 
-        cardContainer.style.top = 'initial'; 
+        
+        cardContainer.style.position = 'relative';
+        cardContainer.style.top = 'initial';
+        cardContainer.style.marginLeft = '40px'; 
+        cardContainer.style.marginTop = '20px'; 
+        containerFluid.style.maxHeight = 'initial';
     } else {
+        cardContainer.style.top = '-2030px'; //POSICION DE LA CARD CUANDO APARECE CUANDO LA RESOLUCION SEA MAYOR 950
         cardContainer.style.marginLeft = '50%';
-        cardContainer.style.top = '-950px';
-    }
-
-    var Containerfluid = document.getElementById('contenedor-fluido');
-    if (window.innerWidth < 950) {
-        Containerfluid.style.maxHeight = '100px';  
     }
 }
 
 window.addEventListener('resize', adjustCardPosition);
 
-// Llamar la función inicialmente para configurar la posición original
 adjustCardPosition();
-
 
 function checkScreenWidth() {
     const contenedor = document.getElementById('info1');
     const cardContainer = document.getElementById('card-container');
+    const body = document.body; // Aquí se selecciona el body del documento
 
     if (window.innerWidth <= 950) {
         if (roomCount > 0) {
@@ -860,7 +846,7 @@ function checkScreenWidth() {
         if (roomCount > 0 && roomCount < 5) {
             contenedor.style.display = 'block';
             contenedor.style.position = 'absolute';
-            contenedor.style.top = '200px';
+            contenedor.style.top = '-40px';
             contenedor.style.left = '100px';
             cardContainer.style.display = 'none';
         } else if (roomCount >= 5) {
@@ -873,23 +859,20 @@ function checkScreenWidth() {
     }
 }
 
-window.onload = checkScreenWidth;
-window.onresize = checkScreenWidth;
+window.addEventListener('load', checkScreenWidth);
+window.addEventListener('resize', checkScreenWidth);
 
 function mostrar(button) {
     const roomContainer = button.closest('.container-custom');
     const roomType = roomContainer.getAttribute('data-room-type');
-    const adultos = roomContainer.querySelector(button[id="${roomType}-adults"]).getAttribute('data-selected-value');
-    const niños = roomContainer.querySelector(button[id="${roomType}-kids"]).getAttribute('data-selected-value');
+    const adultos = roomContainer.querySelector(`button[id="${roomType}-adults"]`).getAttribute('data-selected-value');
+    const niños = roomContainer.querySelector(`button[id="${roomType}-kids"]`).getAttribute('data-selected-value');
 
     if (!adultos) {
         var myModal = new bootstrap.Modal(document.getElementById('exampleModalToggle'), {});
         myModal.show();
         return;
     }
-
-
-    
 
     const roomDetails = {
         roomType: capitalizeFirstLetter(roomType),
@@ -907,8 +890,6 @@ function mostrar(button) {
     checkScreenWidth();
 }
 
-
-
 function borrarCambios() {
     var modal = new bootstrap.Modal(document.getElementById('confirmationModal'));
     modal.show();
@@ -925,7 +906,6 @@ function eliminar(button) {
     const roomSummaryItem = button.closest('.room-summary-item');
     const roomType = roomSummaryItem.querySelector('#room-type').textContent.split(' ')[1];
 
-    
     const index = roomData.findIndex(room => room.roomType === roomType);
     if (index > -1) {
         roomData.splice(index, 1);
@@ -1019,8 +999,6 @@ function updateTotalPrice(amount, reset = false) {
     mainTotalPriceElement.textContent = totalPrice.toFixed(2);
 }
 
-// YA NO SE MUEVEN NI HACEN CONFIDGURACIONES
-
 document.addEventListener('DOMContentLoaded', function() {
     const roomTypes = ['doble', 'king-size', 'sencilla'];
 
@@ -1033,12 +1011,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedValue = this.getAttribute('data-value');
                 const selectedText = this.textContent;
 
-                // Update button text and store selected value
                 const dropdownToggle = document.getElementById(`${roomType}-adults`);
                 dropdownToggle.textContent = selectedText;
                 dropdownToggle.setAttribute('data-selected-value', selectedValue);
 
-                // Enable the kids dropdown
                 const kidsDropdown = document.getElementById(`${roomType}-kids`);
                 kidsDropdown.disabled = false;
 
@@ -1053,7 +1029,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 const selectedValue = this.getAttribute('data-value');
                 const selectedText = this.textContent;
 
-                // Update button text and store selected value
                 const dropdownToggle = document.getElementById(`${roomType}-kids`);
                 dropdownToggle.textContent = selectedText;
                 dropdownToggle.setAttribute('data-selected-value', selectedValue);
@@ -1085,7 +1060,6 @@ function updateKidsOptions(roomType, adultsValue) {
         item.style.display = kidValue <= maxKids ? 'block' : 'none';
     });
 
-    // Adjust kids selection if it exceeds the max allowed
     const kidsDropdown = document.getElementById(`${roomType}-kids`);
     const selectedKidsValue = parseInt(kidsDropdown.getAttribute('data-selected-value'));
     if (selectedKidsValue > maxKids) {
@@ -1130,7 +1104,6 @@ function getMaxKidsForSencilla(adultsValue) {
             return 0;
     }
 }
-
 </script>
 
   
