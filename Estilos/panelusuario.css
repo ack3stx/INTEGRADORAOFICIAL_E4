@@ -1,9 +1,19 @@
-
-a {
+/* Remueve la decoración de texto y aplica el color deseado a los enlaces dentro de .box-icons */
+.box-icons a {
     text-decoration: none;
-    color: inherit;
+    color: inherit; /* Hereda el color del contenedor padre */
 }
 
+.box-icons a .ditto {
+    color: #000; /* Cambia este valor al color que desees */
+}
+
+.box-icons a:hover .ditto {
+    color: rgb(180, 16, 16); /* El color de hover si es necesario */
+}
+
+
+/* El resto de tu CSS permanece igual */
 #btnusr {
     top: 100px;
 }
@@ -34,7 +44,6 @@ body {
 .btn:hover {
     background-color: rgb(180, 16, 16);
     transform: scale(1.10);
-    
 }
 
 .btn-close {
