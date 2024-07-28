@@ -101,6 +101,7 @@
     <button type="submit" class="btn btn-outline-danger">Buscar</button>
   </form>
   <?php
+    $Grafica=0;
     extract($_POST);
     if($Grafica==1)
     {

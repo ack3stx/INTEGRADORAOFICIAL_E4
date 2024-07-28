@@ -1,17 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Example</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+</head>
 <?php
-session_start();
-if ($_SESSION["rol"] == "recepcionista") {
+  session_start();
+  include '../Clases/BasedeDatos.php';
+  
+  $db = new Database();
+  $db->conectarDB();
 
-    include '../Clases/BasedeDatos.php';
-
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "recepcionista") {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $correo_act = $_POST['correo_act'] ?? '';
         $contraseña_actual = $_POST['password_actual'] ?? '';
         $contraseña_nueva = $_POST['password_nueva'] ?? '';
         $nombre_user = $_POST['nombre_user'] ?? '';
-
-        $db = new Database();
-        $db->conectarDB();
 
         $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
         $id_result = $db->seleccionar($obtener_id);
@@ -73,18 +83,6 @@ if ($_SESSION["rol"] == "recepcionista") {
         $db->desconectarBD();
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Navbar Example</title>
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-</head>
-
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
@@ -138,8 +136,7 @@ if ($_SESSION["rol"] == "recepcionista") {
         <div class="header-right">
           <div class="btn-group">
           <?php
-            if (isset($_SESSION["usuario"])) 
-            {
+            if (isset($_SESSION["usuario"])) {
               echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
                       ".$_SESSION["usuario"]."
                     </button>";
@@ -199,10 +196,8 @@ if ($_SESSION["rol"] == "recepcionista") {
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
 <?php
-} else {
+  } else {
 ?>
 <head>
   <style>
@@ -246,8 +241,7 @@ if ($_SESSION["rol"] == "recepcionista") {
   </div>
 </body>
 <?php
-}
+  }
 ?>
-
 </body>
 </html>
