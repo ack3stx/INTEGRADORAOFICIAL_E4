@@ -29,9 +29,23 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="calendario.php">
+            <a class="nav-link" href="reservaciones_fisicas.php?openModal=true">
               <i class="fas fa-calendar-plus"></i>Crear Reserva
             </a>
+            <script>
+function redirectAndOpenModal() {
+    // Redirigir a la página deseada
+    window.location.href = 'reservaciones_fisicas.php';
+
+    // Esperar a que la página se cargue antes de abrir el modal
+    setTimeout(function() {
+        var myModal = new bootstrap.Modal(document.getElementById('1234'), {
+          keyboard: false
+        });
+        myModal.show();
+    }, 1000); // Ajusta el tiempo según sea necesario
+}
+</script>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva_recepcionista.php">
