@@ -1,0 +1,37 @@
+<?php
+include '../Clases/BasedeDatos.php';
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php");
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $db = new Database();
+    $db->conectarDB();
+
+    $user_id = $_SESSION['user_id'];
+
+    if (!empty($_POST['nombre_usuario'])) {
+        $nuevo_nombre_usuario = $_POST['nombre_usuario'];
+        $consulta = "CALL actualizar_nombre_usuario('$nuevo_nombre_usuario', '$user_id');";
+        $db->seleccionar($consulta);
+    }
+
+    if (!empty($_POST['correo'])) {
+        $nuevo_correo = $_POST['correo'];
+        $consulta = "CALL actualizar_correo('$nuevo_correo', '$user_id');";
+        $db->seleccionar($consulta);
+    }
+
+    if (!empty($_POST['password'])) {
+        $nueva_contraseña = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $consulta = "CALL actualizar_contraseña('$nueva_contraseña', '$user_id');";
+        $db->seleccionar($consulta);
+    }
+
+    $db->desconectarBD();
+    header("Location: datospersonales.php");
+}
+?>
