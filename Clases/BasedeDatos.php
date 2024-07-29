@@ -229,6 +229,28 @@ function disponibilidad_sencilla($fechaInicio,$fechaFin)
 
 }
 
+function calculo_reserva ($fechaInicio,$fechaFin,$tipohab)
+{
+
+    try{
+        $stmt = $this->PDOLocal->prepare("CALL CALCULO_RESERVA(:fecha_inicio,:fecha_fin,:tipo)");
+        $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
+        $stmt->bindParam(':fecha_fin',$fechaInicio,PDO::PARAM_STR);
+        $stmt->bindParam(':tipo',$fechaInicio,PDO::PARAM_STR);
+        $stmt->execute();
+
+        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    return $resultados;
+
+
+
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+
+}
+
 
 
 

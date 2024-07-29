@@ -422,4 +422,38 @@ call registro_facturacion('Victor Gael','Barajas','Vazquez','8715732505','calle 
 
 
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--procedimiento para calcular las reservaciones
+
+DELIMITER //
+CREATE PROCEDURE CALCULO_RESERVA
+(in fecha_inicio date,in fecha_fin date,in tipo varchar (25))
+begin
+
+DECLARE fecha_start date;
+DECLARE fecha_end date;
+
+set fecha_start = fecha_inicio;
+set fecha_end=fecha_fin;
+
+case tipo
+when 'Doble' then
+SELECT fecha_start,fecha_end,
+(timestampdiff(day,fecha_start,fecha_end)) as diferencia, SUM((timestampdiff(day,fecha_start,fecha_end))*900) as monto;
+
+when 'Sencilla' then
+SELECT fecha_start,fecha_end,
+(timestampdiff(day,fecha_start,fecha_end)) as diferencia, SUM((timestampdiff(day,fecha_start,fecha_end))*700) as monto1;
+
+when 'King Size' then
+SELECT fecha_start,fecha_end,
+(timestampdiff(day,fecha_start,fecha_end)) as diferencia, SUM((timestampdiff(day,fecha_start,fecha_end))*1200) as monto2;
+ELSE SELECT 'Tipo de habitación no válido';
+    END CASE;
+    
+ 
+
+    
+END//
+
+DELIMITER ;
 
