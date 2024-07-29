@@ -1,7 +1,6 @@
 <?php
 session_start();
 if ($_SESSION["rol"] == "usuario") {
-
     include '../Clases/BasedeDatos.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -56,6 +55,14 @@ if ($_SESSION["rol"] == "usuario") {
             $errores[] = "La ciudad no debe contener números.";
         }
 
+        // Validación de fecha de nacimiento
+        $fecha_actual = date('Y-m-d');
+        $fecha_minima = '1950-01-01';
+
+        if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
+            $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
+        }
+
         if (empty($errores)) {
             $db = new Database();
             $db->conectarDB();
@@ -66,10 +73,13 @@ if ($_SESSION["rol"] == "usuario") {
             if (!empty($id_result)) {
                 $id = $id_result[0]->id_usuario;
 
+                $nombre_usuario_actualizado = false;
+
                 if (!empty($nombre_user)) {
                     $consulta = "UPDATE usuarios SET nombre_usuario = '$nombre_user' WHERE id_usuario = $id";
                     $db->ejecuta($consulta);
                     $_SESSION['mensaje'] = "Nombre de usuario actualizado correctamente.";
+                    $nombre_usuario_actualizado = true;
                 }
 
                 if (!empty($correo_act)) {
@@ -113,6 +123,12 @@ if ($_SESSION["rol"] == "usuario") {
                 }
 
                 $db->desconectarBD();
+
+                if ($nombre_usuario_actualizado) {
+                    $db->desconectarBD();
+                    header("Location: login.php");
+                    exit();
+                }
             }
         } else {
             $_SESSION['mensaje'] = implode("<br>", $errores);
@@ -245,6 +261,10 @@ if ($_SESSION["rol"] == "usuario") {
                     foreach ($campos_persona as $campo => $titulo) {
                         $valor = htmlspecialchars($usuario[0]->$campo ?? '');
                         $clase_peligro = empty($valor) ? 'is-invalid' : '';
+                        $inputType = ($campo == 'fecha_de_nacimiento') ? 'date' : 'text';
+                        if ($campo == 'genero') {
+                            $inputType = 'select';
+                        }
                     ?>
                         <div class="section">
                             <div class="d-flex justify-content-between align-items-center">
@@ -255,7 +275,15 @@ if ($_SESSION["rol"] == "usuario") {
                                 <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-primary">Editar</button>
                             </div>
                             <div id="form<?= ucfirst($campo) ?>" class="hidden">
-                                <input type="text" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>">
+                                <?php if ($inputType == 'select'): ?>
+                                    <select name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>">
+                                        <option value="M" <?= $valor == 'M' ? 'selected' : '' ?>>M</option>
+                                        <option value="F" <?= $valor == 'F' ? 'selected' : '' ?>>F</option>
+                                    </select>
+                                <?php else: ?>
+                                    <input type="<?= $inputType ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>" 
+                                    <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d') . "'"; ?>>
+                                <?php endif; ?>
                                 <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-secondary">Cancelar</button>
                                 <button type="button" id="btnListo<?= ucfirst($campo) ?>" class="btn btn-success">Listo</button>
                             </div>
@@ -265,7 +293,7 @@ if ($_SESSION["rol"] == "usuario") {
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" id="btnConfirmar" class="btn btn-success">Confirmar cambios</button>
+                    <button type="submit" id="btnConfirmar" class="btn btn-success" disabled>Confirmar cambios</button>
                 </div>
             </form>
         <?php endif; ?>
@@ -292,11 +320,46 @@ if ($_SESSION["rol"] == "usuario") {
             });
 
             document.getElementById('btnListo' + formId.replace('form', '')).addEventListener('click', () => {
-                document.getElementById(formId).classList.add('hidden');
-                document.getElementById(buttonId).classList.remove('hidden');
-                disableButtons.forEach(btn => {
-                    document.getElementById(btn).disabled = false;
+                const inputs = document.querySelectorAll('#' + formId + ' input, #' + formId + ' select');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    if (input.value.trim() === '') {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+
+                    if (input.name === 'numero_de_telefono' && /\D/.test(input.value)) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (['nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'].includes(input.name) && /\d/.test(input.value)) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    }
+
+                    if (input.name === 'fecha_de_nacimiento') {
+                        const fecha = new Date(input.value);
+                        const fechaMinima = new Date('1950-01-01');
+                        const fechaMaxima = new Date();
+                        if (fecha < fechaMinima || fecha > fechaMaxima) {
+                            input.classList.add('is-invalid');
+                            isValid = false;
+                        }
+                    }
                 });
+
+                if (isValid) {
+                    document.getElementById(formId).classList.add('hidden');
+                    document.getElementById(buttonId).classList.remove('hidden');
+                    disableButtons.forEach(btn => {
+                        document.getElementById(btn).disabled = false;
+                    });
+                    document.getElementById('btnConfirmar').disabled = false;
+                }
             });
         };
 
@@ -310,10 +373,9 @@ if ($_SESSION["rol"] == "usuario") {
             ]);
         <?php } ?>
 
-        // Validaciones en el frontend
         document.getElementById('datosForm').addEventListener('submit', function(event) {
             let isValid = true;
-            const inputs = this.querySelectorAll('input[type="text"], input[type="email"], input[type="password"]');
+            const inputs = this.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select');
 
             inputs.forEach(input => {
                 if (input.value.trim() === '') {
@@ -328,9 +390,19 @@ if ($_SESSION["rol"] == "usuario") {
                     isValid = false;
                 }
 
-                if (['nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'].includes(input.name) && /\d/.test(input.value)) {
+                if (['nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'].includes(input.name) && /\d/.est(input.value)) {
                     input.classList.add('is-invalid');
                     isValid = false;
+                }
+
+                if (input.name === 'fecha_de_nacimiento') {
+                    const fecha = new Date(input.value);
+                    const fechaMinima = new Date('1950-01-01');
+                    const fechaMaxima = new Date();
+                    if (fecha < fechaMinima || fecha > fechaMaxima) {
+                        input.classList.add('is-invalid');
+                        isValid = false;
+                    }
                 }
             });
 
