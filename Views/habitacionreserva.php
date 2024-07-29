@@ -1,73 +1,4 @@
 <?php
-include '../Clases/BasedeDatos.php';
-
-session_start();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
-        $fechaInicio = $_POST['fechainicio'];
-        $fechaFin = $_POST['fechafin'];
-
-
-
-        //esta funcion esta porque las fechas que recibo de javascript estan en el formato dd-mm-yyyy
-        function convertirFecha($fecha) {
-            $date = DateTime::createFromFormat('d-m-Y', $fecha);
-            if ($date === false) {
-                return null; 
-            }
-            return $date->format('Y-m-d'); //con format se crea un nuevo formato
-        }
-
-        // con la funcion que hicimos convertimos las fechas
-        $fechaInicioConvertida = convertirFecha($fechaInicio);
-        $fechaFinConvertida = convertirFecha($fechaFin);
-
-        echo 'Fecha Inicio Convertida: ' . htmlspecialchars($fechaInicioConvertida) . '<br>';
-        echo 'Fecha Fin Convertida: ' . htmlspecialchars($fechaFinConvertida) . '<br>';
-
-
-    
-
-        // despues de convertirlas llamamos al procedimiento
-        if ($fechaInicioConvertida && $fechaFinConvertida) {
-            $data = new Database();
-            $data->conectarDB();
-            $disponibilidad = $data->disponibilidad($fechaInicioConvertida, $fechaFinConvertida);
-           $disponibilidadkingsize = $data->disponibilidad_kingsize($fechaInicioConvertida, $fechaFinConvertida);
-            $disponibilidadsencilla = $data->disponibilidad_sencilla($fechaInicioConvertida, $fechaFinConvertida);
-
-
-            $cantidad = [
-                "doble" => $disponibilidad,
-                "kingsize " => $disponibilidadkingsize,
-                 "sencilla" => $disponibilidadsencilla
-        ];
-              
-
-            
-            $data->desconectarBD();
-
-            $var =json_encode($cantidad);
-            echo "<script>console.log('Debug Objects: " . $var . "' );</script>";
-           // $var1 =json_encode($cantidadking);
-           // $var2 =json_encode($cantidadsencilla);
-           
-            
-        } else {
-            echo "Error al convertir las fechas.";
-            
-        }
-
-
-    } else {
-        echo "Fechas no recibidas correctamente.";
-    }
-}
-?>
-
-
-<?php
 function renderDropdownItems($items) {
     foreach ($items as $value => $label) {
         echo '<li><a class="dropdown-item" href="#" data-value="' . $value . '">' . $label . '</a></li>';
@@ -163,7 +94,8 @@ function getMaxKidsForSencilla($adultsValue) {
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.1/themes/smoothness/jquery-ui.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+       
     <title>Habitacion Rserva</title>
 </head>
 <style>
@@ -187,30 +119,7 @@ function getMaxKidsForSencilla($adultsValue) {
            
         }
 
-        .ui-datepicker {
-    background-color: #ffff;
-        }
-        .ui-datepicker-calendar td {
-    background-color: rgb(116, 13, 13);
-}
-
-.ui-datepicker-header {
-    background-color: #ffff;
-}
-
-.ui-datepicker-calendar a {
-    color: #ffff;
-}
-
-.ui-datepicker-calendar .ui-state-active {
-    background-color: rgb(116, 13, 13);
-    border-color: rgb(116, 13, 13);;
-    color: #ffffff; }
-
-    .ui-datepicker .ui-datepicker-current-day a {
-  background-color:  rgb(116, 13, 13); /* Cambia esto al color que desees */
-  color: #ffffff; /* Cambia esto al color del texto que desees */
-}
+        
 
     /*rgb(116, 13, 13);*/
 
@@ -395,8 +304,8 @@ else {
       <form id="form" method="POST">
       <div class="barra-blanca">
         <div class="containers">
-            <input type="text" id="date_picker1" name="fechainicio" placeholder="Ingresa tu fecha"> 
-            <input type="text" id="date_picker2" name="fechafin" placeholder="Ingresa tu fecha">
+        <input type="text" id="startDate" placeholder="Fecha de inicio"> 
+        <input type="text" id="endDate" placeholder="Fecha de fin">
         </div>
 
         <button style="margin-top:-5%;" type="submit" id="buscar" class="btn btn-danger">Buscar</button>
@@ -448,7 +357,7 @@ else {
         </div>
     </div>
 
-    <!-- Habitación King-Size -->
+    <!-- Habitación King-Size
     <div class="container-custom move-right" data-room-type="king-size">
         <div class="card card-custom">
             <div class="image-container">
@@ -489,7 +398,7 @@ else {
         </div>
     </div>
 
-    <!-- Habitación Sencilla -->
+    Habitación Sencilla
     <div class="container-custom move-right" data-room-type="sencilla">
         <div class="card card-custom">
             <div class="image-container">
@@ -528,7 +437,7 @@ else {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </div>
 
 
@@ -698,126 +607,132 @@ else {
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var today = new Date();
 
-$(document).ready(function() {
-
-
-var startDate = localStorage.getItem('fechaInicio');
-        var endDate = localStorage.getItem('fechaFin');
-
-        
-        //esta funcion convierte los datos que recogo del localstroage para convertirlo en objeto date
-        function conversion(fecha) {
-            if (!fecha) return null;
-            var partes = fecha.split('-');
-            return new Date(partes[0], partes[1] - 1, partes[2]);
+      var startDatePicker = flatpickr("#startDate", {
+        dateFormat: "Y-m-d",
+        minDate: today,
+        locale: {
+          firstDayOfWeek: 1,
+          weekdays: {
+            shorthand: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+          },
+          months: {
+            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+          }
+        },
+        enable: [
+          function(date) {
+           
+            return (date.getFullYear() === 2024) || 
+                   (date.getFullYear() === 2025 && date.getMonth() === 0);
+          }
+        ],
+        onChange: function(selectedDates, dateStr, instance) {
+          if (selectedDates.length > 0) {
+            
+            var minEndDate = new Date(selectedDates[0]);
+            minEndDate.setDate(minEndDate.getDate() + 1); 
+            endDatePicker.set('minDate', minEndDate);
+          }
         }
+      });
 
-      
-        
-        startDate = conversion(startDate);
-        endDate = conversion(endDate);
+      var endDatePicker = flatpickr("#endDate", {
+        dateFormat: "Y-m-d",
+        minDate: today,
+        locale: {
+          firstDayOfWeek: 1,
+          weekdays: {
+            shorthand: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
+            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
+          },
+          months: {
+            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
+            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
+          }
+        },
+        enable: [
+          function(date) {
+           
+            return (date.getFullYear() === 2024) || 
+                   (date.getFullYear() === 2025 && date.getMonth() === 0);
+          }
+        ],
+        onChange: function(selectedDates, dateStr, instance) {
+          if (selectedDates.length > 0) {
+           
+            startDatePicker.set('maxDate', selectedDates[0]);
+          }
+        }
+      });
 
-
-
-    var diaactual = new Date();
-    var añoactual = diaactual.getFullYear();
-    var ultimo = new Date(añoactual, 12, 31);
-
-    $("#date_picker1").datepicker({
-        dateFormat: 'dd-mm-yy',
-        minDate: diaactual,
-        maxDate: ultimo,
-        yearRange: añoactual + ':' + añoactual,
-        beforeShowDay: checar
     });
-
-    $("#date_picker2").datepicker({
-        dateFormat: 'dd-mm-yy',
-        minDate: diaactual,
-        maxDate: ultimo,
-        yearRange: añoactual + ':' + añoactual,
-        beforeShowDay: checar
-    });
-
-
-        if (startDate) {
-            $("#date_picker1").datepicker("setDate", startDate);
-        }
-        if (endDate) {
-            $("#date_picker2").datepicker("setDate", endDate);
-        }
-
-       
-
-            $('#date_picker1').change(function() {
-                startDate = $(this).datepicker('getDate');
-            $("#date_picker2").datepicker("option", "minDate", startDate);
-            localStorage.setItem('fechaInicio', $.datepicker.formatDate('yy-mm-dd', startDate));
-            });
-
-             $('#date_picker2').change(function() {
-             endDate = $(this).datepicker('getDate');
-             $("#date_picker1").datepicker("option", "maxDate", endDate);
-            localStorage.setItem('fechaFin', $.datepicker.formatDate('yy-mm-dd', endDate));
-            });
-
-        
-        
-
-
-  
-
-    function checar(date) {
-        var fecha = new Date(date);
-        if (!startDate) {
-            return [true, "av", "Disponible"];
-        }
-        var primerafecha = new Date(startDate).toDateString();
-        var fechadehoy = fecha.toDateString();
-
-        if (fechadehoy === primerafecha) {
-            return [false, "notav", "No Disponible"];
-        } else {
-            return [true, "av", "Disponible"];
-        }
-    }
-
-    
-
-
-});
-
-
- 
-//mando los datos por ajax
-$('#buscar').click(function(){
-        $.ajax({
-            url:"habitacionreserva.php",
-            type:'POST',
-            data: $('#form').serialize(),
-            success:function(res){
-                $('#respuesta').html(res);
-            }
-        });
-    }); 
-
-
-</script>
+  </script>
 
 
 <script>
+    const fechaInicio = localStorage.getItem('fechaInicio')
+    const fechaFinal = localStorage.getItem('fechaFin')
 
-var disponibilidad = <?php echo $var; ?>;
-console.log(disponibilidad);
+    function obtenerHabitaciones() {
+        fetch('../servicios/obtenerHabitaciones.php', {
+            body:new URLSearchParams( {
+                'startDate': fechaInicio,
+                'endDate': fechaFinal
+            }),
+            method: 'POST'
+        }).then(response => {
+            return response.json()
+        }).then((data) => {
+            const habitaciones = data
+            
+            const container = document.getElementById('contenedor-fluido')
+            crearTarjeta('hola mundo', 'estamos probando una funcionalidad')
+            console.log(data)
+        }).catch(error => { console.log(error)})
+    }
+
+    obtenerHabitaciones()
+
+    function crearTarjeta(titulo, descripcion) {
+        const container = document.getElementById('contenedor-fluido')
+        // Crear los elementos de la tarjeta
+        const tarjeta = document.createElement('div');
+        tarjeta.classList.add('card'); // Agrega una clase para aplicar estilos
+
+        const contenido = document.createElement('div');
+        contenido.classList.add('card-body');
+
+        const tituloElemento = document.createElement('h5');
+        tituloElemento.textContent = titulo;
+        contenido.appendChild(tituloElemento);
+
+        const descripcionElemento = document.createElement('p');
+        descripcionElemento.textContent = descripcion;
+        contenido.appendChild(descripcionElemento);
+
+        container.appendChild(contenido);   
 
 
+        // Agregar la tarjeta al DOM (por ejemplo, al cuerpo del documento)
+        document.body.appendChild(tarjeta);
+    }
+</script>
+
+
+ <script>
 
 let roomCount = 0;
+
+
+var disponibilidad = <?php echo $var; ?>;
+
 const roomData = [];
 
 function adjustCardPosition() {
@@ -874,6 +789,8 @@ function checkScreenWidth() {
 window.addEventListener('load', checkScreenWidth);
 window.addEventListener('resize', checkScreenWidth);
 
+
+
 function mostrar(button) {
     const roomContainer = button.closest('.container-custom');
     const roomType = roomContainer.getAttribute('data-room-type');
@@ -896,6 +813,7 @@ function mostrar(button) {
         checkScreenWidth();
     
 }
+
 
 
 
@@ -988,7 +906,7 @@ document.getElementById('ver-mas-btn').addEventListener('click', function() {
     scrollableModal.show();
 });
 
-document.querySelectorAll('.btn.btn-success').forEach(button => {
+document.querySelectorAll('.doble.btn.btn-success').forEach(button => {
     button.addEventListener('click', function() {
         if (roomCount === 0) {
             var warningModal = new bootstrap.Modal(document.getElementById('warningModal'), {});
@@ -999,6 +917,8 @@ document.querySelectorAll('.btn.btn-success').forEach(button => {
         }
     });
 });
+
+
 
 function updateTotalPrice(amount, reset = false) {
     const totalPriceElement = document.getElementById('card-total-price');
@@ -1120,7 +1040,7 @@ function getMaxKidsForSencilla(adultsValue) {
     }
 }
 
-</script>
+</script> 
 
   
 </body>
