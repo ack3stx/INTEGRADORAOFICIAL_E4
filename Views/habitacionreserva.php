@@ -316,7 +316,7 @@ else {
 
 
 <div class="container-fluid d-flex justify-content-start flex-wrap position-relative" id="contenedor-fluido">
-    <!-- Habitación Doble -->
+    <!-- Habitación Doble 
     <div class="container-custom move-right" data-room-type="doble">
         <div class="card card-custom">
             <div class="image-container">
@@ -355,7 +355,7 @@ else {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <!-- Habitación King-Size
     <div class="container-custom move-right" data-room-type="king-size">
@@ -612,7 +612,21 @@ else {
     document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
 
-      var startDatePicker = flatpickr("#startDate", {
+      var startDatePicker = localStorage.getItem('fechaInicio')
+      var endDatePicker = localStorage.getItem('fechaFin')
+
+      function conversion(fecha) {
+            if (!fecha) return null;
+            var partes = fecha.split('-');
+            return new Date(partes[0], partes[1] - 1, partes[2]);
+        }
+
+        startDatePicker = conversion(startDatePicker)
+        endDatePicker = conversion(endDatePicker)
+
+
+
+        startDatePicker = flatpickr("#startDate", {
         dateFormat: "Y-m-d",
         minDate: today,
         locale: {
@@ -643,7 +657,7 @@ else {
         }
       });
 
-      var endDatePicker = flatpickr("#endDate", {
+       endDatePicker = flatpickr("#endDate", {
         dateFormat: "Y-m-d",
         minDate: today,
         locale: {
@@ -698,7 +712,7 @@ else {
         }).catch(error => { console.log(error)})
     }
 
-    obtenerHabitaciones()
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
     function crearTarjeta(titulo, descripcion) {
         const container = document.getElementById('contenedor-fluido')
