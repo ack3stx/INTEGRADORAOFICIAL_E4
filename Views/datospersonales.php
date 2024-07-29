@@ -55,10 +55,11 @@ if ($_SESSION["rol"] == "usuario") {
             $errores[] = "La ciudad no debe contener números.";
         }
 
-        // Validación de fecha de nacimiento
+        // Validación para que no pueda meter un año antes de 1950
         $fecha_actual = date('Y-m-d');
         $fecha_minima = '1950-01-01';
 
+        //mensaje de validación para que cuando intente meter una fecha antes de 1950 y despues de 2024
         if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
             $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
         }
@@ -67,6 +68,8 @@ if ($_SESSION["rol"] == "usuario") {
             $db = new Database();
             $db->conectarDB();
 
+            //cuando no hayan errores de que escribio algo mal, o dejo un campo nulo cuando se supone que estebe de existir. Ojo, aún así cuando no tenga datos, se le mostrarán los datos que ya tengo por default.
+            // En este mismo apartado, si los datos estan correctos, se le mostrarán sus datos como usuario 
             $obtener_id = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
             $id_result = $db->seleccionar($obtener_id);
 
@@ -95,25 +98,14 @@ if ($_SESSION["rol"] == "usuario") {
                     $_SESSION['mensaje'] = "Contraseña actualizada correctamente.";
                 }
 
-                // Actualizar datos de la tabla PERSONA
+                // aquí se actualizan ya los datos de persona, o en su debido caso, que se inserten.
                 $consulta_persona = "SELECT id_persona FROM persona WHERE usuario = $id";
                 $persona_result = $db->seleccionar($consulta_persona);
 
                 if (!empty($persona_result)) {
                     $id_persona = $persona_result[0]->id_persona;
                     $consulta_update_persona = "UPDATE persona SET 
-                        nombre = '$nombre', 
-                        apellido_paterno = '$apellido_paterno', 
-                        apellido_materno = '$apellido_materno', 
-                        fecha_de_nacimiento = '$fecha_de_nacimiento', 
-                        direccion = '$direccion', 
-                        ciudad = '$ciudad', 
-                        estado = '$estado', 
-                        codigo_postal = '$codigo_postal', 
-                        pais = '$pais', 
-                        genero = '$genero', 
-                        numero_de_telefono = '$numero_de_telefono' 
-                        WHERE id_persona = $id_persona";
+                        nombre = '$nombre',  apellido_paterno = '$apellido_paterno', apellido_materno = '$apellido_materno',  fecha_de_nacimiento = '$fecha_de_nacimiento',  direccion = '$direccion', ciudad = '$ciudad',  estado = '$estado',  codigo_postal = '$codigo_postal', pais = '$pais', genero = '$genero',  numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
                     $db->ejecuta($consulta_update_persona);
                     $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
                 } else {
@@ -138,9 +130,9 @@ if ($_SESSION["rol"] == "usuario") {
         $db->conectarDB();
         $user_id = $_SESSION['usuario'];
         
-        $consulta = "SELECT u.nombre_usuario, u.correo, u.password, 
-                            p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento, 
-                            p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
+
+        // aquí nada maás hago la consulta para mostrar los datos tanto de usuario, como de persona.
+        $consulta = "SELECT u.nombre_usuario, u.correo, u.password, p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento,  p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
                      FROM usuarios u 
                      LEFT JOIN persona p ON u.id_usuario = p.usuario 
                      WHERE u.nombre_usuario = '$user_id'";
@@ -195,12 +187,12 @@ if ($_SESSION["rol"] == "usuario") {
                             <p class="section-title">Nombre de usuario</p>
                             <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->nombre_usuario) ?></p>
                         </div>
-                        <button type="button" id="btnEditarNombreUsuario" class="btn btn-primary">Editar</button>
+                        <button type="button" id="btnEditarNombreUsuario" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formNombreUsuario" class="hidden">
                         <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->nombre_usuario) ?>">
-                        <button type="button" id="btnCancelarNombreUsuario" class="btn btn-secondary">Cancelar</button>
-                        <button type="button" id="btnListoNombreUsuario" class="btn btn-success">Listo</button>
+                        <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
+                        <button type="button" id="btnListoNombreUsuario" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
@@ -212,12 +204,12 @@ if ($_SESSION["rol"] == "usuario") {
                             <p class="section-title">Dirección de email</p>
                             <p id="email"><?= htmlspecialchars($usuario[0]->correo) ?></p>
                         </div>
-                        <button type="button" id="btnEditarEmail" class="btn btn-primary">Editar</button>
+                        <button type="button" id="btnEditarEmail" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formEmail" class="hidden">
                         <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->correo) ?>">
-                        <button type="button" id="btnCancelarEmail" class="btn btn-secondary">Cancelar</button>
-                        <button type="button" id="btnListoEmail" class="btn btn-success">Listo</button>
+                        <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
+                        <button type="button" id="btnListoEmail" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
@@ -229,12 +221,12 @@ if ($_SESSION["rol"] == "usuario") {
                             <p class="section-title">Contraseña</p>
                             <p id="password">******</p>
                         </div>
-                        <button type="button" id="btnEditarPassword" class="btn btn-primary">Editar</button>
+                        <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formPassword" class="hidden">
                         <input type="password" name="password" class="form-control mb-2" placeholder="Nueva contraseña">
-                        <button type="button" id="btnCancelarPassword" class="btn btn-secondary">Cancelar</button>
-                        <button type="button" id="btnListoPassword" class="btn btn-success">Listo</button>
+                        <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
+                        <button type="button" id="btnListoPassword" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
@@ -245,17 +237,7 @@ if ($_SESSION["rol"] == "usuario") {
                     <h2>Datos Personales</h2>
                     <?php 
                     $campos_persona = [
-                        'nombre' => 'Nombre',
-                        'apellido_paterno' => 'Apellido Paterno',
-                        'apellido_materno' => 'Apellido Materno',
-                        'fecha_de_nacimiento' => 'Fecha de Nacimiento',
-                        'direccion' => 'Dirección',
-                        'ciudad' => 'Ciudad',
-                        'estado' => 'Estado',
-                        'codigo_postal' => 'Código Postal',
-                        'pais' => 'País',
-                        'genero' => 'Género',
-                        'numero_de_telefono' => 'Número de Teléfono'
+                        'nombre' => 'Nombre', 'apellido_paterno' => 'Apellido Paterno','apellido_materno' => 'Apellido Materno','fecha_de_nacimiento' => 'Fecha de Nacimiento', 'direccion' => 'Dirección','ciudad' => 'Ciudad','estado' => 'Estado','codigo_postal' => 'Código Postal', 'pais' => 'País', 'genero' => 'Género','numero_de_telefono' => 'Número de Teléfono'
                     ];
 
                     foreach ($campos_persona as $campo => $titulo) {
@@ -272,7 +254,7 @@ if ($_SESSION["rol"] == "usuario") {
                                     <p class="section-title"><?= $titulo ?></p>
                                     <p id="<?= $campo ?>Texto"><?= $valor ?></p>
                                 </div>
-                                <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-primary">Editar</button>
+                                <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-danger">Editar</button>
                             </div>
                             <div id="form<?= ucfirst($campo) ?>" class="hidden">
                                 <?php if ($inputType == 'select'): ?>
@@ -284,8 +266,8 @@ if ($_SESSION["rol"] == "usuario") {
                                     <input type="<?= $inputType ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>" 
                                     <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d') . "'"; ?>>
                                 <?php endif; ?>
-                                <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-secondary">Cancelar</button>
-                                <button type="button" id="btnListo<?= ucfirst($campo) ?>" class="btn btn-success">Listo</button>
+                                <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
+                                <button type="button" id="btnListo<?= ucfirst($campo) ?>" class="btn btn-danger">Listo</button>
                             </div>
                         </div>
                         <hr class="mb-4">
@@ -293,7 +275,7 @@ if ($_SESSION["rol"] == "usuario") {
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" id="btnConfirmar" class="btn btn-success" disabled>Confirmar cambios</button>
+                    <button type="submit" id="btnConfirmar" class="btn btn-danger" disabled>Confirmar cambios</button>
                 </div>
             </form>
         <?php endif; ?>
