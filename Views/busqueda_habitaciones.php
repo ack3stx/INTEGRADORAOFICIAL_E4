@@ -1,18 +1,6 @@
+
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <title>Document</title>
-</head>
-
-<body>
-  <!DOCTYPE html>
   <html lang="en">
-
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,8 +9,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
   </head>
-
   <body>
+  <?php
+  session_start();
+  include '../Clases/BasedeDatos.php';
+  $conexion = new Database();
+  $conexion->conectarDB();
+
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
+  ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
       <div class="container-fluid">
         <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
@@ -32,11 +27,6 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link" href="calendario.php">
-                <i class="fas fa-calendar-plus"></i> Crear Reserva
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link" href="busqueda_reserva.php">
                 <i class="fas fa-book"></i> Reservaciones
@@ -157,9 +147,6 @@
         <button class="btn btn-outline-danger" type="submit">Buscar</button>
       </form>
       <?php
-      include '../Clases/BasedeDatos.php';
-      $conexion = new Database();
-      $conexion->conectarDB();
       extract($_POST);
       if ($_POST) {
         $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
@@ -171,10 +158,18 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
         $tabla = $conexion->seleccionar($consulta);
 
         echo "
-            <table class='table table-hover'>
-                <thead class='table-dark'>
-                    <tr>
-                    <th>Num Habitacion</th><th>Piso</th><th>Estado</th><th>Tipo</th><th>Descripcion</th><th>Costo</th><th>Cant Max Adultos</th><th>Cant Max Niños</th>
+            <div class='table-responsive'>
+        <table class='table table-hover table-bordered table-danger'>
+            <thead class='table-dark'>
+                <tr>
+                    <th text-white>Num Habitacion</th>
+                    <th text-white>Piso</th>
+                    <th text-white>Estado</th>
+                    <th text-white>Tipo</th>
+                    <th text-white>Descripcion</th>
+                    <th text-white>Costo</th>
+                    <th text-white>Cant Max Adultos</th>
+                    <th text-white>Cant Max Niños</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -192,7 +187,8 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
           echo "</tr>";
         }
         echo "</tbody>";
-        echo "</table>";
+        echo "</table>
+            </div>";
         $conexion->desconectarBD();
 
       }
@@ -204,6 +200,53 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
       <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <?php
+    $conexion->desconectarBD();
+  } else {
+  ?>
+<head>
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .bg-dark {
+      background-color: #343a40 !important;
+    }
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+    }
+    .error-container {
+      text-align: center;
+    }
+    .error-icon {
+      font-size: 100px;
+    }
+    .error-code {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .error-message {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <div class="container flex-center">
+    <div class="error-container">
+      <i class="fas fa-times-circle error-icon"></i>
+      <div class="error-code">404</div>
+      <div class="error-message">Pagina no Encontrada</div>
+      <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+    </div>
+  </div>
+</body>
+<?php
+  }
+?>
   </body>
-
   </html>

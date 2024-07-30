@@ -9,6 +9,15 @@
     <title>Hotel Laguna Inn</title>
 </head>
 <body>
+<?php
+  session_start();
+  include '../Clases/BasedeDatos.php';
+  
+  $conexion = new Database();
+  $conexion->conectarDB();
+
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
+?>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
@@ -18,11 +27,6 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="calendario.php">
-              <i class="fas fa-calendar-plus"></i> Crear Reserva
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva.php">
               <i class="fas fa-book"></i> Reservaciones
@@ -93,9 +97,6 @@
 
   <div class="container">
     <?php 
-      include '../Clases/BasedeDatos.php';
-      $conexion = new Database();
-      $conexion->conectarDB();
       extract($_POST);
       if(empty($numero) && empty($fecha1) && empty($fecha2))
       {
@@ -157,5 +158,53 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <?php
+    $conexion->desconectarBD();
+  } else {
+  ?>
+<head>
+  <style>
+    body, html {
+      height: 100%;
+    }
+    .bg-dark {
+      background-color: #343a40 !important;
+    }
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+    }
+    .error-container {
+      text-align: center;
+    }
+    .error-icon {
+      font-size: 100px;
+    }
+    .error-code {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .error-message {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body class="bg-dark">
+  <div class="container flex-center">
+    <div class="error-container">
+      <i class="fas fa-times-circle error-icon"></i>
+      <div class="error-code">404</div>
+      <div class="error-message">Pagina no Encontrada</div>
+      <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+    </div>
+  </div>
+</body>
+<?php
+  }
+?>
 </body>
 </html>
