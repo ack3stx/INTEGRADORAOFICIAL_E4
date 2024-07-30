@@ -145,7 +145,7 @@ else {
                     <div class="d-flex align-items-center p-3">
                         <i class="bi bi-wifi"></i>
                         <div class="ms-3 ms-md-4 olas">
-                            <a href="datospersonales.php">
+                            <a href="historialreservaciones.php">
                                 <div class="ditto">
                                     <i class="fa-solid fa-lock icono-grande"></i>
                                     <div class="texto">

@@ -8,7 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel de Usuario</title>
-    <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
+    <link rel="stylesheet" href="../Estilos/historial.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="../Estilos/historial.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -67,7 +67,7 @@ if(isset($_SESSION["usuario"])){
                 </button>
                 <ul class="dropdown-menu glass">
                     <li><a class="dropdown-item" href="panelusuario.php"><span class="material-symbols-outlined lia"></span>Gestionar cuenta</a></li>
-                    <li><a class="dropdown-item" href="panelusuario.php"><span class="material-symbols-outlined">travel_explore</span>Historial de Reservación</a></li>
+                    <li><a class="dropdown-item" href="historialreservaciones.php"><span class="material-symbols-outlined">travel_explore</span>Historial de Reservación</a></li>
                     <li><a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php"><span class="material-symbols-outlined">logout 
                     <?php
                     
@@ -96,6 +96,8 @@ else {
     </nav>
   </div>
     </header>
+    <br><br><br><br><br>
+    
 
     <?php
 include '../Clases/BasedeDatos.php';
@@ -103,16 +105,16 @@ $db = new Database();
 $db->conectarDB();
 
 $usuario = $_SESSION["usuario"];
-$consulta = "select distinct concat(persona.nombre,'  ' ,persona.apellido_paterno,'   ', persona.apellido_materno) as Nombre_Huesped, reservacion.id_reservacion as folio_reserva,reservacion.estado_reservacion as estado, (timestampdiff(day,detalle_reservacion.fecha_inicio,detalle_reservacion.fecha_fin)) as noches,count(detalle_reservacion.id_detalle_reservacion) as Cantidad_de_habitaciones
+$consulta = "select distinct concat(persona.nombre,'  ' ,persona.apellido_paterno,'   ', persona.apellido_materno) as Nombre_Huesped, reservacion.id_reservacion as folio_reserva,reservacion.estado_reservacion as estado
 from usuarios
 inner join persona on persona.usuario=usuarios.id_usuario
 inner join huesped on huesped.persona_huesped=persona.id_persona
 inner join reservacion on reservacion.huesped=huesped.id_huesped
-inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-where usuarios.nombre_usuario = :usuario
-group by Nombre, folio_reserva,estado,noches;";
-$user = [":usuario" => $usuario];
-$resultado = $db->seleccionar($consulta,$user);
+where usuarios.nombre_usuario =  '$usuario'
+group by Nombre, folio_reserva,estado;";
+
+$resultado = $db->seleccionar($consulta);
+
 foreach($resultado as $value){
 ?>
 <!--CARD DE LAS RESERVACIONES-->
@@ -126,9 +128,12 @@ foreach($resultado as $value){
 </div>
  <?php
 }
- 
+
+
+
 
  ?>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
