@@ -16,25 +16,31 @@
             $db->conectarDB();
 
             extract($_POST);
-            
-            $hash = password_hash($contra,PASSWORD_DEFAULT);
+            if ($contra==$contra2)
+            {
+              $hash = password_hash($contra,PASSWORD_DEFAULT);
 
-            $cadena = "CALL RegistrarUsuarioHuesped('$usuario','$hash','$correo');";
-
-            $db->ejecuta($cadena);
-            
-            echo "<div class='contenedor mx-auto opacity-75'>
-      <div class='confirm'>
-        <svg class='confirm__progress'>
-          <circle class='confirm__value' cx='50%' cy='50%' r='54' />
-        </svg>
-        <div class='confirm__inner'></div>
+              $cadena = "CALL RegistrarUsuarioHuesped('$usuario','$hash','$correo');";
+  
+              $db->ejecuta($cadena);
+              
+              echo "<div class='contenedor mx-auto opacity-75'>
+        <div class='confirm'>
+          <svg class='confirm__progress'>
+            <circle class='confirm__value' cx='50%' cy='50%' r='54' />
+          </svg>
+          <div class='confirm__inner'></div>
+        </div>
+        <div class='contenedorxd' style='box-shadow: black;'>
+          <h1>¡REGISTRO EXITOSO!</h1>
       </div>
-      <div class='contenedorxd' style='box-shadow: black;'>
-        <h1>¡REGISTRO EXITOSO!</h1>
-    </div>
-  </div>";
-  header("refresh:3;../Views/Login.php");
+    </div>";
+    header("refresh:3;../Views/Login.php");
+            }
+            else
+            {
+              header("location:../Views/Login.php");
+            }
         ?>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
