@@ -107,87 +107,88 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <body>
         
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+    <div class="container-fluid">
+        <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link" href="calendario.php">
-                  <i class="fas fa-calendar-plus"></i> Crear Reserva
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="busqueda_reserva_recepcionista.php">
-                  <i class="fas fa-book"></i> Reservaciones
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
-                  <i class="fas fa-bed"></i> Habitaciones
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="busqueda_huesped_recepcionista.php">
-                  <i class="fas fa-users"></i> Huesped
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="check_in.php">
-                  <i class="fas fa-users"></i> Check-in
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="check_out.php">
-                  <i class="fas fa-users"></i> Check-out
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="reservaciones_activas.php">
-                  <i class="fas fa-users"></i> Extender
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="notificaciones_recepcionista.php">
-                <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-                  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
-                    <span class="visually-hidden"></span>
-                  </span>
-                </button>
-                </a>
-              </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="calendario.php">
+                        <i class="fas fa-calendar-plus"></i> Crear Reserva
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="busqueda_reserva_recepcionista.php">
+                        <i class="fas fa-book"></i> Reservaciones
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
+                        <i class="fas fa-bed"></i> Habitaciones
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="busqueda_huesped_recepcionista.php">
+                        <i class="fas fa-users"></i> Huesped
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="check_in.php">
+                        <i class="fas fa-users"></i> Check-in
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="check_out.php">
+                        <i class="fas fa-users"></i> Check-out
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="reservaciones_activas.php">
+                        <i class="fas fa-users"></i> Extender
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="notificaciones_recepcionista.php">
+                        <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                            <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+                                <span class="visually-hidden"></span>
+                            </span>
+                        </button>
+                    </a>
+                </li>
             </ul>
             <div class="header-right">
-              <div class="btn-group">
-              <?php
-              if (isset($_SESSION["usuario"])) 
-              {
-                echo "<button class='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
-                          ".$_SESSION["usuario"]."
-                        </button>";
-              }
-              ?>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-                  <li><a class="dropdown-item" href="#">Historial</a></li>
-                  <li><a class="dropdown-item" href="#">Opciones</a></li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
-                </ul>
-              </div>
-              <i class="fas fa-user text-white ms-2"></i>
+                <div class="btn-group">
+                <?php
+                if (isset($_SESSION["usuario"])) 
+                {
+                    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-bs-toggle='dropdown' aria-expanded='false'>
+                              ".$_SESSION["usuario"]."
+                            </button>";
+                }
+                ?>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
+                        
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+                    </ul>
+                </div>
+                <i class="fas fa-user text-white ms-2"></i>
             </div>
-          </div>
         </div>
-    </nav>
-
+    </div>
+</nav>
+<!-- Agregar un div para el título -->
+<div class="bg-danger text-white w-100 text-center">
+    <h1 class="mb-0">Reservaciones Para Check-Out Hoy...</h1>
+</div>
     <div class='table-responsive'>
-        <h1 class='text-center bg-danger text-white'>Reservaciones Para Check-Out Hoy...</h1>
         <br>
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
