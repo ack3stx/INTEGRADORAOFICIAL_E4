@@ -258,8 +258,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         ?>
                         <ul class="dropdown-menu dropdown-menu-end">
                             <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-                            <li><a class="dropdown-item" href="#">Historial</a></li>
-                            <li><a class="dropdown-item" href="#">Opciones</a></li>
+                           
                             <li>
                                 <hr class="dropdown-divider">
                             </li>

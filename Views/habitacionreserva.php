@@ -128,7 +128,7 @@ function getMaxKidsForSencilla($adultsValue) {
 
 
         #scrollableModal{
-            display: block;
+            display: none;
         }
         
 
@@ -456,6 +456,7 @@ else {
 
 
 
+<!--
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
@@ -464,7 +465,7 @@ else {
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="modal-body-content">
-                <!-- El contenido dinámico se insertará aquí -->
+                El contenido dinámico se insertará aquí 
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -473,7 +474,7 @@ else {
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
    <!-- Modal DE ADVERTENCIA 
    <div class="modal fade" id="exampleModalTogglee" aria-hidden="true" aria-labelledby="exampleModalToggleLabel" tabindex="-1">
@@ -562,7 +563,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
                 <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
-                <button class="btn btn-danger" type="button" onclick="borrarCambios()">Borrar Cambios</button>
+                <button class="btn btn-danger" type="button">Borrar Cambios</button>
             </div>
         </div>
     </div>
@@ -622,7 +623,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -662,6 +663,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             endDatePicker.set('minDate', minEndDate);
             localStorage.setItem('fechaInicio', selectedDates[0].toISOString().slice(0, 10));
             obtenerHabitaciones();
+            
                 
                
             
@@ -696,7 +698,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             startDatePicker.set('maxDate', selectedDates[0]);
             localStorage.setItem('fechaFin', selectedDates[0].toISOString().slice(0, 10));
             obtenerHabitaciones();
-                
                 
             
           }
@@ -759,6 +760,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     }
 
     function crearTarjetaDoble(titulo, descripcion)  {
+
             
             const container = document.getElementById('contenedor-fluido');
             
@@ -858,7 +860,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
             addButton.onclick = function() {
-             
+                mostrar();
             };
             addButton.innerText = 'Añadir';
             
@@ -981,7 +983,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
             addButton.onclick = function() {
-               
+                mostrar();
             };
             addButton.innerText = 'Añadir';
             
@@ -1103,7 +1105,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
             addButton.onclick = function() {
-                
+                mostrar();
             };
             addButton.innerText = 'Añadir';
             
@@ -1127,8 +1129,12 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }  
         
         
-  document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
   
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+  
+       
+
+ 
   </script>
   <script>
 
@@ -1155,13 +1161,11 @@ document.getElementById('reservar').addEventListener('click', function() {
             console.log(calculo());
         });
 
-        document.getElementById('.btn.btn-success').addEventListener('click', function() {
 
-            documedocument.getElementById('info1').style.display = 'block';
 
-        });
-       
-
+        function mostrar() {
+            document.getElementById('info1').style.display = 'block';
+        }
 
     
 
