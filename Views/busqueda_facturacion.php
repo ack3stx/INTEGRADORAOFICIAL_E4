@@ -17,6 +17,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
 <body>
 <?php
@@ -49,7 +50,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
             </a>
           </li>
           <li class="nav-item">

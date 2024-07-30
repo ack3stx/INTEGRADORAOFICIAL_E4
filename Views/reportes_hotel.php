@@ -43,7 +43,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
