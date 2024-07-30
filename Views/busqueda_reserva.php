@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+    <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
     <title>Hotel Laguna Inn</title>
 </head>
 <body>
@@ -69,13 +70,17 @@
         </ul>
         <div class="header-right">
           <div class="btn-group">
-            <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Tomasillo
-            </button>
+          <?php
+  if (isset($_SESSION["usuario"])) 
+  {
+    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+              ".$_SESSION["usuario"]."
+            </button>";
+  }
+  ?>
             <ul class="dropdown-menu dropdown-menu-end">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              <li><a class="dropdown-item" href="#">Historial</a></li>
-              <li><a class="dropdown-item" href="#">Opciones</a></li>
+             
               <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
