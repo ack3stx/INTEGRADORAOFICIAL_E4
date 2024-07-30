@@ -35,6 +35,40 @@ if ($_SESSION["rol"] == "usuario") {
         .section-title { font-weight: bold; }
         .container { width: 80%; margin: 50px auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f8f9fa; }
         .is-invalid { border-color: #dc3545; }
+
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 60%;
+            margin: 50px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        h1 strong, .section-title, hr, #pepon {
+            color: rgb(116, 13, 13);
+        }
+        .section-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        hr {
+            margin: 1rem 0;
+        }
+        .edit-link {
+            text-decoration: none;
+            color: #0d6efd;
+        }
+        .edit-link:hover {
+            text-decoration: underline;
+            color: rgb(116, 13, 13);
+        }
+        .verified {
+            color: green;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -201,6 +235,8 @@ if ($_SESSION["rol"] == "usuario") {
     .error-message {
       font-size: 24px;
     }
+
+
   </style>
 </head>
 <body class="bg-dark">
