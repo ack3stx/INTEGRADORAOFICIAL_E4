@@ -69,6 +69,15 @@ if ($_SESSION["rol"] == "usuario") {
             color: green;
             font-weight: bold;
         }
+
+        .btn-danger {
+            background-color: transparent;
+            border: none;
+            color: rgb(116, 13, 13);
+        }
+        .btn-danger:hover {
+            background-color: rgba(116, 13, 13);
+        }
     </style>
 </head>
 <body>
