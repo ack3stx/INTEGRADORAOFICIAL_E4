@@ -13,12 +13,12 @@
 <?php
   session_start();
   include '../Clases/BasedeDatos.php';
-$db = new Database();
-$db->conectarDB();
+  
+  $db = new Database();
+  $db->conectarDB();
 
-  if($_SESSION["rol"]=="administrador")
-  {
-?> 
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
+?>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
@@ -28,11 +28,6 @@ $db->conectarDB();
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="calendario.php">
-              <i class="fas fa-calendar-plus"></i> Crear Reserva
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva.php">
               <i class="fas fa-book"></i> Reservaciones
