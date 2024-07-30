@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laguna Inn - Login</title>
+    <title>Laguna Inn - Registro</title>
     <link rel="stylesheet" href="../Estilos/Barra.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -20,7 +20,7 @@
         }
         .login-card {
             width: 600px;
-            height: 530px;
+            height: 550px;
             padding: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
@@ -48,6 +48,10 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        .error {
+            color: red;
+            display: none;
         }
     </style>
 </head>
@@ -89,60 +93,89 @@
         </div>
       </div>
     </nav>
-    </header>
-    <section id="reservaciones" class="content-section">
-        <div class="container login-container">
-            <div class="card login-card">
-                <div class="card-body">
-                    <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
+</header>
 
-                    <form action="../Scripts/Comprueba_Login.php" method="post">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                            <input type="text" class="form-control" id="email" placeholder="Usuario" name="user">
-                        </div><br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" name="pass" required>
-                        </div><br>
-                        <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
-                    </form><br>
-
-                    <h6>No tienes cuenta?  <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h4>
-                </div>
+<section id="reservaciones" class="content-section">
+    <div class="container login-container">
+        <div class="card login-card">
+            <div class="card-body">
+                <h3 class="text-center" style="color: maroon;">Iniciar Sesion</h3><br><br>
+                <form action="../Scripts/Comprueba_Login.php" method="post">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-user" id="basic-addon1"></span>
+                        <input type="text" class="form-control" id="email" placeholder="Usuario" name="user">
+                    </div><br>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
+                        <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" name="pass" required>
+                    </div><br>
+                    <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
+                </form><br>
+                <h6>No tienes cuenta? <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h6>
             </div>
         </div>
-    </section>
-    <section id="Registrate" class="content-section">
-        <div class="container login-container">
-            <div class="card login-card">
-                <div class="card-body">
-                    <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
-                    <form action="../Scripts/Registra_Usuario_Huesped.php" method="post">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                            <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" >
-                        </div><br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
-                            <input type="email" class="form-control" id="email" placeholder="Correo" name="correo" required>
-                        </div><br>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
-                            <input type="password" class="form-control" id="password" placeholder="Contraseña" name="contra" required>
-                        </div><br>
-                        <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
-                    </form><br>
-                    <h6>Ya tienes cuenta?  <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h4>
-                </div>
+    </div>
+</section>
+
+<section id="Registrate" class="content-section">
+    <div class="container login-container">
+        <div class="card login-card">
+            <div class="card-body">
+                <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
+                <form action="../Scripts/Registra_Usuario_Huesped.php" method="post" onsubmit="return validarContraseñas()">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-user" id="basic-addon1"></span>
+                        <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario">
+                    </div><br>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
+                        <input type="email" class="form-control" id="email" placeholder="Correo" name="correo" required>
+                    </div><br>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
+                        <input type="password" class="form-control" id="registerPassword" placeholder="Contraseña" name="contra" required>
+                    </div>
+                    <div class="input-group mb-3">
+                        <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
+                        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmar Contraseña" name="contra2" required>
+                    </div>
+                    <span id="error" class="error">Las contraseñas no coinciden</span><br><br>
+                    <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
+                </form>
+                <h6>Ya tienes cuenta? <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h6>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+    function validarContraseñas() {
+        var password = document.getElementById('registerPassword').value;
+        var confirmPassword = document.getElementById('confirmPassword').value;
+        var error = document.getElementById('error');
+
+        if (password !== confirmPassword) {
+            error.style.display = 'block';
+            return false;
+        } else {
+            error.style.display = 'none';
+            return true;
+        }
+    }
+
+    document.getElementById('registerPassword').addEventListener('input', function() {
+        validarContraseñas();
+    });
+
+    document.getElementById('confirmPassword').addEventListener('input', function() {
+        validarContraseñas();
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="../Js/Panel_Admin.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../Js/Panel_Admin.js"></script>
 </body>
 </html>

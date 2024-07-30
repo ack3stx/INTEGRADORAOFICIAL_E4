@@ -5,6 +5,41 @@ session_start();
 $db = new Database();
 $db->conectarDB();
 
+function generateRandomString($length = 10) {
+    $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $charactersLength = strlen($characters);
+    $randomString = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomString .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomString;
+}
+
+function isUniqueUsername($username, $db) {
+    $query = "SELECT COUNT(*) as count FROM Usuarios WHERE nombre_usuario = '$username'";
+    $result = $db->seleccionar($query);
+
+    // Verificar si el resultado es un array no vacío
+    if (count($result) > 0) {
+        // Asumimos que el método seleccionar retorna un array de objetos
+        return $result[0]->count == 0;
+    }
+
+    // En caso de error o resultado vacío, retornar false para evitar usar un username duplicado
+    return false;
+}
+
+function generateUniqueUsername($length = 10, $db) {
+    do {
+        $username = generateRandomString($length);
+    } while (!isUniqueUsername($username, $db));
+    return $username;
+}
+
+// Generar un nombre de usuario único
+$uniqueUsername = generateUniqueUsername(10, $db);
+echo "$uniqueUsername";
+
 $cant_dobles=0;
 $cant_king=0;
 $cant_sencilla=0;
@@ -300,40 +335,6 @@ margin-bottom: 1%;
 
 </style>
 <body>
-<!-- Modal -->
-<div class="modal fade" id="1234" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="staticBackdropLabel">CREAR USUARIO</h1>
-      </div>
-      <div class="modal-body">
-      <form id="personalForm" class="toggle-form" onsubmit="addData(event, 'personal')" action="reservaciones_fisicas.php?openModal=false">
-            <h5>CREACION DE USUARIO</h5><br>
-                <label for="staffEmail">Nombre de Usuario:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="usuario" required><br>
-                <label for="staffEmail">Email:</label>
-                <input class="form-control me-2" type="email" id="staffEmail" name="correo" required><br>
-                <label for="staffEmail">Contraseña:</label>
-                <input class="form-control me-2" type="password" id="staffEmail" name="contra" required><br>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary">Listo</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        if (window.location.search.includes('openModal=true')) {
-            var myModal = new bootstrap.Modal(document.getElementById('1234'), {
-                keyboard: false
-            });
-            myModal.show();
-        }
-    });
-    </script>
 
 <!--BARRA DE NAVEGACION
 <header>
