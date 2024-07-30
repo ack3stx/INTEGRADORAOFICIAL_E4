@@ -43,7 +43,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-bed"></i> Huesped
+              <i class="fas fa-users"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
@@ -73,13 +73,17 @@
         </ul>
         <div class="header-right">
           <div class="btn-group">
-            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-              Tomasillo
-            </button>
+          <?php
+  if (isset($_SESSION["usuario"])) 
+  {
+    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+              ".$_SESSION["usuario"]."
+            </button>";
+  }
+  ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              <li><a class="dropdown-item" href="#">Historial</a></li>
-              <li><a class="dropdown-item" href="#">Opciones</a></li>
+          
               <li>
                 <hr class="dropdown-divider">
               </li>

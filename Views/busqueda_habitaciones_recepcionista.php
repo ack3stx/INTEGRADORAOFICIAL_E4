@@ -86,8 +86,7 @@
           ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              <li><a class="dropdown-item" href="#">Historial</a></li>
-              <li><a class="dropdown-item" href="#">Opciones</a></li>
+              
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -154,6 +153,7 @@
       </select>&nbsp;
       <button class="btn btn-outline-danger" type="submit">Buscar</button>
     </form>
+    <br><br><br>
     <?php
     extract($_POST);
     if ($_POST) {
@@ -166,6 +166,7 @@
       $tabla = $conexion->seleccionar($consulta);
 
       echo "
+        <div class='table-responsive'>
           <table class='table table-hover'>
               <thead class='table-dark'>
                   <tr>
@@ -188,9 +189,11 @@
       }
       echo "</tbody>";
       echo "</table>";
+      echo "</div>"; // Cierre del div table-responsive
       $conexion->desconectarBD();
     }
-    ?>
+?>
+
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

@@ -19,7 +19,7 @@
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         
@@ -38,45 +38,72 @@
               <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="./index.php #2424"><label>SERVICIOS</label></a>
+              <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-            </li>
-           
+</li>
+
+         
+
             <li class="nav-item">
               <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
-            <?php
+
+<?php
 session_start();
 if(isset($_SESSION["usuario"])){
 
-  echo '<div class="dropdown">
-                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  echo ' 
+        <div class="header-content">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnusr">
                     <span class="material-symbols-outlined ">
                         account_circle
-
                     </span>
                 </button>
                 <ul class="dropdown-menu glass">
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
-                                person
-                            </span> Gestionar cuenta </a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                travel_explore
-                            </span>Historial de Reservación</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                add_comment
-                            </span>Comentarios</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                favorite
-                            </span>Favoritos</a></li>
-                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
-                                logout
-                            </span>Cerrar sesión</a></li>
+                    <li>
+                        <a class="dropdown-item" href="panelusuario.php">
+                            <span class="material-symbols-outlined lia">manage_accounts</span>
+                            Gestionar cuenta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="ver_datos_personales.php">
+                            <span class="material-symbols-outlined lia">person</span>
+                            Datos Personales
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="datospersonales.php">
+                            <span class="material-symbols-outlined lia">edit</span>
+                            Modificar mis Datos
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="historialreservaciones.php">
+                            <span class="material-symbols-outlined">travel_explore</span>
+                            Historial de Reservación
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php">
+                            <span class="material-symbols-outlined">logout</span>
+                            Cerrar Sesión
+                        </a>
+                    </li>
+                    <?php
+                    
+                    
+                    ?>
+                    
                 </ul>
-            </div>';
-
+                
+                
+            </div>
+        </div>
+    </div>';
 
 }
 else {
@@ -86,6 +113,7 @@ else {
 }
 
 ?>
+
           </ul>
         </div>
       </div>

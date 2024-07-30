@@ -17,6 +17,7 @@
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
 <body>
 <?php
@@ -79,13 +80,17 @@
         </ul>
         <div class="header-right">
           <div class="btn-group">
-            <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-              Tomasillo
-            </button>
+          <?php
+  if (isset($_SESSION["usuario"])) 
+  {
+    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+              ".$_SESSION["usuario"]."
+            </button>";
+  }
+  ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              <li><a class="dropdown-item" href="#">Historial</a></li>
-              <li><a class="dropdown-item" href="#">Opciones</a></li>
+           
               <li>
                 <hr class="dropdown-divider">
               </li>

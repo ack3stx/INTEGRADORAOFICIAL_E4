@@ -66,14 +66,42 @@ if(isset($_SESSION["usuario"])){
                     </span>
                 </button>
                 <ul class="dropdown-menu glass">
-                    <li><a class="dropdown-item" href="Views/panelusuario.php"><span class="material-symbols-outlined lia"></span>Gestionar cuenta</a></li>
-                    <li><a class="dropdown-item" href="Views/panelusuario.php"><span class="material-symbols-outlined">travel_explore</span>Historial de Reservación</a></li>
-                    <li><a class="dropdown-item" href="Scripts/Cerrar_Sesion.php"><span class="material-symbols-outlined">logout 
+
+                    <li>
+                        <a class="dropdown-item" href="Views/panelusuario.php">
+                            <span class="material-symbols-outlined lia">manage_accounts</span>
+                            Gestionar cuenta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="Views/ver_datos_personales.php">
+                            <span class="material-symbols-outlined lia">person</span>
+                            Datos Personales
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="Views/datospersonales.php">
+                            <span class="material-symbols-outlined lia">edit</span>
+                            Modificar mis Datos
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="Views/historialreservaciones.php">
+                            <span class="material-symbols-outlined">travel_explore</span>
+                            Historial de Reservación
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="Scripts/Cerrar_Sesion.php">
+                            <span class="material-symbols-outlined">logout</span>
+                            Cerrar Sesión
+                        </a>
+                    </li> 
                     <?php
                     
                     
                     ?>
-                    </span>Cerrar sesión</a></li>
+                    
                 </ul>
                 
                 

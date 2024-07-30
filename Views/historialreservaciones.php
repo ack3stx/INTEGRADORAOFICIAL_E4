@@ -65,7 +65,12 @@ if(isset($_SESSION["usuario"])){
                 <ul class="dropdown-menu glass">
                     <li><a class="dropdown-item" href="panelusuario.php"><span class="material-symbols-outlined lia"></span>Gestionar cuenta</a></li>
                     <li><a class="dropdown-item" href="historialreservaciones.php"><span class="material-symbols-outlined">travel_explore</span>Historial de Reservación</a></li>
-                    <li><a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php"><span class="material-symbols-outlined">logout</span>Cerrar sesión</a></li>
+                    <li><a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php"><span class="material-symbols-outlined">logout 
+                    <?php
+                    
+                    
+                    ?>
+                    </span>Cerrar sesión</a></li>
                 </ul>
             </div>
         </div>';

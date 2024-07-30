@@ -84,8 +84,6 @@
           ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              <li><a class="dropdown-item" href="#">Historial</a></li>
-              <li><a class="dropdown-item" href="#">Opciones</a></li>
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -99,17 +97,31 @@
   </nav>
   
   <div class="container d-flex justify-content-center">
-    <form class="d-flex justify-content-center w-100" role="search" method="post">
-        <input class="form-control me-2" type="number" id="checkout" name="numero" placeholder="Numero De La Reservacion">
-        <label class="color-hotel" for="checkin">Fecha inicio:</label>
-        <input class="form-control me-2 width" type="date" id="checkin" name="fecha1" style="width: 150px;">
-        <label class="color-hotel" for="checkout">Fecha fin:</label>
-        <input class="form-control me-2 width" type="date" id="checkout" name="fecha2" style="width: 150px;">
-        <button class="btn btn-outline-danger" type="submit">Buscar</button>
-    </form>
-  </div>
+  <form class="row g-2 w-100 align-items-center" role="search" method="post">
+    <div class="col-12 col-md-auto">
+      <input class="form-control" type="number" id="checkout" name="numero" placeholder="Numero De La Reservacion">
+    </div>
+    <div class="col-12 col-md-auto">
+      <label class="color-hotel" for="checkin">Fecha inicio:</label>
+    </div>
+    <div class="col-12 col-md-auto">
+      <input class="form-control" type="date" id="checkin" name="fecha1" style="min-width: 150px;">
+    </div>
+    <div class="col-12 col-md-auto">
+      <label class="color-hotel" for="checkout">Fecha fin:</label>
+    </div>
+    <div class="col-12 col-md-auto">
+      <input class="form-control" type="date" id="checkout" name="fecha2" style="min-width: 150px;">
+    </div>
+    <div class="col-12 col-md-auto">
+      <button class="btn btn-outline-danger w-100" type="submit">Buscar</button>
+    </div>
+  </form>
+</div>
 
-<?php 
+<br><br><br>
+
+  <?php 
     extract($_POST);
     if ($_POST) {
       if (empty($numero) && empty($fecha1) && empty($fecha2)) {
@@ -139,6 +151,7 @@
 
         $tabla = $conexion->seleccionar($consulta);
 
+        echo "<div class='table-responsive'>";
         echo "
             <table class='table table-hover'>
                 <thead class='table-dark'>
@@ -159,10 +172,12 @@
             }
             echo "</tbody>";
             echo "</table>";
-          }
+        echo "</div>";
+      }
     }
     $conexion->desconectarBD();
 ?>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
