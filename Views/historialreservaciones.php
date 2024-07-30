@@ -124,7 +124,9 @@ foreach($resultado as $value){
   where detalle_reservacion.reservacion = '$value->folio_reserva';";
 
 $resultado_noches = $db->seleccionar($consulta_noches);
-$noches = isset($resultado_noches[0]->noches) ? $resultado_noches[0]->noches : 'N/A';
+if(isset($resultado_noches[0]->noches)) {
+  $noches = $resultado_noches[0]->noches;
+} ;
 ?>
 
 <!--CARD DE LAS RESERVACIONES-->
