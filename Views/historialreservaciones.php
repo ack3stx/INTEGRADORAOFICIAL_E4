@@ -56,7 +56,7 @@ session_start();
 <?php
 
 if(isset($_SESSION["usuario"])){
-
+ 
   echo ' 
         <div class="header-content">
             <div class="dropdown">
@@ -96,7 +96,7 @@ else {
     </nav>
   </div>
     </header>
-    <br><br><br><br><br>
+    <br>
     
 
     <?php
@@ -105,6 +105,8 @@ $db = new Database();
 $db->conectarDB();
 
 $usuario = $_SESSION["usuario"];
+
+
 $consulta = "select distinct concat(persona.nombre,'  ' ,persona.apellido_paterno,'   ', persona.apellido_materno) as Nombre_Huesped, reservacion.id_reservacion as folio_reserva,reservacion.estado_reservacion as estado
 from usuarios
 inner join persona on persona.usuario=usuarios.id_usuario
@@ -116,23 +118,76 @@ group by Nombre, folio_reserva,estado;";
 $resultado = $db->seleccionar($consulta);
 
 foreach($resultado as $value){
+
+  $consulta_noches = "select (timestampdiff(day,detalle_reservacion.fecha_inicio,detalle_reservacion.fecha_fin)) as noches from
+  detalle_reservacion 
+  where detalle_reservacion.reservacion = '$value->folio_reserva';";
+
+$resultado_noches = $db->seleccionar($consulta_noches);
+$noches = isset($resultado_noches[0]->noches) ? $resultado_noches[0]->noches : 'N/A';
 ?>
+
 <!--CARD DE LAS RESERVACIONES-->
-<div class="card" style="width: 18rem;">
-  <img src="../Imagenes/RECEPCION.png" class="card-img-top" alt="...">
+<div class="card" style="width: 30rem;">
   <div class="card-body">
-    <h5 class="card-title">Reservaciones</h5>
+    <h5 class="card-title">Reservacion <?php echo $value->folio_reserva?></h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Nombre: <?php echo $value->Nombre_Huesped ?><br>
+    Estado : <?php echo $value->estado ?>
+    <br>Noches : <?php echo $noches ?>
+    
+  
+  </h6>
     <p class="card-text"></p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <button type="button" class="btn btn-danger" style="margin-left: 70%;margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button><br><br>
+    <button type="button" class="btn btn-danger" style="margin-left: 70%;margin-top: -25%;">Editar</button>
   </div>
 </div>
  <?php
 }
-
-
-
-
  ?>
+<!--MODALS-->
+
+
+<!--BOTON DE VER DETALLES-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle de tu reservación</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <?php
+        
+        $query = "select detalle_reservacion.titular_habitacion as titular, reservacion.id_reservacion as folio_reserva,reservacion.estado_reservacion as estado, (timestampdiff(day,detalle_reservacion.fecha_inicio,detalle_reservacion.fecha_fin)) as noches
+from usuarios
+inner join persona on persona.usuario=usuarios.id_usuario
+inner join huesped on huesped.persona_huesped=persona.id_persona
+inner join reservacion on reservacion.huesped=huesped.id_huesped
+inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
+where usuarios.nombre_usuario = '$usuario';";
+
+        $resultados = $db->seleccionar($query);
+        foreach($resultados as $value){
+        ?>
+
+        
+        Titular de la habitación: <?php echo $value->titular?><br>
+        
+
+
+        
+
+        <?php
+        }
+        ?>
+      </div>
+    
+        
+      </div>
+    </div>
+  </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

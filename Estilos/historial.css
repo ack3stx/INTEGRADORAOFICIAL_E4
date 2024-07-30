@@ -1,4 +1,28 @@
 .card {
-    margin-top: 20%;
+    margin-top: 13%;
     margin-left: 15%;
+   
 }
+
+
+.navbar-nav {
+    width: 100%;
+  }
+  
+  .navbar-nav .nav-link {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.1rem;
+    color: rgb(116, 13, 13);
+    transition: all 0.3s ease;
+    border-radius: 25px;
+  }
+  
+  .navbar-nav .nav-link:hover {
+    background-color: rgb(116, 13, 13) !important;
+    color: #fff !important;
+    padding: 12px 24px;
+    font-size: 1.2rem;
+    transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
+  }
