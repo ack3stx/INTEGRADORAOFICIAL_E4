@@ -494,3 +494,17 @@ END //
 DELIMITER ;
 
 CALL RegistrarHuespedPersona_En_Fisica('JOOOO','Juan', 'Perez', 'Lopez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '44100', 'México', 'M', '3211221823', 'juancoSrreo@gmail.com');
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+CREATE PROCEDURE CANCELAR_RESERVACION_72HRS(
+IN id_reservacion INT)
+BEGIN
+UPDATE reservacion
+SET ESTADO_RESERVACION = 'cancelada'
+WHERE reservacion.id_reservacion = id_reservacion;
+END //
+DELIMITER ;
+
+CALL CANCELAR_RESERVACION_72HRS (130);
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
