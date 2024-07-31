@@ -1,4 +1,3 @@
-CODIGO
 <?php 
 function renderDropdownItems($items) {
     foreach ($items as $value => $label) {
@@ -102,6 +101,10 @@ function getMaxKidsForSencilla($adultsValue) {
     <title>Habitacion Rserva</title>
 </head>
 <style>
+    .hidden{
+        display: none;
+    }
+
    .containers {
             display: flex;
             border: 1px solid black;
@@ -226,6 +229,14 @@ margin-bottom: 1%;
 
   #info1{
     display:none;
+  }
+
+  #persona{
+    width: 30%;
+    height: 50%;
+    margin-left: 20%;
+    margin-top: 10%;
+    display: inline-block;
   }
 
 </style>
@@ -426,31 +437,33 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     </div> -->
 <!--FORMULARIO PERSONA-->
             <form id="form-persona" style="display: none;">
+                <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="nombre" required><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="roomStatus" name="genero" required>
+                <select class="form-control me-2" id="genero" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
+                <input class="form-control me-2" type="text" id="telefono" name="telefono" required><br>
+                </div>
             </form>    
 
 
@@ -474,8 +487,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario();">Reservar Ahora</button> <br>
-                <button class="btn btn-danger" type="button">Borrar Cambios</button>
+                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
             </div>
         </div>
     </div>
@@ -658,7 +672,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
-                crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', 'doble');
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', 'doble');
             }
             if (habitacionesKingSize > 0) {
                 crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.', 'king-size');
@@ -1044,10 +1058,22 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
   
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
   
-    function mostrarformulario (){
-            document.getElementById('form-persona').style.display = 'block';
-            document.getElementById('contenedor-fluido').style.display = 'none';
+    function mostrarformulario(buttonType) {
+            var reservarboton = document.getElementById('porsilasdudas');
+            var continuar = document.getElementById('continuar');
 
+            if (buttonType === 'reservarboton') {
+               
+                document.getElementById('form-persona').style.display = 'block';
+                document.getElementById('contenedor-fluido').style.display = 'none';
+                reservarboton.classList.add('hidden');
+                continuar.classList.remove('hidden');
+            } else {
+                
+                
+                reservarboton.classList.remove('hidden');
+                continuar.classList.add('hidden');
+            }
         }
 
         // Calcular la diferencia entre dos fechas
@@ -1057,7 +1083,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     return Math.round(diferencia);
     }
 
-document.getElementById('reservar').addEventListener('click', function() {
+        /*document.getElementById('reservar').addEventListener('click', function() {
             const fechaInicio = localStorage.getItem('fechaInicio');
             const fechaFinal = localStorage.getItem('fechaFin');
 
@@ -1070,13 +1096,43 @@ document.getElementById('reservar').addEventListener('click', function() {
             }
 
             console.log(calculo());
-        });
+        }); */
 
 
 
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('continuar').addEventListener('click', guardardatospersona);
+});
+
+         
+
+        //guardar datos de persona
+        function guardardatospersona(){
+            event.preventDefault();
+
+            const persona = {
+                nombre: document.getElementById('nombre').value,
+                ap_paterno: document.getElementById('ap_paterno').value,
+                ap_materno: document.getElementById('ap_materno').value,
+                f_nac: document.getElementById('f_nac').value,
+                direccion: document.getElementById('direccion').value,
+                ciudad: document.getElementById('ciudad').value,
+                estado: document.getElementById('estado').value,
+                cd_postal: document.getElementById('cd_postal').value,
+                pais: document.getElementById('pais').value,
+                genero: document.getElementById('genero').value,
+                telefono: document.getElementById('telefono').value,
+            }
+
+            localStorage.setItem('persona',JSON.stringify(persona));
+
+            alert('Datos guardados exitosamente');
+        }
+        
 
 
       
