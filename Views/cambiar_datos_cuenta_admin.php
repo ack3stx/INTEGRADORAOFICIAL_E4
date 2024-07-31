@@ -16,7 +16,7 @@
   $db = new Database();
   $db->conectarDB();
 
-  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "recepcionista") {
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $correo_act = $_POST['correo_act'] ?? '';
         $contraseña_actual = $_POST['password_actual'] ?? '';
@@ -84,9 +84,9 @@
     }
 ?>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-      <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+      <a class="navbar-brand" href="Panel_Admin.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -94,56 +94,58 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="calendario.php">
-              <i class="fas fa-calendar-plus"></i> Crear Reserva
-            </a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="busqueda_reserva_recepcionista.php">
+            <a class="nav-link" href="busqueda_reserva.php">
               <i class="fas fa-book"></i> Reservaciones
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
+            <a class="nav-link" href="busqueda_habitaciones.php">
               <i class="fas fa-bed"></i> Habitaciones
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="busqueda_huesped_recepcionista.php">
+            <a class="nav-link" href="busqueda_huesped.php">
               <i class="fas fa-users"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="check_in.php">
-              <i class="fas fa-users"></i> Check-in
+            <a class="nav-link" href="busqueda_empleados.php">
+              <i class="fas fa-bed"></i> Personal
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="check_out.php">
-              <i class="fas fa-users"></i> Check-out
+            <a class="nav-link" href="reportes_hotel.php">
+              <i class="fas fa-bed"></i> Hotel
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="notificaciones_recepcionista.php">
-              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
-                  <span class="visually-hidden"></span>
-                </span>
-              </button>
+            <a class="nav-link" href="busqueda_facturacion.php">
+              <i class="fas fa-bed"></i> Facturacion
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notificaciones.php">
+            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+  <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
+    <span class="visually-hidden"></span>
+  </span>
+</button>
             </a>
           </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
           <?php
-            if (isset($_SESSION["usuario"])) {
-              echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
-                      ".$_SESSION["usuario"]."
-                    </button>";
-            }
-          ?>
+  if (isset($_SESSION["usuario"])) 
+  {
+    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+              ".$_SESSION["usuario"]."
+            </button>";
+  }
+  ?>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
+              <li><a class="dropdown-item" href="cambiar_datos_cuenta_admin.php">Cuenta</a></li>
+  
               <li>
                 <hr class="dropdown-divider">
               </li>
