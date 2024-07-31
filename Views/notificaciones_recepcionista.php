@@ -89,7 +89,6 @@
           ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-              
               <li>
                 <hr class="dropdown-divider">
               </li>
@@ -101,10 +100,6 @@
       </div>
     </div>
   </nav>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <?php
     $conexion->desconectarBD();
@@ -266,7 +261,7 @@ foreach ($tabla as $reg) {
         <h4>Seguro que deseas cancelar esta reservacion?</h4>
       </div>
       <div class='modal-footer'>
-        <form method='post' action='../Scripts/cancelar_reservacion.php'>
+        <form method='post' action='../Scripts/cancelacion_reservacion.php'>
           <input type='hidden' name='id_reservacion' value='{$reg->folio}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>

@@ -457,3 +457,40 @@ END//
 
 DELIMITER ;
 
+----------------------------------------------------------------------------------------------------------
+--PROCEDIMIENTO PARA DAR DE ALTA A UN HUESPED FISICO CON SU CUENTA, DATOS DE PERSONA Y LA RELACION CON HUESPED
+
+
+DELIMITER //
+CREATE PROCEDURE RegistrarHuespedPersona_En_Fisica(
+IN nombre_usuario text,
+IN nombre VARCHAR(30),
+IN apellido_paterno VARCHAR(30),
+IN apellido_materno VARCHAR(30),
+IN fecha_nacimiento DATE,
+IN direccion VARCHAR(100),
+IN ciudad VARCHAR(50),
+IN estado VARCHAR(50),
+IN codigo_postal VARCHAR(10),
+IN pais VARCHAR(50),
+IN genero CHAR(1),
+IN numero_telefono CHAR(10),
+IN correo VARCHAR(100))
+BEGIN
+declare persona_id INT;
+declare usuario_id INT;
+declare password text default "'hLi2024!'";
+INSERT INTO Usuarios (nombre_usuario,password,correo) VALUES (nombre_usuario,password ,correo );
+SET usuario_id = LAST_INSERT_ID();
+INSERT INTO Persona (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento,
+direccion, ciudad, estado, codigo_postal, pais, Genero,
+Numero_De_Telefono, usuario)
+VALUES (nombre, apellido_paterno, apellido_materno, fecha_nacimiento,
+direccion, ciudad, estado, codigo_postal, pais, genero,
+numero_telefono, usuario_id);
+SET persona_id = LAST_INSERT_ID();
+INSERT INTO Huesped (persona_huesped) VALUES (persona_id);
+END //
+DELIMITER ;
+
+CALL RegistrarHuespedPersona_En_Fisica('JOOOO','Juan', 'Perez', 'Lopez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '44100', 'México', 'M', '3211221823', 'juancoSrreo@gmail.com');
