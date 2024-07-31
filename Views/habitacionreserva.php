@@ -1,3 +1,4 @@
+CODIGO
 <?php 
 function renderDropdownItems($items) {
     foreach ($items as $value => $label) {
@@ -131,6 +132,10 @@ function getMaxKidsForSencilla($adultsValue) {
             display: none;
         }
         
+      
+        #contenedor-fluido{
+            display:block;
+        }
 
     /*rgb(116, 13, 13);*/
 
@@ -327,134 +332,8 @@ else {
 
 
 <div class="container-fluid d-flex justify-content-start flex-wrap position-relative" id="contenedor-fluido">
-    <!-- Habitación Doble 
-    <div class="container-custom move-right" data-room-type="doble">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Doble">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Doble</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 4 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1290.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="doble-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="doble-adults">
-                                <?php renderDropdownItems($dobleAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="doble-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="doble-kids">
-                                <?php renderDropdownItems($dobleKidOptions); ?>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-
-    <!-- Habitación King-Size
-    <div class="container-custom move-right" data-room-type="king-size">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación King-Size">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación King-Size</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 3 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación King-Size ofrece una lujosa cama king-size en un espacioso ambiente de 35 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 1490.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="king-size-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-adults">
-                                <?php renderDropdownItems($kingSizeAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="king-size-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="king-size-kids">
-                                <?php renderDropdownItems(array_merge([0 => '0 Niños'], $kingSizeKidOptions)); ?>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    Habitación Sencilla
-    <div class="container-custom move-right" data-room-type="sencilla">
-        <div class="card card-custom">
-            <div class="image-container">
-                <img src="../Imagenes/HABITACION_D.png" alt="Habitación Sencilla">
-            </div>
-            <div class="card-body card-body-custom">
-                <div>
-                    <h5 class="card-title">Habitación Sencilla</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Máximo de: 2 huéspedes</h6>
-                    <p class="card-text">Nuestra Habitación Sencilla ofrece una cómoda cama matrimonial en un espacio de 23 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.</p>
-                    
-                </div>
-                <div class="card-footer-custom">
-                    <div class="price-info">
-                        <h6>MXN 990.00</h6>
-                        <p>1 noche</p>
-                    </div>
-                    <div class="controls">
-                        <div class="dropdown">
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-adults" data-bs-toggle="dropdown" aria-expanded="false">
-                                Adultos
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-adults">
-                                <?php renderDropdownItems($sencillaAdultOptions); ?>
-                            </ul>
-
-                            <button class="btn dropdown-toggle" type="button" id="sencilla-kids" data-bs-toggle="dropdown" aria-expanded="false" disabled>
-                                Niños
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="sencilla-kids">
-                                <?php renderDropdownItems($sencillaKidOptions); ?>
-                            </ul>
-                        </div>
-                        <button type="button" class="btn btn-success custom-btn" onclick="mostrar(this);">Añadir</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    
 </div>
-
-
-<input type="submit" id="reservar" class="btn btn-success">Reservar</input>
-
-
 
 <!--
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
@@ -545,7 +424,40 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             </div>
         </div>
     </div> -->
+<!--FORMULARIO PERSONA-->
+            <form id="form-persona" style="display: none;">
+                <label for="staffName">Nombre:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="nombre" required><br>
+                <label for="staffName">Apellido Paterno:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
+                <label for="staffName">Apellido Materno:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
+                <label for="staffName">Fecha Nacimiento:</label>
+                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
+                <label for="staffName">Direccion:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
+                <label for="staffName">Ciudad:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
+                <label for="staffName">Estado:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
+                <label for="staffName">Codigo Postal:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
+                <label for="staffName">Pais:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
+                <label for="staffName">Genero:</label>
+                <select class="form-control me-2" id="roomStatus" name="genero" required>
+                  <option class="form-control me-2" value="H">Hombre</option>
+                  <option class="form-control me-2" value="M">Mujer</option>
+                </select><br>
+                <label for="staffName">Telefono:</label>
+                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
+            </form>    
 
+
+
+
+
+<!---->
     <div id="info1" class="container" style="display: none;">
     <div class="card card-custom">
         <div class="card-body">
@@ -562,7 +474,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas">Reservar Ahora</button> <br>
+                <button id="reserveButton" class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario();">Reservar Ahora</button> <br>
                 <button class="btn btn-danger" type="button">Borrar Cambios</button>
             </div>
         </div>
@@ -1132,14 +1044,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
   
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
   
-       
+    function mostrarformulario (){
+            document.getElementById('form-persona').style.display = 'block';
+            document.getElementById('contenedor-fluido').style.display = 'none';
 
- 
-  </script>
-  <script>
+        }
 
-
-// Calcular la diferencia entre dos fechas
+        // Calcular la diferencia entre dos fechas
     function diferencia_dias(fecha1,fecha2){
     let diferencia = (fecha2.getTime() - fecha1.getTime()) / 1000 / (3600 * 24);
 
@@ -1167,10 +1078,10 @@ document.getElementById('reservar').addEventListener('click', function() {
             document.getElementById('info1').style.display = 'block';
         }
 
-    
 
-</script> 
-
-  
+      
+ 
+  </script>
+ 
 </body>
 </html>
