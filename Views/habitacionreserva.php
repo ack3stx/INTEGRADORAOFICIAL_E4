@@ -1110,7 +1110,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         fechas.innerText = `${fechaInicio} -> ${fechaFinal}`;
         console.log(acumulador);
 
-        // Aquí puedes guardar el precio en localStorage o donde necesites
+        
+
+        localStorage.setItem('cantidad',acumulador);
+        let tiposSeleccionados = JSON.parse(sessionStorage.getItem('tiposSeleccionados')) || [];
+        tiposSeleccionados.push(tipo);
+        sessionStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+
         
     } else {
         console.error('Fechas no definidas en el localStorage.');
