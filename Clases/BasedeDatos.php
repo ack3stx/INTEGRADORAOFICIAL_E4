@@ -295,10 +295,41 @@ function reservacion($recepcionista,$fecha,$estado_reservacion){
     }
 }
 
+function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$tipo_habitacion){
+    try{
+
+        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:niños,:adultos,:id_habitacion)");
+        $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
+        $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
+        $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
+        $stmt->bindParam(':niños',$niños,PDO::PARAM_INT);
+        $stmt->bindParam(':adultos',$adultos,PDO::PARAM_INT);
+        $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_INT);
+        $stmt->execute();
+
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+}
+
+function detalle_pago($metodo_pago,$monto_total){
+    try{
+     $stmt = $this->PDOLocal->prepare("CALL RegistrarPagoReservacionLinea(:metodo_pago,:monto_total)");
+     $stmt->bindParam(':metodo_pago',$metodo_pago,PDO::PARAM_STR);
+     $stmt->bindParam(':monto_total',$monto_total,PDO::PARAM_INT);
+     $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+}
+
 
 
 
 }
+
 
 
 ?>

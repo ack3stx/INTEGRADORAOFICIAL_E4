@@ -47,6 +47,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $reservacion= $data->reservacion($recepcionista,$fecha_actual,$estado_reservacion);
 
+            foreach ($habitaciones as $habitacion) {
+                $titular = null;
+                $niños = 0; 
+                $adultos=0;
+                $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños,$adultos, $habitacion);
+            }
+
+            $detalle_pago=$data->detalle_pago('tarjeta',$cantidad);
+
             
         }
 

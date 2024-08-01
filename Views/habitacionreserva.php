@@ -792,7 +792,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'doble';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('doble',900);
+                calcularPrecio('Doble',900);
             };
             addButton.innerText = 'Añadir';
             
@@ -917,7 +917,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'king';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('king',1200);
+                calcularPrecio('King Size',1200);
             };
             addButton.innerText = 'Añadir';
             
@@ -1041,7 +1041,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'sencilla';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('sencilla',700);
+                calcularPrecio('Sencilla',700);
             };
             addButton.innerText = 'Añadir';
             
