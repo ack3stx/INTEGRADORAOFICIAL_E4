@@ -11,6 +11,15 @@
 <body>
 <div class="container">
         <?php
+        $ip = $_SERVER['REMOTE_ADDR'];
+        $capchat = $_POST['g-recaptcha-response'];
+        $secretkey = "6LccmR0qAAAAAA0xfHs9zDOwVUDtzPU-6Y7_5yi4";
+        $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$capchat&remoteip=$ip");
+        $atributos = json_decode($respuesta, TRUE);
+        if(!$atributos['success']){
+            header('Location: ../views/Login.php?status=failed');
+            exit();
+        }
             include '../Clases/BasedeDatos.php';
             $db=new Database();
             $db->conectarDB();
@@ -23,19 +32,9 @@
               $cadena = "CALL RegistrarUsuarioHuesped('$usuario','$hash','$correo');";
   
               $db->ejecuta($cadena);
-              
-              echo "<div class='contenedor mx-auto opacity-75'>
-        <div class='confirm'>
-          <svg class='confirm__progress'>
-            <circle class='confirm__value' cx='50%' cy='50%' r='54' />
-          </svg>
-          <div class='confirm__inner'></div>
-        </div>
-        <div class='contenedorxd' style='box-shadow: black;'>
-          <h1>¡REGISTRO EXITOSO!</h1>
-      </div>
-    </div>";
-    header("refresh:3;../Views/Login.php");
+              header('Location: ../views/Login.php?status=registro_exitoso');
+              exit();
+            
             }
             else
             {

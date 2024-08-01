@@ -18,6 +18,8 @@
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -187,12 +189,20 @@ else {
             <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje"
               required></textarea>
           </div>
+          <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4">
+
+            </div>
+          </div>  
           <button type="submit" class="btn btn-primary w-100">ENVIAR MENSAJE</button>
         </form>
         <div id="form-messages" class="mt-3"></div>
         <?php
         if (isset($_GET['status']) && $_GET['status'] == 'success') {
           echo '<div class="alert alert-success">Mensaje enviado exitosamente.</div>';
+        }
+        if (isset($_GET['status']) && $_GET['status'] == 'failed') {
+          echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
         }
         ?>
 
