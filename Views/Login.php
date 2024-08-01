@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="../Estilos/Barra.css">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
     <style>
         body {
             background-image: url(../Imagenes/SILLONES.png);
@@ -95,6 +97,7 @@
     </nav>
 </header>
 
+<!-- AQUI INICIALIZO EL LOGIN -->
 <section id="reservaciones" class="content-section">
     <div class="container login-container">
         <div class="card login-card">
@@ -104,33 +107,51 @@
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                         <input type="text" class="form-control" id="email" placeholder="Usuario" name="user">
-                    </div><br>
+                    </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
                         <input type="password" class="form-control" id="loginPassword" placeholder="Contraseña" name="pass" required>
-                    </div><br>
+                    </div>
+                    <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4">
+
+            </div>
+                    <br>
                     <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
                 </form><br>
+                <?php
+        if (isset($_GET['status']) && $_GET['status'] == 'failed_login') {
+            echo '<div class="alert alert-danger">Usuario O Contraseña Incorrectos.</div>';
+          }
+          if (isset($_GET['status']) && $_GET['status'] == 'failed_capchat') {
+            echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
+          }
+        ?>
                 <h6>No tienes cuenta? <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h6>
             </div>
         </div>
     </div>
 </section>
 
+
+
+
+<!-- AQUI INICIALIZA EL REGISTRARSE -->
+
 <section id="Registrate" class="content-section">
     <div class="container login-container">
         <div class="card login-card">
             <div class="card-body">
-                <h3 class="text-center" style="color: maroon;">Registrate</h3><br><br>
+                <h3 class="text-center" style="color: maroon;">Registrate</h3><br>
                 <form action="../Scripts/Registra_Usuario_Huesped.php" method="post" onsubmit="return validarContraseñas()">
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-user" id="basic-addon1"></span>
                         <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario">
-                    </div><br>
+                    </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
                         <input type="email" class="form-control" id="email" placeholder="Correo" name="correo" required>
-                    </div><br>
+                    </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
                         <input type="password" class="form-control" id="registerPassword" placeholder="Contraseña" name="contra" required>
@@ -139,11 +160,23 @@
                         <span class="input-group-text fas fa-lock" id="basic-addon1"></span>
                         <input type="password" class="form-control" id="confirmPassword" placeholder="Confirmar Contraseña" name="contra2" required>
                     </div>
-                    <span id="error" class="error">Las contraseñas no coinciden</span><br><br>
+                    <span id="error" class="error">Las contraseñas no coinciden</span><br>
+                    <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4">
+
+            </div>
                     <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
                 </form>
                 <h6>Ya tienes cuenta? <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h6>
             </div>
+            <?php
+        if (isset($_GET['status']) && $_GET['status'] == 'failed') {
+            echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
+          }
+          if (isset($_GET['status']) && $_GET['status'] == 'registro_exitoso') {
+            echo '<div class="alert alert-success">Usuario Registrado Exitosamente</div>';
+          }
+        ?>
         </div>
     </div>
 </section>

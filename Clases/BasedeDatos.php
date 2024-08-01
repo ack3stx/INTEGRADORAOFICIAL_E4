@@ -99,10 +99,11 @@ class Database
                     $_SESSION["rol"]=$reg->nombre;
                 }
             }
-            else
-            {
-                header("Location=../Views/Iniciar_sesion.php");
+            else{
+                header('Location: ../views/login.php?status=failed_login');
+                exit();
             }
+
 
         }
         catch(PDOException $e)
