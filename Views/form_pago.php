@@ -91,6 +91,12 @@
         </form>
     </div>
     <script>
+        const persona = JSON.parse(localStorage.getItem('persona'));
+        const habitaciones = JSON.parse(sessionStorage.getItem('tiposSeleccionados'));
+        const cantidad = localStorage.getItem('cantidad');
+        const fechainicio = localStorage.getItem('fechaInicio');
+        const fechafin = localStorage.getItem('fechaFin');
+
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
             const cardNumber = this.value.replace(/\s+/g, '');
@@ -166,6 +172,29 @@
             }
             return sum % 10 === 0;
         }
+
+         //mandar datos por fetch api
+         function mandardatos() {
+            fetch('../Scripts/recibirinfopersona.php', {
+                body: new URLSearchParams({
+                    'persona': JSON.stringify(persona),
+                'habitaciones': JSON.stringify(habitaciones),
+                    'cantidad': cantidad,
+                    'fechainicio': fechainicio,
+                    'fechafin': fechafin
+                }),
+                method: 'POST'
+
+            }).then(response => {
+                return response.json()
+            }).then((data) => {
+                console.log(data);
+            }).catch((error) => {
+                console.log(error);
+            })
+        }
+
+        document.addEventListener('DOMContentLoaded',mandardatos);
     </script>
 </body>
 </html>

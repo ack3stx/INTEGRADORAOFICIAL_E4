@@ -1088,7 +1088,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }
 
 
-        // Calcular la diferencia entre dos fechas
+        // calcular la diferencia entre dos fechas
     function calcularPrecio(tipo, precioPorNoche) {
     const fechaInicio = localStorage.getItem('fechaInicio');
     const fechaFinal = localStorage.getItem('fechaFin');

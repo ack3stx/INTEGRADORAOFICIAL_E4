@@ -508,3 +508,51 @@ DELIMITER ;
 
 CALL CANCELAR_RESERVACION_72HRS (130);
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--PROCEDIMIENTO PARA REGISTRAR A LA PERSONA Y PONERLO COMO HUESPED
+DELIMITER //
+
+CREATE PROCEDURE RegistrarHuespedPersona_En_Linea(
+IN nombre VARCHAR(30),
+IN apellido_paterno VARCHAR(30),
+IN apellido_materno VARCHAR(30),
+IN fecha_nacimiento DATE,
+IN direccion VARCHAR(100),
+IN ciudad VARCHAR(50),
+IN estado VARCHAR(50),
+IN codigo_postal VARCHAR(10),
+IN pais VARCHAR(50),
+IN genero CHAR(1),
+IN numero_telefono CHAR(10),
+IN usuario_id INT)
+BEGIN
+DECLARE persona_id INT;
+INSERT INTO Persona(Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento,direccion, ciudad, estado, codigo_postal, pais, Genero, Numero_De_Telefono, usuario)VALUES (nombre, apellido_paterno, apellido_materno, fecha_nacimiento,direccion,ciudad, estado, codigo_postal, pais, genero, numero_telefono, usuario_id);
+SET persona_id = LAST_INSERT_ID();
+INSERT INTO Huesped(persona_huesped)
+VALUES (persona_id);
+END //
+
+DELIMITER ;
+
+CALL RegistrarHuespedPersona_En_Linea('gaele2nlineapersona', 'martinez', 'Martinez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '41100', 'México', 'M', '3233521470',78);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA
+DELIMITER //
+
+CREATE PROCEDURE CrearReservacion_En_Linea (
+    IN recepcionista INT,
+    IN fecha DATE,
+    IN estado_reservacion VARCHAR(15)
+)
+BEGIN
+    DECLARE ultimo_huesped INT;
+
+    SELECT MAX(id_huesped) INTO ultimo_huesped FROM huesped;
+
+    INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
+    VALUES (ultimo_huesped, recepcionista, fecha, estado_reservacion);
+END //
+
+DELIMITER ;
+
+Call CrearReservacion_En_Linea(4,'2024-08-01','proceso');
