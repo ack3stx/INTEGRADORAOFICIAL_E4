@@ -24,7 +24,7 @@
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-      <a class="navbar-brand" href="panel_recepcionista2.php">Hotel Laguna Inn</a>
+      <a class="navbar-brand" href="Panel_Admin.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -64,7 +64,7 @@
           <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
             <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-  <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
+  <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
     <span class="visually-hidden"></span>
   </span>
 </button>
@@ -82,12 +82,12 @@
   }
   ?>
             <ul class="dropdown-menu dropdown-menu-right">
-              <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
-          
+              <li><a class="dropdown-item" href="cambiar_datos_cuenta_admin.php">Cuenta</a></li>
+  
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-danger" href="../Php/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
           </div>
           <i class="fas fa-user text-white ml-2"></i>

@@ -475,8 +475,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6 class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
-            <button type="button" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
+            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
                 <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
             </button>
             <br><br>
@@ -647,6 +647,10 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 <script>
   const fechaInicio = localStorage.getItem('fechaInicio')
     const fechaFinal = localStorage.getItem('fechaFin')
+    var acumulador = 0;
+    const price = document.getElementById('total-price');
+    const noches = document.getElementById('noches');
+    const fechas = document.getElementById('fechas');
 
     function obtenerHabitaciones() {
         fetch('../servicios/obtenerHabitaciones.php', {
@@ -728,7 +732,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = 'MXN 1290.00';
+            price.innerText = 'MXN 900.00';
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -785,8 +789,10 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const addButton = document.createElement('button');
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
+            addButton.id = 'doble';
             addButton.onclick = function() {
                 mostrar();
+                calcularPrecio('doble',900);
             };
             addButton.innerText = 'Añadir';
             
@@ -908,8 +914,10 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const addButton = document.createElement('button');
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
+            addButton.id = 'king';
             addButton.onclick = function() {
                 mostrar();
+                calcularPrecio('king',1200);
             };
             addButton.innerText = 'Añadir';
             
@@ -1030,8 +1038,10 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const addButton = document.createElement('button');
             addButton.type = 'button';
             addButton.className = 'btn btn-success custom-btn';
+            addButton.id = 'sencilla';
             addButton.onclick = function() {
                 mostrar();
+                calcularPrecio('sencilla',700);
             };
             addButton.innerText = 'Añadir';
             
@@ -1056,8 +1066,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         
         
   
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
-  
+
+
+  //mostramos el formulario de persona
     function mostrarformulario(buttonType) {
             var reservarboton = document.getElementById('porsilasdudas');
             var continuar = document.getElementById('continuar');
@@ -1076,28 +1087,35 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             }
         }
 
+
         // Calcular la diferencia entre dos fechas
-    function diferencia_dias(fecha1,fecha2){
-    let diferencia = (fecha2.getTime() - fecha1.getTime()) / 1000 / (3600 * 24);
+    function calcularPrecio(tipo, precioPorNoche) {
+    const fechaInicio = localStorage.getItem('fechaInicio');
+    const fechaFinal = localStorage.getItem('fechaFin');
 
-    return Math.round(diferencia);
+    if (fechaInicio && fechaFinal) {
+        const fechaInicioDate = new Date(fechaInicio);
+        const fechaFinalDate = new Date(fechaFinal);
+       
+
+        const diferenciaDias = (fechaFinalDate - fechaInicioDate) / (1000 * (3600 * 24));
+
+        const precioTotal = diferenciaDias * precioPorNoche;
+        console.log(`El precio total para una habitación ${tipo} es ${precioTotal} MXN`);
+
+        acumulador += precioTotal;
+
+        price.innerText = `MXN ${acumulador}.00`;
+        noches.innerText = `${diferenciaDias} noches`;
+        fechas.innerText = `${fechaInicio} -> ${fechaFinal}`;
+        console.log(acumulador);
+
+        // Aquí puedes guardar el precio en localStorage o donde necesites
+        
+    } else {
+        console.error('Fechas no definidas en el localStorage.');
     }
-
-        /*document.getElementById('reservar').addEventListener('click', function() {
-            const fechaInicio = localStorage.getItem('fechaInicio');
-            const fechaFinal = localStorage.getItem('fechaFin');
-
-            const fechaInicioDate = new Date(fechaInicio);
-            const fechaFinalDate = new Date(fechaFinal);
-
-            function calculo() {
-                var resultado = diferencia_dias(fechaInicioDate, fechaFinalDate) * 900;
-                return resultado;
-            }
-
-            console.log(calculo());
-        }); */
-
+}
 
 
         function mostrar() {
@@ -1131,8 +1149,12 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             localStorage.setItem('persona',JSON.stringify(persona));
 
             alert('Datos guardados exitosamente');
+            window.location.href = 'form_pago.php';
         }
         
+
+        
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
 
       
