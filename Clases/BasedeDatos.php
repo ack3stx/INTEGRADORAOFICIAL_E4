@@ -251,6 +251,50 @@ function calculo_reserva ($fechaInicio,$fechaFin,$tipohab)
 
 }
 
+function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccion, $ciudad, $estado,$codigo_postal,$pais,$genero,$numero_telefono,$usuario){
+
+    try{
+
+        $stmt = $this->PDOLocal->prepare("CALL RegistrarHuespedPersona_En_Linea(:nombre,:apellidopaterno,:apellidomaterno,:f_nac,:direccion,:ciudad,:estado,:codigo_postal,:pais,:genero,:numero_telefono,:usuario)");
+        $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
+        $stmt->bindParam(':apellidopaterno',$apellidopaterno,PDO::PARAM_STR);
+        $stmt->bindParam(':apellidomaterno',$apellidomaterno,PDO::PARAM_STR);
+        $stmt->bindParam(':f_nac',$f_nac,PDO::PARAM_STR);
+        $stmt->bindParam(':direccion',$direccion,PDO::PARAM_STR);
+        $stmt->bindParam(':ciudad',$ciudad,PDO::PARAM_STR);
+        $stmt->bindParam(':estado',$estado,PDO::PARAM_STR);
+        $stmt->bindParam(':codigo_postal',$codigo_postal,PDO::PARAM_STR);
+        $stmt->bindParam(':pais',$pais,PDO::PARAM_STR);
+        $stmt->bindParam(':genero',$genero,PDO::PARAM_STR);
+        $stmt->bindParam(':numero_telefono',$numero_telefono,PDO::PARAM_STR);
+        $stmt->bindParam(':usuario',$usuario,PDO::PARAM_INT);
+
+        $stmt->execute();
+        
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+
+
+
+
+}
+
+function reservacion($recepcionista,$fecha,$estado_reservacion){
+    try{
+
+        $stmt = $this->PDOLocal->prepare("CALL CrearReservacion_En_Linea(:recepcionista,:fecha,:estado_reservacion)");
+        $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
+        $stmt->bindParam(':fecha',$fecha,PDO::PARAM_STR);
+        $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+}
+
 
 
 
