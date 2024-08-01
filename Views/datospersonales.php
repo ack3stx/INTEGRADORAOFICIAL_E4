@@ -144,7 +144,7 @@ if ($_SESSION["rol"] == "usuario") {
                     // Hacer un refresh a la página para mostrar los errores
                     header('Location: datospersonales.php');
                     exit();
-                }
+                } 
             }
         } else {
             $_SESSION['mensaje'] = implode("<br>", $errores);
