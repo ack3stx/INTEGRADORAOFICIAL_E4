@@ -99,109 +99,118 @@
     </div>
   </nav>
   <br>
-  <div class="container">
-    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
-      Agregar Nueva Habitacion
-    </button>
-    <div id="alertContainer">
-    <?php
-    if (isset($_GET['success']) && $_GET['success'] == 1) {
-      echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-      Habitación agregada correctamente.
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>';
-    }
-    ?>
+    <div class="container">
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
+        Agregar Nueva Habitacion
+      </button>
+      <div id="alertContainer">
+      <?php
+      if (isset($_GET['success']) && $_GET['success'] == 1) {
+        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+        Habitación agregada correctamente.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>';
+      }
+      ?>
     </div>
 
-    <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-      aria-labelledby="staticBackdropLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nueva Habitacion</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-          <form action="../Scripts/agregar_habitaciones.php" method="post" id="habitacionesForm" class="toggle-form">
-            <select class="form-control me-2" id="roomStatus" name="roomStatus" required>
-              <option class="form-control me-2" value="1">Doble</option>
-              <option class="form-control me-2" value="2">King Size</option>
-              <option class="form-control me-2" value="3">Sencilla</option>
-            </select><br>
-            <button class="btn btn-outline-danger" type="submit">Agregar</button>
-            <input type="hidden" name="form_submitted" value="1">
-          </form>
+      <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nueva Habitacion</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            <form action="../Scripts/agregar_habitaciones.php" method="post" id="habitacionesForm" class="toggle-form">
+              <select class="form-control me-2" id="roomStatus" name="roomStatus" required>
+                <option class="form-control me-2" value="1">Doble</option>
+                <option class="form-control me-2" value="2">King Size</option>
+                <option class="form-control me-2" value="3">Sencilla</option>
+              </select><br>
+              <button class="btn btn-outline-danger" type="submit">Agregar</button>
+              <input type="hidden" name="form_submitted" value="1">
+            </form>
+              
+            </div>
+
           </div>
         </div>
       </div>
-    </div>
-    <br><br>
-    <h4 class="color-hotel">Busqueda</h4>
-    <form class="d-flex" role="search" method="post">
-      <label class="color-hotel">Tipo:</label>&nbsp;
-      <select class="form-control me-2" name="tipo">
-        <option value="Sencilla">Sencilla</option>
-        <option value="Doble">Doble</option>
-        <option value="King size">King size</option>
-      </select>&nbsp;
-      <label class="color-hotel">Estado:</label>&nbsp;
-      <select name="estado">
-        <option value="ocupada">Ocupada</option>
-        <option value="mantenimiento">Mantenimiento</option>
-        <option value="disponible">Disponible</option>
-      </select>&nbsp;
-      <button class="btn btn-outline-danger" type="submit">Buscar</button>
-    </form>
-    <br><br><br>
-    <?php
-    extract($_POST);
-    if ($_POST) {
-      $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
-        t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
-        from habitacion
-        inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
-        where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
+      <BR>
+      <br>
+      <h4 class="color-hotel">Busqueda</h4>
+      <form class="d-flex" role="search" method="post">
+        <label class="color-hotel">Tipo:</label>&nbsp;
+        <select class="form-control me-2" name="tipo">
+          <option value="Sencilla">Sencilla</option>
+          <option value="Doble">Doble</option>
+          <option value="King size">King size</option>
+        </select>&nbsp;
+        <label class="color-hotel">Estado:</label>&nbsp;
+        <select name="estado">
+          <option value="ocupada">Ocupada</option>
+          <option value="mantenimiento">Mantenimiento</option>
+          <option value="disponible">Disponible</option>
+        </select>&nbsp;
+        <button class="btn btn-outline-danger" type="submit">Buscar</button>
+      </form>
+      <?php
+      extract($_POST);
+      if ($_POST) {
+        $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
+t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
+from habitacion
+inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
+where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
 
-      $tabla = $conexion->seleccionar($consulta);
+        $tabla = $conexion->seleccionar($consulta);
 
-      echo "
-        <div class='table-responsive'>
-          <table class='table table-hover'>
-              <thead class='table-dark'>
-                  <tr>
-                  <th>Num Habitacion</th><th>Piso</th><th>Estado</th><th>Tipo</th><th>Descripcion</th><th>Costo</th><th>Cant Max Adultos</th><th>Cant Max Niños</th>
-                  </tr>
-              </thead>
-              <tbody>
-          ";
-      foreach ($tabla as $reg) {
-        echo "<tr>";
-        echo "<td> $reg->num_habitacion </td>";
-        echo "<td> $reg->piso </td>";
-        echo "<td> $reg->estado_habitacion </td>";
-        echo "<td> $reg->nombre </td>";
-        echo "<td> $reg->descripcion </td>";
-        echo "<td> $reg->precio </td>";
-        echo "<td> $reg->cantidad_max_adultos </td>";
-        echo "<td> $reg->cantidad_max_niños </td>";
-        echo "</tr>";
+        echo "
+            <div class='table-responsive'>
+        <table class='table table-hover table-bordered table-danger'>
+            <thead class='table-dark'>
+                <tr>
+                    <th text-white>Num Habitacion</th>
+                    <th text-white>Piso</th>
+                    <th text-white>Estado</th>
+                    <th text-white>Tipo</th>
+                    <th text-white>Descripcion</th>
+                    <th text-white>Costo</th>
+                    <th text-white>Cant Max Adultos</th>
+                    <th text-white>Cant Max Niños</th>
+                    </tr>
+                </thead>
+                <tbody>
+            ";
+        foreach ($tabla as $reg) {
+          echo "<tr>";
+          echo "<td> $reg->num_habitacion </td>";
+          echo "<td> $reg->piso </td>";
+          echo "<td> $reg->estado_habitacion </td>";
+          echo "<td> $reg->nombre </td>";
+          echo "<td> $reg->descripcion </td>";
+          echo "<td> $reg->precio </td>";
+          echo "<td> $reg->cantidad_max_adultos </td>";
+          echo "<td> $reg->cantidad_max_niños </td>";
+          echo "</tr>";
+        }
+        echo "</tbody>";
+        echo "</table>
+            </div>";
+        $conexion->desconectarBD();
+
       }
-      echo "</tbody>";
-      echo "</table>";
-      echo "</div>"; // Cierre del div table-responsive
-      $conexion->desconectarBD();
-    }
-?>
+      ?>
 
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-    crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <?php
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <?php
     $conexion->desconectarBD();
   } else {
   ?>
@@ -249,5 +258,5 @@
 <?php
   }
 ?>
-</body>
-</html>
+  </body>
+  </html>
