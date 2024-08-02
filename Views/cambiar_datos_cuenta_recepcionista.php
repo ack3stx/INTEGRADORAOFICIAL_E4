@@ -84,7 +84,7 @@
     }
 ?>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -94,33 +94,38 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="calendario.php">
-              <i class="fas fa-calendar-plus"></i> Crear Reserva
+            <a class="nav-link" href="reservaciones_fisicas.php">
+              <i class="fas fa-calendar-plus"></i>Crear Reserva
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva_recepcionista.php">
-              <i class="fas fa-book"></i> Reservaciones
+              <i class="fas fa-book"></i>Reservaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
-              <i class="fas fa-bed"></i> Habitaciones
+              <i class="fas fa-bed"></i>Habitaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped_recepcionista.php">
-              <i class="fas fa-users"></i> Huesped
+              <i class="fas fa-users"></i>Huesped
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="check_in.php">
-              <i class="fas fa-users"></i> Check-in
+              <i class="fas fa-users"></i>Check-in
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="check_out.php">
-              <i class="fas fa-users"></i> Check-out
+              <i class="fas fa-users"></i>Check-out
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_activas.php">
+              <i class="fas fa-users"></i>Extender
             </a>
           </li>
           <li class="nav-item">
@@ -144,6 +149,7 @@
           ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
+              
               <li>
                 <hr class="dropdown-divider">
               </li>
