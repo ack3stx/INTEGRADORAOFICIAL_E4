@@ -5,118 +5,150 @@ if ($_SESSION["rol"] == "usuario") {
     include '../Clases/BasedeDatos.php';
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $correo_act = $_POST['correo'] ?? '';
-        $nombre_user = $_POST['nombre_usuario'] ?? '';
-        $contraseña_actual = $_POST['password_actual'] ?? '';
-        $contraseña_nueva = $_POST['password_nueva'] ?? '';
-        $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
-
-        $nombre = $_POST['nombre'] ?? '';
-        $apellido_paterno = $_POST['apellido_paterno'] ?? '';
-        $apellido_materno = $_POST['apellido_materno'] ?? '';
-        $fecha_de_nacimiento = $_POST['fecha_de_nacimiento'] ?? '';
-        $direccion = $_POST['direccion'] ?? '';
-        $ciudad = $_POST['ciudad'] ?? '';
-        $estado = $_POST['estado'] ?? '';
-        $codigo_postal = $_POST['codigo_postal'] ?? '';
-        $pais = $_POST['pais'] ?? '';
-        $genero = $_POST['genero'] ?? '';
-        $numero_de_telefono = $_POST['numero_de_telefono'] ?? '';
-
         $errores = [];
+        $actualizar_usuario = false;
+        $actualizar_persona = false;
 
-        // Validación de los campos
-        $required_fields = [
-            'nombre', 'apellido_paterno', 'apellido_materno', 'fecha_de_nacimiento',
-            'direccion', 'ciudad', 'estado', 'codigo_postal', 'pais', 'genero', 'numero_de_telefono'
-        ];
-        foreach ($required_fields as $field) {
-            if (empty($$field)) {
-                $errores[] = "El campo $field es obligatorio.";
+        if (isset($_POST['tipo_formulario']) && $_POST['tipo_formulario'] === 'usuario') {
+            $correo_act = $_POST['correo'] ?? '';
+            $nombre_user = $_POST['nombre_usuario'] ?? '';
+            $contraseña_actual = $_POST['password_actual'] ?? '';
+            $contraseña_nueva = $_POST['password_nueva'] ?? '';
+            $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
+
+            if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
+                if ($contraseña_nueva !== $contraseña_nueva_confirm) {
+                    $errores[] = "Las contraseñas nuevas no coinciden.";
+                }
+                if (empty($contraseña_actual)) {
+                    $errores[] = "Debe ingresar la contraseña actual.";
+                }
             }
-        }
 
-        // Validaciones específicas
-        if (!empty($numero_de_telefono) && !preg_match('/^[0-9]+$/', $numero_de_telefono)) {
-            $errores[] = "El número de teléfono solo debe contener números.";
-        }
-        if (!empty($nombre) && preg_match('/[0-9]/', $nombre)) {
-            $errores[] = "El nombre no debe contener números.";
-        }
-        if (!empty($apellido_paterno) && preg_match('/[0-9]/', $apellido_paterno)) {
-            $errores[] = "El apellido paterno no debe contener números.";
-        }
-        if (!empty($apellido_materno) && preg_match('/[0-9]/', $apellido_materno)) {
-            $errores[] = "El apellido materno no debe contener números.";
-        }
-        if (!empty($pais) && preg_match('/[0-9]/', $pais)) {
-            $errores[] = "El país no debe contener números.";
-        }
-        if (!empty($estado) && preg_match('/[0-9]/', $estado)) {
-            $errores[] = "El estado no debe contener números.";
-        }
-        if (!empty($ciudad) && preg_match('/[0-9]/', $ciudad)) {
-            $errores[] = "La ciudad no debe contener números.";
-        }
+            if (empty($errores)) {
+                $db = new Database();
+                $db->conectarDB();
 
-        $fecha_actual = date('Y-m-d');
-        $fecha_minima = '1950-01-01';
-        if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
-            $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
-        }
+                $obtener_id = "SELECT id_usuario, password FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
+                $id_result = $db->seleccionar($obtener_id);
 
-        if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
-            if ($contraseña_nueva !== $contraseña_nueva_confirm) {
-                $errores[] = "Las contraseñas nuevas no coinciden.";
-            }
-            if (empty($contraseña_actual)) {
-                $errores[] = "Debe ingresar la contraseña actual.";
-            }
-        }
+                if (!empty($id_result)) {
+                    $id = $id_result[0]->id_usuario;
+                    $hash_contraseña_actual = $id_result[0]->password;
 
-        if (empty($errores)) {
-            $db = new Database();
-            $db->conectarDB();
+                    $nombre_usuario_actualizado = false;
+                    $correo_actualizado = false;
+                    $contraseña_actualizada = false;
 
-            $obtener_id = "SELECT id_usuario, password FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
-            $id_result = $db->seleccionar($obtener_id);
+                    // Actualizar contraseña
+                    if (!empty($contraseña_nueva)) {
+                        if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
+                            $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
+                            $consulta = "UPDATE usuarios SET password = '$hash_nueva_contraseña' WHERE id_usuario = $id";
+                            $db->ejecuta($consulta);
+                            $contraseña_actualizada = true;
+                        } else {
+                            $errores[] = "La contraseña actual es incorrecta.";
+                        }
+                    }
 
-            if (!empty($id_result)) {
-                $id = $id_result[0]->id_usuario;
-                $hash_contraseña_actual = $id_result[0]->password;
+                    if (empty($errores)) {
+                        // Actualizar nombre de usuario
+                        if (!empty($nombre_user)) {
+                            $consulta = "UPDATE usuarios SET nombre_usuario = '$nombre_user' WHERE id_usuario = $id";
+                            $db->ejecuta($consulta);
+                            $nombre_usuario_actualizado = true;
+                        }
 
-                $nombre_usuario_actualizado = false;
-                $correo_actualizado = false;
-                $contraseña_actualizada = false;
-                $datos_personales_actualizados = false;
-                $datos_personales_insertados = false;
+                        // Actualizar correo
+                        if (!empty($correo_act)) {
+                            $consulta = "UPDATE usuarios SET correo = '$correo_act' WHERE id_usuario = $id";
+                            $db->ejecuta($consulta);
+                            $correo_actualizado = true;
+                        }
 
-                // Actualizar contraseña
-                if (!empty($contraseña_nueva)) {
-                    if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
-                        $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
-                        $consulta = "UPDATE usuarios SET password = '$hash_nueva_contraseña' WHERE id_usuario = $id";
-                        $db->ejecuta($consulta);
-                        $contraseña_actualizada = true;
+                        $db->desconectarBD();
+
+                        if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
+                            session_destroy();
+                            header('Location: Login.php');
+                            exit();
+                        }
                     } else {
-                        $errores[] = "La contraseña actual es incorrecta.";
+                        $_SESSION['mensaje'] = implode("<br>", $errores);
+                        header('Location: datospersonales.php');
+                        exit();
                     }
                 }
+            } else {
+                $_SESSION['mensaje'] = implode("<br>", $errores);
+                header('Location: datospersonales.php');
+                exit();
+            }
+        }
 
-                if (empty($errores)) {
-                    // Actualizar nombre de usuario
-                    if (!empty($nombre_user)) {
-                        $consulta = "UPDATE usuarios SET nombre_usuario = '$nombre_user' WHERE id_usuario = $id";
-                        $db->ejecuta($consulta);
-                        $nombre_usuario_actualizado = true;
-                    }
+        if (isset($_POST['tipo_formulario']) && $_POST['tipo_formulario'] === 'persona') {
+            $nombre = $_POST['nombre'] ?? '';
+            $apellido_paterno = $_POST['apellido_paterno'] ?? '';
+            $apellido_materno = $_POST['apellido_materno'] ?? '';
+            $fecha_de_nacimiento = $_POST['fecha_de_nacimiento'] ?? '';
+            $direccion = $_POST['direccion'] ?? '';
+            $ciudad = $_POST['ciudad'] ?? '';
+            $estado = $_POST['estado'] ?? '';
+            $codigo_postal = $_POST['codigo_postal'] ?? '';
+            $pais = $_POST['pais'] ?? '';
+            $genero = $_POST['genero'] ?? '';
+            $numero_de_telefono = $_POST['numero_de_telefono'] ?? '';
 
-                    // Actualizar correo
-                    if (!empty($correo_act)) {
-                        $consulta = "UPDATE usuarios SET correo = '$correo_act' WHERE id_usuario = $id";
-                        $db->ejecuta($consulta);
-                        $correo_actualizado = true;
-                    }
+            // Validación de los campos
+            $required_fields = [
+                'nombre', 'apellido_paterno', 'apellido_materno', 'fecha_de_nacimiento',
+                'direccion', 'ciudad', 'estado', 'codigo_postal', 'pais', 'genero', 'numero_de_telefono'
+            ];
+            foreach ($required_fields as $field) {
+                if (empty($$field)) {
+                    $errores[] = "El campo $field es obligatorio.";
+                }
+            }
+
+            // Validaciones específicas
+            if (!empty($numero_de_telefono) && !preg_match('/^[0-9]+$/', $numero_de_telefono)) {
+                $errores[] = "El número de teléfono solo debe contener números.";
+            }
+            if (!empty($nombre) && preg_match('/[0-9]/', $nombre)) {
+                $errores[] = "El nombre no debe contener números.";
+            }
+            if (!empty($apellido_paterno) && preg_match('/[0-9]/', $apellido_paterno)) {
+                $errores[] = "El apellido paterno no debe contener números.";
+            }
+            if (!empty($apellido_materno) && preg_match('/[0-9]/', $apellido_materno)) {
+                $errores[] = "El apellido materno no debe contener números.";
+            }
+            if (!empty($pais) && preg_match('/[0-9]/', $pais)) {
+                $errores[] = "El país no debe contener números.";
+            }
+            if (!empty($estado) && preg_match('/[0-9]/', $estado)) {
+                $errores[] = "El estado no debe contener números.";
+            }
+            if (!empty($ciudad) && preg_match('/[0-9]/', $ciudad)) {
+                $errores[] = "La ciudad no debe contener números.";
+            }
+
+            $fecha_actual = date('Y-m-d');
+            $fecha_minima = '1950-01-01';
+            if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
+                $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
+            }
+
+            if (empty($errores)) {
+                $db = new Database();
+                $db->conectarDB();
+
+                $obtener_id = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
+                $id_result = $db->seleccionar($obtener_id);
+
+                if (!empty($id_result)) {
+                    $id = $id_result[0]->id_usuario;
 
                     // Actualizar datos personales
                     $consulta_persona = "SELECT id_persona FROM persona WHERE usuario = $id";
@@ -131,34 +163,21 @@ if ($_SESSION["rol"] == "usuario") {
                             numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
                         $db->ejecuta($consulta_update_persona);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
-                        $datos_personales_actualizados = true;
                     } else {
                         $consulta_insert_persona = "INSERT INTO persona (nombre, apellido_paterno, apellido_materno, fecha_de_nacimiento, direccion, ciudad, estado, codigo_postal, pais, genero, numero_de_telefono, usuario) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
                         $db->ejecuta($consulta_insert_persona);
                         $_SESSION['mensaje'] = "Datos personales añadidos correctamente.";
-                        $datos_personales_insertados = true;
                     }
 
                     $db->desconectarBD();
-
-                    if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
-                        session_destroy();
-                        header('Location: Login.php');
-                        exit();
-                    } elseif ($datos_personales_actualizados || $datos_personales_insertados) {
-                        header('Location: datospersonales.php');
-                        exit();
-                    }
-                } else {
-                    $_SESSION['mensaje'] = implode("<br>", $errores);
                     header('Location: datospersonales.php');
                     exit();
                 }
+            } else {
+                $_SESSION['mensaje'] = implode("<br>", $errores);
+                header('Location: datospersonales.php');
+                exit();
             }
-        } else {
-            $_SESSION['mensaje'] = implode("<br>", $errores);
-            header('Location: datospersonales.php');
-            exit();
         }
     } else {
         $db = new Database();
@@ -353,7 +372,8 @@ if ($_SESSION["rol"] == "usuario") {
         <?php if (empty($usuario)): ?>
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
-            <form id="datosForm" action="datospersonales.php" method="post">
+            <form id="formUsuario" action="datospersonales.php" method="post">
+                <input type="hidden" name="tipo_formulario" value="usuario">
                 <!-- Sección para datos del usuario -->
                 <div class="section">
                     <div class="d-flex justify-content-between align-items-center">
@@ -366,7 +386,6 @@ if ($_SESSION["rol"] == "usuario") {
                     <div id="formNombreUsuario" class="hidden">
                         <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->nombre_usuario) ?>">
                         <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
-                        <button type="button" id="btnListoNombreUsuario" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
@@ -383,7 +402,6 @@ if ($_SESSION["rol"] == "usuario") {
                     <div id="formEmail" class="hidden">
                         <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->correo) ?>">
                         <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
-                        <button type="button" id="btnListoEmail" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
@@ -402,12 +420,16 @@ if ($_SESSION["rol"] == "usuario") {
                         <input type="password" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
                         <input type="password" name="password_nueva_confirm" class="form-control mb-2" placeholder="Confirmar nueva contraseña">
                         <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
-                        <button type="button" id="btnListoPassword" class="btn btn-danger">Listo</button>
                     </div>
                 </div>
 
-                <hr class="mb-4">
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-danger">Guardar cambios</button>
+                </div>
+            </form>
 
+            <form id="formPersona" action="datospersonales.php" method="post">
+                <input type="hidden" name="tipo_formulario" value="persona">
                 <!-- Sección para datos de la persona -->
                 <div class="section">
                     <h2>Datos Personales</h2>
@@ -443,7 +465,6 @@ if ($_SESSION["rol"] == "usuario") {
                                     <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d') . "'"; ?>>
                                 <?php endif; ?>
                                 <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
-                                <button type="button" id="btnListo<?= ucfirst($campo) ?>" class="btn btn-danger">Listo</button>
                             </div>
                         </div>
                         <hr class="mb-4">
@@ -451,7 +472,7 @@ if ($_SESSION["rol"] == "usuario") {
                 </div>
 
                 <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" id="btnConfirmar" class="btn btn-danger" disabled>Confirmar cambios</button>
+                    <button type="submit" class="btn btn-danger">Guardar cambios</button>
                 </div>
             </form>
         <?php endif; ?>
@@ -460,13 +481,22 @@ if ($_SESSION["rol"] == "usuario") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     <script>
-        const toggleSection = (buttonId, formId, disableButtons) => {
+        const disableFormButtons = (disableFormId, isDisabled) => {
+            const form = document.getElementById(disableFormId);
+            const buttons = form.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.disabled = isDisabled;
+            });
+        };
+
+        const toggleSection = (buttonId, formId, disableButtons, disableFormId) => {
             document.getElementById(buttonId).addEventListener('click', () => {
                 document.getElementById(formId).classList.remove('hidden');
                 document.getElementById(buttonId).classList.add('hidden');
                 disableButtons.forEach(btn => {
                     document.getElementById(btn).disabled = true;
                 });
+                disableFormButtons(disableFormId, true);
             });
 
             document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
@@ -475,100 +505,19 @@ if ($_SESSION["rol"] == "usuario") {
                 disableButtons.forEach(btn => {
                     document.getElementById(btn).disabled = false;
                 });
-            });
-
-            document.getElementById('btnListo' + formId.replace('form', '')).addEventListener('click', () => {
-                const inputs = document.querySelectorAll('#' + formId + ' input, #' + formId + ' select');
-                let isValid = true;
-                
-                inputs.forEach(input => {
-                    if (input.value.trim() === '') {
-                        input.classList.add('is-invalid');
-                        isValid = false;
-                    } else {
-                        input.classList.remove('is-invalid');
-                    }
-
-                    if (input.name === 'numero_de_telefono' && /\D/.test(input.value)) {
-                        input.classList.add('is-invalid');
-                        isValid = false;
-                    }
-
-                    if (['nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'].includes(input.name) && /\d/.test(input.value)) {
-                        input.classList.add('is-invalid');
-                        isValid = false;
-                    }
-
-                    if (input.name === 'fecha_de_nacimiento') {
-                        const fecha = new Date(input.value);
-                        const fechaMinima = new Date('1950-01-01');
-                        const fechaMaxima = new Date();
-                        if (fecha < fechaMinima || fecha > fechaMaxima) {
-                            input.classList.add('is-invalid');
-                            isValid = false;
-                        }
-                    }
-                });
-
-                if (isValid) {
-                    document.getElementById(formId).classList.add('hidden');
-                    document.getElementById(buttonId).classList.remove('hidden');
-                    disableButtons.forEach(btn => {
-                        document.getElementById(btn).disabled = false;
-                    });
-                    document.getElementById('btnConfirmar').disabled = false;
-                }
+                disableFormButtons(disableFormId, false);
             });
         };
 
-        toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword']);
-        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword']);
-        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail']);
+        toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
         <?php foreach ($campos_persona as $campo => $titulo) { ?>
             toggleSection('btnEditar<?= ucfirst($campo) ?>', 'form<?= ucfirst($campo) ?>', ['btnEditarNombreUsuario', 'btnEditarEmail', 'btnEditarPassword', 
                 <?php foreach ($campos_persona as $campo_inner => $titulo_inner) { if ($campo != $campo_inner) echo "'btnEditar" . ucfirst($campo_inner) . "',"; } ?> 
-            ]);
+            ], 'formUsuario');
         <?php } ?>
-
-        document.getElementById('datosForm').addEventListener('submit', function(event) {
-            let isValid = true;
-            const inputs = this.querySelectorAll('input[type="text"], input[type="email"], input[type="password"], select');
-
-            inputs.forEach(input => {
-                if (input.value.trim() === '') {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                } else {
-                    input.classList.remove('is-invalid');
-                }
-
-                if (input.name === 'numero_de_telefono' && /\D/.test(input.value)) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
-
-                if (['nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'].includes(input.name) && /\d/.est(input.value)) {
-                    input.classList.add('is-invalid');
-                    isValid = false;
-                }
-
-                if (input.name === 'fecha_de_nacimiento') {
-                    const fecha = new Date(input.value);
-                    const fechaMinima = new Date('1950-01-01');
-                    const fechaMaxima = new Date();
-                    if (fecha < fechaMinima || fecha > fechaMaxima) {
-                        input.classList.add('is-invalid');
-                        isValid = false;
-                    }
-                }
-            });
-
-            if (!isValid) {
-                event.preventDefault();
-                alert("Por favor, corrige los errores en el formulario.");
-            }
-        });
     </script>
 </body>
 </html>
