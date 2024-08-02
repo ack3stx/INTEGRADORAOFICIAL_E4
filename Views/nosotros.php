@@ -19,7 +19,7 @@
     <div class="row">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
       <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="index.php">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
         </a>
         
@@ -108,7 +108,7 @@ if(isset($_SESSION["usuario"])){
 }
 else {
   echo '   <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+              <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
             </li>';
 }
 
@@ -160,7 +160,7 @@ else {
       <div class="footer-section">
           <h2>Contáctanos</h2>
           <p><i class="fa-solid fa-house"></i> Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
-          <p><i class="fa-solid fa-envelope"></i> administracion@hotellagunainn.com</p>
+          <a href="mailto:hotellagunainnmx@gmail.com" class="text-decoration-none hover-link"><p><i class="fa-solid fa-envelope"></i> hotellagunainnmx@gmail.com</p></a>
           <p><i class="fa-solid fa-phone"></i> +52 871 720 3020</p>
           <div class="social-icons">
               <a href="https://www.instagram.com/hotellagunainntrc"><i class="fa-brands fa-instagram"></i></a>
@@ -170,7 +170,7 @@ else {
       </div>
       <div class="footer-section" >
           <h2>Explora</h2>
-          <a href="../index.html" class="text-decoration-none hover-link"><p>Inicio</p></a>
+          <a href="../index.php" class="text-decoration-none hover-link"><p>Inicio</p></a>
           <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
           <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
           <a href="../index.php #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
@@ -179,8 +179,10 @@ else {
       <div class="footer-section">
           <h2>Novedades</h2>
           <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
-          <input type="email" placeholder="Email">
-          <a href="" type="button"><i class="fa-solid fa-paper-plane"></i></a>
+          <form action="">
+          <input type="email" placeholder="Email" required>
+          <a href=""><button type="submit"><i class="fa-solid fa-paper-plane"></i></button></a>
+          </form>
       </div>
   </div>
 </footer>
