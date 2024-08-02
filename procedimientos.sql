@@ -508,3 +508,147 @@ DELIMITER ;
 
 CALL CANCELAR_RESERVACION_72HRS (130);
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--PROCEDIMIENTO PARA REGISTRAR A LA PERSONA Y PONERLO COMO HUESPED
+DELIMITER //
+
+CREATE PROCEDURE RegistrarHuespedPersona_En_Linea(
+IN nombre VARCHAR(30),
+IN apellido_paterno VARCHAR(30),
+IN apellido_materno VARCHAR(30),
+IN fecha_nacimiento DATE,
+IN direccion VARCHAR(100),
+IN ciudad VARCHAR(50),
+IN estado VARCHAR(50),
+IN codigo_postal VARCHAR(10),
+IN pais VARCHAR(50),
+IN genero CHAR(1),
+IN numero_telefono CHAR(10),
+IN usuario_id INT)
+BEGIN
+DECLARE persona_id INT;
+INSERT INTO Persona(Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento,direccion, ciudad, estado, codigo_postal, pais, Genero, Numero_De_Telefono, usuario)VALUES (nombre, apellido_paterno, apellido_materno, fecha_nacimiento,direccion,ciudad, estado, codigo_postal, pais, genero, numero_telefono, usuario_id);
+SET persona_id = LAST_INSERT_ID();
+INSERT INTO Huesped(persona_huesped)
+VALUES (persona_id);
+END //
+
+DELIMITER ;
+
+CALL RegistrarHuespedPersona_En_Linea('gaele2nlineapersona', 'martinez', 'Martinez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '41100', 'México', 'M', '3233521470',78);
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA
+DELIMITER //
+
+CREATE PROCEDURE CrearReservacion_En_Linea (
+    IN recepcionista INT,
+    IN fecha DATE,
+    IN estado_reservacion VARCHAR(15)
+)
+BEGIN
+    DECLARE ultimo_huesped INT;
+
+    SELECT MAX(id_huesped) INTO ultimo_huesped FROM huesped;
+
+    INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
+    VALUES (ultimo_huesped, recepcionista, fecha, estado_reservacion);
+END //
+
+DELIMITER ;
+
+Call CrearReservacion_En_Linea(4,'2024-08-01','proceso');
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-- PROCEDIMIENTO PARA EL DETALLE DE LA RESERVACION
+DELIMITER //
+
+CREATE PROCEDURE Detalle_Reservacion_Combinado (
+    IN fecha_inicio DATE,
+    IN fecha_fin DATE,
+    IN titular VARCHAR(60),
+    IN niños INT,
+    IN adultos INT,
+    IN tipo_habitacion VARCHAR(25)
+)
+BEGIN
+    DECLARE HABITACION INT;
+    DECLARE n_reservacion INT;
+    
+    -- Obtener el ID de la última reservación
+    SELECT MAX(id_reservacion) INTO n_reservacion FROM reservacion;
+
+    -- Verificar el tipo de habitación y seleccionar una disponible
+    IF tipo_habitacion = 'Doble' THEN
+        SELECT habitacion.id_habitacion
+        -- INTO HABITACION
+        FROM habitacion 
+        INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
+        WHERE t_habitacion.nombre = 'Doble'
+          AND habitacion.id_habitacion NOT IN (
+              SELECT detalle_reservacion.habitacion 
+              FROM detalle_reservacion
+              WHERE detalle_reservacion.fecha_inicio < fecha_fin
+                AND detalle_reservacion.fecha_fin > fecha_inicio
+          )
+        LIMIT 1;
+
+    ELSEIF tipo_habitacion = 'King Size' THEN
+        SELECT habitacion.id_habitacion
+        INTO HABITACION
+        FROM habitacion 
+        INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
+        WHERE t_habitacion.nombre = 'King Size'
+          AND habitacion.id_habitacion NOT IN (
+              SELECT detalle_reservacion.habitacion 
+              FROM detalle_reservacion
+              WHERE detalle_reservacion.fecha_inicio < fecha_fin
+                AND detalle_reservacion.fecha_fin > fecha_inicio
+          )
+        LIMIT 1;
+
+    ELSEIF tipo_habitacion = 'Sencilla' THEN
+        SELECT habitacion.id_habitacion
+        -- INTO HABITACION
+        FROM habitacion 
+        INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
+        WHERE t_habitacion.nombre = 'Sencilla'
+          AND habitacion.id_habitacion NOT IN (
+              SELECT detalle_reservacion.habitacion 
+              FROM detalle_reservacion
+              WHERE detalle_reservacion.fecha_inicio < fecha_fin
+                AND detalle_reservacion.fecha_fin > fecha_inicio
+          )
+        LIMIT 1;
+    END IF;
+
+    -- Insertar en detalle_reservacion si se encontró una habitación disponible
+    IF HABITACION IS NOT NULL THEN
+        INSERT INTO detalle_reservacion (
+            fecha_inicio, fecha_fin, titular_habitacion, reservacion, habitacion, cantidad_niños, cantidad_adultos
+        )
+        VALUES (
+            fecha_inicio, fecha_fin, titular, n_reservacion, HABITACION, niños, adultos
+        );
+    ELSE
+        SELECT 'No hay habitaciones disponibles';
+    END IF;
+END //
+
+DELIMITER ;
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+DELIMITER //
+
+CREATE PROCEDURE RegistrarPagoReservacionLinea(
+    IN metodo_pago varchar (50),
+    IN monto_total DECIMAL(8,2)
+)
+BEGIN
+    DECLARE ultima_reservacion INT;
+    SELECT MAX(id_reservacion) INTO ultima_reservacion FROM reservacion;
+    INSERT INTO detalle_pago (reservacion, metodo_pago, monto_total)
+    VALUES (ultima_reservacion, 'tarjeta', monto_total);
+END //
+
+DELIMITER ;
+
+CALL RegistrarPagoReservacion('tarjeta',4500.00);

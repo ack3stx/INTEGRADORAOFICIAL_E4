@@ -17,3 +17,8 @@ inner join reservacion on reservacion.huesped=huesped.id_huesped
 inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
 where usuarios.nombre_usuario = 'leonel'
 group by Nombre, folio_reserva,estado,noches;
+--------------------------------------------------------------------------------------------------------------------------------
+-- consulta para consultar el id de los usuarios
+SELECT usuarios.id_usuario as id
+from usuarios 
+where usuarios.nombre_usuario = 'leonel';

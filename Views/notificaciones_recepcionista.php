@@ -227,7 +227,6 @@ foreach ($tabla as $reg) {
     <div class='modal-content'>
       <div class='modal-header'>
         <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->id_detalle_pago}'>Datos de Facturacion</h1>
-        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
       </div>
       <div class='modal-body'>
         <label>Nombre: {$facturacion->nombre}</label><br>
@@ -255,7 +254,6 @@ foreach ($tabla as $reg) {
     <div class='modal-content'>
       <div class='modal-header'>
         <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->folio}'>&nbsp;ALERTA</h1>
-        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
       </div>
       <div class='modal-body'>
         <h4>Seguro que deseas cancelar esta reservacion?</h4>

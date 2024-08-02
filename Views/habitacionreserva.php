@@ -792,7 +792,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'doble';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('doble',900);
+                calcularPrecio('Doble',900);
             };
             addButton.innerText = 'Añadir';
             
@@ -917,7 +917,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'king';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('king',1200);
+                calcularPrecio('King Size',1200);
             };
             addButton.innerText = 'Añadir';
             
@@ -1041,7 +1041,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'sencilla';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('sencilla',700);
+                calcularPrecio('Sencilla',700);
             };
             addButton.innerText = 'Añadir';
             
@@ -1088,7 +1088,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }
 
 
-        // Calcular la diferencia entre dos fechas
+        // calcular la diferencia entre dos fechas
     function calcularPrecio(tipo, precioPorNoche) {
     const fechaInicio = localStorage.getItem('fechaInicio');
     const fechaFinal = localStorage.getItem('fechaFin');
@@ -1110,7 +1110,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         fechas.innerText = `${fechaInicio} -> ${fechaFinal}`;
         console.log(acumulador);
 
-        // Aquí puedes guardar el precio en localStorage o donde necesites
+        
+
+        localStorage.setItem('cantidad',acumulador);
+        let tiposSeleccionados = JSON.parse(sessionStorage.getItem('tiposSeleccionados')) || [];
+        tiposSeleccionados.push(tipo);
+        sessionStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+
         
     } else {
         console.error('Fechas no definidas en el localStorage.');

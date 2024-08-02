@@ -3,6 +3,15 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
+$ip = $_SERVER['REMOTE_ADDR'];
+$capchat = $_POST['g-recaptcha-response'];
+$secretkey = "6LccmR0qAAAAAA0xfHs9zDOwVUDtzPU-6Y7_5yi4";
+$respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$capchat&remoteip=$ip");
+$atributos = json_decode($respuesta, TRUE);
+if(!$atributos['success']){
+    header('Location: ../views/Contacto.php?status=failed');
+    exit();
+}
 require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
@@ -108,4 +117,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
 ?>

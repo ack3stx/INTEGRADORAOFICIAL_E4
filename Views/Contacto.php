@@ -18,6 +18,8 @@
     integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 
 <body>
@@ -139,7 +141,7 @@ if(isset($_SESSION["usuario"])){
 }
 else {
   echo '   <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+              <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
             </li>';
 }
 
@@ -187,6 +189,11 @@ else {
             <textarea class="form-control" id="mensaje" name="mensaje" rows="3" placeholder="Mensaje"
               required></textarea>
           </div>
+          <div class="mb-3">
+            <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4">
+
+            </div>
+          </div>  
           <button type="submit" class="btn btn-primary w-100">ENVIAR MENSAJE</button>
         </form>
         <div id="form-messages" class="mt-3"></div>
@@ -194,41 +201,47 @@ else {
         if (isset($_GET['status']) && $_GET['status'] == 'success') {
           echo '<div class="alert alert-success">Mensaje enviado exitosamente.</div>';
         }
+        if (isset($_GET['status']) && $_GET['status'] == 'failed') {
+          echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
+        }
         ?>
 
       </div>
     </div>
   </div>
+
   <!--PIE DE PAGINAA-->
   <footer class="footer">
-    <div class="footer-container">
+  <div class="footer-container">
       <div class="footer-section">
-        <h2>Contáctanos</h2>
-        <p><i class="fa-solid fa-house"></i> Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón, México
-        </p>
-        <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
-        <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
-        <div class="social-icons">
-          <a href=""></a><i class="fa-brands fa-instagram"></i>
-          <i class="fa-brands fa-facebook"></i>
-          <i class="fa-brands fa-whatsapp"></i>
-        </div>
+          <h2>Contáctanos</h2>
+          <p><i class="fa-solid fa-house"></i> Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
+          <a href="mailto:hotellagunainnmx@gmail.com" class="text-decoration-none hover-link"><p><i class="fa-solid fa-envelope"></i> hotellagunainnmx@gmail.com</p></a>
+          <p><i class="fa-solid fa-phone"></i> +52 871 720 3020</p>
+          <div class="social-icons">
+              <a href="https://www.instagram.com/hotellagunainntrc"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.facebook.com/hotellagunainntrc"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://wa.me/5218712112828"><i class="fa-brands fa-whatsapp"></i></a>
+          </div>
+      </div>
+      <div class="footer-section" >
+          <h2>Explora</h2>
+          <a href="../index.php" class="text-decoration-none hover-link"><p>Inicio</p></a>
+          <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
+          <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
+          <a href="../index.php #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
-        <h2>Explora</h2>
-        <p>Inicio</p>
-        <p>Nosotros</p>
-        <p>Habitaciones</p>
-        <p>Amenidades</p>
+          <h2>Novedades</h2>
+          <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
+          <form action="">
+          <input type="email" placeholder="Email" required>
+          <a href=""><button type="submit"><i class="fa-solid fa-paper-plane"></i></button></a>
+          </form>
       </div>
-      <div class="footer-section">
-        <h2>Novedades</h2>
-        <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
-        <input type="text" placeholder="Email">
-        <i class="fa-solid fa-paper-plane"></i>
-      </div>
-    </div>
-  </footer>
+  </div>
+</footer>
 
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"

@@ -389,33 +389,35 @@ else {
 <div class="MAPCON">
   <iframe class="centrar_cont" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3599.877460372121!2d-103.41593952553012!3d25.542458417631522!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x868fdba3758de129%3A0x35634f6a2fc2812d!2sHotel%20Laguna%20INN!5e0!3m2!1ses-419!2smx!4v1717880915416!5m2!1ses-419!2smx" width="100%" height="500px" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
-
 <!--PIE DE PAGINAA-->
 <footer class="footer">
   <div class="footer-container">
       <div class="footer-section">
           <h2>Contáctanos</h2>
-          <p><i class="fa-solid fa-house"></i> Av. de la Cantera 8510, Colonia Las Misiones I, CP 31115, Torreón, México</p>
-          <p><i class="fa-solid fa-envelope"></i> hotellagunainn@inn.com</p>
-          <p><i class="fa-solid fa-phone"></i> +52 (614) 432-1500</p>
+          <p><i class="fa-solid fa-house"></i> Calz Prof Ramón Méndez 3300, Nuevo Torreón, 27060 Torreón, Coah.</p>
+          <a href="mailto:hotellagunainnmx@gmail.com" class="text-decoration-none hover-link"><p><i class="fa-solid fa-envelope"></i> hotellagunainnmx@gmail.com</p></a>
+          <p><i class="fa-solid fa-phone"></i> +52 871 720 3020</p>
           <div class="social-icons">
-              <i class="fa-brands fa-instagram"></i>
-              <i class="fa-brands fa-facebook"></i>
-              <i class="fa-brands fa-whatsapp"></i>
+              <a href="https://www.instagram.com/hotellagunainntrc"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://www.facebook.com/hotellagunainntrc"><i class="fa-brands fa-facebook"></i></a>
+              <a href="https://wa.me/5218712112828"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
       </div>
-      <div class="footer-section">
+      <div class="footer-section" >
           <h2>Explora</h2>
-          <p>Inicio</p>
-          <p>Nosotros</p>
-          <p>Habitaciones</p>
-          <p>Amenidades</p>
+          <a href="index.php" class="text-decoration-none hover-link"><p>Inicio</p></a>
+          <a href="Views/nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
+          <a href="Views/vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
+          <a href="#2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="Views/Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
           <h2>Novedades</h2>
           <p>Recibe las últimas ofertas y promociones del Hotel Laguna Inn</p>
-          <input type="text" placeholder="Email">
-          <i class="fa-solid fa-paper-plane"></i>
+          <form action="">
+          <input type="email" placeholder="Email" required>
+          <a href=""><button type="submit"><i class="fa-solid fa-paper-plane"></i></button></a>
+          </form>
       </div>
   </div>
 </footer>
