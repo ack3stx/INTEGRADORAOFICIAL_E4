@@ -14,50 +14,62 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $recepcionista = null;
         $estado_reservacion = 'proceso';
 
+        $data = new Database();
+        $data->conectarDB();
 
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
 
-       $data = new Database();
-       $data->conectarDB();
+            $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = :usuario";
+            $stmt = $data->prepare($consulta);
+            $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-       $usuario = $_SESSION["usuario"];
+            if ($resultado && isset($resultado['id'])) {
+                $id_usuario = $resultado['id'];
 
-       $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = '$usuario'";
-        $stmt = $data->prepare($consulta);
-        $stmt->execute();
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+              
+                $registro = $data->registro(
+                    $persona['nombre'], 
+                    $persona['ap_paterno'], 
+                    $persona['ap_materno'], 
+                    $persona['f_nac'], 
+                    $persona['direccion'], 
+                    $persona['ciudad'], 
+                    $persona['estado'], 
+                    $persona['cd_postal'], 
+                    $persona['pais'], 
+                    $persona['genero'], 
+                    $persona['telefono'], 
+                    $id_usuario
+                );
 
-        if ($resultado) {
-            $id_usuario = $resultado['id'];
+                
+                
+                    $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
 
-            
-            $registro = $data->registro(
-                $persona['nombre'], 
-                $persona['ap_paterno'], 
-                $persona['ap_materno'], 
-                $persona['f_nac'], 
-                $persona['direccion'], 
-                $persona['ciudad'], 
-                $persona['estado'], 
-                $persona['cd_postal'], 
-                $persona['pais'], 
-                $persona['genero'], 
-                $persona['telefono'], 
-                $id_usuario
-            );
+                    foreach ($habitaciones as $habitacion) {
+                        $titular = $registro;
+                        $niños = 0;
+                        $adultos = 0;
+                        echo "Insertando detalle de reservación: habitacion=$habitacion, fechainicio=$fechainicio, fechafin=$fechafin, titular=$titular, niños=$niños, adultos=$adultos<br>";
+                        try {
+                            $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños, $adultos, $habitacion);
+                        } catch (Exception $e) {
+                            echo "Error al insertar detalle de reservación: " . $e->getMessage() . "<br>";
+                        }
+                    }
 
-            $reservacion= $data->reservacion($recepcionista,$fecha_actual,$estado_reservacion);
+                    
 
-            foreach ($habitaciones as $habitacion) {
-                $titular = null;
-                $niños = 0; 
-                $adultos=0;
-                $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños,$adultos, $habitacion);
-            }
+                
+                
+                $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
 
-            $detalle_pago=$data->detalle_pago('tarjeta',$cantidad);
-
-            
-        }
-
-}
-}
+                
+            } 
+        } 
+    } 
+} 
+?>

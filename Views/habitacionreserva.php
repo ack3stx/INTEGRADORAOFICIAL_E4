@@ -651,6 +651,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     const price = document.getElementById('total-price');
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
+    let tiposSeleccionados = [];
 
     function obtenerHabitaciones() {
         fetch('../servicios/obtenerHabitaciones.php', {
@@ -1113,9 +1114,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         
 
         localStorage.setItem('cantidad',acumulador);
-        let tiposSeleccionados = JSON.parse(sessionStorage.getItem('tiposSeleccionados')) || [];
+        
         tiposSeleccionados.push(tipo);
-        sessionStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+        localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
     } else {

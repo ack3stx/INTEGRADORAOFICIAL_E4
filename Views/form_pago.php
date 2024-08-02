@@ -92,7 +92,7 @@
     </div>
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
-        const habitaciones = JSON.parse(sessionStorage.getItem('tiposSeleccionados'));
+        const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
@@ -189,6 +189,7 @@
                 return response.json()
             }).then((data) => {
                 console.log(data);
+               // window.location.href = "../Stripe/success.php";
             }).catch((error) => {
                 console.log(error);
             })

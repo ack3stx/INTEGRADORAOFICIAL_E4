@@ -42,6 +42,13 @@ class Database
             echo $e->getMessage();
         }   
     }
+    public function prepare($sql) {
+        try {
+            return $this->PDOLocal->prepare($sql);
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
 
     function ejecuta($consulta)
     {
@@ -305,7 +312,7 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$t
         $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
         $stmt->bindParam(':niños',$niños,PDO::PARAM_INT);
         $stmt->bindParam(':adultos',$adultos,PDO::PARAM_INT);
-        $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_INT);
+        $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_STR);
         $stmt->execute();
 
     }
