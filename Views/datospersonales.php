@@ -97,7 +97,6 @@ if ($_SESSION["rol"] == "usuario") {
                         $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
                         $consulta = "UPDATE usuarios SET password = '$hash_nueva_contraseña' WHERE id_usuario = $id";
                         $db->ejecuta($consulta);
-                        $_SESSION['mensaje'] = "Contraseña actualizada correctamente.";
                         $contraseña_actualizada = true;
                     } else {
                         $errores[] = "La contraseña actual es incorrecta.";
@@ -146,7 +145,7 @@ if ($_SESSION["rol"] == "usuario") {
                         session_destroy();
                         header('Location: Login.php');
                         exit();
-                    } else {
+                    } elseif ($datos_personales_actualizados || $datos_personales_insertados) {
                         header('Location: datospersonales.php');
                         exit();
                     }
@@ -154,7 +153,7 @@ if ($_SESSION["rol"] == "usuario") {
                     $_SESSION['mensaje'] = implode("<br>", $errores);
                     header('Location: datospersonales.php');
                     exit();
-                } 
+                }
             }
         } else {
             $_SESSION['mensaje'] = implode("<br>", $errores);
