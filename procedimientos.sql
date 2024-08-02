@@ -573,13 +573,13 @@ BEGIN
     DECLARE HABITACION INT;
     DECLARE n_reservacion INT;
     
-    -- Obtener el ID de la última reservación
+   
     SELECT MAX(id_reservacion) INTO n_reservacion FROM reservacion;
 
-    -- Verificar el tipo de habitación y seleccionar una disponible
+    
     IF tipo_habitacion = 'Doble' THEN
         SELECT habitacion.id_habitacion
-        -- INTO HABITACION
+        INTO HABITACION
         FROM habitacion 
         INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
         WHERE t_habitacion.nombre = 'Doble'
@@ -607,7 +607,7 @@ BEGIN
 
     ELSEIF tipo_habitacion = 'Sencilla' THEN
         SELECT habitacion.id_habitacion
-        -- INTO HABITACION
+        INTO HABITACION
         FROM habitacion 
         INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
         WHERE t_habitacion.nombre = 'Sencilla'
