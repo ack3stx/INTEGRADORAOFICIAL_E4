@@ -96,135 +96,124 @@
     </div>
   </nav>
   
-  <div class="container d-flex justify-content-center">
-  <form class="row g-2 w-100 align-items-center" role="search" method="post">
-    <div class="col-12 col-md-auto">
-      <input class="form-control" type="number" id="checkout" name="numero" placeholder="Numero De La Reservacion">
-    </div>
-    <div class="col-12 col-md-auto">
-      <label class="color-hotel" for="checkin">Fecha inicio:</label>
-    </div>
-    <div class="col-12 col-md-auto">
-      <input class="form-control" type="date" id="checkin" name="fecha1" style="min-width: 150px;">
-    </div>
-    <div class="col-12 col-md-auto">
-      <label class="color-hotel" for="checkout">Fecha fin:</label>
-    </div>
-    <div class="col-12 col-md-auto">
-      <input class="form-control" type="date" id="checkout" name="fecha2" style="min-width: 150px;">
-    </div>
-    <div class="col-12 col-md-auto">
-      <button class="btn btn-outline-danger w-100" type="submit">Buscar</button>
-    </div>
-  </form>
-</div>
+  <div class="container d-flex justify-content-center mt-4">
+    <form class="d-flex justify-content-center w-100 flex-wrap" role="search" method="post">
+      <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
+      <input class="form-control me-2 mb-2" type="date" name="fecha1">
+      <input class="form-control me-2 mb-2" type="date" name="fecha2">
+      <button class="btn btn-outline-danger mb-2" type="submit">Buscar</button>
+    </form>
+  </div>
 
-<br><br><br>
+  <div class="container">
+    <?php 
+      extract($_POST);
+      if(empty($numero) && empty($fecha1) && empty($fecha2))
+      {
 
-  <?php 
-    extract($_POST);
-    if ($_POST) {
-      if (empty($numero) && empty($fecha1) && empty($fecha2)) {
-        
-      } else {
+      }
+      else
+      {
         if (empty($numero)) {
-          $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
-            reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.ID_DETALLE_RESRVACION) as Cantidad_de_habitaciones
-            from usuarios
-            inner join persona on persona.usuario=usuarios.id_usuario
-            inner join huesped on huesped.persona_huesped=persona.id_persona
-            inner join reservacion on reservacion.huesped=huesped.id_huesped
-            inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-            where reservacion.fecha_ between '$fecha1' and '$fecha2'
-            group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
+          FROM usuarios
+          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
+          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
+          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
+          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
+          WHERE reservacion.fecha_ BETWEEN '$fecha1' AND '$fecha2'
+          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
         } else {
-          $consulta = "select distinct concat(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) as Nombre_Huesped, persona.numero_de_telefono,
-            reservacion.fecha_,reservacion.estado_reservacion,count(detalle_reservacion.ID_DETALLE_RESRVACION) as Cantidad_de_habitaciones
-            from usuarios
-            inner join persona on persona.usuario=usuarios.id_usuario
-            inner join huesped on huesped.persona_huesped=persona.id_persona
-            inner join reservacion on reservacion.huesped=huesped.id_huesped
-            inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-            where reservacion.id_reservacion=$numero
-            group by Nombre, persona.numero_de_telefono,reservacion.fecha_,reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
+          FROM usuarios
+          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
+          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
+          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
+          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
+          WHERE reservacion.id_reservacion=$numero
+          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
         }
 
         $tabla = $conexion->seleccionar($consulta);
-
         echo "<div class='table-responsive'>";
-        echo "
-            <table class='table table-hover'>
-                <thead class='table-dark'>
-                    <tr>
-                    <th>Nombre</th><th>Telefono</th><th>Fecha Reservacion</th><th>Estado Reservacion</th><th>Cantidad Habitaciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-            ";
-            foreach ($tabla as $reg) {
-                echo "<tr>";
-                echo "<td> $reg->Nombre_Huesped </td>";
-                echo "<td> $reg->numero_de_telefono </td>";
-                echo "<td> $reg->fecha_ </td>";
-                echo "<td> $reg->estado_reservacion </td>";
-                echo "<td> $reg->Cantidad_de_habitaciones </td>";
-                echo "</tr>";
-            }
-            echo "</tbody>";
-            echo "</table>";
+        echo "<table class='table table-hover table-bordered table-danger'>";
+        echo "<thead class='table-dark'>";
+        echo "<tr>";
+        echo "<th>Nombre</th>";
+        echo "<th>Teléfono</th>";
+        echo "<th>Fecha Reservación</th>";
+        echo "<th>Estado Reservación</th>";
+        echo "<th>Cantidad Habitaciones</th>";
+        echo "</tr>";
+        echo "</thead>";
+        echo "<tbody>";
+
+        foreach ($tabla as $reg) {
+          echo "<tr>";
+          echo "<td>{$reg->Nombre_Huesped}</td>";
+          echo "<td>{$reg->numero_de_telefono}</td>";
+          echo "<td>{$reg->fecha_}</td>";
+          echo "<td>{$reg->estado_reservacion}</td>";
+          echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
+          echo "</tr>";
+        }
+
+        echo "</tbody>";
+        echo "</table>";
         echo "</div>";
       }
-    }
-    $conexion->desconectarBD();
-?>
+        $conexion->desconectarBD();
+      
+    ?>
+  </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<?php
+  <?php
+    $conexion->desconectarBD();
   } else {
-?>
+  ?>
 <head>
   <style>
-      body, html {
-          height: 100%;
-      }
-      .bg-dark {
-          background-color: #343a40 !important;
-      }
-      .flex-center {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          height: 100%;
-          color: white;
-      }
-      .error-container {
-          text-align: center;
-      }
-      .error-icon {
-          font-size: 100px;
-      }
-      .error-code {
-          font-size: 80px;
-          margin-bottom: 20px;
-      }
-      .error-message {
-          font-size: 24px;
-      }
+    body, html {
+      height: 100%;
+    }
+    .bg-dark {
+      background-color: #343a40 !important;
+    }
+    .flex-center {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      color: white;
+    }
+    .error-container {
+      text-align: center;
+    }
+    .error-icon {
+      font-size: 100px;
+    }
+    .error-code {
+      font-size: 80px;
+      margin-bottom: 20px;
+    }
+    .error-message {
+      font-size: 24px;
+    }
   </style>
 </head>
 <body class="bg-dark">
   <div class="container flex-center">
-      <div class="error-container">
-          <i class="fas fa-times-circle error-icon"></i>
-          <div class="error-code">404</div>
-          <div class="error-message">Pagina no Encontrada</div>
-          <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-          <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
-      </div>
+    <div class="error-container">
+      <i class="fas fa-times-circle error-icon"></i>
+      <div class="error-code">404</div>
+      <div class="error-message">Pagina no Encontrada</div>
+      <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+    </div>
   </div>
 </body>
 <?php
