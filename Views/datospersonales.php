@@ -88,6 +88,8 @@ if ($_SESSION["rol"] == "usuario") {
                 $nombre_usuario_actualizado = false;
                 $correo_actualizado = false;
                 $contraseña_actualizada = false;
+                $datos_personales_actualizados = false;
+                $datos_personales_insertados = false;
 
                 // Actualizar contraseña
                 if (!empty($contraseña_nueva)) {
@@ -130,15 +132,17 @@ if ($_SESSION["rol"] == "usuario") {
                             numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
                         $db->ejecuta($consulta_update_persona);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
+                        $datos_personales_actualizados = true;
                     } else {
                         $consulta_insert_persona = "INSERT INTO persona (nombre, apellido_paterno, apellido_materno, fecha_de_nacimiento, direccion, ciudad, estado, codigo_postal, pais, genero, numero_de_telefono, usuario) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
                         $db->ejecuta($consulta_insert_persona);
                         $_SESSION['mensaje'] = "Datos personales añadidos correctamente.";
+                        $datos_personales_insertados = true;
                     }
 
                     $db->desconectarBD();
 
-                    if ($nombre_usuario_actualizado || $correo_actualizado) {
+                    if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
                         session_destroy();
                         header('Location: Login.php');
                         exit();
