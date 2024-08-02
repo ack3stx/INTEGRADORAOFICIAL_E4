@@ -21,7 +21,7 @@
 ?>
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
-      <a class="navbar-brand position-absolute top-0 start-0" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+      <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
