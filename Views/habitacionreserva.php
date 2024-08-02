@@ -1,86 +1,8 @@
-<?php 
-function renderDropdownItems($items) {
-    foreach ($items as $value => $label) {
-        echo '<li><a class="dropdown-item" href="#" data-value="' . $value . '">' . $label . '</a></li>';
-    }
-}
-
-$dobleAdultOptions = [
-    1 => '1 Adulto',
-    2 => '2 Adultos',
-    3 => '3 Adultos',
-    4 => '4 Adultos'
-];
-
-$dobleKidOptions = [
-    0 => '0 Niños',
-    1 => '1 Niño',
-    2 => '2 Niños',
-    3 => '3 Niños'
-];
-
-$kingSizeAdultOptions = [
-    1 => '1 Adulto',
-    2 => '2 Adultos'
-];
-
-$kingSizeKidOptions = [
-    0 => '0 Niños',
-    1 => '1 Niño',
-    2 => '2 Niños'
-];
-
-$sencillaAdultOptions = [
-    1 => '1 Adulto',
-    2 => '2 Adultos'
-];
-
-$sencillaKidOptions = [
-    0 => '0 Niños',
-    1 => '1 Niño'
-];
-
-function getMaxKidsForDoble($adultsValue) {
-    switch ($adultsValue) {
-        case 1:
-            return 3;
-        case 2:
-            return 2;
-        case 3:
-            return 1;
-        case 4:
-            return 0;
-        default:
-            return 0;
-    }
-}
-
-function getMaxKidsForKingSize($adultsValue) {
-    switch ($adultsValue) {
-        case 1:
-            return 2;
-        case 2:
-            return 1;
-        default:
-            return 0;
-    }
-}
-
-function getMaxKidsForSencilla($adultsValue) {
-    switch ($adultsValue) {
-        case 1:
-            return 1;
-        case 2:
-            return 0;
-        default:
-            return 0;
-    }
-}
-
+<?php
+include '../Clases/BasedeDatos.php';
+session_start();
 
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
