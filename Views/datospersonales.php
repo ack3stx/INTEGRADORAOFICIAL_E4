@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if ($_SESSION["rol"] == "usuario") {
     include '../Clases/BasedeDatos.php';
 
@@ -23,41 +24,43 @@ if ($_SESSION["rol"] == "usuario") {
         $numero_de_telefono = $_POST['numero_de_telefono'] ?? '';
 
         $errores = [];
-        if (empty($nombre) || empty($apellido_paterno) || empty($apellido_materno) || empty($fecha_de_nacimiento) || empty($direccion) || empty($ciudad) || empty($estado) || empty($codigo_postal) || empty($pais) || empty($genero) || empty($numero_de_telefono)) {
-            $errores[] = "Todos los campos son obligatorios.";
+
+        // Validación de los campos
+        $required_fields = [
+            'nombre', 'apellido_paterno', 'apellido_materno', 'fecha_de_nacimiento',
+            'direccion', 'ciudad', 'estado', 'codigo_postal', 'pais', 'genero', 'numero_de_telefono'
+        ];
+        foreach ($required_fields as $field) {
+            if (empty($$field)) {
+                $errores[] = "El campo $field es obligatorio.";
+            }
         }
 
+        // Validaciones específicas
         if (!empty($numero_de_telefono) && !preg_match('/^[0-9]+$/', $numero_de_telefono)) {
             $errores[] = "El número de teléfono solo debe contener números.";
         }
-
         if (!empty($nombre) && preg_match('/[0-9]/', $nombre)) {
             $errores[] = "El nombre no debe contener números.";
         }
-
         if (!empty($apellido_paterno) && preg_match('/[0-9]/', $apellido_paterno)) {
             $errores[] = "El apellido paterno no debe contener números.";
         }
-
         if (!empty($apellido_materno) && preg_match('/[0-9]/', $apellido_materno)) {
             $errores[] = "El apellido materno no debe contener números.";
         }
-
         if (!empty($pais) && preg_match('/[0-9]/', $pais)) {
             $errores[] = "El país no debe contener números.";
         }
-
         if (!empty($estado) && preg_match('/[0-9]/', $estado)) {
             $errores[] = "El estado no debe contener números.";
         }
-
         if (!empty($ciudad) && preg_match('/[0-9]/', $ciudad)) {
             $errores[] = "La ciudad no debe contener números.";
         }
 
         $fecha_actual = date('Y-m-d');
         $fecha_minima = '1950-01-01';
-
         if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
             $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
         }
@@ -66,7 +69,6 @@ if ($_SESSION["rol"] == "usuario") {
             if ($contraseña_nueva !== $contraseña_nueva_confirm) {
                 $errores[] = "Las contraseñas nuevas no coinciden.";
             }
-
             if (empty($contraseña_actual)) {
                 $errores[] = "Debe ingresar la contraseña actual.";
             }
@@ -87,6 +89,7 @@ if ($_SESSION["rol"] == "usuario") {
                 $correo_actualizado = false;
                 $contraseña_actualizada = false;
 
+                // Actualizar contraseña
                 if (!empty($contraseña_nueva)) {
                     if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
                         $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
@@ -100,25 +103,31 @@ if ($_SESSION["rol"] == "usuario") {
                 }
 
                 if (empty($errores)) {
+                    // Actualizar nombre de usuario
                     if (!empty($nombre_user)) {
                         $consulta = "UPDATE usuarios SET nombre_usuario = '$nombre_user' WHERE id_usuario = $id";
                         $db->ejecuta($consulta);
                         $nombre_usuario_actualizado = true;
                     }
 
+                    // Actualizar correo
                     if (!empty($correo_act)) {
                         $consulta = "UPDATE usuarios SET correo = '$correo_act' WHERE id_usuario = $id";
                         $db->ejecuta($consulta);
                         $correo_actualizado = true;
                     }
 
+                    // Actualizar datos personales
                     $consulta_persona = "SELECT id_persona FROM persona WHERE usuario = $id";
                     $persona_result = $db->seleccionar($consulta_persona);
 
                     if (!empty($persona_result)) {
                         $id_persona = $persona_result[0]->id_persona;
                         $consulta_update_persona = "UPDATE persona SET 
-                            nombre = '$nombre',  apellido_paterno = '$apellido_paterno', apellido_materno = '$apellido_materno',  fecha_de_nacimiento = '$fecha_de_nacimiento',  direccion = '$direccion', ciudad = '$ciudad',  estado = '$estado',  codigo_postal = '$codigo_postal', pais = '$pais', genero = '$genero',  numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
+                            nombre = '$nombre', apellido_paterno = '$apellido_paterno', apellido_materno = '$apellido_materno', 
+                            fecha_de_nacimiento = '$fecha_de_nacimiento', direccion = '$direccion', ciudad = '$ciudad', 
+                            estado = '$estado', codigo_postal = '$codigo_postal', pais = '$pais', genero = '$genero', 
+                            numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
                         $db->ejecuta($consulta_update_persona);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
                     } else {
@@ -130,25 +139,21 @@ if ($_SESSION["rol"] == "usuario") {
                     $db->desconectarBD();
 
                     if ($nombre_usuario_actualizado || $correo_actualizado) {
-                        // Redirigir a la página de inicio de sesión si se actualizó el nombre de usuario o el correo
                         session_destroy();
                         header('Location: Login.php');
                         exit();
                     } else {
-                        // Hacer un refresh a la página actual si se actualizaron otros datos
                         header('Location: datospersonales.php');
                         exit();
                     }
                 } else {
                     $_SESSION['mensaje'] = implode("<br>", $errores);
-                    // Hacer un refresh a la página para mostrar los errores
                     header('Location: datospersonales.php');
                     exit();
                 } 
             }
         } else {
             $_SESSION['mensaje'] = implode("<br>", $errores);
-            // Hacer un refresh a la página para mostrar los errores
             header('Location: datospersonales.php');
             exit();
         }
@@ -157,7 +162,7 @@ if ($_SESSION["rol"] == "usuario") {
         $db->conectarDB();
         $user_id = $_SESSION['usuario'];
 
-        $consulta = "SELECT u.nombre_usuario, u.correo, u.password, p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento,  p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
+        $consulta = "SELECT u.nombre_usuario, u.correo, u.password, p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento, p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
                      FROM usuarios u 
                      LEFT JOIN persona p ON u.id_usuario = p.usuario 
                      WHERE u.nombre_usuario = '$user_id'";
@@ -260,8 +265,6 @@ if ($_SESSION["rol"] == "usuario") {
             <li class="nav-item">
               <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
 </li>
-
-         
 
             <li class="nav-item">
               <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
