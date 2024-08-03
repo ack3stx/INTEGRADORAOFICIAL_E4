@@ -16,7 +16,18 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
+            if (strlen($nombre_user) > 10) {
+                $errores[] = "El nombre de usuario no debe tener más de 10 caracteres.";
+            }
+
+            if (!filter_var($correo_act, FILTER_VALIDATE_EMAIL)) {
+                $errores[] = "El correo debe ser válido y contener '@'.";
+            }
+
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
+                if (strlen($contraseña_nueva) < 6) {
+                    $errores[] = "La nueva contraseña debe tener al menos 6 caracteres.";
+                }
                 if ($contraseña_nueva !== $contraseña_nueva_confirm) {
                     $errores[] = "Las contraseñas nuevas no coinciden.";
                 }
@@ -112,8 +123,8 @@ if ($_SESSION["rol"] == "usuario") {
             }
 
             // Validaciones específicas
-            if (!empty($numero_de_telefono) && !preg_match('/^[0-9]+$/', $numero_de_telefono)) {
-                $errores[] = "El número de teléfono solo debe contener números.";
+            if (!empty($numero_de_telefono) && (!preg_match('/^[0-9]+$/', $numero_de_telefono) || strlen($numero_de_telefono) != 10)) {
+                $errores[] = "El número de teléfono debe tener 10 dígitos y solo contener números.";
             }
             if (!empty($nombre) && preg_match('/[0-9]/', $nombre)) {
                 $errores[] = "El nombre no debe contener números.";
@@ -134,10 +145,11 @@ if ($_SESSION["rol"] == "usuario") {
                 $errores[] = "La ciudad no debe contener números.";
             }
 
+            // Validar que la fecha de nacimiento sea de al menos 18 años
             $fecha_actual = date('Y-m-d');
-            $fecha_minima = '1950-01-01';
-            if ($fecha_de_nacimiento < $fecha_minima || $fecha_de_nacimiento > $fecha_actual) {
-                $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_actual.";
+            $fecha_minima = date('Y-m-d', strtotime('-18 years'));
+            if ($fecha_de_nacimiento > $fecha_minima || $fecha_de_nacimiento < '1950-01-01') {
+                $errores[] = "La fecha de nacimiento debe estar entre 1950-01-01 y $fecha_minima.";
             }
 
             if (empty($errores)) {
@@ -211,6 +223,9 @@ if ($_SESSION["rol"] == "usuario") {
         .section-title { font-weight: bold; }
         .container { width: 80%; margin: 50px auto; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f8f9fa; }
         .is-invalid { border-color: #dc3545; }
+        .invalid-feedback { display: block; }
+        .is-valid { border-color: #28a745; }
+        .valid-feedback { display: block; color: #28a745; }
 
         body {
             background-color: #f8f9fa;
@@ -365,7 +380,7 @@ if ($_SESSION["rol"] == "usuario") {
             </div>
         <?php endif; ?>
 
-        <h1><strong>Datos personales</strong></h1>
+        <h1><strong>Datos de mi cuenta</strong></h1>
         <p id="pepon">Actualiza tus datos y descubre cómo se utilizan</p>
         <hr class="mb-4">
 
@@ -385,6 +400,8 @@ if ($_SESSION["rol"] == "usuario") {
                     </div>
                     <div id="formNombreUsuario" class="hidden">
                         <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->nombre_usuario) ?>">
+                        <div class="invalid-feedback"></div>
+                        <div class="valid-feedback"></div>
                         <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
@@ -401,6 +418,8 @@ if ($_SESSION["rol"] == "usuario") {
                     </div>
                     <div id="formEmail" class="hidden">
                         <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->correo) ?>">
+                        <div class="invalid-feedback"></div>
+                        <div class="valid-feedback"></div>
                         <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
@@ -416,9 +435,15 @@ if ($_SESSION["rol"] == "usuario") {
                         <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formPassword" class="hidden">
-                        <input type="password" name="password_actual" class="form-control mb-2" placeholder="Contraseña actual">
+                        <input type="password" name="password_actual"  class="form-control mb-2" placeholder="Contraseña actual">
+                        <div class="invalid-feedback"></div>
+                        <div class="valid-feedback"></div>
                         <input type="password" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
-                        <input type="password" name="password_nueva_confirm" class="form-control mb-2" placeholder="Confirmar nueva contraseña">
+                        <div class="invalid-feedback"></div>
+                        <div class="valid-feedback"></div>
+                        <input type="password" name="password_nueva_confirm"  class="form-control mb-2" placeholder="Confirmar nueva contraseña">
+                        <div class="invalid-feedback"></div>
+                        <div class="valid-feedback"></div>
                         <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
@@ -430,9 +455,10 @@ if ($_SESSION["rol"] == "usuario") {
 
             <form id="formPersona" action="datospersonales.php" method="post">
                 <input type="hidden" name="tipo_formulario" value="persona">
+                <hr class="mb-4">
                 <!-- Sección para datos de la persona -->
                 <div class="section">
-                    <h2>Datos Personales</h2>
+                <h1><strong>Datos personales</strong></h1>
                     <?php 
                     $campos_persona = [
                         'nombre' => 'Nombre', 'apellido_paterno' => 'Apellido Paterno','apellido_materno' => 'Apellido Materno','fecha_de_nacimiento' => 'Fecha de Nacimiento', 'direccion' => 'Dirección','ciudad' => 'Ciudad','estado' => 'Estado','codigo_postal' => 'Código Postal', 'pais' => 'País', 'genero' => 'Género','numero_de_telefono' => 'Número de Teléfono'
@@ -462,7 +488,9 @@ if ($_SESSION["rol"] == "usuario") {
                                     </select>
                                 <?php else: ?>
                                     <input type="<?= $inputType ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>" 
-                                    <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d') . "'"; ?>>
+                                    <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
+                                    <div class="invalid-feedback"></div>
+                                    <div class="valid-feedback"></div>
                                 <?php endif; ?>
                                 <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
                             </div>
@@ -480,6 +508,149 @@ if ($_SESSION["rol"] == "usuario") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+
+    <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const formUsuario = document.getElementById('formUsuario');
+    const formPersona = document.getElementById('formPersona');
+
+    const nombreUsuario = formUsuario.querySelector('input[name="nombre_usuario"]');
+    const correo = formUsuario.querySelector('input[name="correo"]');
+    const passwordActual = formUsuario.querySelector('input[name="password_actual"]');
+    const passwordNueva = formUsuario.querySelector('input[name="password_nueva"]');
+    const passwordNuevaConfirm = formUsuario.querySelector('input[name="password_nueva_confirm"]');
+    const btnGuardarCambios = formUsuario.querySelector('button[type="submit"]');
+    const numeroDeTelefono = formPersona.querySelector('input[name="numero_de_telefono"]');
+    const fechaNacimiento = formPersona.querySelector('input[name="fecha_de_nacimiento"]');
+
+    function showSuccessMessage() {
+        const allInputs = [...formUsuario.querySelectorAll('input'), ...formPersona.querySelectorAll('input')];
+        const allValid = allInputs.every(input => input.classList.contains('is-valid'));
+        
+        if (allValid) {
+            alert('Listo');
+        }
+    }
+
+    function validarContraseñas() {
+        let errores = false;
+
+        if (passwordActual.value.trim() === '') {
+            passwordActual.classList.add('is-invalid');
+            passwordActual.nextElementSibling.textContent = 'Debe ingresar la contraseña actual.';
+            errores = true;
+        } else {
+            passwordActual.classList.remove('is-invalid');
+            passwordActual.classList.add('is-valid');
+            passwordActual.nextElementSibling.textContent = '';
+        }
+
+        if (passwordNueva.value !== passwordNuevaConfirm.value) {
+            passwordNuevaConfirm.classList.add('is-invalid');
+            passwordNuevaConfirm.nextElementSibling.textContent = 'Las contraseñas no coinciden.';
+            errores = true;
+        } else {
+            passwordNuevaConfirm.classList.remove('is-invalid');
+            passwordNuevaConfirm.classList.add('is-valid');
+            passwordNuevaConfirm.nextElementSibling.textContent = '';
+        }
+
+        if (passwordNueva.value.length > 0 && passwordNueva.value.length < 6) {
+            passwordNueva.classList.add('is-invalid');
+            passwordNueva.nextElementSibling.textContent = 'La nueva contraseña debe tener al menos 6 caracteres.';
+            errores = true;
+        } else {
+            passwordNueva.classList.remove('is-invalid');
+            passwordNueva.classList.add('is-valid');
+            passwordNueva.nextElementSibling.textContent = '';
+        }
+
+        showSuccessMessage();
+    }
+
+    function validarCorreo() {
+        const regexCorreo = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!regexCorreo.test(correo.value)) {
+            correo.classList.add('is-invalid');
+            correo.nextElementSibling.textContent = 'El correo debe ser válido y contener "@".';
+        } else {
+            correo.classList.remove('is-invalid');
+            correo.classList.add('is-valid');
+            correo.nextElementSibling.textContent = '';
+        }
+        showSuccessMessage();
+    }
+
+    function validarNombreUsuario() {
+        if (nombreUsuario.value.length > 10) {
+            nombreUsuario.classList.add('is-invalid');
+            nombreUsuario.nextElementSibling.textContent = 'El nombre de usuario no debe tener más de 10 caracteres.';
+        } else {
+            nombreUsuario.classList.remove('is-invalid');
+            nombreUsuario.classList.add('is-valid');
+            nombreUsuario.nextElementSibling.textContent = '';
+        }
+        showSuccessMessage();
+    }
+
+    function validarTelefono() {
+        if (/[^0-9]/.test(numeroDeTelefono.value) || numeroDeTelefono.value.length != 10) {
+            numeroDeTelefono.classList.add('is-invalid');
+            numeroDeTelefono.nextElementSibling.textContent = 'El número de teléfono debe tener 10 dígitos y solo contener números.';
+        } else {
+            numeroDeTelefono.classList.remove('is-invalid');
+            numeroDeTelefono.classList.add('is-valid');
+            numeroDeTelefono.nextElementSibling.textContent = '';
+        }
+        showSuccessMessage();
+    }
+
+    function validarFechaNacimiento() {
+        const fechaNacimientoValue = new Date(fechaNacimiento.value);
+        const fechaMinima = new Date();
+        fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
+
+        if (fechaNacimientoValue > fechaMinima) {
+            fechaNacimiento.classList.add('is-invalid');
+            fechaNacimiento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+        } else {
+            fechaNacimiento.classList.remove('is-invalid');
+            fechaNacimiento.classList.add('is-valid');
+            fechaNacimiento.nextElementSibling.textContent = '';
+        }
+        showSuccessMessage();
+    }
+
+    nombreUsuario.addEventListener('input', validarNombreUsuario);
+    correo.addEventListener('input', validarCorreo);
+    passwordActual.addEventListener('input', validarContraseñas);
+    passwordNueva.addEventListener('input', validarContraseñas);
+    passwordNuevaConfirm.addEventListener('input', validarContraseñas);
+    numeroDeTelefono.addEventListener('input', validarTelefono);
+    fechaNacimiento.addEventListener('input', validarFechaNacimiento);
+    
+    const fieldsToValidate = [
+        'nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'
+    ];
+
+    fieldsToValidate.forEach(fieldName => {
+        const field = formPersona.querySelector(`input[name="${fieldName}"]`);
+        field.addEventListener('input', function () {
+            if (/[0-9]/.test(field.value)) {
+                field.classList.add('is-invalid');
+                field.nextElementSibling.textContent = 'No puedes introducir números.';
+            } else {
+                field.classList.remove('is-invalid');
+                field.classList.add('is-valid');
+                field.nextElementSibling.textContent = '';
+            }
+            showSuccessMessage();
+        });
+    });
+});
+
+    </script>
+
     <script>
         const disableFormButtons = (disableFormId, isDisabled) => {
             const form = document.getElementById(disableFormId);
