@@ -591,7 +591,7 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSEIF tipo_habitacion = 'King Size' THEN
+    ELSE IF tipo_habitacion = 'King Size' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
         FROM habitacion 
@@ -605,7 +605,7 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSEIF tipo_habitacion = 'Sencilla' THEN
+    ELSE IF tipo_habitacion = 'Sencilla' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
         FROM habitacion 

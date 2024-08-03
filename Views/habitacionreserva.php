@@ -23,6 +23,30 @@ session_start();
     <title>Habitacion Rserva</title>
 </head>
 <style>
+
+.resumen-item button {
+            background-color: rgb(116, 13, 13);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10%;
+        }
+
+        .resumen-item button:hover {
+            background-color: #ffff;
+        }
+
+        
+#room-summary .resumen-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: #ffff;
+}
     .hidden{
         display: none;
     }
@@ -574,6 +598,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
+   
 
     function obtenerHabitaciones() {
         fetch('../servicios/obtenerHabitaciones.php', {
@@ -1041,14 +1066,40 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
+        actualizarResumen(tipo);
+        
     } else {
         console.error('Fechas no definidas en el localStorage.');
     }
 }
 
 
+function actualizarResumen(tipo) {
+    const resumenContenido = document.getElementById('room-summary');
+    
+    const div = document.createElement('div');
+    div.className = 'resumen-item';
+    div.innerText = `Habitación: ${tipo}`;
+    const boton = document.createElement('button');
+    boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
+    boton.onclick = function() {
+        resumenContenido.removeChild(div);
+
+    };
+
+    
+    div.appendChild(boton);
+
+    
+    resumenContenido.appendChild(div);
+}
+
+
+
+
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
+            document.getElementById('room-summary').style.display = 'block'; 
         }
 
         document.addEventListener('DOMContentLoaded', function() {

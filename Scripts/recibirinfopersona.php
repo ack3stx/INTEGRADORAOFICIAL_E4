@@ -44,21 +44,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $persona['telefono'], 
                     $id_usuario
                 );
-
+ 
                 
                 
                     $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
-
                     foreach ($habitaciones as $habitacion) {
-                        $titular = $registro;
+                        $titular = null;
                         $niños = 0;
                         $adultos = 0;
                         echo "Insertando detalle de reservación: habitacion=$habitacion, fechainicio=$fechainicio, fechafin=$fechafin, titular=$titular, niños=$niños, adultos=$adultos<br>";
-                        try {
+                        
                             $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños, $adultos, $habitacion);
-                        } catch (Exception $e) {
-                            echo "Error al insertar detalle de reservación: " . $e->getMessage() . "<br>";
-                        }
+
+                            echo "detalle=" . $detalle;
+                        
                     }
 
                     

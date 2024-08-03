@@ -306,15 +306,17 @@ function reservacion($recepcionista,$fecha,$estado_reservacion){
 function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$tipo_habitacion){
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:niños,:adultos,:id_habitacion)");
+        echo "Hola";
+        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:ninos,:adultos,:tipo_habitacion)");
         $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
         $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
         $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
-        $stmt->bindParam(':niños',$niños,PDO::PARAM_INT);
+        $stmt->bindParam(':ninos',$niños,PDO::PARAM_INT);
         $stmt->bindParam(':adultos',$adultos,PDO::PARAM_INT);
         $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_STR);
         $stmt->execute();
 
+        echo "Adios";
     }
     catch(PDOException $e){
         echo $e->getMessage();
