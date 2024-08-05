@@ -466,7 +466,36 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required><br>
-                </div>
+                
+                <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+      </div>
+
+      <div id="billingForm" style="display: none;">
+        <h4 class="mb-3">Datos de Facturación</h4>
+        <div class="mb-3">
+          <label for="nombreFactura" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+        </div>
+        <div class="mb-3">
+          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+        </div>
+        <div class="mb-3">
+          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+        </div>
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+        </div>
+        <div class="mb-3">
+          <label for="rfc" class="form-label">RFC</label>
+          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+        </div>
+      </div>
+      </div>
             </form>    
 
 
@@ -560,6 +589,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -1165,7 +1197,11 @@ function actualizarResumen(tipo) {
     resumenContenido.appendChild(div);
 }
 
-
+    function toggleBilling() {
+      var checkbox = document.getElementById("facturar");
+      var billingForm = document.getElementById("billingForm");
+      billingForm.style.display = checkbox.checked ? "block" : "none";
+    }
 
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
