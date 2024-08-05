@@ -170,10 +170,10 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
-select count(habitacion.id_habitacion) as doble
+select count(habitacion.id_habitacion) as doble,
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
 where t_habitacion.nombre = 'Doble'
 AND HABITACION.ID_HABITACION NOT IN (
@@ -198,8 +198,8 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
 select count(habitacion.id_habitacion) as 'King Size'
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
@@ -224,8 +224,8 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+    SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+    SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
 select count(habitacion.id_habitacion) as 'Sencilla'
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion

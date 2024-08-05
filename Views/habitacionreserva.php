@@ -624,13 +624,15 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', 'doble');
+                
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', habitacionesDoble.adultos, habitacionesDoble.niños);
             }
             if (habitacionesKingSize > 0) {
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.', 'king-size');
+                
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.');
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.', 'sencilla');
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',habitacionesDoble.adultos, habitacionesDoble.niños);
             }
             console.log(data);
         }
@@ -706,9 +708,11 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             adultsMenu.className = 'dropdown-menu';
             adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
             
-           
-             const adultOption = document.createElement('li');
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">Adult Option</a>';
+            const adultOption = document.createElement('li');
+             adultOption.innerHTML = '<a class="dropdown-item" href="#">1</a>';
+             adultOption.innerHTML = '<a class="dropdown-item" href="#">2</a>';
+             adultOption.innerHTML = '<a class="dropdown-item" href="#">3</a>';
+             adultOption.innerHTML = '<a class="dropdown-item" href="#">4</a>';
             adultsMenu.appendChild(adultOption);
             
             dropdownAdults.appendChild(adultsButton);
