@@ -1,15 +1,69 @@
 <?php
-include '../Clases/BasedeDatos.php';
 session_start();
 
+if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || $_SESSION['rol'] !== 'recepcionista') {
+    ?>
+<?php
+include '../Clases/BasedeDatos.php';
 ?>
-
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Página no Encontrada</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+        <style>
+            body, html {
+                height: 100%;
+            }
+            .bg-dark {
+                background-color: #343a40 !important;
+            }
+            .flex-center {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                color: white;
+            }
+            .error-container {
+                text-align: center;
+            }
+            .error-icon {
+                font-size: 100px;
+            }
+            .error-code {
+                font-size: 80px;
+                margin-bottom: 20px;
+            }
+            .error-message {
+                font-size: 24px;
+            }
+        </style>
+    </head>
+    <body class="bg-dark">
+        <div class="container flex-center">
+            <div class="error-container">
+                <i class="fas fa-times-circle error-icon"></i>
+                <div class="error-code">404</div>
+                <div class="error-message">Pagina no Encontrada</div>
+                <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
+                <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+            </div>
+        </div>
+    </body>
+    </html>
+    <?php
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../Estilos/reservavista.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -19,34 +73,14 @@ session_start();
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-       
+        <link rel="stylesheet" href="../Estilos/reservafisica.css">
+        <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+        <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
     <title>Habitacion Rserva</title>
 </head>
+
+<body>
 <style>
-
-.resumen-item button {
-            background-color: rgb(116, 13, 13);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-left: 10%;
-        }
-
-        .resumen-item button:hover {
-            background-color: #ffff;
-        }
-
-        
-#room-summary .resumen-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #ffff;
-}
     .hidden{
         display: none;
     }
@@ -186,93 +220,84 @@ margin-bottom: 1%;
   }
 
 </style>
-<body>
-<!--BARRA DE NAVEGACION
-<header>
-    <div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
-      <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
-          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
-        </a>
-        
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
-          <ul class="navbar-nav text-center">
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php"><label>INICIO</label></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
-            </li>
-            <?php
-
-if(isset($_SESSION["usuario"])){
-
-  echo '<div class="dropdown">
-                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="material-symbols-outlined ">
-                        account_circle
-
-                    </span>
-                </button>
-                <ul class="dropdown-menu glass">
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
-                                person
-                            </span> Gestionar cuenta </a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                travel_explore
-                            </span>Historial de Reservación</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                add_comment
-                            </span>Comentarios</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                favorite
-                            </span>Favoritos</a></li>
-                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
-                                logout
-                            </span>Cerrar sesión</a></li>
-                </ul>
-            </div>';
-
-
-}
-else {
-  echo '   <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
-            </li>';
-}
-
-?>
-          </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container-fluid h-25">
+      <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_fisicas.php">
+              <i class="fas fa-calendar-plus"></i>Crear Reserva
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_reserva_recepcionista.php">
+              <i class="fas fa-book"></i>Reservaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
+              <i class="fas fa-bed"></i>Habitaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_huesped_recepcionista.php">
+              <i class="fas fa-users"></i>Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_in.php">
+              <i class="fas fa-users"></i>Check-in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_out.php">
+              <i class="fas fa-users"></i>Check-out
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_activas.php">
+              <i class="fas fa-users"></i>Extender
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notificaciones_recepcionista.php">
+              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden"></span>
+                </span>
+              </button>
+            </a>
+          </li>
+        </ul>
+        <div class="header-right">
+          <div class="btn-group">
+          <?php
+            if (isset($_SESSION["usuario"])) {
+              echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+                      ".$_SESSION["usuario"]."
+                    </button>";
+            }
+          ?>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
+              
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+            </ul>
+          </div>
+          <i class="fas fa-user text-white ml-2"></i>
         </div>
       </div>
-    </nav>
-  </div>
-    </header> 
-    BARRITA-->
-    <section class="header-section">
-        <div class="header-content">
-            <p>HOTEL LAGUNA INN</p>
-            <h1>RESERVACIONES</h1>
-        </div>
-      
-    </section>
+    </div>
+  </nav>
+  
      <!-- BARRITA BLANCA-->
       <form id="form" method="POST">
       <div class="barra-blanca">
@@ -382,55 +407,65 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona" style="display: none;
-            position: absolute;
-    top: 80%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 130%;
-    width:150%;
-    padding-left:25%;">
-                <div id="persona">
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">DATOS PERSONALES</h1>
+      </div>
+      <div class="modal-body">
+      <form id="form-persona"">
+      <h5>INFORMACION</h5>
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="nombre" required><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="genero" name="genero" required>
+                <select class="form-control me-2" id="roomStatus" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required><br>
-                </div>
-            </form>    
+                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>   
+      </div>
+    </div>
+  </div>
+</div> 
 
 
 
 
 
 <!---->
-    <div id="info1" class="container" style="display: none;
+<div id="info1" class="container" style="display: none;
     position: absolute;
-    top: 56%;
+    top: 50%;
     left: 30%;
     transform: translate(-50%, -50%);
-    height: 114%;
-    width:40%;">
+    height: 100%;
+">
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -446,7 +481,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success" type="button" id="porsilasdudas" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Reservar Ahora</button> <br>
                 <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
                 <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
             </div>
@@ -509,6 +544,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -611,7 +649,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
-   
 
     function obtenerHabitaciones() {
         fetch('../servicios/obtenerHabitaciones.php', {
@@ -637,15 +674,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
-                
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', habitacionesDoble.adultos, habitacionesDoble.niños);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', 'doble');
             }
             if (habitacionesKingSize > 0) {
-                
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.');
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.', 'king-size');
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',habitacionesDoble.adultos, habitacionesDoble.niños);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.', 'sencilla');
             }
             console.log(data);
         }
@@ -659,7 +694,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'dobid';
             cardContainer.dataset.roomType = 'doble';
             
             const card = document.createElement('div');
@@ -722,11 +756,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             adultsMenu.className = 'dropdown-menu';
             adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
             
-            const adultOption = document.createElement('li');
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">1</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">2</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">3</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">4</a>';
+           
+             const adultOption = document.createElement('li');
+             adultOption.innerHTML = '<a class="dropdown-item" href="#">Adult Option</a>';
             adultsMenu.appendChild(adultOption);
             
             dropdownAdults.appendChild(adultsButton);
@@ -788,7 +820,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'kingid';
             cardContainer.dataset.roomType = 'king-size';
             
             const card = document.createElement('div');
@@ -913,7 +944,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'sencid';
             cardContainer.dataset.roomType = 'sencilla';
             
             const card = document.createElement('div');
@@ -1045,9 +1075,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                
                 document.getElementById('form-persona').style.display = 'block';
                 document.getElementById('contenedor-fluido').style.display = 'none';
-                document.getElementById('dobid').style.display = 'none';
-                document.getElementById('kingid').style.display = 'none';
-                document.getElementById('sencid').style.display = 'none';
                 reservarboton.classList.add('hidden');
                 continuar.classList.remove('hidden');
             } else {
@@ -1089,40 +1116,14 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
-        actualizarResumen(tipo);
-        
     } else {
         console.error('Fechas no definidas en el localStorage.');
     }
 }
 
 
-function actualizarResumen(tipo) {
-    const resumenContenido = document.getElementById('room-summary');
-    
-    const div = document.createElement('div');
-    div.className = 'resumen-item';
-    div.innerText = `Habitación: ${tipo}`;
-    const boton = document.createElement('button');
-    boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
-    boton.onclick = function() {
-        resumenContenido.removeChild(div);
-
-    };
-
-    
-    div.appendChild(boton);
-
-    
-    resumenContenido.appendChild(div);
-}
-
-
-
-
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
-            document.getElementById('room-summary').style.display = 'block'; 
         }
 
         document.addEventListener('DOMContentLoaded', function() {
