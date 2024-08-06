@@ -692,6 +692,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const img = document.createElement('img');
             img.src = '../Imagenes/HABITACION_D.png';
             img.alt = 'Habitación Doble';
+
+            if(habitacionesDoble === 1){
+            const texto = document.createElement('p');
+            texto.className = 'card-text';
+            texto.innerText = 'Solo queda 1 habitación disponible';
+            card.appendChild(texto);
+            }
             
             imageContainer.appendChild(img);
             
@@ -845,6 +852,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const img = document.createElement('img');
             img.src = '../Imagenes/HABITACION_K.png';
             img.alt = 'Habitación King Size';
+
+            if(habitacionesKingSize === 1){
+            const texto = document.createElement('p');
+            texto.className = 'card-text';
+            texto.innerText = 'Solo queda 1 habitación disponible';
+            card.appendChild(texto);
+            }
             
             imageContainer.appendChild(img);
             
@@ -994,6 +1008,13 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const img = document.createElement('img');
             img.src = '../Imagenes/HABITACION_S.png';
             img.alt = 'Habitación Sencilla';
+
+            if(habitacionesSencilla === 1){
+            const texto = document.createElement('p');
+            texto.className = 'card-text';
+            texto.innerText = 'Solo queda 1 habitación disponible';
+            card.appendChild(texto);
+            }
             
             imageContainer.appendChild(img);
             
