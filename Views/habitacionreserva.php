@@ -604,6 +604,20 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 <script>
+    var habitacionesDoble = 0;
+     var habitacionesKingSize = 0;
+                var habitacionesSencilla = 0;
+                var dobleG = 0
+                var dobleK = 0;
+                var dobleS = 0;
+
+                var Dprecio = 0;
+                var Kprecio = 0;
+                var Sprecio = 0;
+    var roomCount = 0; //contador total
+    var roomdoble = 0;
+    var roomSencilla = 0;
+    var roomKing = 0;
   const fechaInicio = localStorage.getItem('fechaInicio')
     const fechaFinal = localStorage.getItem('fechaFin')
     var acumulador = 0;
@@ -628,31 +642,38 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
             container.innerHTML = '';
             
-            const habitacionesDoble = data.doble[0].doble;
-                const habitacionesKingSize = data["king-size "][0]["King Size"];
-                const habitacionesSencilla = data.sencilla[0].Sencilla;
-            
+             habitacionesDoble = data.doble[0].doble;
+                 habitacionesKingSize = data["king-size "][0]["King Size"];
+                 habitacionesSencilla = data.sencilla[0].Sencilla;
+                dobleG = data.genteD[0];
+                 dobleK = data.genteK[0];
+                 dobleS = data.genteS[0];
+
+                Dprecio = data.precioD[0];
+                 Kprecio = data.precioK[0];
+                 Sprecio = data.precioS[0];
+
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.', habitacionesDoble.adultos, habitacionesDoble.niños);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio.precioD);
             }
             if (habitacionesKingSize > 0) {
                 
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.');
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio.precioK);
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',habitacionesDoble.adultos, habitacionesDoble.niños);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio.precioS);
             }
             console.log(data);
         }
         }).catch(error => { console.log(error)})
     }
 
-    function crearTarjetaDoble(titulo, descripcion)  {
+    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
             
             const container = document.getElementById('contenedor-fluido');
@@ -683,7 +704,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardSubtitle = document.createElement('h6');
             cardSubtitle.className = 'card-subtitle mb-2 text-muted';
-            cardSubtitle.innerText = 'Máximo de: 4 huéspedes';
+            cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
             
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
@@ -696,7 +717,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = 'MXN 900.00';
+            price.innerText = `MXN ${precio}`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -721,14 +742,35 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const adultsMenu = document.createElement('ul');
             adultsMenu.className = 'dropdown-menu';
             adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
-            
-            const adultOption = document.createElement('li');
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">1</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">2</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">3</a>';
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">4</a>';
-            adultsMenu.appendChild(adultOption);
-            
+
+            for (let i = 1; i <= adultos; i++) {
+                const adultOption = document.createElement('li');
+                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
+                adultOption.addEventListener('click', function() {
+                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedAdults', i);
+                    
+                    if (i > 0) {
+                        kidsButton.disabled = false;
+                        kidsMenu.innerHTML = '';
+                        for (let j = 0; j <= niños; j++) {
+                            const kidOption = document.createElement('li');
+                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
+                            kidOption.addEventListener('click', function() {
+                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
+                                localStorage.setItem('selectedKids', j);
+                            });
+                            kidsMenu.appendChild(kidOption);
+                        }
+                    } else {
+                        kidsButton.disabled = true;
+                    }
+                });
+                adultsMenu.appendChild(adultOption);
+
+              
+            }
+          
             dropdownAdults.appendChild(adultsButton);
             dropdownAdults.appendChild(adultsMenu);
             
@@ -747,6 +789,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const kidsMenu = document.createElement('ul');
             kidsMenu.className = 'dropdown-menu';
             kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
+
+            
             
             dropdownKids.appendChild(kidsButton);
             dropdownKids.appendChild(kidsMenu);
@@ -758,7 +802,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'doble';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('Doble',900);
+                calcularPrecio('Doble',precio);
+                
             };
             addButton.innerText = 'Añadir';
             
@@ -782,7 +827,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }
         
 
-        function crearTarjetaKingSize(titulo, descripcion)  {
+        function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio)  {
             
             const container = document.getElementById('contenedor-fluido');
             
@@ -825,7 +870,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = 'MXN 1290.00';
+            price.innerText = `MXN ${precio}`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -850,12 +895,35 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const adultsMenu = document.createElement('ul');
             adultsMenu.className = 'dropdown-menu';
             adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
-            
-            
-             const adultOption = document.createElement('li');
-             adultOption.innerHTML = '<a class="dropdown-item" href="#">Adult Option</a>';
-             adultsMenu.appendChild(adultOption);
-            
+
+            for (let i = 1; i <= adultos; i++) {
+                const adultOption = document.createElement('li');
+                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
+                adultOption.addEventListener('click', function() {
+                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedAdults', i);
+                    
+                    if (i > 0) {
+                        kidsButton.disabled = false;
+                        kidsMenu.innerHTML = '';
+                        for (let j = 0; j <= niños; j++) {
+                            const kidOption = document.createElement('li');
+                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
+                            kidOption.addEventListener('click', function() {
+                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
+                                localStorage.setItem('selectedKids', j);
+                            });
+                            kidsMenu.appendChild(kidOption);
+                        }
+                    } else {
+                        kidsButton.disabled = true;
+                    }
+                });
+                adultsMenu.appendChild(adultOption);
+
+              
+            }
+
             dropdownAdults.appendChild(adultsButton);
             dropdownAdults.appendChild(adultsMenu);
             
@@ -884,7 +952,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'king';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('King Size',1200);
+                calcularPrecio('King Size',precio);
+               
             };
             addButton.innerText = 'Añadir';
             
@@ -907,7 +976,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             container.appendChild(cardContainer);
         }
         
-        function crearTarjetaSencilla(titulo, descripcion)  {
+        function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
             
             const container = document.getElementById('contenedor-fluido');
             
@@ -937,7 +1006,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardSubtitle = document.createElement('h6');
             cardSubtitle.className = 'card-subtitle mb-2 text-muted';
-            cardSubtitle.innerText = 'Máximo de: 2 huéspedes';
+            cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
             
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
@@ -950,7 +1019,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = 'MXN 1290.00';
+            price.innerText = `MXN ${precio}`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -975,13 +1044,35 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const adultsMenu = document.createElement('ul');
             adultsMenu.className = 'dropdown-menu';
             adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
-            
-             
-            const adultOption = document.createElement('li');
-            adultOption.innerHTML = '<a class="dropdown-item" href="#">Adult Option</a>';
-             adultsMenu.appendChild(adultOption);
-            
-            dropdownAdults.appendChild(adultsButton);
+
+            for (let i = 1; i <= adultos; i++) {
+                const adultOption = document.createElement('li');
+                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
+                adultOption.addEventListener('click', function() {
+                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedAdults', i);
+                    
+                    if (i > 0) {
+                        kidsButton.disabled = false;
+                        kidsMenu.innerHTML = '';
+                        for (let j = 0; j <= niños; j++) {
+                            const kidOption = document.createElement('li');
+                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
+                            kidOption.addEventListener('click', function() {
+                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
+                                localStorage.setItem('selectedKids', j);
+                            });
+                            kidsMenu.appendChild(kidOption);
+                        }
+                    } else {
+                        kidsButton.disabled = true;
+                    }
+                });
+                adultsMenu.appendChild(adultOption);
+
+              
+            }
+             dropdownAdults.appendChild(adultsButton);
             dropdownAdults.appendChild(adultsMenu);
             
             const dropdownKids = document.createElement('div');
@@ -1009,7 +1100,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             addButton.id = 'sencilla';
             addButton.onclick = function() {
                 mostrar();
-                calcularPrecio('Sencilla',700);
+                calcularPrecio('Sencilla',precio);
+                
             };
             addButton.innerText = 'Añadir';
             
@@ -1085,7 +1177,12 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
         localStorage.setItem('cantidad',acumulador);
         
-        tiposSeleccionados.push(tipo);
+        const detalle = [
+            tipo,
+            localStorage.getItem('selectedAdults'),
+            localStorage.getItem('selectedKids'),
+        ]
+        tiposSeleccionados.push(detalle);
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
@@ -1107,14 +1204,49 @@ function actualizarResumen(tipo) {
     boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
     boton.onclick = function() {
         resumenContenido.removeChild(div);
+        roomCount -= 1;
+        console.log(roomCount);
 
+        if(tipo === 'Doble'){
+        roomdoble -= 1;
+        console.log(roomdoble);
+
+    }
+     if(tipo === 'King Size'){
+        roomKing -= 1;
+        console.log(roomKing);
+    } 
+    if(tipo === 'Sencilla'){
+        roomSencilla -= 1;
+        console.log(roomSencilla);
+    }
+
+    desabilitarbotonañadir(tipo);
     };
 
     
     div.appendChild(boton);
 
+    roomCount += 1;
+
+    if(tipo === 'Doble'){
+        roomdoble += 1;
+        console.log(roomdoble);
+    }
+    if(tipo === 'King Size'){
+        roomKing += 1;
+        console.log(roomKing);
+    }
+     if(tipo === 'Sencilla'){
+        roomSencilla += 1;
+        console.log(roomSencilla);
+    }
+    console.log(roomCount);
+
     
     resumenContenido.appendChild(div);
+
+    desabilitarbotonañadir(tipo);
 }
 
 
@@ -1123,6 +1255,31 @@ function actualizarResumen(tipo) {
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
             document.getElementById('room-summary').style.display = 'block'; 
+
+            
+        }
+
+        function desabilitarbotonañadir (buttonType){
+            if(  roomdoble === habitacionesDoble){
+
+                document.getElementById('doble').disabled = true;
+
+            }
+            else if( roomdoble === 0){
+                document.getElementById('doble').disabled = false;
+            }
+            if( roomKing === habitacionesKingSize ){
+                document.getElementById('king').disabled = true;
+            }
+            else if( roomKing === 0){
+                document.getElementById('king').disabled = false;
+            }
+            if( roomSencilla === habitacionesSencilla ){
+                document.getElementById('sencilla').disabled = true;
+            }
+            else if( roomSencilla === 0){
+                document.getElementById('sencilla').disabled = false;
+            }
         }
 
         document.addEventListener('DOMContentLoaded', function() {
