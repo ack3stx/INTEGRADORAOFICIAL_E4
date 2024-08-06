@@ -24,6 +24,8 @@ session_start();
 </head>
 <style>
 
+
+
 .resumen-item button {
             background-color: rgb(116, 13, 13);
             color: white;
@@ -392,30 +394,30 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     padding-left:25%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required data-validate><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required data-validate><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required data-validate><br>
                 <label for="staffName">Fecha Nacimiento:</label>
-                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
+                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required data-validate><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required data-validate><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required data-validate><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required data-validate><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required data-validate><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required data-validate><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="genero" name="genero" required>
+                <select class="form-control me-2" id="genero" name="genero" required data-validate>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required><br>
+                <input class="form-control me-2" type="text" id="telefono" name="telefono" required data-validate><br>
                 </div>
             </form>    
 
@@ -510,6 +512,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
@@ -756,6 +759,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 adultOption.addEventListener('click', function() {
                     adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
                     localStorage.setItem('selectedAdults', i);
+                    addButton.disabled = false;
                     
                     if (i > 0) {
                         kidsButton.disabled = false;
@@ -813,6 +817,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 
             };
             addButton.innerText = 'Añadir';
+            addButton.disabled = true;
             
             controls.appendChild(dropdownAdults);
             controls.appendChild(dropdownKids);
@@ -916,6 +921,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 adultOption.addEventListener('click', function() {
                     adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
                     localStorage.setItem('selectedAdults', i);
+                    addButton.disabled = false;
                     
                     if (i > 0) {
                         kidsButton.disabled = false;
@@ -931,6 +937,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                         }
                     } else {
                         kidsButton.disabled = true;
+                        
                     }
                 });
                 adultsMenu.appendChild(adultOption);
@@ -970,6 +977,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                
             };
             addButton.innerText = 'Añadir';
+            addButton.disabled = true;
             
             controls.appendChild(dropdownAdults);
             controls.appendChild(dropdownKids);
@@ -1072,6 +1080,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 adultOption.addEventListener('click', function() {
                     adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
                     localStorage.setItem('selectedAdults', i);
+                    addButton.disabled = false;
                     
                     if (i > 0) {
                         kidsButton.disabled = false;
@@ -1125,6 +1134,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 
             };
             addButton.innerText = 'Añadir';
+            addButton.disabled = true;
             
             controls.appendChild(dropdownAdults);
             controls.appendChild(dropdownKids);
@@ -1223,6 +1233,7 @@ function actualizarResumen(tipo) {
     div.innerText = `Habitación: ${tipo}`;
     const boton = document.createElement('button');
     boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
+    
     boton.onclick = function() {
         resumenContenido.removeChild(div);
         roomCount -= 1;
@@ -1273,6 +1284,7 @@ function actualizarResumen(tipo) {
 
 
 
+
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
             document.getElementById('room-summary').style.display = 'block'; 
@@ -1303,7 +1315,7 @@ function actualizarResumen(tipo) {
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+       /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
 });
 
@@ -1332,7 +1344,60 @@ function actualizarResumen(tipo) {
             alert('Datos guardados exitosamente');
             window.location.href = 'form_pago.php';
         }
+        */
+
+       function validarformulario(idFormulario){
+
+        var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
+        var formValido = true;
+
+        campos.forEach(function(campo) {
+        if(campo.value === '') {
+            
+            campo.style.border = '2px solid red';
+            setTimeout(() => {
+                campo.style.border = '';
+            },2000);
+            formValido = false;
+        } else {
+            
+            campo.style.border = '';
+        }
+    });
+
+    return formValido;
+}
+
+function enviarformulario(event) {
+    event.preventDefault();
+    var formularioValido = validarformulario('form-persona');
+
+    if(formularioValido) {
+        const persona = {
+                nombre: document.getElementById('nombre').value,
+                ap_paterno: document.getElementById('ap_paterno').value,
+                ap_materno: document.getElementById('ap_materno').value,
+                f_nac: document.getElementById('f_nac').value,
+                direccion: document.getElementById('direccion').value,
+                ciudad: document.getElementById('ciudad').value,
+                estado: document.getElementById('estado').value,
+                cd_postal: document.getElementById('cd_postal').value,
+                pais: document.getElementById('pais').value,
+                genero: document.getElementById('genero').value,
+                telefono: document.getElementById('telefono').value,
+            }
+
+            localStorage.setItem('persona',JSON.stringify(persona));
+
+            alert('Datos guardados exitosamente');
+            window.location.href = 'form_pago.php';
         
+    }
+}
+
+        document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('continuar').addEventListener('click', enviarformulario);
+}); 
 
         
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
