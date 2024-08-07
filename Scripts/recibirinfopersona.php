@@ -3,12 +3,13 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) ) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $cantidad = $_POST['cantidad'];
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
+        
 
         $fecha_actual = date('Y-m-d H:i:s');
         $recepcionista = null;
@@ -48,17 +49,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 
                     $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
-                    foreach ($habitaciones as $habitacion) {
-                        $titular = null;
-                        $niños = 0;
-                        $adultos = 0;
-                        echo "Insertando detalle de reservación: habitacion=$habitacion, fechainicio=$fechainicio, fechafin=$fechafin, titular=$titular, niños=$niños, adultos=$adultos<br>";
-                        
-                            $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños, $adultos, $habitacion);
 
-                            echo "detalle=" . $detalle;
-                        
-                    }
+                    foreach ($habitaciones as $habitacion) {
+                   $titular = null; 
+                   $ninos = $habitacion['niños'];
+                   $adultos = $habitacion['adultos'];
+                   $tipo_habitacion = $habitacion['tipo'];
+    
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+
+                    
+                   }
 
                     
 

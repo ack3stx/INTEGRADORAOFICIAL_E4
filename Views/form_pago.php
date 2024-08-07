@@ -96,6 +96,8 @@
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
+        const ninos = localStorage.getItem('selectedKids');
+        const adultos = localStorage.getItem('selectedAdults');
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -173,6 +175,9 @@
             return sum % 10 === 0;
         }
 
+
+        
+
          //mandar datos por fetch api
          function mandardatos() {
             fetch('../Scripts/recibirinfopersona.php', {
@@ -181,7 +186,9 @@
                 'habitaciones': JSON.stringify(habitaciones),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
-                    'fechafin': fechafin
+                    'fechafin': fechafin,
+                    'ninos': ninos,
+                    'adultos': adultos
                 }),
                 method: 'POST'
 

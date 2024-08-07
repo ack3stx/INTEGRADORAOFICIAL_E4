@@ -394,30 +394,30 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     padding-left:25%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required data-validate><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required ><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required ><br>
                 <label for="staffName">Fecha Nacimiento:</label>
-                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required data-validate><br>
+                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required data-validate><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required ><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required data-validate><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required data-validate><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required ><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required data-validate><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required ><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="genero" name="genero" required data-validate>
+                <select class="form-control me-2" id="genero" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required data-validate><br>
+                <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
                 </div>
             </form>    
 
@@ -1207,13 +1207,19 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         
 
         localStorage.setItem('cantidad',acumulador);
+
+        const adultos = localStorage.getItem('selectedAdults');
+        const ninos = localStorage.getItem('selectedKids');
+       
         
-        const detalle = [
-            tipo,
-            localStorage.getItem('selectedAdults'),
-            localStorage.getItem('selectedKids'),
-        ]
-        tiposSeleccionados.push(detalle);
+
+        const detalleHabitacion = {
+            tipo: tipo,
+            adultos: adultos,
+            niños: ninos
+        };
+        
+        tiposSeleccionados.push(detalleHabitacion);
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
@@ -1233,7 +1239,7 @@ function actualizarResumen(tipo) {
     div.innerText = `Habitación: ${tipo}`;
     const boton = document.createElement('button');
     boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
-    
+
     boton.onclick = function() {
         resumenContenido.removeChild(div);
         roomCount -= 1;
@@ -1352,18 +1358,38 @@ function actualizarResumen(tipo) {
         var formValido = true;
 
         campos.forEach(function(campo) {
-        if(campo.value === '') {
-            
+        if (campo.value === '') {
             campo.style.border = '2px solid red';
             setTimeout(() => {
                 campo.style.border = '';
-            },2000);
+            }, 2000);
             formValido = false;
         } else {
-            
-            campo.style.border = '';
+            if (campo.type === 'date' && campo.id === 'f_nac') {
+                var inputFechaNacimiento = campo.value;
+                var fechaNacimiento = new Date(inputFechaNacimiento);
+                var hoy = new Date();
+                var fechaminima = new Date('1850-01-01');
+
+                
+                var fechaHace18Anios = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
+
+                if (fechaNacimiento > fechaHace18Anios || fechaNacimiento < fechaminima) {
+                    campo.style.border = '2px solid red';
+                    setTimeout(() => {
+                        campo.style.border = '';
+                    }, 2000);
+                    alert("Fuera del rango de edad");
+                    formValido = false;
+                } else {
+                    campo.style.border = '';
+                }
+            } else {
+                campo.style.border = '';
+            }
         }
     });
+
 
     return formValido;
 }

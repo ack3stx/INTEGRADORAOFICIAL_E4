@@ -299,11 +299,11 @@ if(isset($_SESSION["usuario"])){
                 var fechaFin = selectedDates[1];
 
                 if (fechaInicio.toDateString() === fechaFin.toDateString()) {
-                    // Si las fechas son iguales, mostrar un mensaje de error y resetear el calendario
+                    
                     alert("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
                     instance.clear();
                 } else {
-                    // Capturar las fechas como inicio y fin
+                    
                     document.getElementById('fechaInicio').value = fechaInicio.toISOString().slice(0, 10);
                     document.getElementById('fechaFin').value = fechaFin.toISOString().slice(0, 10);
                 }
