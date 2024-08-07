@@ -166,12 +166,12 @@ inner join huesped on huesped.persona_huesped=persona.id_persona
 inner join reservacion on reservacion.huesped=huesped.id_huesped
 inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
 inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
-where reservacion.estado_reservacion='activa'
+where reservacion.estado_reservacion='proceso'
 group by folio, RESERVACION.fecha_,nombre,
 PERSONA.numero_de_telefono,USUARIOS.correo,DETALLE_PAGO.monto_total,DETALLE_PAGO.metodo_pago";
 $tabla = $db->seleccionar($cadena);
 
-$cadena2 = "select facturacion.detalle_pago from facturacion;";
+$cadena2 = "select datos_facturacion.detalle_pago from datos_facturacion;";
 $consultita = $db->seleccionar($cadena2);
 
 $facturacion_detalles = array_map(function($item) { return $item->detalle_pago; }, $consultita);
@@ -209,9 +209,9 @@ foreach ($tabla as $reg) {
                 <td>";
     if (isset($reg->id_detalle_pago) && in_array($reg->id_detalle_pago, $facturacion_detalles)) 
     {
-        $consultona = "select facturacion.nombre, facturacion.apellido_paterno, facturacion.apellido_paterno as apellido_materno, facturacion.rfc, facturacion.direccion 
-                                 from facturacion 
-                                 where facturacion.detalle_pago={$reg->id_detalle_pago}";
+        $consultona = "select datos_facturacion.nombre, datos_facturacion.apellido_paterno, datos_facturacion.apellido_paterno as apellido_materno, datos_facturacion.rfc, datos_facturacion.direccion 
+                                 from datos_facturacion
+                                 where datos_facturacion.detalle_pago={$reg->id_detalle_pago}";
         $datos_facturacion = $db->seleccionar($consultona);
 
         if (!empty($datos_facturacion)) {

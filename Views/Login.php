@@ -126,6 +126,12 @@
           if (isset($_GET['status']) && $_GET['status'] == 'failed_capchat') {
             echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
           }
+          if (isset($_GET['status']) && $_GET['status'] == 'failed') {
+            echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente Para Poder Registrarse.</div>';
+          }
+          if (isset($_GET['status']) && $_GET['status'] == 'registro_exitoso') {
+            echo '<div class="alert alert-success">Usuario Registrado Exitosamente</div>';
+          }
         ?>
                 <h6>No tienes cuenta? <a href="#" onclick="showSection('Registrate')">Registrate aqui</a></h6>
             </div>
@@ -170,12 +176,6 @@
                 <h6>Ya tienes cuenta? <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h6>
             </div>
             <?php
-        if (isset($_GET['status']) && $_GET['status'] == 'failed') {
-            echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
-          }
-          if (isset($_GET['status']) && $_GET['status'] == 'registro_exitoso') {
-            echo '<div class="alert alert-success">Usuario Registrado Exitosamente</div>';
-          }
         ?>
         </div>
     </div>
