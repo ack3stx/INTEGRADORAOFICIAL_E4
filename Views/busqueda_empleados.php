@@ -44,6 +44,11 @@
             </a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="vista_reservas_fisicas_admin.php">
+              <i class="fas fa-book"></i> Reservaciones Fisicas
+            </a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="busqueda_habitaciones.php">
               <i class="fas fa-bed"></i> Habitaciones
             </a>
@@ -66,6 +71,11 @@
           <li class="nav-item">
             <a class="nav-link" href="busqueda_facturacion.php">
               <i class="fas fa-bed"></i> Facturacion
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="costos.php">
+              <i class="fas fa-bed"></i> Costos
             </a>
           </li>
           <li class="nav-item">

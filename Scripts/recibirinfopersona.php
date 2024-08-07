@@ -3,61 +3,120 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['facturacion']) ) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
+        $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
+        
 
         $fecha_actual = date('Y-m-d H:i:s');
         $recepcionista = null;
         $estado_reservacion = 'proceso';
 
+        $data = new Database();
+        $data->conectarDB();
 
+        if (isset($_SESSION["usuario"])) {
+            $usuario = $_SESSION["usuario"];
 
-       $data = new Database();
-       $data->conectarDB();
+            $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = :usuario";
+            $stmt = $data->prepare($consulta);
+            $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-       $usuario = $_SESSION["usuario"];
+            if ($resultado && isset($resultado['id'])) {
+                $id_usuario = $resultado['id'];
 
-       $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = '$usuario'";
-        $stmt = $data->prepare($consulta);
-        $stmt->execute();
-        $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+                $reservacionPasada = "SELECT PERSONA.NOMBRE AS NOMBRE, PERSONA.APELLIDO_PATERNO AS AP_PATERNO, huesped.id_huesped AS huesped
+                FROM PERSONA 
+                INNER JOIN USUARIOS ON PERSONA.usuario = USUARIOS.id_usuario
+                INNER JOIN huesped ON persona.id_persona = huesped.persona_huesped
+                WHERE usuarios.nombre_usuario = :usuario";
 
-        if ($resultado) {
-            $id_usuario = $resultado['id'];
+                $stmt = $data->prepare($reservacionPasada);
+                $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+                $stmt->execute();
+                $resultadoPasado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-            
-            $registro = $data->registro(
-                $persona['nombre'], 
-                $persona['ap_paterno'], 
-                $persona['ap_materno'], 
-                $persona['f_nac'], 
-                $persona['direccion'], 
-                $persona['ciudad'], 
-                $persona['estado'], 
-                $persona['cd_postal'], 
-                $persona['pais'], 
-                $persona['genero'], 
-                $persona['telefono'], 
-                $id_usuario
-            );
+                if($resultadoPasado && isset($resultadoPasado['huesped'])) {
 
-            $reservacion= $data->reservacion($recepcionista,$fecha_actual,$estado_reservacion);
+                    $id_huesped = $resultadoPasado['huesped'];
 
-            foreach ($habitaciones as $habitacion) {
-                $titular = null;
-                $niños = 0; 
-                $adultos=0;
-                $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $niños,$adultos, $habitacion);
-            }
+                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha_actual, $estado_reservacion);
 
-            $detalle_pago=$data->detalle_pago('tarjeta',$cantidad);
+                    foreach ($habitaciones as $habitacion) {
+                   $titular = null; 
+                   $ninos = $habitacion['niños'];
+                   $adultos = $habitacion['adultos'];
+                   $tipo_habitacion = $habitacion['tipo'];
+    
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
-            
-        }
+                    
+                   }
+                   
+                   $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
 
-}
-}
+                   if($facturacion === null){
+                    echo "No se ha facturado";
+                   }
+                   else{
+                    $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
+                   }
+                }
+                else {
+                    
+                    $registro = $data->registro(
+                    $persona['nombre'], 
+                    $persona['ap_paterno'], 
+                    $persona['ap_materno'], 
+                    $persona['f_nac'], 
+                    $persona['direccion'], 
+                    $persona['ciudad'], 
+                    $persona['estado'], 
+                    $persona['cd_postal'], 
+                    $persona['pais'], 
+                    $persona['genero'], 
+                    $persona['telefono'], 
+                    $id_usuario
+                );
+ 
+                
+                
+                    $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
+
+                    foreach ($habitaciones as $habitacion) {
+                   $titular = null; 
+                   $ninos = $habitacion['niños'];
+                   $adultos = $habitacion['adultos'];
+                   $tipo_habitacion = $habitacion['tipo'];
+    
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+
+                     if($facturacion === null){
+                        echo "No se ha facturado";
+                       }
+                       else{
+                         $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
+                       }
+
+                    
+                   }
+
+                    
+
+                
+                
+                $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+                }
+
+                
+            } 
+        } 
+    } 
+} 
+?>

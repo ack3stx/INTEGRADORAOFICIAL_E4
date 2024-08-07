@@ -10,6 +10,7 @@ session_start();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reserva de Hotel</title>
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wight@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -18,34 +19,12 @@ session_start();
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
-        
-       
+        <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+    <link rel="stylesheet" href="../Estilos/CalendarioFis.css">
 
-    <link rel="stylesheet" href="../Estilos/GaelEstilos.css">
 </head>
 <body>
     <style>
-        .navbar-nav {
-            width: 100%;
-        }
-
-        .navbar-nav .nav-link {
-            display: block;
-            text-align: center;
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: rgb(116, 13, 13);
-            transition: all 0.3s ease;
-            border-radius: 25px;
-        }
-
-        .navbar-nav .nav-link:hover {
-            background-color: rgb(116, 13, 13) !important; /* Usar !important para forzar la prioridad */
-            color: #fff !important; /* Color de texto al hacer hover */
-            padding: 12px 24px;
-            font-size: 1.2rem;
-            transition: background 0.3s ease, color 0.3s ease, padding 0.3s ease, font-size 0.3s ease;
-        }
 
         .flatpickr-calendar {
             background-color: #f8f9fa;
@@ -132,99 +111,83 @@ session_start();
             padding-bottom: 10px;
         }
     </style>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container-fluid">
-            <a class="navbar-brand p-2 w-25 h-50 d-inline-block" href="../index.php">
-                <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+    <div class="container-fluid h-25">
+      <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="calendariore.php">
+              <i class="fas fa-calendar-plus"></i>Crear Reserva
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav text-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.php"><label>INICIO</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
-                    </li>
-                    <?php
-
-if(isset($_SESSION["usuario"])){
-
-    echo ' 
-           <div class="dropdown">
-                  <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnusr">
-                      <span class="material-symbols-outlined ">
-                          account_circle
-                      </span>
-                  </button>
-                  <ul class="dropdown-menu glass">
-                      <li>
-                        <a class="dropdown-item" href="panelusuario.php">
-                            <span class="material-symbols-outlined lia">manage_accounts</span>
-                            Gestionar cuenta
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="ver_datos_personales.php">
-                            <span class="material-symbols-outlined lia">person</span>
-                            Datos Personales
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="datospersonales.php">
-                            <span class="material-symbols-outlined lia">edit</span>
-                            Modificar mis Datos
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="historialreservaciones.php">
-                            <span class="material-symbols-outlined">travel_explore</span>
-                            Historial de Reservación
-                        </a>
-                    </li>
-                    <li>
-                        <a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php">
-                            <span class="material-symbols-outlined">logout</span>
-                            Cerrar Sesión
-                        </a>
-                    </li>
-                      <?php
-                      
-                      
-                      ?>
-                      
-                  </ul>
-                  
-                  
-              </div>';
-  
-  }
-  else {
-    echo '   <li class="nav-item">
-                <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
-              </li>';
-  }
-  
-  ?>
-                </ul>
-            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_reserva_recepcionista.php">
+              <i class="fas fa-book"></i>Reservaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_habitaciones_recepcionista.php">
+              <i class="fas fa-bed"></i>Habitaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_huesped_recepcionista.php">
+              <i class="fas fa-users"></i>Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_in.php">
+              <i class="fas fa-users"></i>Check-in
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="check_out.php">
+              <i class="fas fa-users"></i>Check-out
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_activas.php">
+              <i class="fas fa-users"></i>Extender
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notificaciones_recepcionista.php">
+              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden"></span>
+                </span>
+              </button>
+            </a>
+          </li>
+        </ul>
+        <div class="header-right">
+          <div class="btn-group">
+          <?php
+            if (isset($_SESSION["usuario"])) {
+              echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+                      ".$_SESSION["usuario"]."
+                    </button>";
+            }
+          ?>
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li><a class="dropdown-item" href="cambiar_datos_cuenta_recepcionista.php">Cuenta</a></li>
+              
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
+            </ul>
+          </div>
+          <i class="fas fa-user text-white ml-2"></i>
         </div>
-    </nav>
+      </div>
+    </div>
+  </nav>
 
 
    <div class="container mt-5 reservation-container">
@@ -239,7 +202,7 @@ if(isset($_SESSION["usuario"])){
 </form>
         </div>
        
-                                                                    <!--NECESIDAD DE REDIRECCIONAR A ALO QUE TENGAN QUE REDIRECCIONAR, PERO DOCUMENTENLO PORFA PARO PAPUS-->
+         <!--NECESIDAD DE REDIRECCIONAR A ALO QUE TENGAN QUE REDIRECCIONAR, PERO DOCUMENTENLO PORFA PARO PAPUS-->
         
      
 
@@ -360,7 +323,7 @@ if(isset($_SESSION["usuario"])){
     localStorage.setItem('fechaInicio',fechaInicio);
     localStorage.setItem('fechaFin',fechaFin);
 
-    window.location.href = 'habitacionreserva.php';
+    window.location.href = 'reservaciones_fisicas.php';
 
 
      

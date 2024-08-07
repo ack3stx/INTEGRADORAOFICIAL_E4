@@ -170,10 +170,10 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
-select count(habitacion.id_habitacion) as doble
+select count(habitacion.id_habitacion) as doble,
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
 where t_habitacion.nombre = 'Doble'
 AND HABITACION.ID_HABITACION NOT IN (
@@ -198,8 +198,8 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
 select count(habitacion.id_habitacion) as 'King Size'
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
@@ -224,8 +224,8 @@ begin
 DECLARE fecha_inicioo date;
 DECLARE fecha_finn date;
 
-SET fecha_inicioo = fecha_inicio;
-SET fecha_finn = fecha_fin;
+    SET fecha_inicioo = CONCAT(fecha_inicio,' 15:00:00');
+    SET fecha_finn = CONCAT(fecha_fin,' 12:00:00');
 
 select count(habitacion.id_habitacion) as 'Sencilla'
 from habitacion inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
@@ -333,7 +333,7 @@ in nombre_titular_reservacion varchar(60)
 begin
 UPDATE detalle_reservacion
 SET detalle_reservacion.TITULAR_HABITACION = nombre_titular_reservacion
-WHERE detalle_reservacion.ID_DETALLE_RESRVACION = detalle_reservacion;
+WHERE detalle_reservacion.ID_DETALLE_RESERVACION = detalle_reservacion;
 END// 
 DELIMITER ;
 
@@ -536,7 +536,7 @@ DELIMITER ;
 
 CALL RegistrarHuespedPersona_En_Linea('gaele2nlineapersona', 'martinez', 'Martinez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '41100', 'México', 'M', '3233521470',78);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA
+-- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA PARA LOS NUEVOS
 DELIMITER //
 
 CREATE PROCEDURE CrearReservacion_En_Linea (
@@ -557,6 +557,28 @@ DELIMITER ;
 
 Call CrearReservacion_En_Linea(4,'2024-08-01','proceso');
 
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--PROCEDIMIENTO PARA CREAR LA RESERVACION A UNA PERSONA QUE YA RESERVO
+
+DELIMITER //
+
+CREATE PROCEDURE linea_reservacion_vieja (
+    IN recepcionista INT,
+    IN fecha DATE,
+    IN estado_reservacion VARCHAR(15),
+    IN huesped INT
+)
+BEGIN
+    
+
+    INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
+    VALUES (huesped, recepcionista, fecha, estado_reservacion);
+END //
+
+DELIMITER ;
+
+
+
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- PROCEDIMIENTO PARA EL DETALLE DE LA RESERVACION
 DELIMITER //
@@ -573,13 +595,13 @@ BEGIN
     DECLARE HABITACION INT;
     DECLARE n_reservacion INT;
     
-    -- Obtener el ID de la última reservación
+   
     SELECT MAX(id_reservacion) INTO n_reservacion FROM reservacion;
 
-    -- Verificar el tipo de habitación y seleccionar una disponible
+    
     IF tipo_habitacion = 'Doble' THEN
         SELECT habitacion.id_habitacion
-        -- INTO HABITACION
+        INTO HABITACION
         FROM habitacion 
         INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
         WHERE t_habitacion.nombre = 'Doble'
@@ -591,7 +613,7 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSEIF tipo_habitacion = 'King Size' THEN
+    ELSE IF tipo_habitacion = 'King Size' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
         FROM habitacion 
@@ -605,9 +627,9 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSEIF tipo_habitacion = 'Sencilla' THEN
+    ELSE IF tipo_habitacion = 'Sencilla' THEN
         SELECT habitacion.id_habitacion
-        -- INTO HABITACION
+        INTO HABITACION
         FROM habitacion 
         INNER JOIN t_habitacion ON habitacion.tipo_habitacion = t_habitacion.id_tipo_habitacion
         WHERE t_habitacion.nombre = 'Sencilla'

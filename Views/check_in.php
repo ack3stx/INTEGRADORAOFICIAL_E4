@@ -89,7 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         SELECT 
             reservacion.id_reservacion as 'Numero_Reservacion',
             CONCAT(persona.Nombre, ' ', persona.Apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Completo,
-            detalle_reservacion.ID_DETALLE_RESRVACION,
+            detalle_reservacion.ID_DETALLE_RESERVACION,
             detalle_reservacion.FECHA_INICIO,
             detalle_reservacion.FECHA_FIN,
             detalle_reservacion.TITULAR_HABITACION,
@@ -128,7 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link" href="calendario.php">
+                <a class="nav-link" href="calendariore.php">
                   <i class="fas fa-calendar-plus"></i> Crear Reserva
                 </a>
               </li>
@@ -264,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 let titularHabitacion = detalle.TITULAR_HABITACION !== null ? detalle.TITULAR_HABITACION : '';
                 modalContent += `
                     <div class="detalleSection">
-                      <input type="hidden" name="detalleId[]" value="${detalle.ID_DETALLE_RESRVACION}">
+                      <input type="hidden" name="detalleId[]" value="${detalle.ID_DETALLE_RESERVACION}">
                       <div class="mb-3">
                         <label for="fechaInicio${index}" class="form-label">Fecha Inicio</label>
                         <input type="text" class="form-control" name="fechaInicio[]" value="${detalle.FECHA_INICIO}" readonly>
