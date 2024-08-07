@@ -1246,7 +1246,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         const detalleHabitacion = {
             tipo: tipo,
             adultos: adultos,
-            niños: ninos
+            niños: ninos,
+            precioTotal : precioTotal
         };
         
         tiposSeleccionados.push(detalleHabitacion);
@@ -1274,6 +1275,16 @@ function actualizarResumen(tipo) {
         resumenContenido.removeChild(div);
         roomCount -= 1;
         console.log(roomCount);
+
+        const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
+        if (index > -1) {
+            const precioTotal = tiposSeleccionados[index].precioTotal;
+            acumulador -= precioTotal;
+            price.innerText = `MXN ${acumulador}.00`;
+            tiposSeleccionados.splice(index, 1);
+            localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+            localStorage.setItem('cantidad', acumulador);
+        }
 
         if(tipo === 'Doble'){
         roomdoble -= 1;

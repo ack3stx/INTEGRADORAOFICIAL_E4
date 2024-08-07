@@ -352,14 +352,14 @@ function reservacionpasada($huesped,$recepcionista,$fecha_actual,$estado_reserva
 
 }
 
-function facturacion($nombre,$apellidopaterno,$apellidomaterno,$rfc,$direccion){
+function facturacion($nombre,$a_paterno,$a_materno,$rfc,$direccion){
 
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL registro_facturacion (:nombre,:apellidopaterno,:apellidomaterno,:rfc,:direccion)");
+        $stmt = $this->PDOLocal->prepare("CALL registro_facturacion(:nombre,:a_paterno,:a_materno,:rfc,:direccion)");
         $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
-        $stmt->bindParam(':apellidopaterno',$apellidopaterno,PDO::PARAM_STR);
-        $stmt->bindParam(':apellidomaterno',$apellidomaterno,PDO::PARAM_STR);
+        $stmt->bindParam(':a_paterno',$a_paterno,PDO::PARAM_STR);
+        $stmt->bindParam(':a_materno',$a_materno,PDO::PARAM_STR);
         $stmt->bindParam(':rfc',$rfc,PDO::PARAM_STR);
         $stmt->bindParam(':direccion',$direccion,PDO::PARAM_STR);
         $stmt->execute();
