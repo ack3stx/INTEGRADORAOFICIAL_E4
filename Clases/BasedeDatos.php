@@ -306,15 +306,17 @@ function reservacion($recepcionista,$fecha,$estado_reservacion){
 function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$tipo_habitacion){
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:niños,:adultos,:id_habitacion)");
+        echo "Hola";
+        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:ninos,:adultos,:tipo_habitacion)");
         $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
         $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
         $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
-        $stmt->bindParam(':niños',$niños,PDO::PARAM_INT);
+        $stmt->bindParam(':ninos',$niños,PDO::PARAM_INT);
         $stmt->bindParam(':adultos',$adultos,PDO::PARAM_INT);
         $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_STR);
         $stmt->execute();
 
+        echo "Adios";
     }
     catch(PDOException $e){
         echo $e->getMessage();
@@ -333,11 +335,40 @@ function detalle_pago($metodo_pago,$monto_total){
     }
 }
 
+function reservacionpasada($huesped,$recepcionista,$fecha_actual,$estado_reservacion){
+    try{
+     $stmt = $this->PDOLocal->prepare("CALL linea_reservacion_vieja(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
+     $stmt->bindParam(':huesped',$id_huesped,PDO::PARAM_INT);
+     $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
+     $stmt->bindParam(':fecha_actual',$fecha_actual,PDO::PARAM_STR);
+     $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
+     $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
 
 
 
 }
 
+function facturacion($nombre,$a_paterno,$a_materno,$rfc,$direccion){
+
+    try{
+
+        $stmt = $this->PDOLocal->prepare("CALL registro_facturacion(:nombre,:a_paterno,:a_materno,:rfc,:direccion)");
+        $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
+        $stmt->bindParam(':a_paterno',$a_paterno,PDO::PARAM_STR);
+        $stmt->bindParam(':a_materno',$a_materno,PDO::PARAM_STR);
+        $stmt->bindParam(':rfc',$rfc,PDO::PARAM_STR);
+        $stmt->bindParam(':direccion',$direccion,PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+}
+}
 
 
 ?>

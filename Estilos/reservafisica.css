@@ -1,0 +1,254 @@
+/*BARRITAAA*/
+.header-section {
+    position: relative;
+    background-size: cover;
+    height: 240px;
+    margin-top: 2%;
+}
+
+.header-content {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 20px;
+    background-image: url(../Imagenes/recepcionista-5975962_1280.jpg); 
+}
+
+.header-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+.header-content p {
+    font-size: 1.5rem;
+}
+
+.header-section-custom {
+    background-color: white;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.header-content-custom {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.header-content-custom p {
+    margin: 0;
+    padding: 10px 0;
+    color: black;
+}
+
+.header-content-custom h1 {
+    margin: 0;
+    padding: 10px 0;
+    color: rgb(116, 13, 13);
+}
+
+.header-content-custom .col {
+    margin-bottom: 20px;
+}
+
+.barra-blanca {
+    width: 100%;
+    background-color: white;
+    height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+#card-container {
+    order: 99; 
+    max-width: 600px;
+    display: none;
+    margin-left: initial; 
+    top: initial;
+}
+
+
+@media (min-width: 950px) {
+    .container-fluid {
+        max-height: initial; 
+        height: 100vh; 
+    }
+
+    #card-container {
+        margin-left: 50%;
+        top: -1420px;
+    }
+}
+
+#card-container{
+    top: -1420px; margin-left: 50%;
+}
+
+.move-right {
+    margin-left: 20px; 
+}
+
+.card-custom {
+    display: flex;
+    flex-direction: row;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Ancho máximo de las tarjetas */
+    flex-wrap: wrap;
+}
+
+.image-container img {
+    width: 200%; /* Ajusta el tamaño según sea necesario */
+    max-width: 560px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.card-body-custom {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+    width: 100%;
+}
+
+.card-footer-custom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+}
+
+@media (min-width: 950px) {
+    #contenedor-fluido {
+        margin-bottom: 1090px; /* Aqui se ajusta el top en el que quiero el footer*/
+    }
+
+    .footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        z-index: 1;
+    }
+
+    
+    body {
+        position: relative;
+        margin-bottom: 100px;
+        padding-bottom: 100px; /* Ajuste según el tamaño del footer */
+        box-sizing: border-box;
+    }
+}
+
+
+#card-container {
+    position: relative; /* o absolute, dependiendo del diseño */
+    width: 100%; /* Ajustar según sea necesario */
+    z-index: 1;
+}
+
+@media (max-width: 951px) {
+    #card-container {
+        position: relative;
+        margin-top: 20px; /* Ajustar según sea necesario */
+        margin-left: 0;
+    } 
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+}
+
+.controls > * {
+    margin-right: 10px;
+}
+
+.btn-transparent {
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-size: 1.2rem;
+}
+
+
+.btn-success.custom-btn {
+    background-color: rgb(116, 13, 13);
+    color: white;
+    border: none;
+}
+
+.btn-success.custom-btn:hover {
+    background-color: rgb(140, 16, 16); /* Un color ligeramente más claro para el efecto hover */
+    color: white;
+}
+
+.container-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinear al inicio */
+    width: 100%;
+}
+
+.price-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.price-info h6,
+.price-info p {
+    margin: 0;
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .card-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container img {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .card-body-custom {
+        padding: 10px;
+    }
+
+    .card-footer-custom {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .controls {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .controls > * {
+        margin-bottom: 10px;
+    }
+}
+
+/* Estilos para el contenedor info1 */
+#info1 {
+    margin-top: 400px;
+    display: none; /* Oculto por defecto */
+    margin-left: 50%; 
+}
+
+@media (min-width: 951px) {
+    #info1 {
+        display: block;
+    }
+}
+

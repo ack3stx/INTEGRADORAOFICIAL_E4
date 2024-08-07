@@ -59,7 +59,6 @@ include '../Clases/BasedeDatos.php';
     exit();
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,34 +76,11 @@ include '../Clases/BasedeDatos.php';
         <link rel="stylesheet" href="../Estilos/reservafisica.css">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
-       
     <title>Habitacion Rserva</title>
 </head>
+
+<body>
 <style>
-
-.resumen-item button {
-            background-color: rgb(116, 13, 13);
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-left: 10%;
-        }
-
-        .resumen-item button:hover {
-            background-color: #ffff;
-        }
-
-        
-#room-summary .resumen-item {
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 5px;
-    background-color: #ffff;
-}
     .hidden{
         display: none;
     }
@@ -244,7 +220,6 @@ margin-bottom: 1%;
   }
 
 </style>
-<body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid h-25">
       <a class="navbar-brand" href="panel_recepcionista.php">Hotel Laguna Inn</a>
@@ -322,6 +297,7 @@ margin-bottom: 1%;
       </div>
     </div>
   </nav>
+  
      <!-- BARRITA BLANCA-->
       <form id="form" method="POST">
       <div class="barra-blanca">
@@ -337,7 +313,7 @@ margin-bottom: 1%;
 
 
 
-<div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido" style="display: block;">
+<div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
     
 </div>
 
@@ -431,86 +407,65 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona" style="display: none;
-            position: absolute;
-    top: 75%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 130%;
-    width:150%;
-    padding-left:25%;
-    ">
-                <div id="persona">
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">DATOS PERSONALES</h1>
+      </div>
+      <div class="modal-body">
+      <form id="form-persona"">
+      <h5>INFORMACION</h5>
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="nombre" required><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="genero" name="genero" required>
+                <select class="form-control me-2" id="roomStatus" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required><br>
-                
-                <div class="form-check mb-3 mt-4">
-        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
-        <label class="form-check-label" for="facturar">Desea Facturar</label>
+                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
       </div>
-
-      <div id="billingForm" style="display: none;">
-        <h4 class="mb-3">Datos de Facturación</h4>
-        <div class="mb-3">
-          <label for="nombreFactura" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
-        </div>
-        <div class="mb-3">
-          <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País"   required>
-        </div>
-        <div class="mb-3">
-          <label for="rfc" class="form-label">RFC</label>
-          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
-        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>   
       </div>
-      </div>
-            </form>    
+    </div>
+  </div>
+</div> 
 
 
 
 
 
 <!---->
-    <div id="info1" class="container" style="display: none;
+<div id="info1" class="container" style="display: none;
     position: absolute;
     top: 50%;
     left: 30%;
     transform: translate(-50%, -50%);
-    height: 114%;
-    width:40%;
-    ">
+    height: 100%;
+">
     <div class="card card-custom">
         <div class="card-body">
             <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -526,7 +481,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success" type="button" id="porsilasdudas" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Reservar Ahora</button> <br>
                 <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
                 <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
             </div>
@@ -694,7 +649,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
-   
 
     function obtenerHabitaciones() {
         fetch('../servicios/obtenerHabitaciones.php', {
@@ -740,7 +694,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'dobid';
             cardContainer.dataset.roomType = 'doble';
             
             const card = document.createElement('div');
@@ -867,7 +820,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'kingid';
             cardContainer.dataset.roomType = 'king-size';
             
             const card = document.createElement('div');
@@ -992,7 +944,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             const cardContainer = document.createElement('div');
             cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'sencid';
             cardContainer.dataset.roomType = 'sencilla';
             
             const card = document.createElement('div');
@@ -1124,10 +1075,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                
                 document.getElementById('form-persona').style.display = 'block';
                 document.getElementById('contenedor-fluido').style.display = 'none';
-                document.getElementById('dobid').style.display = 'none';
-                document.getElementById('kingid').style.display = 'none';
-                document.getElementById('sencid').style.display = 'none';
-
                 reservarboton.classList.add('hidden');
                 continuar.classList.remove('hidden');
             } else {
@@ -1169,43 +1116,14 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
-        actualizarResumen(tipo);
-        
     } else {
         console.error('Fechas no definidas en el localStorage.');
     }
 }
 
 
-function actualizarResumen(tipo) {
-    const resumenContenido = document.getElementById('room-summary');
-    
-    const div = document.createElement('div');
-    div.className = 'resumen-item';
-    div.innerText = `Habitación: ${tipo}`;
-    const boton = document.createElement('button');
-    boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
-    boton.onclick = function() {
-        resumenContenido.removeChild(div);
-
-    };
-
-    
-    div.appendChild(boton);
-
-    
-    resumenContenido.appendChild(div);
-}
-
-    function toggleBilling() {
-      var checkbox = document.getElementById("facturar");
-      var billingForm = document.getElementById("billingForm");
-      billingForm.style.display = checkbox.checked ? "block" : "none";
-    }
-
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
-            document.getElementById('room-summary').style.display = 'block'; 
         }
 
         document.addEventListener('DOMContentLoaded', function() {
