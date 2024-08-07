@@ -333,7 +333,7 @@ in nombre_titular_reservacion varchar(60)
 begin
 UPDATE detalle_reservacion
 SET detalle_reservacion.TITULAR_HABITACION = nombre_titular_reservacion
-WHERE detalle_reservacion.ID_DETALLE_RESRVACION = detalle_reservacion;
+WHERE detalle_reservacion.ID_DETALLE_RESERVACION = detalle_reservacion;
 END// 
 DELIMITER ;
 
