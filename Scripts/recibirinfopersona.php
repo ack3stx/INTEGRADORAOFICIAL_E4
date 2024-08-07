@@ -12,6 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fechafin = $_POST['fechafin'];
         
 
+
         $fecha_actual = date('Y-m-d H:i:s');
         $recepcionista = null;
         $estado_reservacion = 'proceso';
