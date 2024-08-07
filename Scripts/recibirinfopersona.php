@@ -14,6 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         
 
+
         $fecha_actual = date('Y-m-d H:i:s');
         $recepcionista = null;
         $estado_reservacion = 'proceso';
