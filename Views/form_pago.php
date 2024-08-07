@@ -69,7 +69,7 @@
 </head>
 <body>
     <div class="container">
-        <form id="card-form" action="check2.php" method="post">
+        <form id="card-form">
             <div class="input-group">
                 <label for="card-number">Número de Tarjeta</label>
                 <input type="text" id="card-number" maxlength="19" placeholder="1234 5678 9012 3456" required>
