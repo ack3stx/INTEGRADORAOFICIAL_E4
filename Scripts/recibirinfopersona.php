@@ -10,6 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cantidad = $_POST['cantidad'];
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
+
+        
         
 
         $fecha_actual = date('Y-m-d H:i:s');
