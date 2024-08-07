@@ -173,7 +173,6 @@ foreach($resultado as $value) {
   
 ?>
 
-<!-- CARD DE LAS RESERVACIONES -->
 <div class="card" style="width: 30rem;">
   <div class="card-body">
     <h5 class="card-title">Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
@@ -187,8 +186,7 @@ foreach($resultado as $value) {
     <p class="card-text"></p>
     <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button><br><br>
     <br>
-    <!-- Mostrar el botón "Cancelar" solo si el estado es 'pendiente' y no han pasado más de 72 horas -->
-    <?php if ($value->estado == 'pendiente' && !$han_pasado_72_horas): ?>
+    <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
       <form id="cancelForm" action="cancelar_reservacion_huesped.php" method="post">
         <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
         <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#confirmCancelModal">Cancelar Reservacion</button>
@@ -257,7 +255,6 @@ foreach($resultado as $value) {
   </div>
 </div>
 
-<!-- Modal de confirmación de cancelación -->
 <div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-labelledby="confirmCancelModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -276,7 +273,6 @@ foreach($resultado as $value) {
   </div>
 </div>
 
-<!-- Modal de cancelación exitosa -->
 <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
