@@ -427,23 +427,23 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         <h4 class="mb-3">Datos de Facturación</h4>
         <div class="mb-3">
           <label for="nombreFactura" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
         </div>
         <div class="mb-3">
           <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
         </div>
         <div class="mb-3">
           <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
         </div>
         <div class="mb-3">
           <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" required>
         </div>
         <div class="mb-3">
           <label for="rfc" class="form-label">RFC</label>
-          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
         </div>
       </div>
       </div>
@@ -1387,12 +1387,11 @@ function toggleBilling() {
         }
         */
 
-       function validarformulario(idFormulario){
+        function validarformulario(idFormulario) {
+    var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
+    var formValido = true;
 
-        var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
-        var formValido = true;
-
-        campos.forEach(function(campo) {
+    campos.forEach(function(campo) {
         if (campo.value === '') {
             campo.style.border = '2px solid red';
             setTimeout(() => {
@@ -1400,31 +1399,25 @@ function toggleBilling() {
             }, 2000);
             formValido = false;
         } else {
-            if (campo.type === 'date' && campo.id === 'f_nac') {
-                var inputFechaNacimiento = campo.value;
-                var fechaNacimiento = new Date(inputFechaNacimiento);
-                var hoy = new Date();
-                var fechaminima = new Date('1850-01-01');
-
-                
-                var fechaHace18Anios = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
-
-                if (fechaNacimiento > fechaHace18Anios || fechaNacimiento < fechaminima) {
-                    campo.style.border = '2px solid red';
-                    setTimeout(() => {
-                        campo.style.border = '';
-                    }, 2000);
-                    alert("Fuera del rango de edad");
-                    formValido = false;
-                } else {
-                    campo.style.border = '';
-                }
-            } else {
-                campo.style.border = '';
-            }
+            campo.style.border = '';
         }
     });
 
+    // Validar los campos de facturación si el checkbox está marcado
+    if (document.getElementById('facturar').checked) {
+        var camposFacturacion = document.querySelectorAll('#billingForm input');
+        camposFacturacion.forEach(function(campo) {
+            if (campo.value === '') {
+                campo.style.border = '2px solid red';
+                setTimeout(() => {
+                    campo.style.border = '';
+                }, 2000);
+                formValido = false;
+            } else {
+                campo.style.border = '';
+            }
+        });
+    }
 
     return formValido;
 }
@@ -1433,26 +1426,37 @@ function enviarformulario(event) {
     event.preventDefault();
     var formularioValido = validarformulario('form-persona');
 
-    if(formularioValido) {
+    if (formularioValido) {
         const persona = {
-                nombre: document.getElementById('nombre').value,
-                ap_paterno: document.getElementById('ap_paterno').value,
-                ap_materno: document.getElementById('ap_materno').value,
-                f_nac: document.getElementById('f_nac').value,
+            nombre: document.getElementById('nombre').value,
+            ap_paterno: document.getElementById('ap_paterno').value,
+            ap_materno: document.getElementById('ap_materno').value,
+            f_nac: document.getElementById('f_nac').value,
+            direccion: document.getElementById('direccion').value,
+            ciudad: document.getElementById('ciudad').value,
+            estado: document.getElementById('estado').value,
+            cd_postal: document.getElementById('cd_postal').value,
+            pais: document.getElementById('pais').value,
+            genero: document.getElementById('genero').value,
+            telefono: document.getElementById('telefono').value,
+        };
+
+        localStorage.setItem('persona', JSON.stringify(persona));
+
+        if (document.getElementById('facturar').checked) {
+            const facturacion = {
+                nombre: document.getElementById('nombreFactura').value,
+                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
+                ap_materno: document.getElementById('apellidoMaternoFactura').value,
                 direccion: document.getElementById('direccion').value,
-                ciudad: document.getElementById('ciudad').value,
-                estado: document.getElementById('estado').value,
-                cd_postal: document.getElementById('cd_postal').value,
-                pais: document.getElementById('pais').value,
-                genero: document.getElementById('genero').value,
-                telefono: document.getElementById('telefono').value,
-            }
+                rfc: document.getElementById('rfc').value
+            };
 
-            localStorage.setItem('persona',JSON.stringify(persona));
+            localStorage.setItem('facturacion', JSON.stringify(facturacion));
+        }
 
-            alert('Datos guardados exitosamente');
-            window.location.href = 'form_pago.php';
-        
+        alert('Datos guardados exitosamente');
+        window.location.href = 'form_pago.php';
     }
 }
 

@@ -93,6 +93,7 @@
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
+        const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
@@ -193,6 +194,7 @@
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                 'habitaciones': JSON.stringify(habitaciones),
+                'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,

@@ -3,9 +3,10 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) ) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['facturacion']) ) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
+        $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
@@ -59,6 +60,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    }
                    
                    $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+
+                   if($facturacion === null){
+                    echo "No se ha facturado";
+                   }
+                   else{
+                    $factura = $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
+                   }
                 }
                 else {
                     
@@ -88,6 +96,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $tipo_habitacion = $habitacion['tipo'];
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+
+                     if($facturacion === null){
+                        echo "No se ha facturado";
+                       }
+                       else{
+                        $factura = $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
+                       }
 
                     
                    }
