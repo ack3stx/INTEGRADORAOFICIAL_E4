@@ -87,7 +87,7 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <button type="submit">Enviar</button>
+            <button type="submit" id="enviar">Enviar</button>
         </form>
     </div>
     <script>
@@ -98,6 +98,8 @@
         const fechafin = localStorage.getItem('fechaFin');
         const ninos = localStorage.getItem('selectedKids');
         const adultos = localStorage.getItem('selectedAdults');
+
+       
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -174,7 +176,14 @@
             }
             return sum % 10 === 0;
         }
+        
+        document.getElementById('enviar').addEventListener('click', function(event) {
+            event.preventDefault(); // Esto previene el comportamiento predeterminado de un botón de envío.
+            mandardatos(); // Llama directamente a la función para enviar los datos.
+        });
 
+       
+        
 
         
 
@@ -202,7 +211,10 @@
             })
         }
 
-        document.addEventListener('DOMContentLoaded',mandardatos);
+        
+
+        
+        
     </script>
 </body>
 </html>

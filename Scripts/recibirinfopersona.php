@@ -41,12 +41,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->execute();
                 $resultadoPasado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                if($resultadoPasado){
+                if($resultadoPasado && isset($resultadoPasado['huesped'])) {
 
                     $id_huesped = $resultadoPasado['huesped'];
 
                     $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha_actual, $estado_reservacion);
-                    
+
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
                    $ninos = $habitacion['niños'];
@@ -60,11 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    
                    $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
                 }
-                else if (!$resultadoPasado) {
-
-
-              
-                $registro = $data->registro(
+                else {
+                    
+                    $registro = $data->registro(
                     $persona['nombre'], 
                     $persona['ap_paterno'], 
                     $persona['ap_materno'], 
