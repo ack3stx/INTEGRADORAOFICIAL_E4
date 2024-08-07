@@ -87,15 +87,20 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <button type="submit">Enviar</button>
+            <button type="submit" id="enviar">Enviar</button>
         </form>
     </div>
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
+        const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
+        const ninos = localStorage.getItem('selectedKids');
+        const adultos = localStorage.getItem('selectedAdults');
+
+       
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -172,6 +177,16 @@
             }
             return sum % 10 === 0;
         }
+        
+       document.getElementById('enviar').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            mandardatos(); 
+        }); 
+
+       
+        
+
+        
 
          //mandar datos por fetch api
          function mandardatos() {
@@ -179,9 +194,12 @@
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                 'habitaciones': JSON.stringify(habitaciones),
+                'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
-                    'fechafin': fechafin
+                    'fechafin': fechafin,
+                    'ninos': ninos,
+                    'adultos': adultos
                 }),
                 method: 'POST'
 
@@ -195,7 +213,10 @@
             })
         }
 
-        document.addEventListener('DOMContentLoaded',mandardatos);
+        
+
+        
+        
     </script>
 </body>
 </html>

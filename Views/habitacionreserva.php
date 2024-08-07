@@ -278,13 +278,8 @@ else {
      <!-- BARRITA BLANCA-->
       <form id="form" method="POST">
       <div class="barra-blanca">
-        <div class="containers">
-        <input type="text" id="startDate" placeholder="Fecha de inicio"> 
-        <input type="text" id="endDate" placeholder="Fecha de fin">
-        </div>
-
         
-    </div>
+      </div>
 </form>
 
 
@@ -394,31 +389,61 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     padding-left:25%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required data-validate><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required ><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required ><br>
                 <label for="staffName">Fecha Nacimiento:</label>
-                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required data-validate><br>
+                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required data-validate><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required data-validate><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required ><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required data-validate><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required data-validate><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required ><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required data-validate><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required ><br>
                 <label for="staffName">Genero:</label>
-                <select class="form-control me-2" id="genero" name="genero" required data-validate>
+                <select class="form-control me-2" id="genero" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required data-validate><br>
+                <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
+                <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+      </div>
+
+      <div id="billingForm" style="display: none;">
+        <h4 class="mb-3">Datos de Facturación</h4>
+        <div class="mb-3">
+          <label for="nombreFactura" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
+        </div>
+        <div class="mb-3">
+          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
+        </div>
+        <div class="mb-3">
+          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
+        </div>
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" required>
+        </div>
+        <div class="mb-3">
+          <label for="rfc" class="form-label">RFC</label>
+          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
+        </div>
+      </div>
+      </div>
                 </div>
+                
             </form>    
 
 
@@ -514,7 +539,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    /*document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
 
       var startDate = localStorage.getItem('fechaInicio');
@@ -550,7 +575,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             minEndDate.setDate(minEndDate.getDate() + 1); 
             endDatePicker.set('minDate', minEndDate);
             localStorage.setItem('fechaInicio', selectedDates[0].toISOString().slice(0, 10));
-            obtenerHabitaciones();
+            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
             
                 
                
@@ -585,7 +610,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
            
             startDatePicker.set('maxDate', selectedDates[0]);
             localStorage.setItem('fechaFin', selectedDates[0].toISOString().slice(0, 10));
-            obtenerHabitaciones();
+            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
                 
             
           }
@@ -601,7 +626,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
     });
 
-   
+   */
 
   </script>
 
@@ -652,9 +677,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                  dobleK = data.genteK[0];
                  dobleS = data.genteS[0];
 
-                Dprecio = data.precioD[0];
-                 Kprecio = data.precioK[0];
-                 Sprecio = data.precioS[0];
+                Dprecio = parseFloat(data.precioD[0].precio);
+                 Kprecio = parseFloat(data.precioK[0].precio);
+                 Sprecio = parseFloat(data.precioS[0].precio);
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
@@ -662,14 +687,14 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio.precioD);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio);
             }
             if (habitacionesKingSize > 0) {
                 
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio.precioK);
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio);
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio.precioS);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio);
             }
             console.log(data);
         }
@@ -727,7 +752,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -889,7 +914,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -1048,7 +1073,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -1207,13 +1232,20 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         
 
         localStorage.setItem('cantidad',acumulador);
+
+        const adultos = localStorage.getItem('selectedAdults');
+        const ninos = localStorage.getItem('selectedKids');
+       
         
-        const detalle = [
-            tipo,
-            localStorage.getItem('selectedAdults'),
-            localStorage.getItem('selectedKids'),
-        ]
-        tiposSeleccionados.push(detalle);
+
+        const detalleHabitacion = {
+            tipo: tipo,
+            adultos: adultos,
+            niños: ninos,
+            precioTotal : precioTotal
+        };
+        
+        tiposSeleccionados.push(detalleHabitacion);
         localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
 
         
@@ -1233,11 +1265,21 @@ function actualizarResumen(tipo) {
     div.innerText = `Habitación: ${tipo}`;
     const boton = document.createElement('button');
     boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
-    
+
     boton.onclick = function() {
         resumenContenido.removeChild(div);
         roomCount -= 1;
         console.log(roomCount);
+
+        const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
+        if (index > -1) {
+            const precioTotal = tiposSeleccionados[index].precioTotal;
+            acumulador -= precioTotal;
+            price.innerText = `MXN ${acumulador}.00`;
+            tiposSeleccionados.splice(index, 1);
+            localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+            localStorage.setItem('cantidad', acumulador);
+        }
 
         if(tipo === 'Doble'){
         roomdoble -= 1;
@@ -1281,6 +1323,11 @@ function actualizarResumen(tipo) {
     desabilitarbotonañadir(tipo);
 }
 
+function toggleBilling() {
+      var checkbox = document.getElementById("facturar");
+      var billingForm = document.getElementById("billingForm");
+      billingForm.style.display = checkbox.checked ? "block" : "none";
+    }
 
 
 
@@ -1346,24 +1393,37 @@ function actualizarResumen(tipo) {
         }
         */
 
-       function validarformulario(idFormulario){
+        function validarformulario(idFormulario) {
+    var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
+    var formValido = true;
 
-        var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
-        var formValido = true;
-
-        campos.forEach(function(campo) {
-        if(campo.value === '') {
-            
+    campos.forEach(function(campo) {
+        if (campo.value === '') {
             campo.style.border = '2px solid red';
             setTimeout(() => {
                 campo.style.border = '';
-            },2000);
+            }, 2000);
             formValido = false;
         } else {
-            
             campo.style.border = '';
         }
     });
+
+   
+    if (document.getElementById('facturar').checked) {
+        var camposFacturacion = document.querySelectorAll('#billingForm input');
+        camposFacturacion.forEach(function(campo) {
+            if (campo.value === '') {
+                campo.style.border = '2px solid red';
+                setTimeout(() => {
+                    campo.style.border = '';
+                }, 2000);
+                formValido = false;
+            } else {
+                campo.style.border = '';
+            }
+        });
+    }
 
     return formValido;
 }
@@ -1372,26 +1432,37 @@ function enviarformulario(event) {
     event.preventDefault();
     var formularioValido = validarformulario('form-persona');
 
-    if(formularioValido) {
+    if (formularioValido) {
         const persona = {
-                nombre: document.getElementById('nombre').value,
-                ap_paterno: document.getElementById('ap_paterno').value,
-                ap_materno: document.getElementById('ap_materno').value,
-                f_nac: document.getElementById('f_nac').value,
+            nombre: document.getElementById('nombre').value,
+            ap_paterno: document.getElementById('ap_paterno').value,
+            ap_materno: document.getElementById('ap_materno').value,
+            f_nac: document.getElementById('f_nac').value,
+            direccion: document.getElementById('direccion').value,
+            ciudad: document.getElementById('ciudad').value,
+            estado: document.getElementById('estado').value,
+            cd_postal: document.getElementById('cd_postal').value,
+            pais: document.getElementById('pais').value,
+            genero: document.getElementById('genero').value,
+            telefono: document.getElementById('telefono').value,
+        };
+
+        localStorage.setItem('persona', JSON.stringify(persona));
+
+        if (document.getElementById('facturar').checked) {
+            const facturacion = {
+                nombre: document.getElementById('nombreFactura').value,
+                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
+                ap_materno: document.getElementById('apellidoMaternoFactura').value,
                 direccion: document.getElementById('direccion').value,
-                ciudad: document.getElementById('ciudad').value,
-                estado: document.getElementById('estado').value,
-                cd_postal: document.getElementById('cd_postal').value,
-                pais: document.getElementById('pais').value,
-                genero: document.getElementById('genero').value,
-                telefono: document.getElementById('telefono').value,
-            }
+                rfc: document.getElementById('rfc').value
+            };
 
-            localStorage.setItem('persona',JSON.stringify(persona));
+            localStorage.setItem('facturacion', JSON.stringify(facturacion));
+        }
 
-            alert('Datos guardados exitosamente');
-            window.location.href = 'form_pago.php';
-        
+        alert('Datos guardados exitosamente');
+        window.location.href = 'form_pago.php';
     }
 }
 

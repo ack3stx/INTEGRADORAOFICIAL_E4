@@ -476,23 +476,23 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         <h4 class="mb-3">Datos de Facturación</h4>
         <div class="mb-3">
           <label for="nombreFactura" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
         </div>
         <div class="mb-3">
           <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
         </div>
         <div class="mb-3">
           <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
         </div>
         <div class="mb-3">
           <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País"   required>
         </div>
         <div class="mb-3">
           <label for="rfc" class="form-label">RFC</label>
-          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
         </div>
       </div>
       </div>

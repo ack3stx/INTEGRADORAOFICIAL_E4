@@ -293,22 +293,37 @@ if(isset($_SESSION["usuario"])){
                 minDate: "today",
                 dateFormat: "Y-m-d", 
                 inline: true,
-                onChange: function(selectedDates) {
-                    if (selectedDates.length === 2) {
-                        // Cuando se seleccionan dos fechas, capturarlas como inicio y fin
-                        var fechaInicio = selectedDates[0].toISOString().slice(0, 10);
-                        var fechaFin = selectedDates[1].toISOString().slice(0, 10); 
-                        document.getElementById('fechaInicio').value = fechaInicio;
-                        document.getElementById('fechaFin').value = fechaFin;
-                    }
-                },
+                onChange: function(selectedDates, dateStr, instance) {
+            if (selectedDates.length === 2) {
+                var fechaInicio = selectedDates[0];
+                var fechaFin = selectedDates[1];
+
+                if (fechaInicio.toDateString() === fechaFin.toDateString()) {
+                    
+                    alert("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
+                    instance.clear();
+                } else {
+                    
+                    document.getElementById('fechaInicio').value = fechaInicio.toISOString().slice(0, 10);
+                    document.getElementById('fechaFin').value = fechaFin.toISOString().slice(0, 10);
+                }
+            }
+        },
                 locale: {
                     firstDayOfWeek: 1, // La semana empieza el lunes
                     weekdays: {
                         shorthand: ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'],
                         longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
                     }
-                }
+                },
+                enable: [
+          function(date) {
+           
+            return (date.getFullYear() === 2024) || 
+                   (date.getFullYear() === 2025 && date.getMonth() === 0);
+          }
+        ],
+
             };
 
             if (screenWidth < 768) {
