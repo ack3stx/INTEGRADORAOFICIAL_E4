@@ -1,25 +1,31 @@
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
+  <html lang="en">
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Navbar Example</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-    <title>Hotel Laguna Inn</title>
-</head>
-<body>
-<?php
+  </head>
+  <body>
+  <?php
   session_start();
   include '../Clases/BasedeDatos.php';
-  
   $conexion = new Database();
   $conexion->conectarDB();
 
+
+  $consulta = 'SELECT PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO FROM PERSONA, USUARIOS, ROL_USUARIO
+  WHERE PERSONA.ID_PERSONA = USUARIOS.ID_USUARIO AND ROL_USUARIO.ID_ROL_USUARIO = USUARIOS.ID_USUARIO AND ROL_USUARIO.ROL = 2';
+
+  $reg = $conexion->seleccionar($consulta);
+
   if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
-?>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  ?>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="Panel_Admin.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -102,51 +108,56 @@
       </div>
     </div>
   </nav>
-  
-  <div class="container d-flex justify-content-center mt-4">
-    <form class="d-flex justify-content-center w-100 flex-wrap" role="search" method="post">
-      <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
-      <input class="form-control me-2 mb-2" type="date" name="fecha1">
-      <input class="form-control me-2 mb-2" type="date" name="fecha2">
-      <button class="btn btn-outline-danger mb-2" type="submit">Buscar</button>
-    </form>
-  </div>
+    <br>
+    <form class="d-flex" role="search" method="post">
+    <div class="container">
+        <h4 class="color-hotel">Búsqueda de reservaciones por recepcionista</h4>
+        <?php
+        
+            $consultaRecepcionistas = 'SELECT RECEPCIONISTA.ID_RECEPCIONISTA, PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO 
+                                       FROM RECEPCIONISTA
+                                       JOIN PERSONA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA';
 
-  <div class="container">
-    <?php 
-      extract($_POST);
-      if(empty($numero) && empty($fecha1) && empty($fecha2))
-      {
+            $recepcionistas = $conexion->seleccionar($consultaRecepcionistas);
 
-      }
-      else
-      {
-        if (empty($numero)) {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.fecha_ BETWEEN '$fecha1' AND '$fecha2'
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
-        } else {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.id_reservacion=$numero
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
-        }
+            if ($recepcionistas) {
+                echo "<select class='form-select' name='recepcionista_id'>";
+                foreach($recepcionistas as $recepcionista) {
+                    echo "<option value='".$recepcionista->ID_RECEPCIONISTA."'>".$recepcionista->NOMBRE." ".$recepcionista->APELLIDO_PATERNO." ".$recepcionista->APELLIDO_MATERNO."</option>";
+                }
+                echo "</select>";
+            } else {
+                echo "No se encontraron recepcionistas.";
+            }
+        ?>
+        <button class="btn btn-outline-danger" type="submit">Buscar</button>
+    </div>
+</form>
 
-        $tabla = $conexion->seleccionar($consulta);
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    extract($_POST);
+
+    if (isset($recepcionista_id)) {
+        
+        $consulta = "SELECT DISTINCT CONCAT(persona.nombre, ' ', persona.apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Huesped
+from usuarios
+inner join persona on persona.usuario=usuarios.id_usuario
+inner join huesped on huesped.persona_huesped=persona.id_persona
+inner join reservacion on reservacion.huesped=huesped.id_huesped
+inner join reservacion on reservacion.recepcionista = recepcionista.id_recepcionista
+inner join recepcionista on recepcionista.persona = persona.id_persona
+inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
+group by Nombre, folio_reserva,estado,noches";
+
+        $reservaciones = $conexion->seleccionar($consulta);
+
         echo "<div class='table-responsive'>";
         echo "<table class='table table-hover table-bordered table-danger'>";
         echo "<thead class='table-dark'>";
         echo "<tr>";
-        echo "<th>Nombre</th>";
+        echo "<th>Huesped</th>";
         echo "<th>Teléfono</th>";
         echo "<th>Fecha Reservación</th>";
         echo "<th>Estado Reservación</th>";
@@ -155,33 +166,41 @@
         echo "</thead>";
         echo "<tbody>";
 
-        foreach ($tabla as $reg) {
-          echo "<tr>";
-          echo "<td>{$reg->Nombre_Huesped}</td>";
-          echo "<td>{$reg->numero_de_telefono}</td>";
-          echo "<td>{$reg->fecha_}</td>";
-          echo "<td>{$reg->estado_reservacion}</td>";
-          echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
-          echo "</tr>";
+        if ($reservaciones) {
+            foreach ($reservaciones as $reservacion) {
+                echo "<tr>";
+                echo "<td>{$reservacion->Nombre_Huesped}</td>";
+                echo "<td>{$reservacion->numero_de_telefono}</td>";
+                echo "<td>{$reservacion->fecha_}</td>";
+                echo "<td>{$reservacion->estado_reservacion}</td>";
+                echo "<td>{$reservacion->Cantidad_de_habitaciones}</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='5'>No se encontraron reservaciones para este recepcionista.</td></tr>";
         }
 
         echo "</tbody>";
         echo "</table>";
         echo "</div>";
-      }
-        $conexion->desconectarBD();
-      
-    ?>
-  </div>
+    }
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <?php
+    $conexion->desconectarBD();
+}
+?>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <?php
     $conexion->desconectarBD();
   } else {
   ?>
+
+  
 <head>
   <style>
     body, html {
@@ -226,5 +245,5 @@
 <?php
   }
 ?>
-</body>
-</html>
+  </body>
+  </html>
