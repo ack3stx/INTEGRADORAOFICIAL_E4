@@ -117,10 +117,16 @@
     <p style="margin-bottom: 3%;">
       <p style="color: rgb(116, 13, 13); font-size: 200%;" class="col text-center font-weight-bold"><strong>Habitaciones</strong></p>
   </div>
+  <?php
+      if (isset($_GET['status']) && $_GET['status'] == 'correcto') {
+        echo '<div class="alert alert-success fas fa-check-circle">&nbsp; Se a cambiado el costo con exito</div>';
+      }
+      ?>
   <div class="container mt-7">
     <br>
     <div class="row justify-content-center">
       <div class="col-md-4">
+
         <!-- CARD 1 -->
         <div class="card card-custom">
           <div id="carouselExampleAutoplaying1" class="carousel slide" data-bs-ride="carousel">
@@ -249,15 +255,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form action="../Scripts/cambiar_costo.php">
-            <input class="form-control me-2" type="text" value="sencilla" placeholder="Sencilla" disabled> <br>
+        <form action="../Scripts/cambiar_costo.php" method="post">
+            <input class="form-control me-2" type="text" name="tipo" value="sencilla" placeholder="sencilla" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
-            <input class="form-control me-2" type="number">
-        </form>
+            <input class="form-control me-2" name="costo" type="number">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>
       </div>
     </div>
   </div>
@@ -272,15 +278,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="../Scripts/cambiar_costo.php">
-            <input class="form-control me-2" type="text" value="doble" placeholder="Doble" disabled> <br>
+      <form action="../Scripts/cambiar_costo.php" method="post">
+            <input class="form-control me-2" name="tipo" type="text" value="doble" placeholder="Doble" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
-            <input class="form-control me-2" type="number">
-        </form>
+            <input class="form-control me-2" name="costo" type="number">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>
       </div>
     </div>
   </div>
@@ -295,15 +301,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      <form action="../Scripts/cambiar_costo.php">
-            <input class="form-control me-2" type="text" value="king size" placeholder="King Size" disabled> <br>
+      <form action="../Scripts/cambiar_costo.php" method="post">
+            <input class="form-control me-2" type="text" name="tipo" value="king size" placeholder="King Size" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
-            <input class="form-control me-2" type="number">
-        </form>
+            <input class="form-control me-2" name="costo" type="number">
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Aceptar</button>
+        <button type="submit" class="btn btn-primary">Aceptar</button>
+        </form>
       </div>
     </div>
   </div>
