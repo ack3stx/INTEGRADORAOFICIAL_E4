@@ -310,7 +310,7 @@ IN correo VARCHAR(40)
 )
 BEGIN
 DECLARE usuario_id INT;
-DECLARE rol_admin INT DEFAULT 2;
+DECLARE rol_admin INT DEFAULT 3;
 INSERT INTO USUARIOS(nombre_usuario, password, correo)
 VALUES (nombre_usuario, n_password, correo);
 SET usuario_id = LAST_INSERT_ID();
@@ -333,7 +333,7 @@ in nombre_titular_reservacion varchar(60)
 begin
 UPDATE detalle_reservacion
 SET detalle_reservacion.TITULAR_HABITACION = nombre_titular_reservacion
-WHERE detalle_reservacion.ID_DETALLE_RESRVACION = detalle_reservacion;
+WHERE detalle_reservacion.ID_DETALLE_RESERVACION = detalle_reservacion;
 END// 
 DELIMITER ;
 
@@ -595,10 +595,10 @@ BEGIN
     DECLARE HABITACION INT;
     DECLARE n_reservacion INT;
     
-   
+    
     SELECT MAX(id_reservacion) INTO n_reservacion FROM reservacion;
 
-    
+   
     IF tipo_habitacion = 'Doble' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
@@ -613,7 +613,7 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSE IF tipo_habitacion = 'King Size' THEN
+    ELSEIF tipo_habitacion = 'King Size' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
         FROM habitacion 
@@ -627,7 +627,7 @@ BEGIN
           )
         LIMIT 1;
 
-    ELSE IF tipo_habitacion = 'Sencilla' THEN
+    ELSEIF tipo_habitacion = 'Sencilla' THEN
         SELECT habitacion.id_habitacion
         INTO HABITACION
         FROM habitacion 
@@ -642,7 +642,7 @@ BEGIN
         LIMIT 1;
     END IF;
 
-    -- Insertar en detalle_reservacion si se encontró una habitación disponible
+    
     IF HABITACION IS NOT NULL THEN
         INSERT INTO detalle_reservacion (
             fecha_inicio, fecha_fin, titular_habitacion, reservacion, habitacion, cantidad_niños, cantidad_adultos
