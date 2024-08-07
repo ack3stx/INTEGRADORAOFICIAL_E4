@@ -216,7 +216,7 @@ INNER JOIN persona ON persona.usuario = usuarios.id_usuario
 inner join recepcionista on recepcionista.persona_recepcionista=persona.id_persona
 inner join reservacion on reservacion.recepcionista=recepcionista.id_recepcionista
 inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
-WHERE roles.nombre = 'recepcionista' and reservacion.recepcionista is not null
+WHERE reservacion.recepcionista is not null
 group by Nombre
 order by Total_Ventas desc
 LIMIT 5";
