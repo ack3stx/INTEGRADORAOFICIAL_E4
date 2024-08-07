@@ -16,7 +16,6 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            
             if (strlen($nombre_user) > 10) {
                 $errores[] = "El nombre de usuario no debe tener más de 10 caracteres.";
             }
@@ -40,18 +39,17 @@ if ($_SESSION["rol"] == "usuario") {
                     $errores[] = "Debe ingresar la contraseña actual.";
                 }
             }
-            
 
             if (empty($errores)) {
                 $db = new Database();
                 $db->conectarDB();
 
-                $obtener_id = "SELECT id_usuario, password FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
+                $obtener_id = "SELECT ID_USUARIO, PASSWORD FROM USUARIOS WHERE NOMBRE_USUARIO = '" . $_SESSION['usuario'] . "'";
                 $id_result = $db->seleccionar($obtener_id);
 
                 if (!empty($id_result)) {
-                    $id = $id_result[0]->id_usuario;
-                    $hash_contraseña_actual = $id_result[0]->password;
+                    $id = $id_result[0]->ID_USUARIO;
+                    $hash_contraseña_actual = $id_result[0]->PASSWORD;
 
                     $nombre_usuario_actualizado = false;
                     $correo_actualizado = false;
@@ -61,7 +59,7 @@ if ($_SESSION["rol"] == "usuario") {
                     if (!empty($contraseña_nueva)) {
                         if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
                             $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
-                            $consulta = "UPDATE usuarios SET password = '$hash_nueva_contraseña' WHERE id_usuario = $id";
+                            $consulta = "UPDATE USUARIOS SET PASSWORD = '$hash_nueva_contraseña' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
                             $contraseña_actualizada = true;
                         } else {
@@ -70,16 +68,16 @@ if ($_SESSION["rol"] == "usuario") {
                     }
 
                     if (empty($errores)) {
-                        // con esto actualizamos el nombre d eusuario
+                        // con esto actualizamos el nombre de usuario
                         if (!empty($nombre_user)) {
-                            $consulta = "UPDATE usuarios SET nombre_usuario = '$nombre_user' WHERE id_usuario = $id";
+                            $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
                             $nombre_usuario_actualizado = true;
                         }
 
                         // con esto actualizamos el correo
                         if (!empty($correo_act)) {
-                            $consulta = "UPDATE usuarios SET correo = '$correo_act' WHERE id_usuario = $id";
+                            $consulta = "UPDATE USUARIOS SET CORREO = '$correo_act' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
                             $correo_actualizado = true;
                         }
@@ -117,32 +115,32 @@ if ($_SESSION["rol"] == "usuario") {
             $genero = $_POST['genero'] ?? '';
             $numero_de_telefono = $_POST['numero_de_telefono'] ?? '';
 
-                if (empty($errores)) {
+            if (empty($errores)) {
                 $db = new Database();
                 $db->conectarDB();
 
-                $obtener_id = "SELECT id_usuario FROM usuarios WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
+                $obtener_id = "SELECT ID_USUARIO FROM USUARIOS WHERE NOMBRE_USUARIO = '" . $_SESSION['usuario'] . "'";
                 $id_result = $db->seleccionar($obtener_id);
 
                 if (!empty($id_result)) {
-                    $id = $id_result[0]->id_usuario;
+                    $id = $id_result[0]->ID_USUARIO;
 
                     // con esto actualizamos los datos de persona
-                    $consulta_persona = "SELECT id_persona FROM persona WHERE usuario = $id";
+                    $consulta_persona = "SELECT ID_PERSONA FROM PERSONA WHERE USUARIO = $id";
                     $persona_result = $db->seleccionar($consulta_persona);
 
                     if (!empty($persona_result)) {
-                        $id_persona = $persona_result[0]->id_persona;
-                        $consulta_update_persona = "UPDATE persona SET 
-                            nombre = '$nombre', apellido_paterno = '$apellido_paterno', apellido_materno = '$apellido_materno', 
-                            fecha_de_nacimiento = '$fecha_de_nacimiento', direccion = '$direccion', ciudad = '$ciudad', 
-                            estado = '$estado', codigo_postal = '$codigo_postal', pais = '$pais', genero = '$genero', 
-                            numero_de_telefono = '$numero_de_telefono' WHERE id_persona = $id_persona";
+                        $id_persona = $persona_result[0]->ID_PERSONA;
+                        $consulta_update_persona = "UPDATE PERSONA SET 
+                            NOMBRE = '$nombre', APELLIDO_PATERNO = '$apellido_paterno', APELLIDO_MATERNO = '$apellido_materno', 
+                            FECHA_DE_NACIMIENTO = '$fecha_de_nacimiento', DIRECCION = '$direccion', CIUDAD = '$ciudad', 
+                            ESTADO = '$estado', CODIGO_POSTAL = '$codigo_postal', PAIS = '$pais', GENERO = '$genero', 
+                            NUMERO_DE_TELEFONO = '$numero_de_telefono' WHERE ID_PERSONA = $id_persona";
                         $db->ejecuta($consulta_update_persona);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
                         
                     } else {
-                        $consulta_insert_persona = "INSERT INTO persona (nombre, apellido_paterno, apellido_materno, fecha_de_nacimiento, direccion, ciudad, estado, codigo_postal, pais, genero, numero_de_telefono, usuario) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
+                        $consulta_insert_persona = "INSERT INTO PERSONA (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, FECHA_DE_NACIMIENTO, DIRECCION, CIUDAD, ESTADO, CODIGO_POSTAL, PAIS, GENERO, NUMERO_DE_TELEFONO, USUARIO) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
                         $db->ejecuta($consulta_insert_persona);
                         $_SESSION['mensaje'] = "Datos personales añadidos correctamente.";
                     }
@@ -152,8 +150,7 @@ if ($_SESSION["rol"] == "usuario") {
                     exit();
                 }
                
-            }  
-            else {
+            } else {
                 $_SESSION['mensaje'] = implode("<br>", $errores);
                 header('Location: datospersonales.php');
                 exit();
@@ -164,10 +161,10 @@ if ($_SESSION["rol"] == "usuario") {
         $db->conectarDB();
         $user_id = $_SESSION['usuario'];
 
-        $consulta = "SELECT u.nombre_usuario, u.correo, u.password, p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento, p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
-                     FROM usuarios u 
-                     LEFT JOIN persona p ON u.id_usuario = p.usuario 
-                     WHERE u.nombre_usuario = '$user_id'";
+        $consulta = "SELECT U.NOMBRE_USUARIO, U.CORREO, U.PASSWORD, P.NOMBRE, P.APELLIDO_PATERNO, P.APELLIDO_MATERNO, P.FECHA_DE_NACIMIENTO, P.DIRECCION, P.CIUDAD, P.ESTADO, P.CODIGO_POSTAL, P.PAIS, P.GENERO, P.NUMERO_DE_TELEFONO 
+                     FROM USUARIOS U 
+                     LEFT JOIN PERSONA P ON U.ID_USUARIO = P.USUARIO 
+                     WHERE U.NOMBRE_USUARIO = '$user_id'";
         $usuario = $db->seleccionar($consulta);
         $db->desconectarBD();
     }
@@ -362,12 +359,12 @@ if ($_SESSION["rol"] == "usuario") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="section-title">Nombre de usuario</p>
-                            <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->nombre_usuario) ?></p>
+                            <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?></p>
                         </div>
                         <button type="button" id="btnEditarNombreUsuario" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formNombreUsuario" class="hidden">
-                        <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->nombre_usuario) ?>">
+                        <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?>">
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
                         <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
@@ -380,12 +377,12 @@ if ($_SESSION["rol"] == "usuario") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="section-title">Dirección de email</p>
-                            <p id="email"><?= htmlspecialchars($usuario[0]->correo) ?></p>
+                            <p id="email"><?= htmlspecialchars($usuario[0]->CORREO) ?></p>
                         </div>
                         <button type="button" id="btnEditarEmail" class="btn btn-danger">Editar</button>
                     </div>
                     <div id="formEmail" class="hidden">
-                        <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->correo) ?>">
+                        <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->CORREO) ?>">
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
                         <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
@@ -429,14 +426,14 @@ if ($_SESSION["rol"] == "usuario") {
                 <h1><strong>Datos personales</strong></h1>
                     <?php 
                     $campos_persona = [
-                        'nombre' => 'Nombre', 'apellido_paterno' => 'Apellido Paterno','apellido_materno' => 'Apellido Materno','fecha_de_nacimiento' => 'Fecha de Nacimiento', 'direccion' => 'Dirección','ciudad' => 'Ciudad','estado' => 'Estado','codigo_postal' => 'Código Postal', 'pais' => 'País', 'genero' => 'Género','numero_de_telefono' => 'Número de Teléfono'
+                        'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
                     ];
 
                     foreach ($campos_persona as $campo => $titulo) {
                         $valor = htmlspecialchars($usuario[0]->$campo ?? '');
                         $clase_peligro = empty($valor) ? 'is-invalid' : '';
-                        $inputType = ($campo == 'fecha_de_nacimiento') ? 'date' : 'text';
-                        if ($campo == 'genero') {
+                        $inputType = ($campo == 'FECHA_DE_NACIMIENTO') ? 'date' : 'text';
+                        if ($campo == 'GENERO') {
                             $inputType = 'select';
                         }
                     ?>
@@ -456,7 +453,7 @@ if ($_SESSION["rol"] == "usuario") {
                                     </select>
                                 <?php else: ?>
                                     <input type="<?= $inputType ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>" 
-                                    <?php if ($campo == 'fecha_de_nacimiento') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
+                                    <?php if ($campo == 'FECHA_DE_NACIMIENTO') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
                                     <div class="invalid-feedback"></div>
                                     <div class="valid-feedback"></div>
                                 <?php endif; ?>
