@@ -536,7 +536,7 @@ DELIMITER ;
 
 CALL RegistrarHuespedPersona_En_Linea('gaele2nlineapersona', 'martinez', 'Martinez', '1992-01-15', 'calle 1234', 'torreon', 'coahuila', '41100', 'México', 'M', '3233521470',78);
 ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
--- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA
+-- PROCEDIMIENTO PARA CREAR LA RESERVACION EN LINEA PARA LOS NUEVOS
 DELIMITER //
 
 CREATE PROCEDURE CrearReservacion_En_Linea (
@@ -556,6 +556,28 @@ END //
 DELIMITER ;
 
 Call CrearReservacion_En_Linea(4,'2024-08-01','proceso');
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--PROCEDIMIENTO PARA CREAR LA RESERVACION A UNA PERSONA QUE YA RESERVO
+
+DELIMITER //
+
+CREATE PROCEDURE linea_reservacion_vieja (
+    IN recepcionista INT,
+    IN fecha DATE,
+    IN estado_reservacion VARCHAR(15),
+    IN huesped INT
+)
+BEGIN
+    
+
+    INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
+    VALUES (huesped, recepcionista, fecha, estado_reservacion);
+END //
+
+DELIMITER ;
+
+
 
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 -- PROCEDIMIENTO PARA EL DETALLE DE LA RESERVACION

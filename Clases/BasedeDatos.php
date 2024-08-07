@@ -335,11 +335,23 @@ function detalle_pago($metodo_pago,$monto_total){
     }
 }
 
+function reservacionpasada($huesped,$recepcionista,$fecha_actual,$estado_reservacion){
+    try{
+     $stmt = $this->PDOLocal->prepare("CALL linea_reservacion_vieja(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
+     $stmt->bindParam(':huesped',$id_huesped,PDO::PARAM_INT);
+     $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
+     $stmt->bindParam(':fecha_actual',$fecha_actual,PDO::PARAM_STR);
+     $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
+     $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
 
 
 
 }
-
+}
 
 
 ?>
