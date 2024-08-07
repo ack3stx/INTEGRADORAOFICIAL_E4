@@ -278,13 +278,8 @@ else {
      <!-- BARRITA BLANCA-->
       <form id="form" method="POST">
       <div class="barra-blanca">
-        <div class="containers">
-        <input type="text" id="startDate" placeholder="Fecha de inicio"> 
-        <input type="text" id="endDate" placeholder="Fecha de fin">
-        </div>
-
         
-    </div>
+      </div>
 </form>
 
 
@@ -544,7 +539,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    /*document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
 
       var startDate = localStorage.getItem('fechaInicio');
@@ -580,7 +575,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             minEndDate.setDate(minEndDate.getDate() + 1); 
             endDatePicker.set('minDate', minEndDate);
             localStorage.setItem('fechaInicio', selectedDates[0].toISOString().slice(0, 10));
-            obtenerHabitaciones();
+            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
             
                 
                
@@ -615,7 +610,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
            
             startDatePicker.set('maxDate', selectedDates[0]);
             localStorage.setItem('fechaFin', selectedDates[0].toISOString().slice(0, 10));
-            obtenerHabitaciones();
+            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
                 
             
           }
@@ -631,7 +626,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
     });
 
-   
+   */
 
   </script>
 

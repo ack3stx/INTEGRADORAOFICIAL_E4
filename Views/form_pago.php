@@ -178,10 +178,10 @@
             return sum % 10 === 0;
         }
         
-       /* document.getElementById('enviar').addEventListener('click', function(event) {
-            event.preventDefault(); // Esto previene el comportamiento predeterminado de un botón de envío.
-            mandardatos(); // Llama directamente a la función para enviar los datos.
-        }); */
+       document.getElementById('enviar').addEventListener('click', function(event) {
+            event.preventDefault(); 
+            mandardatos(); 
+        }); 
 
        
         
@@ -213,7 +213,7 @@
             })
         }
 
-        document.addEventListener('DOMContentLoaded',mandardatos);
+        
 
         
         
