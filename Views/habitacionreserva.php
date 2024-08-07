@@ -1403,7 +1403,7 @@ function toggleBilling() {
         }
     });
 
-    // Validar los campos de facturación si el checkbox está marcado
+   
     if (document.getElementById('facturar').checked) {
         var camposFacturacion = document.querySelectorAll('#billingForm input');
         camposFacturacion.forEach(function(campo) {
