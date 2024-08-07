@@ -418,7 +418,37 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
+                <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+      </div>
+
+      <div id="billingForm" style="display: none;">
+        <h4 class="mb-3">Datos de Facturación</h4>
+        <div class="mb-3">
+          <label for="nombreFactura" class="form-label">Nombre</label>
+          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+        </div>
+        <div class="mb-3">
+          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+        </div>
+        <div class="mb-3">
+          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+        </div>
+        <div class="mb-3">
+          <label for="direccion" class="form-label">Dirección</label>
+          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+        </div>
+        <div class="mb-3">
+          <label for="rfc" class="form-label">RFC</label>
+          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+        </div>
+      </div>
+      </div>
                 </div>
+                
             </form>    
 
 
@@ -652,9 +682,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                  dobleK = data.genteK[0];
                  dobleS = data.genteS[0];
 
-                Dprecio = data.precioD[0];
-                 Kprecio = data.precioK[0];
-                 Sprecio = data.precioS[0];
+                Dprecio = parseFloat(data.precioD[0].precio);
+                 Kprecio = parseFloat(data.precioK[0].precio);
+                 Sprecio = parseFloat(data.precioS[0].precio);
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
@@ -662,14 +692,14 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio.precioD);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio);
             }
             if (habitacionesKingSize > 0) {
                 
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio.precioK);
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio);
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio.precioS);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio);
             }
             console.log(data);
         }
@@ -727,7 +757,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -889,7 +919,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -1048,7 +1078,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             priceInfo.className = 'price-info';
             
             const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}`;
+            price.innerText = `MXN ${precio}.00`;
             
             const night = document.createElement('p');
             night.innerText = '1 noche';
@@ -1287,6 +1317,11 @@ function actualizarResumen(tipo) {
     desabilitarbotonañadir(tipo);
 }
 
+function toggleBilling() {
+      var checkbox = document.getElementById("facturar");
+      var billingForm = document.getElementById("billingForm");
+      billingForm.style.display = checkbox.checked ? "block" : "none";
+    }
 
 
 
