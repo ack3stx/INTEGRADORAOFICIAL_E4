@@ -17,12 +17,6 @@
   $conexion = new Database();
   $conexion->conectarDB();
 
-
-  $consulta = 'SELECT PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO FROM PERSONA, USUARIOS, ROL_USUARIO
-  WHERE PERSONA.ID_PERSONA = USUARIOS.ID_USUARIO AND ROL_USUARIO.ID_ROL_USUARIO = USUARIOS.ID_USUARIO AND ROL_USUARIO.ROL = 2';
-
-  $reg = $conexion->seleccionar($consulta);
-
   if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
   ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
@@ -113,7 +107,6 @@
     <div class="container">
         <h4 class="color-hotel">Búsqueda de reservaciones por recepcionista</h4>
         <?php
-        
             $consultaRecepcionistas = 'SELECT RECEPCIONISTA.ID_RECEPCIONISTA, PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO 
                                        FROM RECEPCIONISTA
                                        JOIN PERSONA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA';
@@ -140,16 +133,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     extract($_POST);
 
     if (isset($recepcionista_id)) {
-        
-        $consulta = "SELECT DISTINCT CONCAT(persona.nombre, ' ', persona.apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Huesped
-from usuarios
-inner join persona on persona.usuario=usuarios.id_usuario
-inner join huesped on huesped.persona_huesped=persona.id_persona
-inner join reservacion on reservacion.huesped=huesped.id_huesped
-inner join reservacion on reservacion.recepcionista = recepcionista.id_recepcionista
-inner join recepcionista on recepcionista.persona = persona.id_persona
-inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-group by Nombre, folio_reserva,estado,noches";
+        $consulta = "
+        SELECT DISTINCT 
+            CONCAT(persona.nombre, ' ', persona.apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Huesped, 
+            reservacion.id_reservacion AS folio_reserva, 
+            reservacion.estado_reservacion AS estado, 
+            reservacion.FECHA_ AS fecha_reservacion,
+            detalle_reservacion.FECHA_INICIO as fecha_inicio,
+            detalle_reservacion.FECHA_FIN as fecha_fin,
+            t_habitacion.NOMBRE as tipo_habitacion,
+            t_habitacion.PRECIO as precio_habitacion
+        FROM usuarios AS usuario_recepcionista
+        INNER JOIN persona AS persona_recepcionista ON persona_recepcionista.usuario = usuario_recepcionista.id_usuario
+        INNER JOIN recepcionista ON recepcionista.persona_recepcionista = persona_recepcionista.id_persona
+        INNER JOIN reservacion ON reservacion.recepcionista = recepcionista.id_recepcionista
+        INNER JOIN huesped ON reservacion.huesped = huesped.id_huesped
+        INNER JOIN persona ON huesped.persona_huesped = persona.id_persona
+        INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
+        JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
+        JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
+        WHERE recepcionista.id_recepcionista = $recepcionista_id
+        GROUP BY Nombre_Huesped, folio_reserva, estado, fecha_reservacion, fecha_inicio, fecha_fin, tipo_habitacion, precio_habitacion
+        ORDER BY reservacion.FECHA_";
 
         $reservaciones = $conexion->seleccionar($consulta);
 
@@ -157,11 +162,14 @@ group by Nombre, folio_reserva,estado,noches";
         echo "<table class='table table-hover table-bordered table-danger'>";
         echo "<thead class='table-dark'>";
         echo "<tr>";
-        echo "<th>Huesped</th>";
-        echo "<th>Teléfono</th>";
+        echo "<th>Huésped</th>";
+        echo "<th>Folio Reserva</th>";
+        echo "<th>Estado</th>";
         echo "<th>Fecha Reservación</th>";
-        echo "<th>Estado Reservación</th>";
-        echo "<th>Cantidad Habitaciones</th>";
+        echo "<th>Fecha Inicio</th>";
+        echo "<th>Fecha Fin</th>";
+        echo "<th>Tipo Habitación</th>";
+        echo "<th>Precio Habitación</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -170,14 +178,17 @@ group by Nombre, folio_reserva,estado,noches";
             foreach ($reservaciones as $reservacion) {
                 echo "<tr>";
                 echo "<td>{$reservacion->Nombre_Huesped}</td>";
-                echo "<td>{$reservacion->numero_de_telefono}</td>";
-                echo "<td>{$reservacion->fecha_}</td>";
-                echo "<td>{$reservacion->estado_reservacion}</td>";
-                echo "<td>{$reservacion->Cantidad_de_habitaciones}</td>";
+                echo "<td>{$reservacion->folio_reserva}</td>";
+                echo "<td>{$reservacion->estado}</td>";
+                echo "<td>{$reservacion->fecha_reservacion}</td>";
+                echo "<td>{$reservacion->fecha_inicio}</td>";
+                echo "<td>{$reservacion->fecha_fin}</td>";
+                echo "<td>{$reservacion->tipo_habitacion}</td>";
+                echo "<td>{$reservacion->precio_habitacion}</td>";
                 echo "</tr>";
             }
         } else {
-            echo "<tr><td colspan='5'>No se encontraron reservaciones para este recepcionista.</td></tr>";
+            echo "<tr><td colspan='8'>No se encontraron reservaciones para este recepcionista.</td></tr>";
         }
 
         echo "</tbody>";
@@ -188,6 +199,8 @@ group by Nombre, folio_reserva,estado,noches";
     $conexion->desconectarBD();
 }
 ?>
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
