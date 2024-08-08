@@ -10,6 +10,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cantidad = $_POST['cantidad'];
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
+
+        $horainicio = mktime(15,00,00);
+        $horafin = mktime(12,00,00);
         
 
 
@@ -55,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechainicio.$horainicio, $fechafin.$horafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
                     
                    }
@@ -96,7 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechainicio.$horainicio, $fechafin.$horafin, $titular, $ninos, $adultos, $tipo_habitacion);
+
+
+                     $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+
 
                      if($facturacion === null){
                         echo "No se ha facturado";
@@ -112,7 +119,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 
                 
-                $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+                
                 }
 
                 

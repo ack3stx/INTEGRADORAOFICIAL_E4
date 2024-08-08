@@ -135,26 +135,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($recepcionista_id)) {
         $consulta = "
         SELECT DISTINCT 
-            CONCAT(persona.nombre, ' ', persona.apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Huesped, 
-            reservacion.id_reservacion AS folio_reserva, 
-            reservacion.estado_reservacion AS estado, 
-            reservacion.FECHA_ AS fecha_reservacion,
-            detalle_reservacion.FECHA_INICIO as fecha_inicio,
-            detalle_reservacion.FECHA_FIN as fecha_fin,
-            t_habitacion.NOMBRE as tipo_habitacion,
-            t_habitacion.PRECIO as precio_habitacion
-        FROM usuarios AS usuario_recepcionista
-        INNER JOIN persona AS persona_recepcionista ON persona_recepcionista.usuario = usuario_recepcionista.id_usuario
-        INNER JOIN recepcionista ON recepcionista.persona_recepcionista = persona_recepcionista.id_persona
-        INNER JOIN reservacion ON reservacion.recepcionista = recepcionista.id_recepcionista
-        INNER JOIN huesped ON reservacion.huesped = huesped.id_huesped
-        INNER JOIN persona ON huesped.persona_huesped = persona.id_persona
-        INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-        JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
-        JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-        WHERE recepcionista.id_recepcionista = $recepcionista_id
-        GROUP BY Nombre_Huesped, folio_reserva, estado, fecha_reservacion, fecha_inicio, fecha_fin, tipo_habitacion, precio_habitacion
-        ORDER BY reservacion.FECHA_";
+            CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
+            RESERVACION.ID_RESERVACION AS FOLIO_RESERVA, 
+            RESERVACION.ESTADO_RESERVACION AS ESTADO, 
+            RESERVACION.FECHA_ AS FECHA_RESERVACION,
+            DETALLE_RESERVACION.FECHA_INICIO AS FECHA_INICIO,
+            DETALLE_RESERVACION.FECHA_FIN AS FECHA_FIN,
+            T_HABITACION.NOMBRE AS TIPO_HABITACION,
+            T_HABITACION.PRECIO AS PRECIO_HABITACION
+        FROM USUARIOS AS USUARIO_RECEPCIONISTA
+        INNER JOIN PERSONA AS PERSONA_RECEPCIONISTA ON PERSONA_RECEPCIONISTA.USUARIO = USUARIO_RECEPCIONISTA.ID_USUARIO
+        INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA_RECEPCIONISTA.ID_PERSONA
+        INNER JOIN RESERVACION ON RESERVACION.RECEPCIONISTA = RECEPCIONISTA.ID_RECEPCIONISTA
+        INNER JOIN HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+        INNER JOIN PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+        JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+        WHERE RECEPCIONISTA.ID_RECEPCIONISTA = $RECEPCIONISTA_ID
+        GROUP BY NOMBRE_HUESPED, FOLIO_RESERVA, ESTADO, FECHA_RESERVACION, FECHA_INICIO, FECHA_FIN, TIPO_HABITACION, PRECIO_HABITACION
+        ORDER BY RESERVACION.FECHA_";
 
         $reservaciones = $conexion->seleccionar($consulta);
 
@@ -177,14 +177,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($reservaciones) {
             foreach ($reservaciones as $reservacion) {
                 echo "<tr>";
-                echo "<td>{$reservacion->Nombre_Huesped}</td>";
-                echo "<td>{$reservacion->folio_reserva}</td>";
-                echo "<td>{$reservacion->estado}</td>";
-                echo "<td>{$reservacion->fecha_reservacion}</td>";
-                echo "<td>{$reservacion->fecha_inicio}</td>";
-                echo "<td>{$reservacion->fecha_fin}</td>";
-                echo "<td>{$reservacion->tipo_habitacion}</td>";
-                echo "<td>{$reservacion->precio_habitacion}</td>";
+                echo "<td>{$reservacion->NOMBRE_HUESPED}</td>";
+                echo "<td>{$reservacion->FOLIO_RESERVA}</td>";
+                echo "<td>{$reservacion->ESTADO}</td>";
+                echo "<td>{$reservacion->FECHA_RESERVACION}</td>";
+                echo "<td>{$reservacion->FECHA_INICIO}</td>";
+                echo "<td>{$reservacion->FECHA_FIN}</td>";
+                echo "<td>{$reservacion->TIPO_HABITACION}</td>";
+                echo "<td>{$reservacion->PRECIO_HABITACION}</td>";
                 echo "</tr>";
             }
         } else {
