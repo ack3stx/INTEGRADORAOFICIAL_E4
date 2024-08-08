@@ -65,11 +65,16 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <form id="card-form">
+        <form id="card-form" action="../Scripts/redireccionar.php" method="post">
             <div class="input-group">
                 <label for="card-number">Número de Tarjeta</label>
                 <input type="text" id="card-number" maxlength="19" placeholder="1234 5678 9012 3456" required>
@@ -87,9 +92,10 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <a href="check2.php"><button type="button" id="enviar">Enviar</button></a>
+            <button type="submit" id="submit-button" disabled>Enviar</button>
         </form>
     </div>
+
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
@@ -100,7 +106,20 @@
         const ninos = localStorage.getItem('selectedKids');
         const adultos = localStorage.getItem('selectedAdults');
 
-       
+        const submitButton = document.getElementById('submit-button');
+
+        function enableSubmitButton() {
+            const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
+            const cardName = document.getElementById('card-name').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -137,10 +156,12 @@
                     cardType.textContent += ' (Invalid)';
                 }
             }
+            enableSubmitButton();
         });
 
         document.getElementById('card-name').addEventListener('input', function () {
             this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+            enableSubmitButton();
         });
 
         document.getElementById('expiry-date').addEventListener('input', function (e) {
@@ -149,10 +170,12 @@
             if (input.length === 2 && !input.includes('/')) {
                 e.target.value = input + '/';
             }
+            enableSubmitButton();
         });
 
         document.getElementById('cvv').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
+            enableSubmitButton();
         });
 
         document.getElementById('card-form').addEventListener('submit', function (e) {
@@ -160,6 +183,8 @@
             if (!luhnCheck(cardNumber)) {
                 e.preventDefault();
                 alert('Número de tarjeta inválido.');
+            } else {
+                mandardatos(this);
             }
         });
 
@@ -177,24 +202,13 @@
             }
             return sum % 10 === 0;
         }
-        
-       document.getElementById('enviar').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            mandardatos(); 
-        }); 
 
-       
-        
-
-        
-
-         //mandar datos por fetch api
-         function mandardatos() {
+        function mandardatos(form) {
             fetch('../Scripts/recibirinfopersona_fisica.php', {
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
-                'habitaciones': JSON.stringify(habitaciones),
-                'facturacion': JSON.stringify(facturacion),
+                    'habitaciones': JSON.stringify(habitaciones),
+                    'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
@@ -202,26 +216,23 @@
                     'adultos': adultos
                 }),
                 method: 'POST'
-
             }).then(response => {
-                return response.json()
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
             }).then((data) => {
                 console.log(data);
-               window.location.href = "check2.php";
+                // Redirigir utilizando JavaScript
+                window.location.href = "Panel_Recepcionista.php";
             }).catch((error) => {
                 console.log(error);
-            })
+                swal("Error al enviar los datos, intenta nuevamente.").then(() => {
+                    // Mostrar el botón de nuevo si hay un error
+                    submitButton.disabled = false;
+                });
+            });
         }
-
-
-        
-
-
-        
-        
-
-        
-        
     </script>
 </body>
 </html>
