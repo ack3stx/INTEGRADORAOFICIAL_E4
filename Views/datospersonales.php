@@ -103,17 +103,17 @@ if ($_SESSION["rol"] == "usuario") {
         }
 
         if (isset($_POST['tipo_formulario']) && $_POST['tipo_formulario'] === 'persona') {
-            $nombre = $_POST['nombre'] ?? '';
-            $apellido_paterno = $_POST['apellido_paterno'] ?? '';
-            $apellido_materno = $_POST['apellido_materno'] ?? '';
-            $fecha_de_nacimiento = $_POST['fecha_de_nacimiento'] ?? '';
-            $direccion = $_POST['direccion'] ?? '';
-            $ciudad = $_POST['ciudad'] ?? '';
-            $estado = $_POST['estado'] ?? '';
-            $codigo_postal = $_POST['codigo_postal'] ?? '';
-            $pais = $_POST['pais'] ?? '';
-            $genero = $_POST['genero'] ?? '';
-            $numero_de_telefono = $_POST['numero_de_telefono'] ?? '';
+            $nombre = $_POST['NOMBRE'] ?? '';
+            $apellido_paterno = $_POST['APELLIDO_PATERNO'] ?? '';
+            $apellido_materno = $_POST['APELLIDO_MATERNO'] ?? '';
+            $fecha_de_nacimiento = $_POST['FECHA_DE_NACIMIENTO'] ?? '';
+            $direccion = $_POST['DIRECCION'] ?? '';
+            $ciudad = $_POST['CIUDAD'] ?? '';
+            $estado = $_POST['ESTADO'] ?? '';
+            $codigo_postal = $_POST['CODIGO_POSTAL'] ?? '';
+            $pais = $_POST['PAIS'] ?? '';
+            $genero = $_POST['GENERO'] ?? '';
+            $numero_de_telefono = $_POST['NUMERO_DE_TELEFONO'] ?? '';
 
             if (empty($errores)) {
                 $db = new Database();
@@ -124,26 +124,28 @@ if ($_SESSION["rol"] == "usuario") {
 
                 if (!empty($id_result)) {
                     $id = $id_result[0]->ID_USUARIO;
-
-                    // con esto actualizamos los datos de persona
+        
+                    // Selecciona el ID_PERSONA correspondiente al usuario
                     $consulta_persona = "SELECT ID_PERSONA FROM PERSONA WHERE USUARIO = $id";
                     $persona_result = $db->seleccionar($consulta_persona);
-
+        
                     if (!empty($persona_result)) {
-                        $id_persona = $persona_result[0]->ID_PERSONA;
-                        $consulta_update_persona = "UPDATE PERSONA SET 
+                        $ID_PERSONA = $persona_result[0]->ID_PERSONA;
+                        $CONSULTA_UPDATE_PERSONA = "UPDATE PERSONA SET 
                             NOMBRE = '$nombre', APELLIDO_PATERNO = '$apellido_paterno', APELLIDO_MATERNO = '$apellido_materno', 
                             FECHA_DE_NACIMIENTO = '$fecha_de_nacimiento', DIRECCION = '$direccion', CIUDAD = '$ciudad', 
                             ESTADO = '$estado', CODIGO_POSTAL = '$codigo_postal', PAIS = '$pais', GENERO = '$genero', 
-                            NUMERO_DE_TELEFONO = '$numero_de_telefono' WHERE ID_PERSONA = $id_persona";
-                        $db->ejecuta($consulta_update_persona);
+                            NUMERO_DE_TELEFONO = '$numero_de_telefono' WHERE ID_PERSONA = $ID_PERSONA";
+                        $db->ejecuta($CONSULTA_UPDATE_PERSONA);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
-                        
                     } else {
-                        $consulta_insert_persona = "INSERT INTO PERSONA (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, FECHA_DE_NACIMIENTO, DIRECCION, CIUDAD, ESTADO, CODIGO_POSTAL, PAIS, GENERO, NUMERO_DE_TELEFONO, USUARIO) VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
-                        $db->ejecuta($consulta_insert_persona);
+                        // Inserción de una nueva entrada en PERSONA
+                        $CONSULTA_INSERT_PERSONA = "INSERT INTO PERSONA (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, FECHA_DE_NACIMIENTO, DIRECCION, CIUDAD, ESTADO, CODIGO_POSTAL, PAIS, GENERO, NUMERO_DE_TELEFONO, USUARIO) 
+                        VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
+                        $db->ejecuta($CONSULTA_INSERT_PERSONA);
                         $_SESSION['mensaje'] = "Datos personales añadidos correctamente.";
                     }
+                    
 
                     $db->desconectarBD();
                     header('Location: datospersonales.php');
@@ -353,121 +355,120 @@ if ($_SESSION["rol"] == "usuario") {
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
-                <input type="hidden" name="tipo_formulario" value="usuario">
-                <!-- Sección para datos del usuario -->
-                <div class="section">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="section-title">Nombre de usuario</p>
-                            <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?></p>
-                        </div>
-                        <button type="button" id="btnEditarNombreUsuario" class="btn btn-danger">Editar</button>
+    <input type="hidden" name="tipo_formulario" value="usuario">
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Nombre de usuario</p>
+                <p id="nombreUsuarioTexto"><?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?></p>
+            </div>
+            <button type="button" id="btnEditarNombreUsuario" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formNombreUsuario" class="hidden">
+            <input type="text" id="nombreUsuario" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Dirección de email</p>
+                <p id="emailTexto"><?= htmlspecialchars($usuario[0]->CORREO) ?></p>
+            </div>
+            <button type="button" id="btnEditarEmail" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formEmail" class="hidden">
+            <input type="email" id="correo" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->CORREO) ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Contraseña</p>
+                <p id="passwordTexto">******</p>
+            </div>
+            <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formPassword" class="hidden">
+            <input type="password" id="passwordActual" name="password_actual" class="form-control mb-2" placeholder="Contraseña actual">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <input type="password" id="passwordNueva" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <input type="password" id="passwordNuevaConfirm" name="password_nueva_confirm" class="form-control mb-2" placeholder="Confirmar nueva contraseña">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-4">
+        <button type="submit" id="btnGuardarUsuario" class="btn btn-danger">Guardar cambios</button>
+    </div>
+</form>
+
+<form id="formPersona" action="datospersonales.php" method="post">
+    <input type="hidden" name="tipo_formulario" value="persona">
+    <hr class="mb-4">
+    <div class="section">
+        <h1><strong>Datos personales</strong></h1>
+        <?php 
+        $campos_persona = [
+            'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
+        ];
+
+        foreach ($campos_persona as $campo => $titulo) {
+            $valor = htmlspecialchars($usuario[0]->$campo ?? '');
+            $clase_peligro = empty($valor) ? 'is-invalid' : '';
+            $inputType = ($campo == 'FECHA_DE_NACIMIENTO') ? 'date' : 'text';
+            if ($campo == 'GENERO') {
+                $inputType = 'select';
+            }
+        ?>
+            <div class="section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="section-title"><?= $titulo ?></p>
+                        <p id="<?= $campo ?>Texto"><?= $valor ?></p>
                     </div>
-                    <div id="formNombreUsuario" class="hidden">
-                        <input type="text" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?>">
+                    <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-danger">Editar</button>
+                </div>
+                <div id="form<?= ucfirst($campo) ?>" class="hidden">
+                    <?php if ($inputType == 'select'): ?>
+                        <select id="<?= $campo ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>">
+                            <option value="M" <?= $valor == 'M' ? 'selected' : '' ?>>Masculino</option>
+                            <option value="F" <?= $valor == 'F' ? 'selected' : '' ?>>Femenino</option>
+                        </select>
+                    <?php else: ?>
+                        <input type="<?= $inputType ?>" id="<?= $campo ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>"
+                        <?php if ($campo == 'FECHA_DE_NACIMIENTO') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
                         <div class="invalid-feedback"></div>
                         <div class="valid-feedback"></div>
-                        <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
-                    </div>
+                    <?php endif; ?>
+                    <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
                 </div>
+            </div>
+            <hr class="mb-4">
+        <?php } ?>
+    </div>
 
-                <hr class="mb-4">
+    <div class="d-flex justify-content-end mt-4">
+        <button type="submit" id="btnGuardarCambios" class="btn btn-danger">Guardar cambios</button>
+    </div>
+</form>
 
-                <div class="section">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="section-title">Dirección de email</p>
-                            <p id="email"><?= htmlspecialchars($usuario[0]->CORREO) ?></p>
-                        </div>
-                        <button type="button" id="btnEditarEmail" class="btn btn-danger">Editar</button>
-                    </div>
-                    <div id="formEmail" class="hidden">
-                        <input type="email" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->CORREO) ?>">
-                        <div class="invalid-feedback"></div>
-                        <div class="valid-feedback"></div>
-                        <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
-                    </div>
-                </div>
-
-                <hr class="mb-4">
-
-                <div class="section">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div>
-                            <p class="section-title">Contraseña</p>
-                            <p id="password">******</p>
-                        </div>
-                        <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
-                    </div>
-                    <div id="formPassword" class="hidden">
-                        <input type="password" name="password_actual"  class="form-control mb-2" placeholder="Contraseña actual">
-                        <div class="invalid-feedback"></div>
-                        <div class="valid-feedback"></div>
-                        <input type="password" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
-                        <div class="invalid-feedback"></div>
-                        <div class="valid-feedback"></div>
-                        <input type="password" name="password_nueva_confirm"  class="form-control mb-2" placeholder="Confirmar nueva contraseña">
-                        <div class="invalid-feedback"></div>
-                        <div class="valid-feedback"></div>
-                        <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
-                    </div>
-                </div>
-
-                <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-danger" id="btnGuardarUsuario">Guardar cambios</button>
-                </div>
-            </form>
-
-            <form id="formPersona" action="datospersonales.php" method="post">
-                <input type="hidden" name="tipo_formulario" value="persona">
-                <hr class="mb-4">
-                <!-- Sección para datos de la persona -->
-                <div class="section">
-                <h1><strong>Datos personales</strong></h1>
-                    <?php 
-                    $campos_persona = [
-                        'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
-                    ];
-
-                    foreach ($campos_persona as $campo => $titulo) {
-                        $valor = htmlspecialchars($usuario[0]->$campo ?? '');
-                        $clase_peligro = empty($valor) ? 'is-invalid' : '';
-                        $inputType = ($campo == 'FECHA_DE_NACIMIENTO') ? 'date' : 'text';
-                        if ($campo == 'GENERO') {
-                            $inputType = 'select';
-                        }
-                    ?>
-                        <div class="section">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div>
-                                    <p class="section-title"><?= $titulo ?></p>
-                                    <p id="<?= $campo ?>Texto"><?= $valor ?></p>
-                                </div>
-                                <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-danger">Editar</button>
-                            </div>
-                            <div id="form<?= ucfirst($campo) ?>" class="hidden">
-                                <?php if ($inputType == 'select'): ?>
-                                    <select name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>">
-                                        <option value="M" <?= $valor == 'M' ? 'selected' : '' ?>>Masculino</option>
-                                        <option value="F" <?= $valor == 'F' ? 'selected' : '' ?>>Femenino</option>
-                                    </select>
-                                <?php else: ?>
-                                    <input type="<?= $inputType ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>" 
-                                    <?php if ($campo == 'FECHA_DE_NACIMIENTO') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
-                                    <div class="invalid-feedback"></div>
-                                    <div class="valid-feedback"></div>
-                                <?php endif; ?>
-                                <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
-                            </div>
-                        </div>
-                        <hr class="mb-4">
-                    <?php } ?>
-                </div>
-
-                <div class="d-flex justify-content-end mt-4">
-                    <button type="submit" class="btn btn-danger" id="btnGuardarCambioss">Guardar cambios</button>
-                </div>
-            </form>
         <?php endif; ?>
     </div>
 
@@ -476,204 +477,284 @@ if ($_SESSION["rol"] == "usuario") {
     
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-        const formUsuario = document.getElementById('formUsuario');
-        const formPersona = document.getElementById('formPersona');
+    const formUsuario = document.getElementById('formUsuario');
+    const formPersona = document.getElementById('formPersona');
 
-        const nombreUsuario = formUsuario.querySelector('input[name="nombre_usuario"]');
-        const correo = formUsuario.querySelector('input[name="correo"]');
-        const passwordActual = formUsuario.querySelector('input[name="password_actual"]');
-        const passwordNueva = formUsuario.querySelector('input[name="password_nueva"]');
-        const passwordNuevaConfirm = formUsuario.querySelector('input[name="password_nueva_confirm"]');
-        const btnGuardarCambios = formUsuario.querySelector('button[type="submit"]');
-        const btnCancelarUsuario = formUsuario.querySelector('button[name="cancelar_usuario"]');
-        const numeroDeTelefono = formPersona.querySelector('input[name="numero_de_telefono"]');
-        const fechaNacimiento = formPersona.querySelector('input[name="fecha_de_nacimiento"]');
+    const nombreUsuario = formUsuario.querySelector('#nombreUsuario');
+    const correo = formUsuario.querySelector('#correo');
+    const passwordActual = formUsuario.querySelector('#passwordActual');
+    const passwordNueva = formUsuario.querySelector('#passwordNueva');
+    const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
+    const btnGuardarUsuario = formUsuario.querySelector('#btnGuardarUsuario');
+    const btnCancelarNombreUsuario = formUsuario.querySelector('#btnCancelarNombreUsuario');
+    const numeroDeTelefono = formPersona.querySelector('#NUMERO_DE_TELEFONO');
+    const fechaNacimiento = formPersona.querySelector('#FECHA_DE_NACIMIENTO');
+    const codigoPostal = formPersona.querySelector('#CODIGO_POSTAL');
+    const direccion = formPersona.querySelector('#DIRECCION');
+    const btnGuardarCambios = formPersona.querySelector('#btnGuardarCambios');
 
-        const fieldsToValidate = [
-            'nombre', 'apellido_paterno', 'apellido_materno', 'pais', 'estado', 'ciudad'
-        ];
+    const fieldsToValidate = [
+        'NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'PAIS', 'ESTADO', 'CIUDAD'
+    ];
 
-        function validarContraseñas() {
-            let errores = false;
+    function validarContraseñas() {
+        let errores = false;
 
-            if (passwordActual.value.trim() === '') {
-                passwordActual.classList.add('is-invalid');
-                passwordActual.nextElementSibling.textContent = 'Debe ingresar la contraseña actual.';
-                errores = true;
-            } else {
-                passwordActual.classList.remove('is-invalid');
-                passwordActual.classList.add('is-valid');
-                passwordActual.nextElementSibling.textContent = '';
-            }
-
-            if (passwordNueva.value !== passwordNuevaConfirm.value) {
-                passwordNuevaConfirm.classList.add('is-invalid');
-                passwordNuevaConfirm.nextElementSibling.textContent = 'Las contraseñas no coinciden.';
-                errores = true;
-            } else {
-                passwordNuevaConfirm.classList.remove('is-invalid');
-                passwordNuevaConfirm.classList.add('is-valid');
-                passwordNuevaConfirm.nextElementSibling.textContent = '';
-            }
-
-            if (passwordNueva.value.length > 0 && passwordNueva.value.length < 6) {
-                passwordNueva.classList.add('is-invalid');
-                passwordNueva.nextElementSibling.textContent = 'La nueva contraseña debe tener al menos 6 caracteres.';
-                errores = true;
-            } else {
-                passwordNueva.classList.remove('is-invalid');
-                passwordNueva.classList.add('is-valid');
-                passwordNueva.nextElementSibling.textContent = '';
-            }
-
-            btnGuardarCambios.disabled = errores;
+        if (passwordActual.value.trim() === '') {
+            passwordActual.classList.add('is-invalid');
+            passwordActual.nextElementSibling.textContent = 'Debe ingresar la contraseña actual.';
+            errores = true;
+        } else {
+            passwordActual.classList.remove('is-invalid');
+            passwordActual.classList.add('is-valid');
+            passwordActual.nextElementSibling.textContent = '';
         }
 
-        function validarNumeroDeTelefono() {
-            let errores = false; 
-            if (numeroDeTelefono.value.length < 10 || /[^0-9]/.test(numeroDeTelefono.value)) {
-                numeroDeTelefono.classList.add('is-invalid');
-                numeroDeTelefono.nextElementSibling.textContent = 'El número de teléfono debe tener 10 dígitos y solo contener números.';
-                errores= true;
-            } else {
-                numeroDeTelefono.classList.remove('is-invalid');
-                numeroDeTelefono.classList.add('is-valid');
-                numeroDeTelefono.nextElementSibling.textContent = '';
-            }
-
-            btnGuardarCambioss.disabled = errores;
+        if (passwordNueva.value !== passwordNuevaConfirm.value) {
+            passwordNuevaConfirm.classList.add('is-invalid');
+            passwordNuevaConfirm.nextElementSibling.textContent = 'Las contraseñas no coinciden.';
+            errores = true;
+        } else {
+            passwordNuevaConfirm.classList.remove('is-invalid');
+            passwordNuevaConfirm.classList.add('is-valid');
+            passwordNuevaConfirm.nextElementSibling.textContent = '';
         }
 
-        function validarCampoSinCaracteresEspeciales(event) {
-            const regex = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
-            if (regex.test(event.target.value)) {
-                event.target.classList.add('is-invalid');
-                event.target.nextElementSibling.textContent = 'No se permiten caracteres especiales.';
-                btnGuardarCambios.disabled = true;
-            } else {
-                event.target.classList.remove('is-invalid');
-                event.target.classList.add('is-valid');
-                event.target.nextElementSibling.textContent = '';
-                btnGuardarCambios.disabled = false;
-            }
+        if (passwordNueva.value.length > 0 && passwordNueva.value.length < 6) {
+            passwordNueva.classList.add('is-invalid');
+            passwordNueva.nextElementSibling.textContent = 'La nueva contraseña debe tener al menos 6 caracteres.';
+            errores = true;
+        } else {
+            passwordNueva.classList.remove('is-invalid');
+            passwordNueva.classList.add('is-valid');
+            passwordNueva.nextElementSibling.textContent = '';
         }
 
-        passwordActual.addEventListener('input', validarContraseñas);
-        passwordNueva.addEventListener('input', validarContraseñas);
-        passwordNuevaConfirm.addEventListener('input', validarContraseñas);
+        btnGuardarUsuario.disabled = errores;
+        return !errores;
+    }
 
-        numeroDeTelefono.addEventListener('input', validarNumeroDeTelefono);
+    function validarNumeroDeTelefono() {
+        let errores = false;
+        if (numeroDeTelefono.value.length < 10 || /[^0-9]/.test(numeroDeTelefono.value)) {
+            numeroDeTelefono.classList.add('is-invalid');
+            numeroDeTelefono.nextElementSibling.textContent = 'El número de teléfono debe tener 10 dígitos y solo contener números.';
+            errores = true;
+        } else {
+            numeroDeTelefono.classList.remove('is-invalid');
+            numeroDeTelefono.classList.add('is-valid');
+            numeroDeTelefono.nextElementSibling.textContent = '';
+        }
 
+        btnGuardarCambios.disabled = errores;
+        return !errores;
+    }
+
+    function validarCampoSinCaracteresEspeciales(event) {
+        const regex = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
+        if (regex.test(event.target.value)) {
+            event.target.classList.add('is-invalid');
+            event.target.nextElementSibling.textContent = 'No se permiten caracteres especiales.';
+            btnGuardarCambios.disabled = true;
+        } else {
+            event.target.classList.remove('is-invalid');
+            event.target.classList.add('is-valid');
+            event.target.nextElementSibling.textContent = '';
+            btnGuardarCambios.disabled = false;
+        }
+    }
+
+    function validarCodigoPostal(event) {
+        const regex = /[^a-zA-Z0-9]/g;
+        if (regex.test(event.target.value)) {
+            event.target.classList.add('is-invalid');
+            event.target.nextElementSibling.textContent = 'El código postal no puede contener caracteres especiales.';
+            btnGuardarCambios.disabled = true;
+        } else {
+            event.target.classList.remove('is-invalid');
+            event.target.classList.add('is-valid');
+            event.target.nextElementSibling.textContent = '';
+            btnGuardarCambios.disabled = false;
+        }
+    }
+
+  
+
+    passwordActual.addEventListener('input', validarContraseñas);
+    passwordNueva.addEventListener('input', validarContraseñas);
+    passwordNuevaConfirm.addEventListener('input', validarContraseñas);
+
+    numeroDeTelefono.addEventListener('input', validarNumeroDeTelefono);
+    codigoPostal.addEventListener('input', validarCodigoPostal);
+    direccion.addEventListener('input', validarDireccion);
+
+    fieldsToValidate.forEach(fieldName => {
+        const field = formPersona.querySelector(`#${fieldName}`);
+        field.addEventListener('input', validarCampoSinCaracteresEspeciales);
+    });
+
+    fechaNacimiento.addEventListener('input', function () {
+        const fechaNacimientoValue = new Date(fechaNacimiento.value);
+        const fechaMinima = new Date();
+        const fechaMinima2 = new Date();
+        fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
+        fechaMinima2.setFullYear(fechaMinima2.getFullYear() - 74);
+
+        if (fechaNacimientoValue > fechaMinima) {
+            fechaNacimiento.classList.add('is-invalid');
+            fechaNacimiento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+            btnGuardarCambios.disabled = true;
+        } else if (fechaNacimientoValue < fechaMinima2) {
+            fechaNacimiento.classList.add('is-invalid');
+            fechaNacimiento.nextElementSibling.textContent = 'Fecha no válida.';
+            btnGuardarCambios.disabled = true;
+        } else {
+            fechaNacimiento.classList.remove('is-invalid');
+            fechaNacimiento.classList.add('is-valid');
+            fechaNacimiento.nextElementSibling.textContent = '';
+            btnGuardarCambios.disabled = false;
+        }
+    });
+
+    function limpiarCamposUsuario() {
+        nombreUsuario.value = '';
+        correo.value = '';
+        passwordActual.value = '';
+        passwordNueva.value = '';
+        passwordNuevaConfirm.value = '';
+
+        nombreUsuario.classList.remove('is-valid', 'is-invalid');
+        correo.classList.remove('is-valid', 'is-invalid');
+        passwordActual.classList.remove('is-valid', 'is-invalid');
+        passwordNueva.classList.remove('is-valid', 'is-invalid');
+        passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
+    }
+
+    btnCancelarNombreUsuario.addEventListener('click', limpiarCamposUsuario);
+
+    function mostrarErrorYDesplazarse(form, input) {
+        const inputContainer = input.closest('.section').querySelector('div.hidden');
+        inputContainer.classList.remove('hidden');
+        const offset = inputContainer.getBoundingClientRect().top + window.scrollY - 100;
+        window.scrollTo({ top: offset, behavior: 'smooth' });
+        input.focus();
+    }
+
+    formUsuario.addEventListener('submit', function (event) {
+        let valid = validarContraseñas();
+        if (!valid) {
+            event.preventDefault();
+            const firstInvalidInput = formUsuario.querySelector('.is-invalid');
+            if (firstInvalidInput) {
+                mostrarErrorYDesplazarse(formUsuario, firstInvalidInput);
+            }
+        }
+    });
+
+    formPersona.addEventListener('submit', function (event) {
+        let valid = true;
         fieldsToValidate.forEach(fieldName => {
-            const field = formPersona.querySelector(`input[name="${fieldName}"]`);
-            field.addEventListener('input', validarCampoSinCaracteresEspeciales);
-        });
-
-        fechaNacimiento.addEventListener('input', function () {
-            const fechaNacimientoValue = new Date(fechaNacimiento.value);
-            const fechaMinima = new Date();
-            const fechaminima2 = new Date();
-            fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
-            fechaminima2.setFullYear(fechaminima2.getFullYear() - 74);
-
-            if (fechaNacimientoValue > fechaMinima) {
-                fechaNacimiento.classList.add('is-invalid');
-                fechaNacimiento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
-                btnGuardarCambios.disabled = true;
-            } else if (fechaNacimientoValue < fechaminima2) {
-                fechaNacimiento.classList.add('is-invalid');
-                fechaNacimiento.nextElementSibling.textContent = 'Fecha no valida.';
-                btnGuardarCambios.disabled = true;
-            } else {
-                fechaNacimiento.classList.remove('is-invalid');
-                fechaNacimiento.classList.add('is-valid');
-                fechaNacimiento.nextElementSibling.textContent = '';
-                btnGuardarCambios.disabled = false;
+            const field = formPersona.querySelector(`#${fieldName}`);
+            validarCampoSinCaracteresEspeciales({ target: field });
+            if (field.classList.contains('is-invalid')) {
+                valid = false;
             }
         });
-
-        // Limpiar campos de formulario de usuario
-        function limpiarCamposUsuario() {
-            nombreUsuario.value = '';
-            correo.value = '';
-            passwordActual.value = '';
-            passwordNueva.value = '';
-            passwordNuevaConfirm.value = '';
-
-            nombreUsuario.classList.remove('is-valid', 'is-invalid');
-            correo.classList.remove('is-valid', 'is-invalid');
-            passwordActual.classList.remove('is-valid', 'is-invalid');
-            passwordNueva.classList.remove('is-valid', 'is-invalid');
-            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
+        if (!valid) {
+            event.preventDefault();
+            const firstInvalidInput = formPersona.querySelector('.is-invalid');
+            if (firstInvalidInput) {
+                mostrarErrorYDesplazarse(formPersona, firstInvalidInput);
+            }
         }
 
-        btnCancelarUsuario.addEventListener('click', limpiarCamposUsuario);
+        const validTelefono = validarNumeroDeTelefono();
+        if (!validTelefono) {
+            event.preventDefault();
+            mostrarErrorYDesplazarse(formPersona, numeroDeTelefono);
+        }
+
+        const validCodigoPostal = validarCodigoPostal({ target: codigoPostal });
+        if (!validCodigoPostal) {
+            event.preventDefault();
+            mostrarErrorYDesplazarse(formPersona, codigoPostal);
+        }
+
+        const validDireccion = validarDireccion({ target: direccion });
+        if (!validDireccion) {
+            event.preventDefault();
+            mostrarErrorYDesplazarse(formPersona, direccion);
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    const inputLettersOnly = ['NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'CIUDAD', 'PAIS', 'ESTADO'];
+    const inputNumbersOnly = ['NUMERO_DE_TELEFONO'];
+
+    inputLettersOnly.forEach(id => {
+        const input = document.querySelector(`#${id}`);
+        if (input) {
+            input.addEventListener('keypress', function (event) {
+                if (/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(event.key)) {
+                    event.preventDefault();
+                }
+            });
+        }
     });
 
-    document.addEventListener('DOMContentLoaded', function () {
-        const inputLettersOnly = ['nombre', 'apellido_paterno', 'apellido_materno', 'ciudad', 'pais', 'estado'];
-        const inputNumbersOnly = ['numero_de_telefono'];
+    inputNumbersOnly.forEach(id => {
+        const input = document.querySelector(`#${id}`);
+        if (input) {
+            input.addEventListener('keypress', function (event) {
+                if (/\D/.test(event.key) || input.value.length >= 10) {
+                    event.preventDefault();
+                }
+            });
+        }
+    });
+});
 
-        inputLettersOnly.forEach(id => {
-            const input = document.querySelector(`input[name="${id}"]`);
-            if (input) {
-                input.addEventListener('keypress', function (event) {
-                    if (/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(event.key)) {
-                        event.preventDefault();
-                    }
-                });
-            }
-        });
+const disableFormButtons = (disableFormId, isDisabled) => {
+    const form = document.getElementById(disableFormId);
+    const buttons = form.querySelectorAll('button');
+    buttons.forEach(button => {
+        button.disabled = isDisabled;
+    });
+};
 
-        inputNumbersOnly.forEach(id => {
-            const input = document.querySelector(`input[name="${id}"]`);
-            if (input) {
-                input.addEventListener('keypress', function (event) {
-                    if (/\D/.test(event.key) || input.value.length >= 10) {
-                        event.preventDefault();
-                    }
-                });
-            }
+const toggleSection = (buttonId, formId, disableButtons, disableFormId) => {
+    document.getElementById(buttonId).addEventListener('click', () => {
+        document.getElementById(formId).classList.remove('hidden');
+        document.getElementById(buttonId).classList.add('hidden');
+        disableButtons.forEach(btn => {
+            document.getElementById(btn).disabled = true;
         });
+        disableFormButtons(disableFormId, true);
     });
 
-    const disableFormButtons = (disableFormId, isDisabled) => {
-        const form = document.getElementById(disableFormId);
-        const buttons = form.querySelectorAll('button');
-        buttons.forEach(button => {
-            button.disabled = isDisabled;
+    document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
+        document.getElementById(formId).classList.add('hidden');
+        document.getElementById(buttonId).classList.remove('hidden');
+        disableButtons.forEach(btn => {
+            document.getElementById(btn).disabled = false;
         });
-    };
+        disableFormButtons(disableFormId, false);
+    });
+};
 
-    const toggleSection = (buttonId, formId, disableButtons, disableFormId) => {
-        document.getElementById(buttonId).addEventListener('click', () => {
-            document.getElementById(formId).classList.remove('hidden');
-            document.getElementById(buttonId).classList.add('hidden');
-            disableButtons.forEach(btn => {
-                document.getElementById(btn).disabled = true;
-            });
-            disableFormButtons(disableFormId, true);
-        });
+toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
+toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
+toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
-        document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
-            document.getElementById(formId).classList.add('hidden');
-            document.getElementById(buttonId).classList.remove('hidden');
-            disableButtons.forEach(btn => {
-                document.getElementById(btn).disabled = false;
-            });
-            disableFormButtons(disableFormId, false);
-        });
-    };
+<?php foreach ($campos_persona as $campo => $titulo) { ?>
+    toggleSection('btnEditar<?= ucfirst($campo) ?>', 'form<?= ucfirst($campo) ?>', ['btnEditarNombreUsuario', 'btnEditarEmail', 'btnEditarPassword', 
+        <?php foreach ($campos_persona as $campo_inner => $titulo_inner) { if ($campo != $campo_inner) echo "'btnEditar" . ucfirst($campo_inner) . "',"; } ?> 
+    ], 'formUsuario');
+<?php } ?>
 
-    toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
-    toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
-    toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
-    <?php foreach ($campos_persona as $campo => $titulo) { ?>
-        toggleSection('btnEditar<?= ucfirst($campo) ?>', 'form<?= ucfirst($campo) ?>', ['btnEditarNombreUsuario', 'btnEditarEmail', 'btnEditarPassword', 
-            <?php foreach ($campos_persona as $campo_inner => $titulo_inner) { if ($campo != $campo_inner) echo "'btnEditar" . ucfirst($campo_inner) . "',"; } ?> 
-        ], 'formUsuario');
-    <?php } ?>
+
 </script>
 
 
