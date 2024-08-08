@@ -87,9 +87,11 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <button type="submit" id="enviar">Enviar</button>
+            <button type="submit" class="btn">Enviar</button>
         </form>
     </div>
+
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
@@ -178,13 +180,47 @@
             return sum % 10 === 0;
         }
         
-       document.getElementById('enviar').addEventListener('click', function(event) {
+       /*document.getElementById('enviar').addEventListener('click', function(event) {
             event.preventDefault(); 
             mandardatos(); 
-        }); 
+        }); */
 
        
+
+          function validarformulario(idFormulario){
+
+            const cvv = document.getElementById('cvv').value;
+            const cardnumber = document.getElementById('card-number').value;
+            const cardname = document.getElementById('card-name').value;
+            const expirydate = document.getElementById('expiry-date').value;
+            var formValido = true;
+
+            if(cvv.value === '' || cardnumber === '' || cardname === '' || expirydate === ''){
+                swal("Todos los datos son obligatorios");
+
+        formValido = false;
+            } else {
+                cvv.style.border = '';
+                cardnumber.style.border = '';
+                cardname.style.border = '';
+                expirydate.style.border = '';
+            }
+      
+            }
+          
         
+            function enviarformulario(event) {
+    event.preventDefault();
+    var formularioValido = validarformulario('card-form');
+
+    if (formularioValido) {
+        madardatos();
+    }
+}
+
+        document.addEventListener('DOMContentLoaded', function() {
+    document.getElementByClassName('btn').addEventListener('click', enviarformulario);
+}); 
 
         
 
@@ -206,8 +242,9 @@
             }).then(response => {
                 return response.json()
             }).then((data) => {
-                console.log(data);
-               // window.location.href = "../Stripe/success.php";
+                console.log('Datos recibidos:', data);
+               
+        
             }).catch((error) => {
                 console.log(error);
             })
