@@ -11,11 +11,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
 
-        $horainicio = mktime(15,00,00);
-        $horafin = mktime(12,00,00);
+        $fechahorainicio = new DateTime($fechainicio);
+        $fechahorainicio->setTime(15,0,0);
+        $fechahorafin = new DateTime($fechafin);
+        $fechahorafin->setTime(12,0,0);
+
         
-
-
+        
+        
+        
         $fecha_actual = date('Y-m-d H:i:s');
         $recepcionista = null;
         $estado_reservacion = 'proceso';
@@ -58,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechainicio.$horainicio, $fechafin.$horafin, $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechahorainicio->format('Y-m-d H:i:s'), $fechahorafin->format('Y-m-d H:i:s'), $titular, $ninos, $adultos, $tipo_habitacion);
 
                     
                    }
@@ -99,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechainicio.$horainicio, $fechafin.$horafin, $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechahorainicio->format('Y-m-d H:i:s'), $fechahorafin->format('Y-m-d H:i:s'), $titular, $ninos, $adultos, $tipo_habitacion);
 
 
                      $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
