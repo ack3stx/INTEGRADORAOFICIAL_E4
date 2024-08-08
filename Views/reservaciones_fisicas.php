@@ -1501,7 +1501,7 @@ function enviarformulario(event) {
         }
 
         alert('Datos guardados exitosamente');
-        window.location.href = 'form_pago.php';
+        window.location.href = 'form_pago_fisico.php';
     }
 }
 
