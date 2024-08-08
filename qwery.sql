@@ -8,7 +8,7 @@ CREATE TABLE ROLES (
 CREATE TABLE USUARIOS (
     ID_USUARIO INT PRIMARY KEY AUTO_INCREMENT,
     NOMBRE_USUARIO VARCHAR(30) UNIQUE,
-    password text,
+    PASSWORD text,
     CORREO VARCHAR(40) UNIQUE
 );
 
@@ -133,7 +133,7 @@ ALTER TABLE DETALLE_PAGO AUTO_INCREMENT = 1;
 ALTER TABLE DATOS_FACTURACION AUTO_INCREMENT = 1;
 
 
-INSERT INTO ROLES (nombre) VALUES
+INSERT INTO ROLES (NOMBRE) VALUES
 ('usuario'),
 ('recepcionista'),
 ('administrador');
@@ -143,7 +143,7 @@ INSERT INTO ROLES (nombre) VALUES
 
 
 
-INSERT INTO USUARIOS (nombre_usuario, password, correo) VALUES
+INSERT INTO USUARIOS (NOMBRE_USUARIO, PASSWORD, CORREO) VALUES
 ('johndoe', 'password123', 'johndoe@example.com'),
 ('janedoe', 'securepass', 'janedoe@example.com'),
 ('michaelb', 'mypassword', 'michaelb@example.com'),
@@ -221,7 +221,7 @@ INSERT INTO USUARIOS (nombre_usuario, password, correo) VALUES
 
 
 
-INSERT INTO ROL_USUARIO (rol, usuario) VALUES
+INSERT INTO ROL_USUARIO (ROL, USUARIO) VALUES
 (1, 1),
 (1, 2),
 (1, 3),
@@ -283,7 +283,7 @@ INSERT INTO ROL_USUARIO (rol, usuario) VALUES
 
 
 
-INSERT INTO PERSONA (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimiento, direccion, ciudad, estado, codigo_postal, pais, Genero, Numero_De_Telefono, usuario) VALUES
+INSERT INTO PERSONA (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, FECHA_DE_NACIMIENTO, DIRECCION, CIUDAD, ESTADO, CODIGO_POSTAL, PAIS, GENERO, NUMERO_DE_TELEFONO, USUARIO) VALUES
 ('Juan', 'Perez', 'Lopez', '1990-01-01', 'Calle Falsa 123', 'Ciudad de México', 'CDMX', '01000', 'México', 'M', '5551234567', 1),
 ('Maria', 'Garcia', 'Hernandez', '1985-05-15', 'Avenida Siempre Viva 456', 'Guadalajara', 'Jalisco', '44100', 'México', 'F', '3331234567', 2),
 ('Pedro', 'Martinez', 'Rodriguez', '1978-07-23', 'Calle Olmo 789', 'Monterrey', 'Nuevo León', '64000', 'México', 'M', '8181234567', 3),
@@ -361,13 +361,13 @@ INSERT INTO PERSONA (Nombre, Apellido_paterno, Apellido_materno, Fecha_de_Nacimi
 
 
 
-INSERT INTO RECEPCIONISTA (curp,fecha_de_contratacion, Numero_de_Seguridad_social, Afore, Numero_De_Emergencia, persona_recepcionista) VALUES
+INSERT INTO RECEPCIONISTA (CURP,FECHA_DE_CONTRATACION, NUMERO_DE_SEGURIDAD_SOCIAL, AFORE, NUMERO_DE_EMERGENCIA, PERSONA_RECEPCIONISTA) VALUES
 ('PEPJ900101HDFLNL00','2020-01-10', '12345678901234567890', 'Afore1', '5551234567', 49),
 ('GARM850515MDFNRR00','2019-05-15', '23456789012345678901', 'Afore2', '5552345678', 50),
 ('MARP780723HDFBRD00','2018-07-23', '34567890123456789012', 'Afore3', '5553456789', 51),
 ('FERG920730MDFNDL00','2021-11-30', '45678901234567890123', 'Afore4', '5554567890', 52);
 
-INSERT INTO HUESPED (persona_huesped) values 
+INSERT INTO HUESPED (PERSONA_HUESPED) values 
 ('1'),('2'),('3'),('4'),('5'),('6'),('7'),
 ('8'),('9'),('10'),('11'),('12'),('13'),('14'),('15'),('16'),
 ('17'),('18'),('19'),('20'),('21'),('22'),('23'),('24'),('25'),('26'),
@@ -396,7 +396,7 @@ INSERT INTO HUESPED (persona_huesped) values
 
 
 
-INSERT INTO RESERVACION (huesped, fecha_, estado_reservacion) VALUES
+INSERT INTO RESERVACION (HUESPED, FECHA_, ESTADO_RESERVACION) VALUES
 (1,'2022-01-01 14:00:00', 'cancelada'),
 (2,'2022-01-11 01:30:00', 'cancelada'),
 (3,'2022-02-01 12:30:00', 'cancelada'),
@@ -495,7 +495,7 @@ INSERT INTO RESERVACION (huesped, fecha_, estado_reservacion) VALUES
 (48, '2024-07-05 13:00:00', 'activa');
 
 
-INSERT INTO RESERVACION (huesped, recepcionista, fecha_, estado_reservacion) VALUES
+INSERT INTO RESERVACION (HUESPED, RECEPCIONISTA, FECHA_, ESTADO_RESERVACION) VALUES
 (49, 1, '2024-07-05 09:30:00', 'cancelada'),
 (50, 2, '2024-07-06 10:15:00', 'cancelada'),
 (51, 3, '2024-07-06 09:45:00', 'cancelada'),
@@ -521,14 +521,14 @@ INSERT INTO RESERVACION (huesped, recepcionista, fecha_, estado_reservacion) VAL
 
 
 
-INSERT INTO T_HABITACION (nombre, descripcion, precio, cantidad_max_adultos, cantidad_max_niños,imagen) VALUES
+INSERT INTO T_HABITACION (NOMBRE, DESCRIPCION, PRECIO, CANTIDAD_MAX_ADULTOS, CANTIDAD_MAX_NIÑOS,IMAGEN) VALUES
 ('Doble', 'Habitación doble con dos camas matrimoniales, ideal para familias pequeñas.', 900.00, 4,2,''),
 ('King Size', 'Habitación con una cama King Size, perfecta para parejas que buscan confort.', 1200.00, 2, 1,''),
 ('Sencilla', 'Habitación individual con una cama matrimonial, ideal para viajeros solitarios.', 700.00, 2, 1,'');
 
 
 
-INSERT INTO HABITACION (num_habitacion, piso, estado_habitacion, tipo_habitacion) VALUES
+INSERT INTO HABITACION (NUM_HABITACION, PISO, ESTADO_HABITACION, TIPO_HABITACION) VALUES
 (101, 1, 'disponible', 1),
 (102, 1, 'disponible', 1),
 (103, 1, 'disponible', 1),
@@ -560,7 +560,7 @@ INSERT INTO HABITACION (num_habitacion, piso, estado_habitacion, tipo_habitacion
 (303, 2, 'disponible', 3);
 
 --
-INSERT INTO DETALLE_RESERVACION (fecha_inicio, fecha_fin, titular_habitacion, reservacion, habitacion, cantidad_niños, cantidad_adultos) VALUES
+INSERT INTO DETALLE_RESERVACION (FECHA_INICIO, FECHA_FIN, TITULAR_HABITACION, RESERVACION, HABITACION, CANTIDAD_NIÑOS, CANTIDAD_ADULTOS) VALUES
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00','Juan Perez Lopez', 1, 1, 1, 2),
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00', 'Emiliano diaz fuentes',1, 2, 1, 2),
 ('2022-01-01 15:00:00', '2022-01-05 12:00:00', 'juan manuel estrada',1, 3, 1, 2),
@@ -879,7 +879,7 @@ INSERT INTO DETALLE_RESERVACION (fecha_inicio, fecha_fin, titular_habitacion, re
 --
 
 
- INSERT INTO DETALLE_PAGO (reservacion, metodo_pago, monto_total) VALUES
+ INSERT INTO DETALLE_PAGO (RESERVACION, METODO_PAGO, MONTO_TOTAL) VALUES
 (1, 'tarjeta', 10800.00),
 (2, 'efectivo', 10800.00),
 (3, 'transferencia', 8100.00),
@@ -999,7 +999,7 @@ INSERT INTO DETALLE_RESERVACION (fecha_inicio, fecha_fin, titular_habitacion, re
 
 
 
-INSERT INTO DATOS_FACTURACION (nombre, apellido_paterno, apellido_materno, rfc, direccion, detalle_pago) VALUES
+INSERT INTO DATOS_FACTURACION (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, RFC, DIRECCION, DETALLE_PAGO) VALUES
 ('Juan', 'Perez', 'Lopez', 'PERJ900101XXX', 'Calle Falsa 123', 1),
 ('Maria', 'Garcia', 'Hernandez', 'GAHM850515XXX', 'Avenida Siempre Viva 456', 2),
 ('Pedro', 'Martinez', 'Rodriguez', 'MARP780723XXX', 'Calle Olmo 789', 3),

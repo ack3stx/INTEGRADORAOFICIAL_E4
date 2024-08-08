@@ -87,11 +87,11 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <button type="submit" class="btn">Enviar</button>
+            <button type="submit" id="enviar">Enviar</button>
         </form>
     </div>
 
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
@@ -180,14 +180,14 @@
             return sum % 10 === 0;
         }
         
-       /*document.getElementById('enviar').addEventListener('click', function(event) {
+      /* document.getElementById('enviar').addEventListener('click', function(event) {
             event.preventDefault(); 
             mandardatos(); 
-        }); */
+        });  */
 
        
 
-          function validarformulario(idFormulario){
+          /*function validarformulario(idFormulario){
 
             const cvv = document.getElementById('cvv').value;
             const cardnumber = document.getElementById('card-number').value;
@@ -198,13 +198,17 @@
             if(cvv.value === '' || cardnumber === '' || cardname === '' || expirydate === ''){
                 swal("Todos los datos son obligatorios");
 
-        formValido = false;
+                formValido = false;
+
+      
             } else {
                 cvv.style.border = '';
                 cardnumber.style.border = '';
                 cardname.style.border = '';
                 expirydate.style.border = '';
             }
+
+            return formValido;
       
             }
           
@@ -214,13 +218,13 @@
     var formularioValido = validarformulario('card-form');
 
     if (formularioValido) {
-        madardatos();
+        mandardatos();
     }
 }
 
         document.addEventListener('DOMContentLoaded', function() {
     document.getElementByClassName('btn').addEventListener('click', enviarformulario);
-}); 
+}); */
 
         
 
@@ -249,6 +253,9 @@
                 console.log(error);
             })
         }
+
+
+        document.addEventListener('DOMContentLoaded',mandardatos);
 
         
 
