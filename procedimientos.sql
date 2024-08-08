@@ -540,7 +540,7 @@ DELIMITER //
 
 CREATE PROCEDURE CrearReservacion_En_Linea (
     IN recepcionista INT,
-    IN fecha DATE,
+    IN fecha DATETIME,
     IN estado_reservacion VARCHAR(15)
 )
 BEGIN
@@ -563,7 +563,7 @@ DELIMITER //
 
 CREATE PROCEDURE linea_reservacion_vieja (
     IN recepcionista INT,
-    IN fecha DATE,
+    IN fecha DATETIME,
     IN estado_reservacion VARCHAR(15),
     IN huesped INT
 )
@@ -583,8 +583,8 @@ DELIMITER ;
 DELIMITER //
 
 CREATE PROCEDURE Detalle_Reservacion_Combinado (
-    IN fecha_inicio DATE,
-    IN fecha_fin DATE,
+    IN fecha_inicio DATETIME,
+    IN fecha_fin DATETIME,
     IN titular VARCHAR(60),
     IN niños INT,
     IN adultos INT,
