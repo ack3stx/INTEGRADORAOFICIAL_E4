@@ -242,7 +242,7 @@ function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccio
 
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL RegistrarHuespedPersona_En_Linea(:nombre,:apellidopaterno,:apellidomaterno,:f_nac,:direccion,:ciudad,:estado,:codigo_postal,:pais,:genero,:numero_telefono,:usuario)");
+        $stmt = $this->PDOLocal->prepare("CALL Registrar_Huesped_Persona_En_Linea(:nombre,:apellidopaterno,:apellidomaterno,:f_nac,:direccion,:ciudad,:estado,:codigo_postal,:pais,:genero,:numero_telefono,:usuario)");
         $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
         $stmt->bindParam(':apellidopaterno',$apellidopaterno,PDO::PARAM_STR);
         $stmt->bindParam(':apellidomaterno',$apellidomaterno,PDO::PARAM_STR);
@@ -271,7 +271,7 @@ function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccio
 function reservacion($recepcionista,$fecha,$estado_reservacion){
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL CrearReservacion_En_Linea(:recepcionista,:fecha,:estado_reservacion)");
+        $stmt = $this->PDOLocal->prepare("CALL Crear_Reservacion_En_Linea(:recepcionista,:fecha,:estado_reservacion)");
         $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
         $stmt->bindParam(':fecha',$fecha,PDO::PARAM_STR);
         $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
@@ -304,7 +304,7 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$t
 
 function detalle_pago($metodo_pago,$monto_total){
     try{
-     $stmt = $this->PDOLocal->prepare("CALL RegistrarPagoReservacionLinea(:metodo_pago,:monto_total)");
+     $stmt = $this->PDOLocal->prepare("CALL Registrar_Pago_Reservacion_Linea(:metodo_pago,:monto_total)");
      $stmt->bindParam(':metodo_pago',$metodo_pago,PDO::PARAM_STR);
      $stmt->bindParam(':monto_total',$monto_total,PDO::PARAM_INT);
      $stmt->execute();
