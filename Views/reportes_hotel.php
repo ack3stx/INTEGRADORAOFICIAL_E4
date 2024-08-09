@@ -12,7 +12,7 @@
     $db = new Database();
     $db->conectarDB();
     list($mes, $año) = $db->obtenerMesYAñoActual();
-    $mesn=$db->obtenerMesActualn();
+    $mesn = $db->obtenerMesActualn();
 ?>
     <title>Document</title>
 </head>
@@ -115,59 +115,56 @@
     <button type="submit" class="btn btn-outline-danger">Buscar</button>
   </form>
   <?php
-    $Grafica=0;
+    $Grafica = 0;
     extract($_POST);
-    if($Grafica==1)
-    {
-    $consulta="SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS Total_MontoL, X.Total_MontoF
-FROM (SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS Total_MontoF
+    if ($Grafica == 1) {
+        $consulta = "SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS TOTAL_MONTOL, X.TOTAL_MONTOF
+FROM (SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS TOTAL_MONTOF
 FROM RESERVACION
 INNER JOIN DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION
 WHERE RESERVACION.RECEPCIONISTA IS NOT NULL AND MONTH(RESERVACION.FECHA_) = $mesn AND YEAR(RESERVACION.FECHA_) = $año) AS X
 LEFT JOIN RESERVACION ON RESERVACION.RECEPCIONISTA IS NULL AND MONTH(RESERVACION.FECHA_) = $mesn AND YEAR(RESERVACION.FECHA_) = $año
 LEFT JOIN DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION;";
-    $array=$db->seleccionar($consulta);
-    foreach($array as $monto_total)
-    {
-      $montola=$monto_total->Total_MontoL;
-      $montofa=$monto_total->Total_MontoF;
-    }
-    if (!isset($montola)) {
-      $montola = 0;
-    }
-    if (!isset($montofa)) {
-      $montofa = 0;
-    }
-    $mesn2=$mesn-1;
-    $consulta2="SELECT SUM(detalle_pago.monto_total) AS Total_MontoL, X.Total_MontoF
-FROM (SELECT SUM(detalle_pago.monto_total) AS Total_MontoF
-FROM reservacion
-INNER JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion
-WHERE reservacion.recepcionista IS NOT NULL 
-AND MONTH(reservacion.fecha_) = $mesn2
-AND YEAR(reservacion.fecha_) = $año) AS X
-LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND MONTH(reservacion.fecha_) = $mesn2 AND YEAR(reservacion.fecha_) = $año
-LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion";
-    $array2=$db->seleccionar($consulta2);
-    foreach($array2 as $monto_total2)
-    {
-      $montole=$monto_total2->Total_MontoL;
-      $montofe=$monto_total2->Total_MontoF;
-    }
-    if (!isset($montole)) {
-      $montole = 0;
-    }
-    if (!isset($montofe)) {
-      $montofe = 0;
-    }
-    $totala=$montola+$montofa;
-    $totale=$montole+$montofe;
-    $aumento=$totale*.20;
-    $montole=$montole+$aumento;
-    $montofe=$montofe+$aumento;
-    $totale=($aumento*2)+$totale;
-    echo
-    "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
+        $array = $db->seleccionar($consulta);
+        foreach ($array as $monto_total) {
+            $montola = $monto_total->TOTAL_MONTOL;
+            $montofa = $monto_total->TOTAL_MONTOF;
+        }
+        if (!isset($montola)) {
+            $montola = 0;
+        }
+        if (!isset($montofa)) {
+            $montofa = 0;
+        }
+        $mesn2 = $mesn - 1;
+        $consulta2 = "SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS TOTAL_MONTOL, X.TOTAL_MONTOF
+FROM (SELECT SUM(DETALLE_PAGO.MONTO_TOTAL) AS TOTAL_MONTOF
+FROM RESERVACION
+INNER JOIN DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION
+WHERE RESERVACION.RECEPCIONISTA IS NOT NULL 
+AND MONTH(RESERVACION.FECHA_) = $mesn2
+AND YEAR(RESERVACION.FECHA_) = $año) AS X
+LEFT JOIN RESERVACION ON RESERVACION.RECEPCIONISTA IS NULL AND MONTH(RESERVACION.FECHA_) = $mesn2 AND YEAR(RESERVACION.FECHA_) = $año
+LEFT JOIN DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION;";
+        $array2 = $db->seleccionar($consulta2);
+        foreach ($array2 as $monto_total2) {
+            $montole = $monto_total2->TOTAL_MONTOL;
+            $montofe = $monto_total2->TOTAL_MONTOF;
+        }
+        if (!isset($montole)) {
+            $montole = 0;
+        }
+        if (!isset($montofe)) {
+            $montofe = 0;
+        }
+        $totala = $montola + $montofa;
+        $totale = $montole + $montofe;
+        $aumento = $totale * .20;
+        $montole = $montole + $aumento;
+        $montofe = $montofe + $aumento;
+        $totale = ($aumento * 2) + $totale;
+        echo
+        "<script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script type='text/javascript'>
       google.charts.load('current', {'packages':['corechart', 'bar']});
       google.charts.setOnLoadCallback(drawStuff);
@@ -204,36 +201,35 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
     <div style='width: 100%; text-align: center; margin-bottom: 20px;'>
   <h5>Total ahora: $totala &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total Esperado: $totale</h5>
 </div>";
-      echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
+        echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
     }
-    if ($Grafica==2)
-    {
-      $consulta3="SELECT CONCAT(persona.nombre, ' ', persona.Apellido_paterno) AS Nombre,sum(detalle_pago.monto_total) as Total_Ventas
-FROM roles
-INNER JOIN rol_usuario ON rol_usuario.rol = roles.id_rol
-INNER JOIN usuarios ON usuarios.id_usuario = rol_usuario.usuario
-INNER JOIN persona ON persona.usuario = usuarios.id_usuario
-inner join recepcionista on recepcionista.persona_recepcionista=persona.id_persona
-inner join reservacion on reservacion.recepcionista=recepcionista.id_recepcionista
-inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
-WHERE reservacion.recepcionista is not null and month(fecha_)=$mesn and year(fecha_)=$año
-group by Nombre
-order by Total_Ventas desc
-LIMIT 5";
-$array3=$db->seleccionar($consulta3);
-$empleado1=$array3[0]->Nombre;
-$empleado2=$array3[1]->Nombre;
-$empleado3=$array3[2]->Nombre;
-$empleado4=$array3[3]->Nombre;
-$empleado5=$array3[4]->Nombre;
+    if ($Grafica == 2) {
+        $consulta3 = "SELECT CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO) AS NOMBRE, SUM(DETALLE_PAGO.MONTO_TOTAL) AS TOTAL_VENTAS
+FROM ROLES
+INNER JOIN ROL_USUARIO ON ROL_USUARIO.ROL = ROLES.ID_ROL
+INNER JOIN USUARIOS ON USUARIOS.ID_USUARIO = ROL_USUARIO.USUARIO
+INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA
+INNER JOIN RESERVACION ON RESERVACION.RECEPCIONISTA = RECEPCIONISTA.ID_RECEPCIONISTA
+INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+WHERE RESERVACION.RECEPCIONISTA IS NOT NULL AND MONTH(RESERVACION.FECHA_) = $mesn AND YEAR(RESERVACION.FECHA_) = $año
+GROUP BY NOMBRE
+ORDER BY TOTAL_VENTAS DESC
+LIMIT 5;";
+        $array3 = $db->seleccionar($consulta3);
+        $empleado1 = $array3[0]->NOMBRE;
+        $empleado2 = $array3[1]->NOMBRE;
+        $empleado3 = $array3[2]->NOMBRE;
+        $empleado4 = $array3[3]->NOMBRE;
+        $empleado5 = $array3[4]->NOMBRE;
 
-$ventas1=$array3[0]->Total_Ventas;
-$ventas2=$array3[1]->Total_Ventas;
-$ventas3=$array3[2]->Total_Ventas;
-$ventas4=$array3[3]->Total_Ventas;
-$ventas5=$array3[4]->Total_Ventas;
+        $ventas1 = $array3[0]->TOTAL_VENTAS;
+        $ventas2 = $array3[1]->TOTAL_VENTAS;
+        $ventas3 = $array3[2]->TOTAL_VENTAS;
+        $ventas4 = $array3[3]->TOTAL_VENTAS;
+        $ventas5 = $array3[4]->TOTAL_VENTAS;
 
-    echo "
+        echo "
     <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
     <script type='text/javascript'>
       google.charts.load('current', {'packages':['bar']});
@@ -286,12 +282,11 @@ $ventas5=$array3[4]->Total_Ventas;
         }
     </style>";
 
-      echo "<div id='ventas_empleados'></div>";
+        echo "<div id='ventas_empleados'></div>";
     }
-    if ($Grafica==3)
-    {
-      $consulta4="WITH meses AS (
-    SELECT 1 AS mes UNION ALL
+    if ($Grafica == 3) {
+        $consulta4 = "WITH MESES AS (
+    SELECT 1 AS MES UNION ALL
     SELECT 2 UNION ALL
     SELECT 3 UNION ALL
     SELECT 4 UNION ALL
@@ -304,31 +299,31 @@ $ventas5=$array3[4]->Total_Ventas;
     SELECT 11 UNION ALL
     SELECT 12
 )
-SELECT meses.mes, COALESCE(COUNT(reservacion.id_reservacion), 0) AS cantidad_reservaciones
-FROM meses
-LEFT JOIN reservacion ON MONTH(reservacion.fecha_) = meses.mes 
-AND YEAR(reservacion.fecha_) = 2024
-AND reservacion.estado_reservacion NOT IN ('cancelada')
-AND reservacion.recepcionista IS NULL
-GROUP BY meses.mes
-ORDER BY meses.mes";
-    $array4=$db->seleccionar($consulta4);
+SELECT MESES.MES, COALESCE(COUNT(RESERVACION.ID_RESERVACION), 0) AS CANTIDAD_RESERVACIONES
+FROM MESES
+LEFT JOIN RESERVACION ON MONTH(RESERVACION.FECHA_) = MESES.MES 
+AND YEAR(RESERVACION.FECHA_) = 2024
+AND RESERVACION.ESTADO_RESERVACION NOT IN ('CANCELADA')
+AND RESERVACION.RECEPCIONISTA IS NULL
+GROUP BY MESES.MES
+ORDER BY MESES.MES;";
+        $array4 = $db->seleccionar($consulta4);
 
-    $enerol=$array4[0]->cantidad_reservaciones;
-    $febrerol=$array4[1]->cantidad_reservaciones;
-    $marzol=$array4[2]->cantidad_reservaciones;
-    $abrill=$array4[3]->cantidad_reservaciones;
-    $mayol=$array4[4]->cantidad_reservaciones;
-    $juniol=$array4[5]->cantidad_reservaciones;
-    $juliol=$array4[6]->cantidad_reservaciones;
-    $agostol=$array4[7]->cantidad_reservaciones;
-    $septiembrel=$array4[8]->cantidad_reservaciones;
-    $octubrel=$array4[9]->cantidad_reservaciones;
-    $noviembrel=$array4[10]->cantidad_reservaciones;
-    $diciembrel=$array4[11]->cantidad_reservaciones;
+        $enerol = $array4[0]->CANTIDAD_RESERVACIONES;
+        $febrerol = $array4[1]->CANTIDAD_RESERVACIONES;
+        $marzol = $array4[2]->CANTIDAD_RESERVACIONES;
+        $abrill = $array4[3]->CANTIDAD_RESERVACIONES;
+        $mayol = $array4[4]->CANTIDAD_RESERVACIONES;
+        $juniol = $array4[5]->CANTIDAD_RESERVACIONES;
+        $juliol = $array4[6]->CANTIDAD_RESERVACIONES;
+        $agostol = $array4[7]->CANTIDAD_RESERVACIONES;
+        $septiembrel = $array4[8]->CANTIDAD_RESERVACIONES;
+        $octubrel = $array4[9]->CANTIDAD_RESERVACIONES;
+        $noviembrel = $array4[10]->CANTIDAD_RESERVACIONES;
+        $diciembrel = $array4[11]->CANTIDAD_RESERVACIONES;
 
-    $consulta5="WITH meses AS (
-    SELECT 1 AS mes UNION ALL
+        $consulta5 = "WITH MESES AS (
+    SELECT 1 AS MES UNION ALL
     SELECT 2 UNION ALL
     SELECT 3 UNION ALL
     SELECT 4 UNION ALL
@@ -341,45 +336,44 @@ ORDER BY meses.mes";
     SELECT 11 UNION ALL
     SELECT 12
 )
-SELECT meses.mes, COALESCE(COUNT(reservacion.id_reservacion), 0) AS cantidad_reservaciones
-FROM meses
-LEFT JOIN reservacion ON MONTH(reservacion.fecha_) = meses.mes 
-AND YEAR(reservacion.fecha_) = 2024
-AND reservacion.estado_reservacion NOT IN ('cancelada')
-AND reservacion.recepcionista IS NOT NULL
-GROUP BY meses.mes
-ORDER BY meses.mes";
+SELECT MESES.MES, COALESCE(COUNT(RESERVACION.ID_RESERVACION), 0) AS CANTIDAD_RESERVACIONES
+FROM MESES
+LEFT JOIN RESERVACION ON MONTH(RESERVACION.FECHA_) = MESES.MES 
+AND YEAR(RESERVACION.FECHA_) = 2024
+AND RESERVACION.ESTADO_RESERVACION NOT IN ('CANCELADA')
+AND RESERVACION.RECEPCIONISTA IS NOT NULL
+GROUP BY MESES.MES
+ORDER BY MESES.MES;";
 
-    $array5=$db->seleccionar($consulta5);
+        $array5 = $db->seleccionar($consulta5);
 
-    $enerof=$array5[0]->cantidad_reservaciones;
-    $febrerof=$array5[1]->cantidad_reservaciones;
-    $marzof=$array5[2]->cantidad_reservaciones;
-    $abrilf=$array5[3]->cantidad_reservaciones;
-    $mayof=$array5[4]->cantidad_reservaciones;
-    $juniof=$array5[5]->cantidad_reservaciones;
-    $juliof=$array5[6]->cantidad_reservaciones;
-    $agostof=$array5[7]->cantidad_reservaciones;
-    $septiembref=$array5[8]->cantidad_reservaciones;
-    $octubref=$array5[9]->cantidad_reservaciones;
-    $noviembref=$array5[10]->cantidad_reservaciones;
-    $diciembref=$array5[11]->cantidad_reservaciones;
+        $enerof = $array5[0]->CANTIDAD_RESERVACIONES;
+        $febrerof = $array5[1]->CANTIDAD_RESERVACIONES;
+        $marzof = $array5[2]->CANTIDAD_RESERVACIONES;
+        $abrilf = $array5[3]->CANTIDAD_RESERVACIONES;
+        $mayof = $array5[4]->CANTIDAD_RESERVACIONES;
+        $juniof = $array5[5]->CANTIDAD_RESERVACIONES;
+        $juliof = $array5[6]->CANTIDAD_RESERVACIONES;
+        $agostof = $array5[7]->CANTIDAD_RESERVACIONES;
+        $septiembref = $array5[8]->CANTIDAD_RESERVACIONES;
+        $octubref = $array5[9]->CANTIDAD_RESERVACIONES;
+        $noviembref = $array5[10]->CANTIDAD_RESERVACIONES;
+        $diciembref = $array5[11]->CANTIDAD_RESERVACIONES;
 
-    $consulta6="SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesl, X.total_reservacionesf
-FROM (SELECT coalesce(count(reservacion.id_reservacion),0) as total_reservacionesf
-FROM reservacion
-WHERE reservacion.recepcionista IS NOT NULL 
-AND YEAR(reservacion.fecha_) = 2024) AS X
-LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND YEAR(reservacion.fecha_) = 2024";
+        $consulta6 = "SELECT COALESCE(COUNT(RESERVACION.ID_RESERVACION), 0) AS TOTAL_RESERVACIONESL, X.TOTAL_RESERVACIONESF
+FROM (SELECT COALESCE(COUNT(RESERVACION.ID_RESERVACION), 0) AS TOTAL_RESERVACIONESF
+FROM RESERVACION
+WHERE RESERVACION.RECEPCIONISTA IS NOT NULL 
+AND YEAR(RESERVACION.FECHA_) = 2024) AS X
+LEFT JOIN RESERVACION ON RESERVACION.RECEPCIONISTA IS NULL AND YEAR(RESERVACION.FECHA_) = 2024;";
 
-    $array6=$db->seleccionar($consulta6);
-    foreach($array6 as $total_lof)
-    {
-      $total_fisico=$total_lof->total_reservacionesf;
-      $total_linea=$total_lof->total_reservacionesl;
-    }
-    $total_reservas=$total_fisico+$total_linea;
-    echo "
+        $array6 = $db->seleccionar($consulta6);
+        foreach ($array6 as $total_lof) {
+            $total_fisico = $total_lof->TOTAL_RESERVACIONESF;
+            $total_linea = $total_lof->TOTAL_RESERVACIONESL;
+        }
+        $total_reservas = $total_fisico + $total_linea;
+        echo "
 <script type='text/javascript' src='https://www.gstatic.com/charts/loader.js'></script>
 <script type='text/javascript'>
   google.charts.load('current', {'packages':['corechart']});
@@ -426,18 +420,18 @@ LEFT JOIN reservacion ON reservacion.recepcionista IS NULL AND YEAR(reservacion.
   <h5>Total De Reservaciones: $total_reservas &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Total En Linea: $total_linea &nbsp;&nbsp; Total En Fisico: $total_fisico</h5>
 </div>";
     
-    echo "<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";    
+        echo "<div id='reservaciones_año' style='width: 100%; height: 500px;'></div>";    
     }
   ?>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <?php
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<?php
     $db->desconectarBD();
   } else {
-  ?>
+?>
 <head>
   <style>
     body, html {
