@@ -577,6 +577,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
     /*document.addEventListener('DOMContentLoaded', function() {
       var today = new Date();
@@ -743,481 +746,493 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
             
-            const container = document.getElementById('contenedor-fluido');
-            
-            const cardContainer = document.createElement('div');
-            cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'dobid';
-            cardContainer.dataset.roomType = 'doble';
-            
-            const card = document.createElement('div');
-            card.className = 'card card-custom';
-            
-            const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container';
-            
-            const img = document.createElement('img');
-            img.src = '../Imagenes/HABITACION_D.png';
-            img.alt = 'Habitación Doble';
+const container = document.getElementById('contenedor-fluido');
 
-            if(habitacionesDoble === 1){
-            const texto = document.createElement('p');
-            texto.className = 'card-text';
-            texto.innerText = 'Solo queda 1 habitación disponible';
-            card.appendChild(texto);
-            }
-            
-            imageContainer.appendChild(img);
-            
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body card-body-custom';
-            
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.innerText = 'Habitación Doble';
-            
-            const cardSubtitle = document.createElement('h6');
-            cardSubtitle.className = 'card-subtitle mb-2 text-muted';
-            cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
-            
-            const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.innerText = 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.';
-            
-            const cardFooter = document.createElement('div');
-            cardFooter.className = 'card-footer-custom';
-            
-            const priceInfo = document.createElement('div');
-            priceInfo.className = 'price-info';
-            
-            const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}.00`;
-            
-            const night = document.createElement('p');
-            night.innerText = '1 noche';
-            
-            priceInfo.appendChild(price);
-            priceInfo.appendChild(night);
-            
-            const controls = document.createElement('div');
-            controls.className = 'controls';
-            
-            const dropdownAdults = document.createElement('div');
-            dropdownAdults.className = 'dropdown';
-            
-            const adultsButton = document.createElement('button');
-            adultsButton.className = 'btn dropdown-toggle';
-            adultsButton.type = 'button';
-            adultsButton.id = 'doble-adults';
-            adultsButton.setAttribute('data-bs-toggle', 'dropdown');
-            adultsButton.setAttribute('aria-expanded', 'false');
-            adultsButton.innerText = 'Adultos';
-            
-            const adultsMenu = document.createElement('ul');
-            adultsMenu.className = 'dropdown-menu';
-            adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
+const cardContainer = document.createElement('div');
+cardContainer.className = 'container-custom move-right';
+cardContainer.id = 'dobid';
+cardContainer.dataset.roomType = 'doble';
 
-            for (let i = 1; i <= adultos; i++) {
-                const adultOption = document.createElement('li');
-                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
-                adultOption.addEventListener('click', function() {
-                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
-                    localStorage.setItem('selectedAdults', i);
-                    addButton.disabled = false;
-                    
-                    if (i > 0) {
-                        kidsButton.disabled = false;
-                        kidsMenu.innerHTML = '';
-                        for (let j = 0; j <= niños; j++) {
-                            const kidOption = document.createElement('li');
-                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
-                            kidOption.addEventListener('click', function() {
-                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
-                                localStorage.setItem('selectedKids', j);
-                            });
-                            kidsMenu.appendChild(kidOption);
-                        }
-                    } else {
-                        kidsButton.disabled = true;
-                    }
+const card = document.createElement('div');
+card.className = 'card card-custom';
+
+const imageContainer = document.createElement('div');
+imageContainer.className = 'image-container';
+
+const img = document.createElement('img');
+img.src = '../Imagenes/HABITACION_D.png';
+img.alt = 'Habitación Doble';
+
+if (habitacionesDoble === 1) {
+const texto = document.createElement('p');
+texto.className = 'card-text';
+texto.innerText = 'Solo queda 1 habitación disponible';
+card.appendChild(texto);
+}
+
+imageContainer.appendChild(img);
+
+const cardBody = document.createElement('div');
+cardBody.className = 'card-body card-body-custom';
+
+const cardTitle = document.createElement('h5');
+cardTitle.className = 'card-title';
+cardTitle.innerText = 'Habitación Doble';
+
+const cardSubtitle = document.createElement('h6');
+cardSubtitle.className = 'card-subtitle mb-2 text-muted';
+cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
+
+const cardText = document.createElement('p');
+cardText.className = 'card-text';
+cardText.innerText = 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.';
+
+const cardFooter = document.createElement('div');
+cardFooter.className = 'card-footer-custom';
+    
+    const priceInfo = document.createElement('div');
+    priceInfo.className = 'price-info';
+    
+    const price = document.createElement('h6');
+    price.innerText = `MXN ${precio}.00`;
+    
+    const night = document.createElement('p');
+    night.innerText = '1 noche';
+    
+    priceInfo.appendChild(price);
+    priceInfo.appendChild(night);
+    
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+    
+    const dropdownAdults = document.createElement('div');
+    dropdownAdults.className = 'dropdown';
+    
+    const adultsButton = document.createElement('button');
+    adultsButton.className = 'btn dropdown-toggle';
+    adultsButton.type = 'button';
+    adultsButton.id = 'doble-adults';
+    adultsButton.setAttribute('data-bs-toggle', 'dropdown');
+    adultsButton.setAttribute('aria-expanded', 'false');
+    adultsButton.innerText = 'Adultos';
+    
+    const adultsMenu = document.createElement('ul');
+    adultsMenu.className = 'dropdown-menu';
+    adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
+
+
+    const kidsOptions = [3, 2, 1, 0];
+
+    for (let i = 1; i <= adultos; i++) {
+        const adultOption = document.createElement('li');
+        adultOption.innerHTML = `<a class="dropdown-item">${i} Adulto${i > 1 ? 's' : ''}</a>`;
+        adultOption.addEventListener('click', function() {
+            adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+            localStorage.setItem('selectedAdults', i);
+            addButton.disabled = false;
+
+            kidsButton.disabled = false;
+            kidsMenu.innerHTML = '';
+
+            let maxKids = kidsOptions[i - 1]; 
+            for (let j = 0; j <= maxKids; j++) {
+                const kidOption = document.createElement('li');
+                kidOption.innerHTML = `<a class="dropdown-item">${j} Niño${j > 1 ? 's' : ''}</a>`;
+                kidOption.addEventListener('click', function() {
+                    kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedKids', j);
                 });
-                adultsMenu.appendChild(adultOption);
-
-              
+                kidsMenu.appendChild(kidOption);
             }
-          
-            dropdownAdults.appendChild(adultsButton);
-            dropdownAdults.appendChild(adultsMenu);
-            
-            const dropdownKids = document.createElement('div');
-            dropdownKids.className = 'dropdown';
-            
-            const kidsButton = document.createElement('button');
-            kidsButton.className = 'btn dropdown-toggle';
-            kidsButton.type = 'button';
-            kidsButton.id = 'doble-kids';
-            kidsButton.setAttribute('data-bs-toggle', 'dropdown');
-            kidsButton.setAttribute('aria-expanded', 'false');
-            kidsButton.innerText = 'Niños';
-            kidsButton.disabled = true;
-            
-            const kidsMenu = document.createElement('ul');
-            kidsMenu.className = 'dropdown-menu';
-            kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
 
             
-            
-            dropdownKids.appendChild(kidsButton);
-            dropdownKids.appendChild(kidsMenu);
-            
-            
-            const addButton = document.createElement('button');
-            addButton.type = 'button';
-            addButton.className = 'btn btn-success custom-btn';
-            addButton.id = 'doble';
-            addButton.onclick = function() {
-                mostrar();
-                calcularPrecio('Doble',precio);
-                
-            };
-            addButton.innerText = 'Añadir';
-            addButton.disabled = true;
-            
-            controls.appendChild(dropdownAdults);
-            controls.appendChild(dropdownKids);
-            controls.appendChild(addButton); 
-            
-            cardFooter.appendChild(priceInfo);
-           cardFooter.appendChild(controls);
-            
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardSubtitle);
-            cardBody.appendChild(cardText);
-            cardBody.appendChild(cardFooter);
-            
-            card.appendChild(imageContainer);
-            card.appendChild(cardBody);
-            
-            cardContainer.appendChild(card);
-            container.appendChild(cardContainer);
-        }
+            kidsButton.innerText = `${maxKids} Niño${maxKids !== 1 ? 's' : ''}`;
+            localStorage.setItem('selectedKids', maxKids);
+        });
+        adultsMenu.appendChild(adultOption);
+    }
+  
+    dropdownAdults.appendChild(adultsButton);
+    dropdownAdults.appendChild(adultsMenu);
+    
+    const dropdownKids = document.createElement('div');
+    dropdownKids.className = 'dropdown';
+    
+    const kidsButton = document.createElement('button');
+    kidsButton.className = 'btn dropdown-toggle';
+    kidsButton.type = 'button';
+    kidsButton.id = 'doble-kids';
+    kidsButton.setAttribute('data-bs-toggle', 'dropdown');
+    kidsButton.setAttribute('aria-expanded', 'false');
+    kidsButton.innerText = 'Niños';
+    kidsButton.disabled = true;
+    
+    const kidsMenu = document.createElement('ul');
+    kidsMenu.className = 'dropdown-menu';
+    kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
+
+    
+    
+    dropdownKids.appendChild(kidsButton);
+    dropdownKids.appendChild(kidsMenu);
+    
+    
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'btn btn-danger custom-btn';
+    addButton.id = 'doble';
+    addButton.onclick = function() {
+        mostrar();
+        calcularPrecio('Doble',precio);
         
+    };
+    addButton.innerText = 'Añadir';
+    addButton.disabled = true;
+    
+    controls.appendChild(dropdownAdults);
+    controls.appendChild(dropdownKids);
+    controls.appendChild(addButton); 
+    
+    cardFooter.appendChild(priceInfo);
+   cardFooter.appendChild(controls);
+    
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(cardFooter);
+    
+    card.appendChild(imageContainer);
+    card.appendChild(cardBody);
+    
+    cardContainer.appendChild(card);
+    container.appendChild(cardContainer);
+}
 
-        function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio)  {
-            
-            const container = document.getElementById('contenedor-fluido');
-            
-            const cardContainer = document.createElement('div');
-            cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'kingid';
-            cardContainer.dataset.roomType = 'king-size';
-            
-            const card = document.createElement('div');
-            card.className = 'card card-custom';
-            
-            const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container';
-            
-            const img = document.createElement('img');
-            img.src = '../Imagenes/HABITACION_K.png';
-            img.alt = 'Habitación King Size';
 
-            if(habitacionesKingSize === 1){
-            const texto = document.createElement('p');
-            texto.className = 'card-text';
-            texto.innerText = 'Solo queda 1 habitación disponible';
-            card.appendChild(texto);
-            }
-            
-            imageContainer.appendChild(img);
-            
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body card-body-custom';
-            
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.innerText = 'Habitación King Size';
-            
-            const cardSubtitle = document.createElement('h6');
-            cardSubtitle.className = 'card-subtitle mb-2 text-muted';
-            cardSubtitle.innerText = 'Máximo de: 3 huéspedes';
-            
-            const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.innerText = 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.';
-            
-            const cardFooter = document.createElement('div');
-            cardFooter.className = 'card-footer-custom';
-            
-            const priceInfo = document.createElement('div');
-            priceInfo.className = 'price-info';
-            
-            const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}.00`;
-            
-            const night = document.createElement('p');
-            night.innerText = '1 noche';
-            
-            priceInfo.appendChild(price);
-            priceInfo.appendChild(night);
-            
-            const controls = document.createElement('div');
-            controls.className = 'controls';
-            
-            const dropdownAdults = document.createElement('div');
-            dropdownAdults.className = 'dropdown';
-            
-            const adultsButton = document.createElement('button');
-            adultsButton.className = 'btn dropdown-toggle';
-            adultsButton.type = 'button';
-            adultsButton.id = 'doble-adults';
-            adultsButton.setAttribute('data-bs-toggle', 'dropdown');
-            adultsButton.setAttribute('aria-expanded', 'false');
-            adultsButton.innerText = 'Adultos';
-            
-            const adultsMenu = document.createElement('ul');
-            adultsMenu.className = 'dropdown-menu';
-            adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
+function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio)  {
+    
+    const container = document.getElementById('contenedor-fluido');
+    
+    const cardContainer = document.createElement('div');
+    cardContainer.className = 'container-custom move-right';
+    cardContainer.id= 'kingid';
+    cardContainer.dataset.roomType = 'king-size';
+    
+    const card = document.createElement('div');
+    card.className = 'card card-custom';
+    
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container';
+    
+    const img = document.createElement('img');
+    img.src = '../Imagenes/HABITACION_K.png';
+    img.alt = 'Habitación King Size';
 
-            for (let i = 1; i <= adultos; i++) {
-                const adultOption = document.createElement('li');
-                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
-                adultOption.addEventListener('click', function() {
-                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
-                    localStorage.setItem('selectedAdults', i);
-                    addButton.disabled = false;
-                    
-                    if (i > 0) {
-                        kidsButton.disabled = false;
-                        kidsMenu.innerHTML = '';
-                        for (let j = 0; j <= niños; j++) {
-                            const kidOption = document.createElement('li');
-                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
-                            kidOption.addEventListener('click', function() {
-                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
-                                localStorage.setItem('selectedKids', j);
-                            });
-                            kidsMenu.appendChild(kidOption);
-                        }
-                    } else {
-                        kidsButton.disabled = true;
-                        
-                    }
+    if(habitacionesKingSize === 1){
+    const texto = document.createElement('p');
+    texto.className = 'card-text';
+    texto.innerText = 'Solo queda 1 habitación disponible';
+    card.appendChild(texto);
+    }
+    
+    imageContainer.appendChild(img);
+    
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body card-body-custom';
+    
+    const cardTitle = document.createElement('h5');
+    cardTitle.className = 'card-title';
+    cardTitle.innerText = 'Habitación King Size';
+    
+    const cardSubtitle = document.createElement('h6');
+    cardSubtitle.className = 'card-subtitle mb-2 text-muted';
+    cardSubtitle.innerText = 'Máximo de: 3 huéspedes';
+    
+    const cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.innerText = 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.';
+    
+    const cardFooter = document.createElement('div');
+    cardFooter.className = 'card-footer-custom';
+    
+    const priceInfo = document.createElement('div');
+    priceInfo.className = 'price-info';
+    
+    const price = document.createElement('h6');
+    price.innerText = `MXN ${precio}.00`;
+    
+    const night = document.createElement('p');
+    night.innerText = '1 noche';
+    
+    priceInfo.appendChild(price);
+    priceInfo.appendChild(night);
+    
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+    
+    const dropdownAdults = document.createElement('div');
+    dropdownAdults.className = 'dropdown';
+    
+    const adultsButton = document.createElement('button');
+    adultsButton.className = 'btn dropdown-toggle';
+    adultsButton.type = 'button';
+    adultsButton.id = 'king-adults';
+    adultsButton.setAttribute('data-bs-toggle', 'dropdown');
+    adultsButton.setAttribute('aria-expanded', 'false');
+    adultsButton.innerText = 'Adultos';
+    
+    const adultsMenu = document.createElement('ul');
+    adultsMenu.className = 'dropdown-menu';
+    adultsMenu.setAttribute('aria-labelledby', 'king-adults');
+
+    const kidsOptions = {
+    1: [1, 2, 0], 
+    2: [1, 0],  };
+
+    for (let i = 1; i <= 2; i++) {
+        const adultOption = document.createElement('li');
+        adultOption.innerHTML = `<a class="dropdown-item" >${i} Adulto${i > 1 ? 's' : ''}</a>`;
+        adultOption.addEventListener('click', function() {
+            adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+            localStorage.setItem('selectedAdults', i);
+            addButton.disabled = false;
+
+            kidsButton.disabled = false;
+            kidsMenu.innerHTML = '';
+
+            let possibleKids = kidsOptions[i]; 
+            possibleKids.forEach(kidCount => {
+                const kidOption = document.createElement('li');
+                kidOption.innerHTML = `<a class="dropdown-item" ">${kidCount} Niño${kidCount > 1 ? 's' : ''}</a>`;
+                kidOption.addEventListener('click', function() {
+                    kidsButton.innerText = `${kidCount} Niño${kidCount > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedKids', kidCount);
                 });
-                adultsMenu.appendChild(adultOption);
+                kidsMenu.appendChild(kidOption);
+            });
 
-              
-            }
+     
+            let defaultKids = possibleKids[0]; 
+            kidsButton.innerText = `${defaultKids} Niño${defaultKids !== 1 ? 's' : ''}`;
+            localStorage.setItem('selectedKids', defaultKids);
+        });
+        adultsMenu.appendChild(adultOption);
+    }
 
-            dropdownAdults.appendChild(adultsButton);
-            dropdownAdults.appendChild(adultsMenu);
+    dropdownAdults.appendChild(adultsButton);
+    dropdownAdults.appendChild(adultsMenu);
+    
+    const dropdownKids = document.createElement('div');
+    dropdownKids.className = 'dropdown';
+    
+    const kidsButton = document.createElement('button');
+    kidsButton.className = 'btn dropdown-toggle';
+    kidsButton.type = 'button';
+    kidsButton.id = 'king-kids';
+    kidsButton.setAttribute('data-bs-toggle', 'dropdown');
+    kidsButton.setAttribute('aria-expanded', 'false');
+    kidsButton.innerText = 'Niños';
+    kidsButton.disabled = true;
+    
+    const kidsMenu = document.createElement('ul');
+    kidsMenu.className = 'dropdown-menu';
+    kidsMenu.setAttribute('aria-labelledby', 'king-kids');
+    
+    dropdownKids.appendChild(kidsButton);
+    dropdownKids.appendChild(kidsMenu); 
+    
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'btn btn-danger custom-btn';
+    addButton.id = 'king';
+    addButton.onclick = function() {
+        mostrar();
+        calcularPrecio('King Size',precio);
+       
+    };
+    addButton.innerText = 'Añadir';
+    addButton.disabled = true;
+    
+    controls.appendChild(dropdownAdults);
+    controls.appendChild(dropdownKids);
+    controls.appendChild(addButton); 
+    
+    cardFooter.appendChild(priceInfo);
+   cardFooter.appendChild(controls);
+    
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(cardFooter);
+    
+    card.appendChild(imageContainer);
+    card.appendChild(cardBody);
+    
+    cardContainer.appendChild(card);
+    container.appendChild(cardContainer);
+}
+
+function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
+    
+    const container = document.getElementById('contenedor-fluido');
+    
+    const cardContainer = document.createElement('div');
+    cardContainer.className = 'container-custom move-right';
+    cardContainer.id= 'sencid';
+    cardContainer.dataset.roomType = 'sencilla';
+    
+    const card = document.createElement('div');
+    card.className = 'card card-custom';
+    
+    const imageContainer = document.createElement('div');
+    imageContainer.className = 'image-container';
+    
+    const img = document.createElement('img');
+    img.src = '../Imagenes/HABITACION_S.png';
+    img.alt = 'Habitación Sencilla';
+
+    if(habitacionesSencilla === 1){
+    const texto = document.createElement('p');
+    texto.className = 'card-text';
+    texto.innerText = 'Solo queda 1 habitación disponible';
+    card.appendChild(texto);
+    }
+    
+    imageContainer.appendChild(img);
+    
+    const cardBody = document.createElement('div');
+    cardBody.className = 'card-body card-body-custom';
+    
+    const cardTitle = document.createElement('h5');
+    cardTitle.className = 'card-title';
+    cardTitle.innerText = 'Habitación Sencilla';
+    
+    const cardSubtitle = document.createElement('h6');
+    cardSubtitle.className = 'card-subtitle mb-2 text-muted';
+    cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
+    
+    const cardText = document.createElement('p');
+    cardText.className = 'card-text';
+    cardText.innerText = 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable';
+    
+    const cardFooter = document.createElement('div');
+    cardFooter.className = 'card-footer-custom';
+    
+    const priceInfo = document.createElement('div');
+    priceInfo.className = 'price-info';
+    
+    const price = document.createElement('h6');
+    price.innerText = `MXN ${precio}.00`;
+    
+    const night = document.createElement('p');
+    night.innerText = '1 noche';
+    
+    priceInfo.appendChild(price);
+    priceInfo.appendChild(night);
+    
+    const controls = document.createElement('div');
+    controls.className = 'controls';
+    
+    const dropdownAdults = document.createElement('div');
+    dropdownAdults.className = 'dropdown';
+    
+    const adultsButton = document.createElement('button');
+    adultsButton.className = 'btn dropdown-toggle';
+    adultsButton.type = 'button';
+    adultsButton.id = 'doble-adults';
+    adultsButton.setAttribute('data-bs-toggle', 'dropdown');
+    adultsButton.setAttribute('aria-expanded', 'false');
+    adultsButton.innerText = 'Adultos';
+    
+    const adultsMenu = document.createElement('ul');
+    adultsMenu.className = 'dropdown-menu';
+    adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
+
+    const kidsOptions = {
+    1: [1, 0], 
+    2: [0] };
+
+    for (let i = 1; i <= adultos; i++) {
+        const adultOption = document.createElement('li');
+        adultOption.innerHTML = `<a class="dropdown-item" >${i} Adulto${i > 1 ? 's' : ''}</a>`;
+        adultOption.addEventListener('click', function() {
+            adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
+            localStorage.setItem('selectedAdults', i);
+            addButton.disabled = false;
+
+            kidsButton.disabled = false;
+            kidsMenu.innerHTML = '';
+
+            let possibleKids = kidsOptions[i]; 
+            possibleKids.forEach(kidCount => {
+                const kidOption = document.createElement('li');
+                kidOption.innerHTML = `<a class="dropdown-item" >${kidCount} Niño${kidCount > 1 ? 's' : ''}</a>`;
+                kidOption.addEventListener('click', function() {
+                    kidsButton.innerText = `${kidCount} Niño${kidCount > 1 ? 's' : ''}`;
+                    localStorage.setItem('selectedKids', kidCount);
+                });
+                kidsMenu.appendChild(kidOption);
+            });
+
             
-            const dropdownKids = document.createElement('div');
-            dropdownKids.className = 'dropdown';
-            
-            const kidsButton = document.createElement('button');
-            kidsButton.className = 'btn dropdown-toggle';
-            kidsButton.type = 'button';
-            kidsButton.id = 'doble-kids';
-            kidsButton.setAttribute('data-bs-toggle', 'dropdown');
-            kidsButton.setAttribute('aria-expanded', 'false');
-            kidsButton.innerText = 'Niños';
-            kidsButton.disabled = true;
-            
-            const kidsMenu = document.createElement('ul');
-            kidsMenu.className = 'dropdown-menu';
-            kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
-            
-            dropdownKids.appendChild(kidsButton);
-            dropdownKids.appendChild(kidsMenu); 
-            
-            const addButton = document.createElement('button');
-            addButton.type = 'button';
-            addButton.className = 'btn btn-success custom-btn';
-            addButton.id = 'king';
-            addButton.onclick = function() {
-                mostrar();
-                calcularPrecio('King Size',precio);
-               
-            };
-            addButton.innerText = 'Añadir';
-            addButton.disabled = true;
-            
-            controls.appendChild(dropdownAdults);
-            controls.appendChild(dropdownKids);
-            controls.appendChild(addButton); 
-            
-            cardFooter.appendChild(priceInfo);
-           cardFooter.appendChild(controls);
-            
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardSubtitle);
-            cardBody.appendChild(cardText);
-            cardBody.appendChild(cardFooter);
-            
-            card.appendChild(imageContainer);
-            card.appendChild(cardBody);
-            
-            cardContainer.appendChild(card);
-            container.appendChild(cardContainer);
-        }
+            let defaultKids = possibleKids[0]; 
+            kidsButton.innerText = `${defaultKids} Niño${defaultKids !== 1 ? 's' : ''}`;
+            localStorage.setItem('selectedKids', defaultKids);
+        });
+        adultsMenu.appendChild(adultOption);
+    }
+     dropdownAdults.appendChild(adultsButton);
+    dropdownAdults.appendChild(adultsMenu);
+    
+    const dropdownKids = document.createElement('div');
+    dropdownKids.className = 'dropdown';
+    
+    const kidsButton = document.createElement('button');
+    kidsButton.className = 'btn dropdown-toggle';
+    kidsButton.type = 'button';
+    kidsButton.id = 'doble-kids';
+    kidsButton.setAttribute('data-bs-toggle', 'dropdown');
+    kidsButton.setAttribute('aria-expanded', 'false');
+    kidsButton.innerText = 'Niños';
+    kidsButton.disabled = true;
+    
+    const kidsMenu = document.createElement('ul');
+    kidsMenu.className = 'dropdown-menu';
+    kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
+    
+    dropdownKids.appendChild(kidsButton);
+    dropdownKids.appendChild(kidsMenu); 
+    
+    const addButton = document.createElement('button');
+    addButton.type = 'button';
+    addButton.className = 'btn btn-danger custom-btn';
+    addButton.id = 'sencilla';
+    addButton.onclick = function() {
+        mostrar();
+        calcularPrecio('Sencilla',precio);
         
-        function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
-            
-            const container = document.getElementById('contenedor-fluido');
-            
-            const cardContainer = document.createElement('div');
-            cardContainer.className = 'container-custom move-right';
-            cardContainer.id= 'sencid';
-            cardContainer.dataset.roomType = 'sencilla';
-            
-            const card = document.createElement('div');
-            card.className = 'card card-custom';
-            
-            const imageContainer = document.createElement('div');
-            imageContainer.className = 'image-container';
-            
-            const img = document.createElement('img');
-            img.src = '../Imagenes/HABITACION_S.png';
-            img.alt = 'Habitación Sencilla';
-
-            if(habitacionesSencilla === 1){
-            const texto = document.createElement('p');
-            texto.className = 'card-text';
-            texto.innerText = 'Solo queda 1 habitación disponible';
-            card.appendChild(texto);
-            }
-            
-            imageContainer.appendChild(img);
-            
-            const cardBody = document.createElement('div');
-            cardBody.className = 'card-body card-body-custom';
-            
-            const cardTitle = document.createElement('h5');
-            cardTitle.className = 'card-title';
-            cardTitle.innerText = 'Habitación Sencilla';
-            
-            const cardSubtitle = document.createElement('h6');
-            cardSubtitle.className = 'card-subtitle mb-2 text-muted';
-            cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
-            
-            const cardText = document.createElement('p');
-            cardText.className = 'card-text';
-            cardText.innerText = 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable';
-            
-            const cardFooter = document.createElement('div');
-            cardFooter.className = 'card-footer-custom';
-            
-            const priceInfo = document.createElement('div');
-            priceInfo.className = 'price-info';
-            
-            const price = document.createElement('h6');
-            price.innerText = `MXN ${precio}.00`;
-            
-            const night = document.createElement('p');
-            night.innerText = '1 noche';
-            
-            priceInfo.appendChild(price);
-            priceInfo.appendChild(night);
-            
-            const controls = document.createElement('div');
-            controls.className = 'controls';
-            
-            const dropdownAdults = document.createElement('div');
-            dropdownAdults.className = 'dropdown';
-            
-            const adultsButton = document.createElement('button');
-            adultsButton.className = 'btn dropdown-toggle';
-            adultsButton.type = 'button';
-            adultsButton.id = 'doble-adults';
-            adultsButton.setAttribute('data-bs-toggle', 'dropdown');
-            adultsButton.setAttribute('aria-expanded', 'false');
-            adultsButton.innerText = 'Adultos';
-            
-            const adultsMenu = document.createElement('ul');
-            adultsMenu.className = 'dropdown-menu';
-            adultsMenu.setAttribute('aria-labelledby', 'doble-adults');
-
-            for (let i = 1; i <= adultos; i++) {
-                const adultOption = document.createElement('li');
-                adultOption.innerHTML = `<a class="dropdown-item" href="#">${i} Adulto${i > 1 ? 's' : ''}</a>`;
-                adultOption.addEventListener('click', function() {
-                    adultsButton.innerText = `${i} Adulto${i > 1 ? 's' : ''}`;
-                    localStorage.setItem('selectedAdults', i);
-                    addButton.disabled = false;
-                    
-                    if (i > 0) {
-                        kidsButton.disabled = false;
-                        kidsMenu.innerHTML = '';
-                        for (let j = 0; j <= niños; j++) {
-                            const kidOption = document.createElement('li');
-                            kidOption.innerHTML = `<a class="dropdown-item" href="#">${j} Niño${j > 1 ? 's' : ''}</a>`;
-                            kidOption.addEventListener('click', function() {
-                                kidsButton.innerText = `${j} Niño${j > 1 ? 's' : ''}`;
-                                localStorage.setItem('selectedKids', j);
-                            });
-                            kidsMenu.appendChild(kidOption);
-                        }
-                    } else {
-                        kidsButton.disabled = true;
-                    }
-                });
-                adultsMenu.appendChild(adultOption);
-
-              
-            }
-             dropdownAdults.appendChild(adultsButton);
-            dropdownAdults.appendChild(adultsMenu);
-            
-            const dropdownKids = document.createElement('div');
-            dropdownKids.className = 'dropdown';
-            
-            const kidsButton = document.createElement('button');
-            kidsButton.className = 'btn dropdown-toggle';
-            kidsButton.type = 'button';
-            kidsButton.id = 'doble-kids';
-            kidsButton.setAttribute('data-bs-toggle', 'dropdown');
-            kidsButton.setAttribute('aria-expanded', 'false');
-            kidsButton.innerText = 'Niños';
-            kidsButton.disabled = true;
-            
-            const kidsMenu = document.createElement('ul');
-            kidsMenu.className = 'dropdown-menu';
-            kidsMenu.setAttribute('aria-labelledby', 'doble-kids');
-            
-            dropdownKids.appendChild(kidsButton);
-            dropdownKids.appendChild(kidsMenu); 
-            
-            const addButton = document.createElement('button');
-            addButton.type = 'button';
-            addButton.className = 'btn btn-success custom-btn';
-            addButton.id = 'sencilla';
-            addButton.onclick = function() {
-                mostrar();
-                calcularPrecio('Sencilla',precio);
-                
-            };
-            addButton.innerText = 'Añadir';
-            addButton.disabled = true;
-            
-            controls.appendChild(dropdownAdults);
-            controls.appendChild(dropdownKids);
-            controls.appendChild(addButton); 
-            
-            cardFooter.appendChild(priceInfo);
-           cardFooter.appendChild(controls); 
-            
-            cardBody.appendChild(cardTitle);
-            cardBody.appendChild(cardSubtitle);
-            cardBody.appendChild(cardText);
-            cardBody.appendChild(cardFooter);
-            
-            card.appendChild(imageContainer);
-            card.appendChild(cardBody);
-            
-            cardContainer.appendChild(card);
-            container.appendChild(cardContainer); 
-        }  
+    };
+    addButton.innerText = 'Añadir';
+    addButton.disabled = true;
+    
+    controls.appendChild(dropdownAdults);
+    controls.appendChild(dropdownKids);
+    controls.appendChild(addButton); 
+    
+    cardFooter.appendChild(priceInfo);
+   cardFooter.appendChild(controls); 
+    
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(cardFooter);
+    
+    card.appendChild(imageContainer);
+    card.appendChild(cardBody);
+    
+    cardContainer.appendChild(card);
+    container.appendChild(cardContainer); 
+}  
         
         
   
