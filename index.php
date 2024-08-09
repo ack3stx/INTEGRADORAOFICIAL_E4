@@ -201,10 +201,10 @@ else {
       </div>
       <div class="col-md-6">
           <div class="image-container">
-              <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
+              <img src="Imagenes/SILLONES.png" alt="Main Image">    
               
               <div class="image-overlay">
-                <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
+                <img src="Imagenes/SILLONES.png" alt="Main Image">    
               </div>
           </div>
       </div>
@@ -297,7 +297,7 @@ else {
   <div class="container-fluid my-custom-container">
     <div class="row my-custom-row align-items-center justify-content-center">
         <div class="col-md-5 order-md-1 order-2 my-custom-image-container">
-            <img src="../INTEGRADORAOFICIAL_E4/Imagenes/DESAYUNO2.jpg" alt="Desayuno Buffet" class="img-fluid my-custom-image">
+            <img src="Imagenes/DESAYUNO2.jpg" alt="Desayuno Buffet" class="img-fluid my-custom-image">
         </div>
         <div class="col-md-5 order-md-2 order-1 my-custom-text-container">
             <h2 class="my-custom-title">Desayuno Continental</h2>
@@ -314,12 +314,12 @@ else {
             </p>
         </div>
         <div class="col-md-5 order-md-2 order-2 my-custom-image-container">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/COMEDOR.png" alt="Eventos y Reuniones" class="img-fluid my-custom-image">
+          <img src="Imagenes/COMEDOR.png" alt="Eventos y Reuniones" class="img-fluid my-custom-image">
       </div>
     </div>
     <div class="row my-custom-row align-items-center justify-content-center">
       <div class="col-md-5 order-md-1 order-2 my-custom-image-container">
-          <img src="../INTEGRADORAOFICIAL_E4/Imagenes/CERCANIA.png" alt="Desayuno Buffet" class="img-fluid my-custom-image">
+          <img src="Imagenes/CERCANIA.png" alt="Desayuno Buffet" class="img-fluid my-custom-image">
       </div>
       <div class="col-md-5 order-md-2 order-1 my-custom-text-container">
           <h2 class="my-custom-title">Nuestra ubicación</h2>

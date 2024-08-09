@@ -113,14 +113,17 @@
   </div>
 
   <div class="container">
-    <?php 
-      extract($_POST);
-      if(empty($numero) && empty($fecha1) && empty($fecha2))
-      {
+  <?php 
+    extract($_POST);
 
-      }
-      else
-      {
+    // Verifica si el formulario ha sido enviado
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      // Si no se proporcionan datos, muestra el formulario vacío
+      if(empty($numero) && empty($fecha1) && empty($fecha2)) {
+        echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
+      } else {
+        // Realiza la consulta dependiendo si el número está vacío o no
         if (empty($numero)) {
           $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
           FROM usuarios
@@ -142,37 +145,45 @@
         }
 
         $tabla = $conexion->seleccionar($consulta);
-        echo "<div class='table-responsive'>";
-        echo "<table class='table table-hover table-bordered table-danger'>";
-        echo "<thead class='table-dark'>";
-        echo "<tr>";
-        echo "<th>Nombre</th>";
-        echo "<th>Teléfono</th>";
-        echo "<th>Fecha Reservación</th>";
-        echo "<th>Estado Reservación</th>";
-        echo "<th>Cantidad Habitaciones</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
 
-        foreach ($tabla as $reg) {
+        // Verifica si se encontraron resultados
+        if (empty($tabla)) {
+          echo "<p>No se encontraron reservaciones.</p>";
+        } else {
+          echo "<div class='table-responsive'>";
+          echo "<table class='table table-hover table-bordered table-danger'>";
+          echo "<thead class='table-dark'>";
           echo "<tr>";
-          echo "<td>{$reg->Nombre_Huesped}</td>";
-          echo "<td>{$reg->numero_de_telefono}</td>";
-          echo "<td>{$reg->fecha_}</td>";
-          echo "<td>{$reg->estado_reservacion}</td>";
-          echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
+          echo "<th>Nombre</th>";
+          echo "<th>Teléfono</th>";
+          echo "<th>Fecha Reservación</th>";
+          echo "<th>Estado Reservación</th>";
+          echo "<th>Cantidad Habitaciones</th>";
           echo "</tr>";
-        }
+          echo "</thead>";
+          echo "<tbody>";
 
-        echo "</tbody>";
-        echo "</table>";
-        echo "</div>";
+          foreach ($tabla as $reg) {
+            echo "<tr>";
+            echo "<td>{$reg->Nombre_Huesped}</td>";
+            echo "<td>{$reg->numero_de_telefono}</td>";
+            echo "<td>{$reg->fecha_}</td>";
+            echo "<td>{$reg->estado_reservacion}</td>";
+            echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
+            echo "</tr>";
+          }
+
+          echo "</tbody>";
+          echo "</table>";
+          echo "</div>";
+        }
       }
-        $conexion->desconectarBD();
       
-    ?>
-  </div>
+      $conexion->desconectarBD();
+    }
+  ?>
+</div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

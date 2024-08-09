@@ -14,7 +14,7 @@
     $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$capchat&remoteip=$ip");
     $atributos = json_decode($respuesta, TRUE);
     if(!$atributos['success']){
-        header('Location: ../views/login.php?status=failed_capchat');
+        header('Location: ../Views/Login.php?status=failed_capchat');
         exit();
     }
         include '../Clases/BasedeDatos.php';

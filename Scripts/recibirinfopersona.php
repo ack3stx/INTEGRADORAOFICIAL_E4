@@ -8,16 +8,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
-        $fechainicio = $_POST['fechainicio'];
-        $fechafin = $_POST['fechafin'];
-
-        $fechainicio = $_POST['fechainicio'] . " 14:00:00"; 
+        
+    
+        $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
         $fechafin = $_POST['fechafin'] . " 12:00:00";
     
 
         date_default_timezone_set('America/Monterrey');
-        $fecha_actual = date('Y-m-d H:i:s');
-        $fechaa= $fecha_actual;
+        $fecha = date('Y-m-d H:i:s');
+       
+    
 
         $recepcionista = null;
         $estado_reservacion = 'proceso';
@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $id_huesped = $resultadoPasado['huesped'];
 
-                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fechaa, $estado_reservacion);
+                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
@@ -93,7 +93,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
                 
                 
-                    $reservacion = $data->reservacion($recepcionista, $fechaa, $estado_reservacion);
+                    $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 

@@ -107,7 +107,7 @@ class Database
                 }
             }
             else{
-                header('Location: ../views/login.php?status=failed_login');
+                header('Location: ../Views/Login.php?status=failed_login');
                 exit();
             }
 
@@ -237,27 +237,6 @@ function disponibilidad_sencilla($fechaInicio,$fechaFin)
 
 }
 
-function calculo_reserva ($fechaInicio,$fechaFin,$tipohab)
-{
-
-    try{
-        $stmt = $this->PDOLocal->prepare("CALL CALCULO_RESERVA(:fecha_inicio,:fecha_fin,:tipo)");
-        $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
-        $stmt->bindParam(':fecha_fin',$fechaInicio,PDO::PARAM_STR);
-        $stmt->bindParam(':tipo',$fechaInicio,PDO::PARAM_STR);
-        $stmt->execute();
-
-        $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    return $resultados;
-
-
-
-    }
-    catch(PDOException $e){
-        echo $e->getMessage();
-    }
-
-}
 
 function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccion, $ciudad, $estado,$codigo_postal,$pais,$genero,$numero_telefono,$usuario){
 
@@ -335,12 +314,12 @@ function detalle_pago($metodo_pago,$monto_total){
     }
 }
 
-function reservacionpasada($huesped,$recepcionista,$fecha_actual,$estado_reservacion){
+function reservacionpasada($huesped,$recepcionista,$fecha,$estado_reservacion){
     try{
      $stmt = $this->PDOLocal->prepare("CALL linea_reservacion_vieja(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
-     $stmt->bindParam(':huesped',$id_huesped,PDO::PARAM_INT);
+     $stmt->bindParam(':huesped',$huesped,PDO::PARAM_INT);
      $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
-     $stmt->bindParam(':fecha_actual',$fecha_actual,PDO::PARAM_STR);
+     $stmt->bindParam(':fecha_actual',$fecha,PDO::PARAM_STR);
      $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
      $stmt->execute();
     }
