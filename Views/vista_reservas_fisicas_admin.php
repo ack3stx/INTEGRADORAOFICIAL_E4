@@ -1,7 +1,6 @@
-
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
+<html lang="en">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navbar Example</title>
@@ -9,16 +8,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-  </head>
-  <body>
-  <?php
+</head>
+<body>
+<?php
   session_start();
   include '../Clases/BasedeDatos.php';
   $conexion = new Database();
   $conexion->conectarDB();
 
-  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
-  ?>
+  if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "ADMINISTRADOR") {
+?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="Panel_Admin.php">Hotel Laguna Inn</a>
