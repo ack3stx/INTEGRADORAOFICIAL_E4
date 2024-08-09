@@ -198,16 +198,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     extract($_POST);
 
     if (!empty($nombre) && !empty($ap_paterno) && !empty($ap_materno)) {
-        $cadena = "SELECT CONCAT(PERSONA.nombre, ' ', PERSONA.apellido_paterno, ' ', PERSONA.apellido_materno) AS nombre, 
-                          PERSONA.fecha_de_nacimiento, PERSONA.direccion, PERSONA.ciudad, PERSONA.estado, PERSONA.codigo_postal, 
-                          PERSONA.pais, PERSONA.genero, PERSONA.numero_de_telefono, RECEPCIONISTA.curp, 
-                          RECEPCIONISTA.fecha_de_contratacion, RECEPCIONISTA.numero_de_seguridad_social, 
-                          RECEPCIONISTA.afore, RECEPCIONISTA.numero_de_emergencia
+        $cadena = "SELECT CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE, 
+                          PERSONA.FECHA_DE_NACIMIENTO, PERSONA.DIRECCION, PERSONA.CIUDAD, PERSONA.ESTADO, PERSONA.CODIGO_POSTAL, 
+                          PERSONA.PAIS, PERSONA.GENERO, PERSONA.NUMERO_DE_TELEFONO, RECEPCIONISTA.CURP, 
+                          RECEPCIONISTA.FECHA_DE_CONTRATACION, RECEPCIONISTA.NUMERO_DE_SEGURIDAD_SOCIAL, 
+                          RECEPCIONISTA.AFORE, RECEPCIONISTA.NUMERO_DE_EMERGENCIA
                    FROM PERSONA
-                   INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.persona_recepcionista = PERSONA.id_persona 
-                   WHERE PERSONA.nombre = '$nombre' 
-                   AND PERSONA.apellido_paterno = '$ap_paterno' 
-                   AND PERSONA.apellido_materno = '$ap_materno'";
+                   INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA 
+                   WHERE PERSONA.NOMBRE = '$nombre' 
+                   AND PERSONA.APELLIDO_PATERNO = '$ap_paterno' 
+                   AND PERSONA.APELLIDO_MATERNO = '$ap_materno'";
         $tabla = $db->seleccionar($cadena);
 
         if (empty($tabla)) {
@@ -240,20 +240,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             foreach ($tabla as $reg) {
                 echo "
                         <tr>
-                            <td>{$reg->nombre}</td>
-                            <td>{$reg->fecha_de_nacimiento}</td>
-                            <td>{$reg->direccion}</td>
-                            <td>{$reg->ciudad}</td>
-                            <td>{$reg->estado}</td>
-                            <td>{$reg->codigo_postal}</td>
-                            <td>{$reg->pais}</td>
-                            <td>{$reg->genero}</td>
-                            <td>{$reg->numero_de_telefono}</td>
-                            <td>{$reg->curp}</td>
-                            <td>{$reg->fecha_de_contratacion}</td>
-                            <td>{$reg->numero_de_seguridad_social}</td>
-                            <td>{$reg->afore}</td>
-                            <td>{$reg->numero_de_emergencia}</td>
+                            <td>{$reg->NOMBRE}</td>
+                            <td>{$reg->FECHA_DE_NACIMIENTO}</td>
+                            <td>{$reg->DIRECCION}</td>
+                            <td>{$reg->CIUDAD}</td>
+                            <td>{$reg->ESTADO}</td>
+                            <td>{$reg->CODIGO_POSTAL}</td>
+                            <td>{$reg->PAIS}</td>
+                            <td>{$reg->GENERO}</td>
+                            <td>{$reg->NUMERO_DE_TELEFONO}</td>
+                            <td>{$reg->CURP}</td>
+                            <td>{$reg->FECHA_DE_CONTRATACION}</td>
+                            <td>{$reg->NUMERO_DE_SEGURIDAD_SOCIAL}</td>
+                            <td>{$reg->AFORE}</td>
+                            <td>{$reg->NUMERO_DE_EMERGENCIA}</td>
                         </tr>
                 ";
             }

@@ -1,7 +1,4 @@
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use Dotenv\Dotenv;
 
 $ip = $_SERVER['REMOTE_ADDR'];
 $capchat = $_POST['g-recaptcha-response'];
@@ -12,6 +9,18 @@ if(!$atributos['success']){
     header('Location: ../views/Contacto.php?status=failed');
     exit();
 }
+
+
+if($_POST){
+    header('Location: ../Views/Contacto.php?status=exit');
+    exit;
+}
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use Dotenv\Dotenv;
+
 require __DIR__ . '/../vendor/autoload.php';
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');

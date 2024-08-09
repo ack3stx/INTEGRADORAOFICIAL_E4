@@ -166,7 +166,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             DETALLE_RESERVACION.FECHA_INICIO AS FECHA_INICIO,
             DETALLE_RESERVACION.FECHA_FIN AS FECHA_FIN,
             T_HABITACION.NOMBRE AS TIPO_HABITACION,
-            T_HABITACION.PRECIO AS PRECIO_HABITACION
+            DETALLE_PAGO.MONTO_TOTAL AS MONTO_PAGADO
         FROM USUARIOS AS USUARIO_RECEPCIONISTA
         INNER JOIN PERSONA AS PERSONA_RECEPCIONISTA ON PERSONA_RECEPCIONISTA.USUARIO = USUARIO_RECEPCIONISTA.ID_USUARIO
         INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA_RECEPCIONISTA.ID_PERSONA
@@ -174,10 +174,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         INNER JOIN HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
         INNER JOIN PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
         INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
         JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
         JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
         WHERE RECEPCIONISTA.ID_RECEPCIONISTA = $recepcionista_id
-        GROUP BY NOMBRE_HUESPED, FOLIO_RESERVA, ESTADO, FECHA_RESERVACION, FECHA_INICIO, FECHA_FIN, TIPO_HABITACION, PRECIO_HABITACION
+        GROUP BY NOMBRE_HUESPED, FOLIO_RESERVA, ESTADO, FECHA_RESERVACION, FECHA_INICIO, FECHA_FIN, TIPO_HABITACION, MONTO_PAGADO
         ORDER BY RESERVACION.FECHA_";
 
         $reservaciones = $conexion->seleccionar($consulta);
@@ -188,12 +189,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<tr>";
         echo "<th>Huésped</th>";
         echo "<th>Folio Reserva</th>";
-        echo "<th>Estado</th>";
+        
         echo "<th>Fecha Reservación</th>";
         echo "<th>Fecha Inicio</th>";
         echo "<th>Fecha Fin</th>";
         echo "<th>Tipo Habitación</th>";
-        echo "<th>Precio Habitación</th>";
+        echo "<th>Monto Pagado</th>";
         echo "</tr>";
         echo "</thead>";
         echo "<tbody>";
@@ -203,12 +204,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 echo "<tr>";
                 echo "<td>{$reservacion->NOMBRE_HUESPED}</td>";
                 echo "<td>{$reservacion->FOLIO_RESERVA}</td>";
-                echo "<td>{$reservacion->ESTADO}</td>";
+                
                 echo "<td>{$reservacion->FECHA_RESERVACION}</td>";
                 echo "<td>{$reservacion->FECHA_INICIO}</td>";
                 echo "<td>{$reservacion->FECHA_FIN}</td>";
                 echo "<td>{$reservacion->TIPO_HABITACION}</td>";
-                echo "<td>{$reservacion->PRECIO_HABITACION}</td>";
+                echo "<td>{$reservacion->MONTO_PAGADO}</td>";
                 echo "</tr>";
             }
         } else {

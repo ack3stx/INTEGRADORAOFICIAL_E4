@@ -185,7 +185,7 @@ function obtenerMesYAñoActual() {
 function disponibilidad($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_DOBLE(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_doble(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
@@ -203,7 +203,7 @@ function disponibilidad($fechaInicio,$fechaFin)
 function disponibilidad_kingsize($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_KINGSIZE(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_kingsize(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
@@ -222,7 +222,7 @@ function disponibilidad_kingsize($fechaInicio,$fechaFin)
 function disponibilidad_sencilla($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_SENCILLA(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_sencilla(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
@@ -242,7 +242,7 @@ function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccio
 
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL REGISTRAR_HUESPED_PERSONA_EN_LINEA(:nombre,:apellidopaterno,:apellidomaterno,:f_nac,:direccion,:ciudad,:estado,:codigo_postal,:pais,:genero,:numero_telefono,:usuario)");
+        $stmt = $this->PDOLocal->prepare("CALL RegistrarHuespedPersona_En_Linea(:nombre,:apellidopaterno,:apellidomaterno,:f_nac,:direccion,:ciudad,:estado,:codigo_postal,:pais,:genero,:numero_telefono,:usuario)");
         $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
         $stmt->bindParam(':apellidopaterno',$apellidopaterno,PDO::PARAM_STR);
         $stmt->bindParam(':apellidomaterno',$apellidomaterno,PDO::PARAM_STR);
@@ -271,7 +271,7 @@ function registro($nombre, $apellidopaterno, $apellidomaterno, $f_nac, $direccio
 function reservacion($recepcionista,$fecha,$estado_reservacion){
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL CREAR_RESERVACION_EN_LINEA(:recepcionista,:fecha,:estado_reservacion)");
+        $stmt = $this->PDOLocal->prepare("CALL CrearReservacion_En_Linea(:recepcionista,:fecha,:estado_reservacion)");
         $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
         $stmt->bindParam(':fecha',$fecha,PDO::PARAM_STR);
         $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
@@ -286,7 +286,7 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$t
     try{
 
         echo "Hola";
-        $stmt = $this->PDOLocal->prepare("CALL DETALLE_RESERVACION_COMBINADO(:fechaInicio,:fechaFin,:titular,:ninos,:adultos,:tipo_habitacion)");
+        $stmt = $this->PDOLocal->prepare("CALL Detalle_Reservacion_Combinado(:fechaInicio,:fechaFin,:titular,:ninos,:adultos,:tipo_habitacion)");
         $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
         $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
         $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
@@ -304,7 +304,7 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$t
 
 function detalle_pago($metodo_pago,$monto_total){
     try{
-     $stmt = $this->PDOLocal->prepare("CALL REGISTRAR_PAGO_RESERVACION_LINEA(:metodo_pago,:monto_total)");
+     $stmt = $this->PDOLocal->prepare("CALL RegistrarPagoReservacionLinea(:metodo_pago,:monto_total)");
      $stmt->bindParam(':metodo_pago',$metodo_pago,PDO::PARAM_STR);
      $stmt->bindParam(':monto_total',$monto_total,PDO::PARAM_INT);
      $stmt->execute();
@@ -316,7 +316,7 @@ function detalle_pago($metodo_pago,$monto_total){
 
 function reservacionpasada($huesped,$recepcionista,$fecha,$estado_reservacion){
     try{
-     $stmt = $this->PDOLocal->prepare("CALL LINEA_RESERVACION_VIEJA(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
+     $stmt = $this->PDOLocal->prepare("CALL linea_reservacion_vieja(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
      $stmt->bindParam(':huesped',$huesped,PDO::PARAM_INT);
      $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
      $stmt->bindParam(':fecha_actual',$fecha,PDO::PARAM_STR);
@@ -335,7 +335,7 @@ function facturacion($nombre,$a_paterno,$a_materno,$rfc,$direccion){
 
     try{
 
-        $stmt = $this->PDOLocal->prepare("CALL REGISTRO_FACTURACION(:nombre,:a_paterno,:a_materno,:rfc,:direccion)");
+        $stmt = $this->PDOLocal->prepare("CALL registro_facturacion(:nombre,:a_paterno,:a_materno,:rfc,:direccion)");
         $stmt->bindParam(':nombre',$nombre,PDO::PARAM_STR);
         $stmt->bindParam(':a_paterno',$a_paterno,PDO::PARAM_STR);
         $stmt->bindParam(':a_materno',$a_materno,PDO::PARAM_STR);
