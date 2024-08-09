@@ -128,7 +128,7 @@ class Database
     {
         try
         {
-            $stmt = $this->PDOLocal->prepare("CALL agregar_habitaciones(:tipo)");
+            $stmt = $this->PDOLocal->prepare("CALL AGREGAR_HABITACIONES(:tipo)");
             $stmt->bindParam(':tipo', $tipo, PDO::PARAM_INT);
             $stmt->execute();
         }

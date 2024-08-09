@@ -107,22 +107,22 @@
   </div>
   <br>
   <?php
-  $cadena = "SELECT RESERVACION.id_reservacion AS folio, RESERVACION.fecha_, CONCAT(PERSONA.nombre, PERSONA.apellido_paterno, PERSONA.apellido_materno) AS nombre, PERSONA.numero_de_telefono, USUARIOS.correo, DETALLE_PAGO.monto_total, DETALLE_PAGO.metodo_pago, detalle_pago.id_detalle_pago, COUNT(DETALLE_RESERVACION.id_detalle_reservacion) AS CANTIDAD
+  $cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_, CONCAT(PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO) AS NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
   FROM USUARIOS
-  INNER JOIN persona ON persona.usuario = usuarios.id_usuario
-  INNER JOIN huesped ON huesped.persona_huesped = persona.id_persona
-  INNER JOIN reservacion ON reservacion.huesped = huesped.id_huesped
-  INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-  INNER JOIN detalle_pago ON detalle_pago.reservacion = reservacion.id_reservacion
-  WHERE reservacion.estado_reservacion = 'proceso'
-  GROUP BY folio, RESERVACION.fecha_, nombre, PERSONA.numero_de_telefono, USUARIOS.correo, DETALLE_PAGO.monto_total, DETALLE_PAGO.metodo_pago";
+  INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+  INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+  INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+  INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+  INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+  WHERE RESERVACION.ESTADO_RESERVACION = 'proceso'
+  GROUP BY FOLIO, RESERVACION.FECHA_, NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO";
   $tabla = $db->seleccionar($cadena);
 
-  $cadena2 = "SELECT datos_facturacion.detalle_pago FROM datos_facturacion;";
+  $cadena2 = "SELECT DATOS_FACTURACION.DETALLE_PAGO FROM DATOS_FACTURACION;";
   $consultita = $db->seleccionar($cadena2);
 
   $facturacion_detalles = array_map(function ($item) {
-      return $item->detalle_pago;
+      return $item->DETALLE_PAGO;
   }, $consultita);
 
   echo "<div class='table-responsive'>
@@ -144,41 +144,41 @@
 
   foreach ($tabla as $reg) {
       echo "<tr>
-                <td>{$reg->folio}</td>
-                <td>{$reg->fecha_}</td>
-                <td>{$reg->nombre}</td>
-                <td>{$reg->numero_de_telefono}</td>
-                <td>{$reg->correo}</td>
-                <td>{$reg->monto_total}</td>
-                <td>{$reg->metodo_pago}</td>
+                <td>{$reg->FOLIO}</td>
+                <td>{$reg->FECHA_}</td>
+                <td>{$reg->NOMBRE}</td>
+                <td>{$reg->NUMERO_DE_TELEFONO}</td>
+                <td>{$reg->CORREO}</td>
+                <td>{$reg->MONTO_TOTAL}</td>
+                <td>{$reg->METODO_PAGO}</td>
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
-      if (isset($reg->id_detalle_pago) && in_array($reg->id_detalle_pago, $facturacion_detalles)) {
-          $consultona = "SELECT datos_facturacion.nombre, datos_facturacion.apellido_paterno, datos_facturacion.apellido_paterno AS apellido_materno, datos_facturacion.rfc, datos_facturacion.direccion
-                                 FROM datos_facturacion
-                                 WHERE datos_facturacion.detalle_pago = {$reg->id_detalle_pago}";
+      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
+          $consultona = "SELECT DATOS_FACTURACION.NOMBRE, DATOS_FACTURACION.APELLIDO_PATERNO, DATOS_FACTURACION.APELLIDO_PATERNO AS APELLIDO_MATERNO, DATOS_FACTURACION.RFC, DATOS_FACTURACION.DIRECCION
+                                 FROM DATOS_FACTURACION
+                                 WHERE DATOS_FACTURACION.DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}";
           $datos_facturacion = $db->seleccionar($consultona);
 
           if (!empty($datos_facturacion)) {
               $facturacion = $datos_facturacion[0];
               echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->id_detalle_pago}'>
+<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->ID_DETALLE_PAGO}'>
   Factura
 </button>
 
 <!-- Modal -->
-<div class='modal fade' id='staticBackdrop{$reg->id_detalle_pago}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->id_detalle_pago}' aria-hidden='true'>
+<div class='modal fade' id='staticBackdrop{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->id_detalle_pago}'>Datos de Facturacion</h1>
+        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturacion</h1>
       </div>
       <div class='modal-body'>
-        <label>Nombre: {$facturacion->nombre}</label><br>
-        <label>Apellido Paterno: {$facturacion->apellido_paterno}</label><br>
-        <label>Apellido Materno: {$facturacion->apellido_materno}</label><br>
-        <label>RFC: {$facturacion->rfc}</label><br>
-        <label>Dirección: {$facturacion->direccion}</label><br>
+        <label>Nombre: {$facturacion->NOMBRE}</label><br>
+        <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
+        <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
+        <label>RFC: {$facturacion->RFC}</label><br>
+        <label>Dirección: {$facturacion->DIRECCION}</label><br>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
@@ -189,23 +189,23 @@
           }
       }
       echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->folio}'>
+<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
   Cancelar
 </button>
 
 <!-- Modal -->
-<div class='modal fade' id='staticBackdrop1{$reg->folio}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->folio}' aria-hidden='true'>
+<div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->folio}'>&nbsp;ALERTA</h1>
+        <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
       <div class='modal-body'>
         <h4>Seguro que deseas cancelar esta reservacion?</h4>
       </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelar_reservacion.php'>
-          <input type='hidden' name='id_reservacion' value='{$reg->folio}'>
+          <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
         </form>

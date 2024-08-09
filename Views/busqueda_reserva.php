@@ -125,23 +125,23 @@
       } else {
         // Realiza la consulta dependiendo si el número está vacío o no
         if (empty($numero)) {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.fecha_ BETWEEN '$fecha1' AND '$fecha2'
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          FROM USUARIOS
+          INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
+          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
+          INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
+          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
+          WHERE RESERVACION.FECHA_ BETWEEN '$fecha1' AND '$fecha2'
+          GROUP BY NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         } else {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.id_reservacion=$numero
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          FROM USUARIOS
+          INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
+          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
+          INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
+          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
+          WHERE RESERVACION.ID_RESERVACION=$numero
+          GROUP BY NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         }
 
         $tabla = $conexion->seleccionar($consulta);
@@ -165,11 +165,11 @@
 
           foreach ($tabla as $reg) {
             echo "<tr>";
-            echo "<td>{$reg->Nombre_Huesped}</td>";
-            echo "<td>{$reg->numero_de_telefono}</td>";
-            echo "<td>{$reg->fecha_}</td>";
-            echo "<td>{$reg->estado_reservacion}</td>";
-            echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
+            echo "<td>{$reg->NOMBRE_HUESPED}</td>";
+            echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
+            echo "<td>{$reg->FECHA_}</td>";
+            echo "<td>{$reg->ESTADO_RESERVACION}</td>";
+            echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "</tr>";
           }
 
