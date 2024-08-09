@@ -245,7 +245,9 @@
                 method: 'POST'
 
             }).then(response => {
-                return response.json()
+                console.log('response:',response)
+                alert('Datos enviados')
+                
             }).then((data) => {
                 console.log('Datos recibidos:', data);
                
