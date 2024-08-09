@@ -105,7 +105,7 @@
           <form action="" method="POST">
             <div class="form-group">
               <label for="inputBusqueda">Número de Reservación</label>
-              <input type="text" class="form-control" id="inputBusqueda" placeholder="Ingrese el número de la reservación." name="n_reservacion">
+              <input type="number" class="form-control" id="inputBusqueda" placeholder="Ingrese el número de la reservación." name="n_reservacion">
             </div>
             <button type="submit" class="btn btn-danger btn-block">Buscar</button>
             <br>
@@ -114,46 +114,54 @@
       </div>
     </div>
     <?php
-      extract($_POST);
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        extract($_POST);
 
-      if (!empty($n_reservacion)) {
-        $cadena = "CALL info_huesped('$n_reservacion');";
-        $tabla = $db->seleccionar($cadena);
+        if (!empty($n_reservacion)) {
+            $cadena = "CALL info_huesped('$n_reservacion');";
+            $tabla = $db->seleccionar($cadena);
 
-        echo "
-        <div class='table-responsive'>
-          <table class='table table-hover table-bordered table-danger'>
-            <thead class='table-dark'>
-              <tr>
-                <th text-white>NOMBRE_COMPLETO</th>
-                <th text-white>FECHA_DE_NACIMIENTO</th>
-                <th text-white>DIRECCION_COMPLETA</th>
-                <th text-white>GENERO</th>
-                <th text-white>NUMERO_DE_TELEFONO</th>
-              </tr>
-            </thead>
-            <tbody>
-        ";
+            if (empty($tabla)) {
+                echo "<p>No se encontraron reservaciones.</p>";
+            } else {
+                echo "
+                <div class='table-responsive'>
+                    <table class='table table-hover table-bordered table-danger'>
+                        <thead class='table-dark'>
+                            <tr>
+                                <th>NOMBRE COMPLETO</th>
+                                <th>FECHA DE NACIMIENTO</th>
+                                <th>DIRECCIÓN COMPLETA</th>
+                                <th>GÉNERO</th>
+                                <th>NÚMERO DE TELÉFONO</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                ";
 
-        foreach ($tabla as $reg) {
-          echo "
-            <tr>
-              <td>{$reg->NOMBRE_COMPLETO}</td>
-              <td>{$reg->FECHA_DE_NACIMIENTO}</td>
-              <td>{$reg->DIRECCION_COMPLETA}</td>
-              <td>{$reg->GENERO}</td>
-              <td>{$reg->NUMERO_DE_TELEFONO}</td>
-            </tr>
-          ";
+                foreach ($tabla as $reg) {
+                    echo "
+                            <tr>
+                                <td>{$reg->NOMBRE_COMPLETO}</td>
+                                <td>{$reg->FECHA_DE_NACIMIENTO}</td>
+                                <td>{$reg->DIRECCION_COMPLETA}</td>
+                                <td>{$reg->GENERO}</td>
+                                <td>{$reg->NUMERO_DE_TELEFONO}</td>
+                            </tr>
+                    ";
+                }
+
+                echo "
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                ";
+            }
+
+            $db->desconectarBD();
         }
-
-        echo "
-            </tbody>
-          </table>
-        </div>
-        <br>
-        ";
-      }
+    }
     ?>
   </div>
 

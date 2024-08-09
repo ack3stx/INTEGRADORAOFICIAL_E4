@@ -45,7 +45,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservaciones Fisicas
+              <i class="fas fa-book"></i> Reservas Fisicas
             </a>
           </li>
           <li class="nav-item">
@@ -60,22 +60,22 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_empleados.php">
-              <i class="fas fa-bed"></i> Personal
+              <i class="fas fa-user"></i> Personal
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="reportes_hotel.php">
-              <i class="fas fa-bed"></i> Hotel
+              <i class="fas fa-hotel"></i> Hotel
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_facturacion.php">
-              <i class="fas fa-bed"></i> Facturacion
+              <i class="fas fa-file-alt"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="costos.php">
-              <i class="fas fa-bed"></i> Costos
+              <i class="fas fa-dollar-sign"></i> Costos
             </a>
           </li>
           <li class="nav-item">
@@ -183,13 +183,13 @@
       </div>
     </div>
   </div>
-                <br><br>
+  <br><br>
                 <h4 class="color-hotel">Busqueda</h4>
 <form class="d-flex" role="search" method="post">
     <input class="form-control me-2" type="text" placeholder="Nombre" aria-label="Nombre" name="nombre" id="nombre">
     <input class="form-control me-2" type="text" placeholder="Apellido Paterno" aria-label="Apellido Paterno" name="ap_paterno" id="ap_paterno">
     <input class="form-control me-2" type="text" placeholder="Apellido Materno" aria-label="Apellido Materno" name="ap_materno" id="ap_materno">
-    <button class="btn btn-outline-danger" type="submit" id="buscar-btn" disabled>Buscar</button>
+    <button class="btn btn-outline-danger" type="submit" id="buscar-btn" >Buscar</button>
 </form>
 
                 <?php
@@ -328,37 +328,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const exemptInputs = ['correo', 'contra', 'direccion', 'cd_postal', 'telefono', 'nss', 'afore', 'num2', 'curp', 'usuario'];
+
     const inputs = document.querySelectorAll('input[type="text"]');
-    const submitButton = document.getElementById('buscar-btn');
+    const telefonoInput = document.querySelector('input[name="telefono"]');
+    const submitButton = document.querySelector('button[type="submit"]');
 
     function validateInputs() {
-        const alphaPattern = /^[a-zA-Z\s]+$/; 
+        const alphaPattern = /^[a-zA-Z\s]+$/;
         let allValid = true;
 
         inputs.forEach(input => {
-            if (!alphaPattern.test(input.value)) {
-                input.style.borderColor = 'red'; 
-                
-                submitButton.disabled = true;
-            } else {
-                input.style.borderColor = ''; 
-                submitButton.disabled = false; 
+            const fieldName = input.getAttribute('name');
+            if (!exemptInputs.includes(fieldName)) {
+                if (!alphaPattern.test(input.value)) {
+                    input.style.borderColor = 'red';
+                    allValid = true;
+                } else {
+                    input.style.borderColor = '';
+                    allValid = false;
+                }
             }
         });
 
-        
+        // Validación específica para el campo de teléfono
+        if (telefonoInput.value.length > 10 || !/^\d*$/.test(telefonoInput.value)) {
+            telefonoInput.style.borderColor = 'red';
+            allValid = true;
+        } else {
+            telefonoInput.style.borderColor = '';
+        }
+
+        submitButton.disabled = false;
     }
 
     inputs.forEach(input => {
         input.addEventListener('input', function(e) {
-            if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            const fieldName = e.target.getAttribute('name');
+            if (!exemptInputs.includes(fieldName)) {
+                if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                }
             }
+
+            // Limitar la longitud del campo de teléfono a 10 números
+            if (fieldName === 'telefono') {
+                if (e.target.value.length > 10) {
+                    e.target.value = e.target.value.slice(0, 10);
+                }
+            }
+
             validateInputs();
         });
     });
 
     validateInputs(); 
 });
+
+
+
+
 
 </script>
