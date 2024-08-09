@@ -9,6 +9,29 @@
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
+
+<style>
+  .custom-select {
+  width: 70%;
+  padding: 5px;
+  font-size: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: #f8f9fa;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-select:hover {
+  border-color: rgb(116, 13, 13);
+}
+
+.custom-select:focus {
+  outline: none;
+  border-color: rgb(116, 13, 13);
+  box-shadow: 0 0 5px rgb(116, 13, 13);
+}
+
+</style>
 <body>
 <?php
   session_start();
@@ -113,7 +136,7 @@
             $recepcionistas = $conexion->seleccionar($consultaRecepcionistas);
 
             if ($recepcionistas) {
-                echo "<select class='form-select' name='recepcionista_id'>";
+                echo "<select class='form-select custom-select' name='recepcionista_id'>";
                 foreach($recepcionistas as $recepcionista) {
                     echo "<option value='".$recepcionista->ID_RECEPCIONISTA."'>".$recepcionista->NOMBRE." ".$recepcionista->APELLIDO_PATERNO." ".$recepcionista->APELLIDO_MATERNO."</option>";
                 }
@@ -125,6 +148,7 @@
         <button class="btn btn-outline-danger" type="submit">Buscar</button>
     </div>
 </form>
+<br><br>
 
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
