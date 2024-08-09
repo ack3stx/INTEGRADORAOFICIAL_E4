@@ -104,73 +104,66 @@
       </div>
     </div>
   </nav>
+  
   <div class="container mt-5">
-    <h2 class="mb-4">Consultar Informacion De La Facturacion</h2>
-    <form action="" method="post">
-        <div class="form-group">
-            <label for="nombre">Numero De Reservacion</label>
-            <input name="N_reservacion" type="number" class="form-control" id="nombre"
-                placeholder="Por favor ingrese el número de la reservación.">
+    <div class="row justify-content-center">
+      <div class="col-lg-6 col-md-8">
+        <div class="search-form">
+          <h1 class="text-center">Buscar Información De Los Huéspedes</h1>
+          <form action="" method="POST">
+            <div class="form-group">
+              <label for="inputBusqueda">Número de Reservación</label>
+              <input type="text" class="form-control" id="inputBusqueda" placeholder="Ingrese el número de la reservación." name="n_reservacion">
+            </div>
+            <button type="submit" class="btn btn-danger btn-block">Buscar</button>
+            <br>
+          </form>
         </div>
-        <button type="submit" class="btn btn-danger">Buscar</button>
-        <br><br>
-    </form>
-</div>
+      </div>
+    </div>
+    <?php
+      extract($_POST);
 
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    extract($_POST);
-
-    if (!empty($N_reservacion)) {
-        $cadena = "CALL Consultar_Informacion_Facturacion('$N_reservacion');";
+      if (!empty($n_reservacion)) {
+        $cadena = "CALL info_huesped('$n_reservacion');";
         $tabla = $db->seleccionar($cadena);
 
-        if (empty($tabla)) {
-            echo "<p>No se encontro al huesped.</p>";
-        } else {
-            echo "
-            <div class='table-responsive'>
-                <table class='table table-hover table-bordered table-danger'>
-                    <thead class='table-dark'>
-                        <tr>
-                            <th>Nombre</th>
-                            <th>Apellido Paterno</th>
-                            <th>Apellido Materno</th>
-                            <th>RFC</th>
-                            <th>Dirección</th>
-                            <th>Monto Total</th>
-                            <th>Método de Pago</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            ";
+        echo "
+        <div class='table-responsive'>
+          <table class='table table-hover table-bordered table-danger'>
+            <thead class='table-dark'>
+              <tr>
+                <th text-white>NOMBRE_COMPLETO</th>
+                <th text-white>FECHA_DE_NACIMIENTO</th>
+                <th text-white>DIRECCION_COMPLETA</th>
+                <th text-white>GENERO</th>
+                <th text-white>NUMERO_DE_TELEFONO</th>
+              </tr>
+            </thead>
+            <tbody>
+        ";
 
-            foreach ($tabla as $reg) {
-                echo "
-                        <tr>
-                            <td>{$reg->nombre}</td>
-                            <td>{$reg->apellido_paterno}</td>
-                            <td>{$reg->apellido_materno}</td>
-                            <td>{$reg->rfc}</td>
-                            <td>{$reg->direccion}</td>
-                            <td>{$reg->monto_total}</td>
-                            <td>{$reg->metodo_pago}</td>
-                        </tr>
-                ";
-            }
-
-            echo "
-                    </tbody>
-                </table>
-            </div>
-            ";
+        foreach ($tabla as $reg) {
+          echo "
+            <tr>
+              <td>{$reg->NOMBRE_COMPLETO}</td>
+              <td>{$reg->FECHA_DE_NACIMIENTO}</td>
+              <td>{$reg->DIRECCION_COMPLETA}</td>
+              <td>{$reg->GENERO}</td>
+              <td>{$reg->NUMERO_DE_TELEFONO}</td>
+            </tr>
+          ";
         }
 
-        $db->desconectarBD();
-    }
-}
-?>
-
+        echo "
+            </tbody>
+          </table>
+        </div>
+        <br>
+        ";
+      }
+    ?>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
