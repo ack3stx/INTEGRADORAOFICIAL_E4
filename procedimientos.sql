@@ -549,7 +549,7 @@ BEGIN
     SELECT MAX(id_huesped) INTO ultimo_huesped FROM huesped;
 
     INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
-    VALUES (ultimo_huesped, recepcionista, fecha, estado_reservacion);
+    VALUES (ultimo_huesped, recepcionista,NOW(), estado_reservacion);
 END //
 
 DELIMITER ;
@@ -571,7 +571,7 @@ BEGIN
     
 
     INSERT INTO reservacion(huesped, recepcionista, fecha_, estado_reservacion)
-    VALUES (huesped, recepcionista, fecha, estado_reservacion);
+    VALUES (huesped, recepcionista,NOW(), estado_reservacion);
 END //
 
 DELIMITER ;
