@@ -177,7 +177,7 @@ else {
         <form id="contact-form" action="../Scripts/send_email.php" method="POST">
           <div class="row mb-3">
             <div class="col-lg-6 col-sm-12">
-              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required>
+              <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" required >
             </div>
             <div class="col-lg-6 col-sm-12 mt-3 mt-lg-0">
               <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" required>
@@ -257,3 +257,58 @@ else {
 </body>
 
 </html>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const nombreInput = document.querySelector('input[name="nombre"]');
+    const telefonoInput = document.querySelector('input[name="telefono"]');
+    const submitButton = document.querySelector('button[type="submit"]');
+
+    function validateInputs() {
+        let allValid = true;
+
+        
+        if (!/^[a-zA-Z\s]+$/.test(nombreInput.value)) {
+            nombreInput.style.borderColor = 'red';
+            allValid = false;
+        } else {
+            nombreInput.style.borderColor = '';
+        }
+
+        
+        if (telefonoInput.value.length !== 10 || !/^\d+$/.test(telefonoInput.value || telefonoInput.value.length < 10)) {
+            telefonoInput.style.borderColor = 'red';
+            allValid = false;
+        } else {
+            telefonoInput.style.borderColor = '';
+        }
+
+        submitButton.disabled = !allValid;
+    }
+
+    nombreInput.addEventListener('input', function(e) {
+        
+        e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+
+        validateInputs();
+    });
+
+    telefonoInput.addEventListener('input', function(e) {
+        
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+        
+        if (e.target.value.length > 10) {
+            e.target.value = e.target.value.slice(0, 10);
+        }
+
+        validateInputs();
+    });
+
+    validateInputs();
+});
+
+
+
+</script>
