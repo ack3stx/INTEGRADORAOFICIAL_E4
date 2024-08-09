@@ -13,17 +13,17 @@
             $disponibilidadkingsize = $data->disponibilidad_kingsize($startDate, $endDate);
             $disponibilidadsencilla = $data->disponibilidad_sencilla($startDate, $endDate);
             
-            $gentedoble = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NIÑOS as ninos
+            $gentedoble = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
             where T_HABITACION.NOMBRE='Doble';";
             $doblegente = $data->seleccionar($gentedoble);
             
-            $gentekingsize = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NIÑOS as ninos
+            $gentekingsize = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
             where T_HABITACION.NOMBRE='King Size';";
             $kingsizegente = $data->seleccionar($gentekingsize);
 
-            $gentesencilla = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NIÑOS as ninos
+            $gentesencilla = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
             where T_HABITACION.NOMBRE='Sencilla';";
            $sencillagente = $data->seleccionar($gentesencilla);
