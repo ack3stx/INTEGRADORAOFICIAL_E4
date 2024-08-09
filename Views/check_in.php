@@ -70,10 +70,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nombreTitularReservacion = $titularHabitaciones[$i];
 
             if (trim($nombreTitularReservacion) === '') {
-                throw new Exception("Todos los campos de Titular Habitación deben estar llenos.");
+                throw new Exception("Todos los campos de TITULAR_HABITACION deben estar llenos.");
             }
 
-            $consulta = "CALL check_in_huesped($detalleReservacion, '$nombreTitularReservacion')";
+            $consulta = "CALL CHECK_IN_HUESPED($detalleReservacion, '$nombreTitularReservacion')";
             $db->ejecuta($consulta);
         }
         $db->desconectarBD();
@@ -87,22 +87,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $consulta = "
         SELECT 
-            reservacion.id_reservacion as 'Numero_Reservacion',
-            CONCAT(persona.Nombre, ' ', persona.Apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Completo,
-            detalle_reservacion.ID_DETALLE_RESERVACION,
-            detalle_reservacion.FECHA_INICIO,
-            detalle_reservacion.FECHA_FIN,
-            detalle_reservacion.TITULAR_HABITACION,
-            habitacion.NUM_HABITACION,
-            t_habitacion.NOMBRE as NOMBRE_HABITACION
-        FROM persona
-        JOIN huesped ON huesped.persona_huesped = persona.id_persona
-        JOIN reservacion ON reservacion.huesped = huesped.persona_huesped
-        JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-        JOIN habitacion ON habitacion.id_habitacion = detalle_reservacion.habitacion
-        JOIN t_habitacion ON t_habitacion.ID_TIPO_HABITACION = habitacion.TIPO_HABITACION
-        WHERE reservacion.estado_reservacion = 'pendiente'
-        AND DATE(detalle_reservacion.fecha_inicio) = CURDATE();";
+            RESERVACION.ID_RESERVACION AS 'NUMERO_RESERVACION',
+            CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
+            DETALLE_RESERVACION.ID_DETALLE_RESERVACION,
+            DETALLE_RESERVACION.FECHA_INICIO,
+            DETALLE_RESERVACION.FECHA_FIN,
+            DETALLE_RESERVACION.TITULAR_HABITACION,
+            HABITACION.NUM_HABITACION,
+            T_HABITACION.NOMBRE AS NOMBRE_HABITACION
+        FROM PERSONA
+        JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.PERSONA_HUESPED
+        JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN HABITACION ON HABITACION.ID_HABITACION = DETALLE_RESERVACION.HABITACION
+        JOIN T_HABITACION ON T_HABITACION.ID_TIPO_HABITACION = HABITACION.TIPO_HABITACION
+        WHERE RESERVACION.ESTADO_RESERVACION = 'pendiente'
+        AND DATE(DETALLE_RESERVACION.FECHA_INICIO) = CURDATE();";
 
     $tabla = $db->seleccionar($consulta);
     ?>
@@ -159,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               </li>
               <li class="nav-item">
             <a class="nav-link" href="reservaciones_activas.php">
-              <i class="fas fa-users"></i>Extender
+              <i class="fas fa-users"></i> Extender
             </a>
           </li>
               <li class="nav-item">
@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
                 <tr>
-                    <th class='text-white'>Numero_Reservacion</th>
+                    <th class='text-white'>NUMERO_RESERVACION</th>
                     <th class='text-white'>Nombre Completo</th>
                     <th class='text-white'>Registrar Check-IN</th>
                 </tr>
@@ -212,11 +212,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
     $reservaciones = [];
     foreach ($tabla as $reg) {
-        $reservaciones[$reg->Numero_Reservacion][] = $reg;
+        $reservaciones[$reg->NUMERO_RESERVACION][] = $reg;
     }
 
     foreach ($reservaciones as $numReservacion => $detalles) {
-        $nombreCompleto = $detalles[0]->Nombre_Completo;
+        $nombreCompleto = $detalles[0]->NOMBRE_COMPLETO;
         echo "
         <tr>
             <td>{$numReservacion}</td>
