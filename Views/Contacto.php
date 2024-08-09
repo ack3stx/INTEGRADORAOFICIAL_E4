@@ -77,7 +77,7 @@
               <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../index.php #2424"><label>SERVICIOS</label></a>
+              <a class="nav-link" href="../index.php#2424"><label>SERVICIOS</label></a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
@@ -229,7 +229,7 @@ else {
           <a href="../index.php" class="text-decoration-none hover-link"><p>Inicio</p></a>
           <a href="nosotros.php" class="text-decoration-none hover-link"><p>Nosotros</p></a>
           <a href="vistahab.php" class="text-decoration-none hover-link"><p>Habitaciones</p></a>
-          <a href="../index.php #2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
+          <a href="../index.php#2424" class="text-decoration-none hover-link"><p>Servicios</p></a>
           <a href="Contacto.php" class="text-decoration-none hover-link"><p>Contactanos</p></a> 
       </div>
       <div class="footer-section">
