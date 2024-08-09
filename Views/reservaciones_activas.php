@@ -45,9 +45,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || $_SESSION['rol']
             <div class="error-container">
                 <i class="fas fa-times-circle error-icon"></i>
                 <div class="error-code">404</div>
-                <div class="error-message">Pagina no Encontrada</div>
+                <div class="error-message">Página no Encontrada</div>
                 <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-                <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+                <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
             </div>
         </div>
     </body>
@@ -78,14 +78,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nuevaFechaFin = $fechasFin[$i];
 
             if ($nuevaFechaFin === null || $nuevaFechaFin === '') {
-                continue; 
+                continue;
             }
 
             $consultaActual = "
-                SELECT reservacion, habitacion, fecha_inicio, fecha_fin, habitacion.NUM_HABITACION, t_habitacion.NOMBRE, t_habitacion.PRECIO
-                FROM detalle_reservacion 
-                JOIN habitacion ON habitacion.id_habitacion = detalle_reservacion.habitacion
-                JOIN t_habitacion ON t_habitacion.ID_TIPO_HABITACION = habitacion.TIPO_HABITACION
+                SELECT RESERVACION, HABITACION, FECHA_INICIO, FECHA_FIN, HABITACION.NUM_HABITACION, T_HABITACION.NOMBRE, T_HABITACION.PRECIO
+                FROM DETALLE_RESERVACION 
+                JOIN HABITACION ON HABITACION.ID_HABITACION = DETALLE_RESERVACION.HABITACION
+                JOIN T_HABITACION ON T_HABITACION.ID_TIPO_HABITACION = HABITACION.TIPO_HABITACION
                 WHERE ID_DETALLE_RESERVACION = $detalleReservacion";
             $detalleActual = $db->seleccionar($consultaActual);
 
@@ -96,11 +96,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $numHabitacion = $detalleActual[0]->NUM_HABITACION;
             $nombreHabitacion = $detalleActual[0]->NOMBRE;
             $precioHabitacion = $detalleActual[0]->PRECIO;
-            $fechaFinActual = $detalleActual[0]->fecha_fin;
-            $numeroReservacion = $detalleActual[0]->reservacion;
+            $fechaFinActual = $detalleActual[0]->FECHA_FIN;
+            $numeroReservacion = $detalleActual[0]->RESERVACION;
 
             $consultaDisponibilidad = "
-                CALL Verificar_Disponibilidad_Habitacion($numHabitacion, '$fechaFinActual', '$nuevaFechaFin')";
+                CALL VERIFICAR_DISPONIBILIDAD_HABITACION($numHabitacion, '$fechaFinActual', '$nuevaFechaFin')";
             $resultadoDisponibilidad = $db->seleccionar($consultaDisponibilidad);
 
             if (empty($resultadoDisponibilidad)) {
@@ -109,18 +109,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($resultadoDisponibilidad[0]->Disponibilidad === 'No Disponible') {
                 $mensajesError[] = "La habitación $numHabitacion no está disponible en las fechas seleccionadas.";
-                continue; 
+                continue;
             }
 
             $fechaFinActualDatetime = new DateTime($fechaFinActual);
             $nuevaFechaFinDatetime = new DateTime($nuevaFechaFin);
             $diasEstancia = $fechaFinActualDatetime->diff($nuevaFechaFinDatetime)->days;
 
-
             if ($diasEstancia == 0) {
-                $diasEstancia = 1; 
+                $diasEstancia = 1;
             } else {
-                $diasEstancia += 1; 
+                $diasEstancia += 1;
             }
 
             $costoTotalHabitacion = $precioHabitacion * $diasEstancia;
@@ -134,9 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'costoTotalHabitacion' => $costoTotalHabitacion,
                 'numHabitacion' => $numHabitacion
             ];
-
-            error_log("Detalles de la habitación: " . print_r($detallesHabitaciones, true));
-            error_log("Costo Total hasta ahora: $costoTotal");
         }
 
         if (!empty($mensajesError)) {
@@ -163,21 +159,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $consulta = "
         SELECT 
-            reservacion.id_reservacion as 'Numero_Reservacion',
-            CONCAT(persona.Nombre, ' ', persona.Apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Completo,
-            detalle_reservacion.ID_DETALLE_RESERVACION,
-            detalle_reservacion.FECHA_INICIO,
-            detalle_reservacion.FECHA_FIN,
-            detalle_reservacion.TITULAR_HABITACION,
-            habitacion.NUM_HABITACION,
-            t_habitacion.NOMBRE as NOMBRE_HABITACION
-        FROM persona
-        JOIN huesped ON huesped.persona_huesped = persona.id_persona
-        JOIN reservacion ON reservacion.huesped = huesped.persona_huesped
-        JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-        JOIN habitacion ON habitacion.id_habitacion = detalle_reservacion.habitacion
-        JOIN t_habitacion ON t_habitacion.ID_TIPO_HABITACION = habitacion.TIPO_HABITACION
-        WHERE reservacion.estado_reservacion = 'activa';";
+            RESERVACION.ID_RESERVACION AS 'NUMERO_RESERVACION',
+            CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
+            DETALLE_RESERVACION.ID_DETALLE_RESERVACION,
+            DETALLE_RESERVACION.FECHA_INICIO,
+            DETALLE_RESERVACION.FECHA_FIN,
+            DETALLE_RESERVACION.TITULAR_HABITACION,
+            HABITACION.NUM_HABITACION,
+            T_HABITACION.NOMBRE AS NOMBRE_HABITACION
+        FROM PERSONA
+        JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.PERSONA_HUESPED
+        JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN HABITACION ON HABITACION.ID_HABITACION = DETALLE_RESERVACION.HABITACION
+        JOIN T_HABITACION ON T_HABITACION.ID_TIPO_HABITACION = HABITACION.TIPO_HABITACION
+        WHERE RESERVACION.ESTADO_RESERVACION = 'activa';";
 
     $tabla = $db->seleccionar($consulta);
     ?>
@@ -287,7 +283,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
             <tr>
-                <th class='text-white'>Numero_Reservacion</th>
+                <th class='text-white'>NUMERO_RESERVACION</th>
                 <th class='text-white'>Nombre Completo</th>
                 <th class='text-white'>Registrar Check-IN</th>
             </tr>
@@ -296,11 +292,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php
             $reservaciones = [];
             foreach ($tabla as $reg) {
-                $reservaciones[$reg->Numero_Reservacion][] = $reg;
+                $reservaciones[$reg->NUMERO_RESERVACION][] = $reg;
             }
 
             foreach ($reservaciones as $numReservacion => $detalles) {
-                $nombreCompleto = $detalles[0]->Nombre_Completo;
+                $nombreCompleto = $detalles[0]->NOMBRE_COMPLETO;
                 echo "
                 <tr>
                     <td>{$numReservacion}</td>
@@ -337,8 +333,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        let detallesArray = [];
-
         function openModal(reservacionId) {
             const reservaciones = <?php echo json_encode($reservaciones); ?>;
             const detalles = reservaciones[reservacionId];

@@ -204,6 +204,9 @@ else {
         if (isset($_GET['status']) && $_GET['status'] == 'failed') {
           echo '<div class="alert alert-danger">Por favor, completa el reCAPTCHA correctamente.</div>';
         }
+        if (isset($_GET['status']) && $_GET['status'] == 'exit') {
+          echo '<div class="alert alert-warning">Fuera De Servicio.</div>';
+        }
         ?>
 
       </div>

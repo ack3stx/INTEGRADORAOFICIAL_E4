@@ -7,14 +7,12 @@ if ($_SESSION["rol"] == "usuario") {
     $db->conectarDB();
     $user_id = $_SESSION['usuario'];
 
-    // Consulta para obtener los datos del usuario
-    $consulta = "SELECT u.nombre_usuario, u.correo, p.nombre, p.apellido_paterno, p.apellido_materno, p.fecha_de_nacimiento, 
-                 p.direccion, p.ciudad, p.estado, p.codigo_postal, p.pais, p.genero, p.numero_de_telefono 
-                 FROM usuarios u 
-                 LEFT JOIN persona p ON u.id_usuario = p.usuario 
-                 WHERE u.nombre_usuario = '$user_id'";
-    $usuario = $db->seleccionar($consulta);
-    $db->desconectarBD();
+        $consulta = "SELECT U.NOMBRE_USUARIO, U.CORREO, U.PASSWORD, P.NOMBRE, P.APELLIDO_PATERNO, P.APELLIDO_MATERNO, P.FECHA_DE_NACIMIENTO, P.DIRECCION, P.CIUDAD, P.ESTADO, P.CODIGO_POSTAL, P.PAIS, P.GENERO, P.NUMERO_DE_TELEFONO 
+                     FROM USUARIOS U 
+                     LEFT JOIN PERSONA P ON U.ID_USUARIO = P.USUARIO 
+                     WHERE U.NOMBRE_USUARIO = '$user_id'";
+        $usuario = $db->seleccionar($consulta);
+        $db->desconectarBD();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -193,7 +191,7 @@ if ($_SESSION["rol"] == "usuario") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="section-title">Nombre de usuario</p>
-                            <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->nombre_usuario) ?></p>
+                            <p id="nombreUsuario"><?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?></p>
                         </div>
                     </div>
                 </div>
@@ -202,7 +200,7 @@ if ($_SESSION["rol"] == "usuario") {
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <p class="section-title">Dirección de email</p>
-                            <p id="email"><?= htmlspecialchars($usuario[0]->correo) ?></p>
+                            <p id="email"><?= htmlspecialchars($usuario[0]->CORREO) ?></p>
                         </div>
                     </div>
                 </div>
@@ -211,9 +209,9 @@ if ($_SESSION["rol"] == "usuario") {
                 <div class="section">
                     <h2>Datos Personales</h2>
                     <?php 
-                    $campos_persona = [
-                        'nombre' => 'Nombre', 'apellido_paterno' => 'Apellido Paterno','apellido_materno' => 'Apellido Materno','fecha_de_nacimiento' => 'Fecha de Nacimiento', 'direccion' => 'Dirección','ciudad' => 'Ciudad','estado' => 'Estado','codigo_postal' => 'Código Postal', 'pais' => 'País', 'genero' => 'Género','numero_de_telefono' => 'Número de Teléfono'
-                    ];
+                     $campos_persona = [
+                      'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
+                  ];
 
                     foreach ($campos_persona as $campo => $titulo) {
                         $valor = htmlspecialchars($usuario[0]->$campo ?? '');

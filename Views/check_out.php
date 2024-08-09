@@ -64,7 +64,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $reservacionId = $_POST['reservacionId'];
 
     try {
-        $consulta = "UPDATE reservacion SET ESTADO_RESERVACION = 'finalizada' WHERE reservacion.id_reservacion = $reservacionId";
+        $consulta = "UPDATE RESERVACION SET ESTADO_RESERVACION = 'finalizada' WHERE RESERVACION.ID_RESERVACION = $reservacionId";
         $db->ejecuta($consulta);
         $db->desconectarBD();
         header("Location: check_out.php?success=1");
@@ -77,20 +77,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
     $consulta = "
         SELECT 
-            reservacion.id_reservacion as 'Numero_Reservacion',
-            CONCAT(persona.Nombre, ' ', persona.Apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Completo,
-            detalle_reservacion.FECHA_INICIO,
-            detalle_reservacion.FECHA_FIN,
-            habitacion.NUM_HABITACION,
-            t_habitacion.NOMBRE as NOMBRE_HABITACION
-        FROM persona
-        JOIN huesped ON huesped.persona_huesped = persona.id_persona
-        JOIN reservacion ON reservacion.huesped = huesped.persona_huesped
-        JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-        JOIN habitacion ON habitacion.id_habitacion = detalle_reservacion.habitacion
-        JOIN t_habitacion ON t_habitacion.ID_TIPO_HABITACION = habitacion.TIPO_HABITACION
-        WHERE reservacion.estado_reservacion = 'activa'
-        AND DATE(detalle_reservacion.fecha_fin) = CURDATE();";
+            RESERVACION.ID_RESERVACION AS 'NUMERO_RESERVACION',
+            CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
+            DETALLE_RESERVACION.FECHA_INICIO,
+            DETALLE_RESERVACION.FECHA_FIN,
+            HABITACION.NUM_HABITACION,
+            T_HABITACION.NOMBRE AS NOMBRE_HABITACION
+        FROM PERSONA
+        JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.PERSONA_HUESPED
+        JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN HABITACION ON HABITACION.ID_HABITACION = DETALLE_RESERVACION.HABITACION
+        JOIN T_HABITACION ON T_HABITACION.ID_TIPO_HABITACION = HABITACION.TIPO_HABITACION
+        WHERE RESERVACION.ESTADO_RESERVACION = 'activa'
+        AND DATE(DETALLE_RESERVACION.FECHA_FIN) = CURDATE();";
 
     $tabla = $db->seleccionar($consulta);
     ?>
@@ -184,7 +184,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     </div>
 </nav>
-<!-- Agregar un div para el título -->
 <div class="bg-danger text-white w-100 text-center">
     <h1 class="mb-0">Reservaciones Para Check-Out Hoy...</h1>
 </div>
@@ -193,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
                 <tr>
-                    <th class='text-white'>Numero_Reservacion</th>
+                    <th class='text-white'>NUMERO_RESERVACION</th>
                     <th class='text-white'>Nombre Completo</th>
                     <th class='text-white'>Fecha Inicio</th>
                     <th class='text-white'>Fecha Fin</th>
@@ -207,15 +206,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     foreach ($tabla as $reg) {
         echo "
         <tr>
-            <td>{$reg->Numero_Reservacion}</td>
-            <td>{$reg->Nombre_Completo}</td>
+            <td>{$reg->NUMERO_RESERVACION}</td>
+            <td>{$reg->NOMBRE_COMPLETO}</td>
             <td>{$reg->FECHA_INICIO}</td>
             <td>{$reg->FECHA_FIN}</td>
             <td>{$reg->NUM_HABITACION}</td>
             <td>{$reg->NOMBRE_HABITACION}</td>
             <td>
                 <form method='post'>
-                    <input type='hidden' name='reservacionId' value='{$reg->Numero_Reservacion}'>
+                    <input type='hidden' name='reservacionId' value='{$reg->NUMERO_RESERVACION}'>
                     <button type='submit' class='btn btn-danger'>Finalizar Reservación</button>
                 </form>
             </td>
