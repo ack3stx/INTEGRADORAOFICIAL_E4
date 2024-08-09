@@ -206,7 +206,7 @@ LEFT JOIN detalle_pago ON reservacion.id_reservacion = detalle_pago.reservacion"
 </div>";
       echo "<div id='ventas_mes' class='container-fluid' style='height: 500px;'></div>";
     }
-    if ($Grafica==2) 
+    if ($Grafica==2)
     {
       $consulta3="SELECT CONCAT(persona.nombre, ' ', persona.Apellido_paterno) AS Nombre,sum(detalle_pago.monto_total) as Total_Ventas
 FROM roles
@@ -216,7 +216,7 @@ INNER JOIN persona ON persona.usuario = usuarios.id_usuario
 inner join recepcionista on recepcionista.persona_recepcionista=persona.id_persona
 inner join reservacion on reservacion.recepcionista=recepcionista.id_recepcionista
 inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
-WHERE reservacion.recepcionista is not null
+WHERE reservacion.recepcionista is not null and month(fecha_)=$mesn and year(fecha_)=$año
 group by Nombre
 order by Total_Ventas desc
 LIMIT 5";

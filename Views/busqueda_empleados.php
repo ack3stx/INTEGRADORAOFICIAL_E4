@@ -173,12 +173,11 @@
                 <input class="form-control me-2" type="text" id="staffEmail" name="afore" required><br>
                 <label for="staffEmail">Numero Emergencia:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="num2" required><br>
-                <button class="btn btn-outline-success" type="submit">Agregar</button>
-            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
+          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Agregar</button>
+          </form>
         </div>
       </div>
     </div>
