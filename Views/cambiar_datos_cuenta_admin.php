@@ -100,7 +100,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservaciones Fisicas
+              <i class="fas fa-book"></i> Reservas Fisicas
             </a>
           </li>
           <li class="nav-item">
@@ -115,22 +115,22 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_empleados.php">
-              <i class="fas fa-bed"></i> Personal
+              <i class="fas fa-user"></i> Personal
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="reportes_hotel.php">
-              <i class="fas fa-bed"></i> Hotel
+              <i class="fas fa-hotel"></i> Hotel
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_facturacion.php">
-              <i class="fas fa-bed"></i> Facturacion
+              <i class="fas fa-file-alt"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="costos.php">
-              <i class="fas fa-bed"></i> Costos
+              <i class="fas fa-dollar-sign"></i> Costos
             </a>
           </li>
           <li class="nav-item">

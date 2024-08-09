@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservaciones Fisicas
+              <i class="fas fa-book"></i> Reserva Fisica
             </a>
           </li>
           <li class="nav-item">
@@ -65,7 +65,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="costos.php">
-              <i class="fas fa-bed"></i> Costos
+              <i class="fas fa-bed"></i> Costo
             </a>
           </li>
           <li class="nav-item">
