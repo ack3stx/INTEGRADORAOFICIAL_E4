@@ -45,7 +45,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservaciones Fisicas
+              <i class="fas fa-book"></i> Reservas Fisicas
             </a>
           </li>
           <li class="nav-item">
@@ -118,7 +118,7 @@
         <form action="" method="post">
             <div class="form-group">
                 <label for="nombre">Numero De Reservacion</label>
-                <input name="N_reservacion" type="" class="form-control" id="nombre" placeholder="Porfavor Ingrese El Numero De La Reservacion.">
+                <input name="N_reservacion" type="number" class="form-control" id="nombre" placeholder="Porfavor Ingrese El Numero De La Reservacion.">
             </div>
             <button type="submit" class="btn btn-danger">Buscar</button>
             <br>
@@ -129,50 +129,58 @@
     <?php
 extract($_POST);
 
+
 if (!empty($N_reservacion)) {
     $cadena = "CALL Consultar_Informacion_Facturacion('$N_reservacion');";
     $tabla = $db->seleccionar($cadena);
 
-    echo "
-    <div class='table-responsive'>
-        <table class='table table-hover table-bordered table-danger'>
-            <thead class='table-dark'>
-                <tr>
-                    <th text-white>Nombre</th>
-                    <th text-white>Apellido Paterno</th>
-                    <th text-white>Apellido Materno</th>
-                    <th text-white>RFC</th>
-                    <th text-white>Dirección</th>
-                    <th text-white>Monto Total</th>
-                    <th text-white>Método de Pago</th>
-                </tr>
-            </thead>
-            <tbody>
-    ";
 
-    foreach ($tabla as $reg) {
+
+    if (!empty($tabla)) {
         echo "
-                <tr>
-                    <td>{$reg->nombre}</td>
-                    <td>{$reg->apellido_paterno}</td>
-                    <td>{$reg->apellido_materno}</td>
-                    <td>{$reg->rfc}</td>
-                    <td>{$reg->direccion}</td>
-                    <td>{$reg->monto_total}</td>
-                    <td>{$reg->metodo_pago}</td>
-                </tr>
+        <div class='table-responsive'>
+            <table class='table table-hover table-bordered table-danger'>
+                <thead class='table-dark'>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Apellido Paterno</th>
+                        <th>Apellido Materno</th>
+                        <th>RFC</th>
+                        <th>Dirección</th>
+                        <th>Monto Total</th>
+                        <th>Método de Pago</th>
+                    </tr>
+                </thead>
+                <tbody>
         ";
-    }
 
-    echo "
-            </tbody>
-        </table>
-    </div>
-    ";
+        foreach ($tabla as $reg) {
+            echo "
+                    <tr>
+                        <td>{$reg->nombre}</td>
+                        <td>{$reg->apellido_paterno}</td>
+                        <td>{$reg->apellido_materno}</td>
+                        <td>{$reg->rfc}</td>
+                        <td>{$reg->direccion}</td>
+                        <td>{$reg->monto_total}</td>
+                        <td>{$reg->metodo_pago}</td>
+                    </tr>
+            ";
+        }
+
+        echo "
+                </tbody>
+            </table>
+        </div>
+        ";
+    } else {
+        echo "<p>Datos de facturación no encontrados</p>";
+    }
 
     $db->desconectarBD();
 }
 ?>
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
