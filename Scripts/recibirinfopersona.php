@@ -28,15 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
 
-
-            echo json_encode(["estatus"=>true]);
-            echo "Hola".$usuario;
-
-            
-
-            
-           
-            $consulta = "SELECT USUARIOS.ID_USUARIO as id FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
+            $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = :usuario";
             $stmt = $data->prepare($consulta);
             $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
             $stmt->execute();
@@ -45,14 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($resultado && isset($resultado['id'])) {
                 $id_usuario = $resultado['id'];
 
-                echo json_encode(["estatus"=>true]);
-                echo "Hola".$id_usuario;
-
-                $reservacionPasada = "SELECT PERSONA.NOMBRE AS NOMBRE, PERSONA.APELLIDO_PATERNO AS AP_PATERNO, HUESPED.ID_HUESPED AS HUESPED
+                $reservacionPasada = "SELECT PERSONA.NOMBRE AS NOMBRE, PERSONA.APELLIDO_PATERNO AS AP_PATERNO, huesped.id_huesped AS huesped
                 FROM PERSONA 
-                INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-                INNER JOIN huesped ON PERSONA.ID_PERSONA = HUESPED.PERSONA_HUESPED
-                WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
+                INNER JOIN USUARIOS ON PERSONA.usuario = USUARIOS.id_usuario
+                INNER JOIN huesped ON persona.id_persona = huesped.persona_huesped
+                WHERE usuarios.nombre_usuario = :usuario";
 
                 $stmt = $data->prepare($reservacionPasada);
                 $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);

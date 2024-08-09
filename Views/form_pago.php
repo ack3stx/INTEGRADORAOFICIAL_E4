@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Laguna Inn</title>
-    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+    <title>Credit Card Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -66,11 +65,16 @@
         button:hover {
             background-color: #0056b3;
         }
+
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <form id="card-form">
+        <form id="card-form" action="../Scripts/redireccionar.php" method="post">
             <div class="input-group">
                 <label for="card-number">Número de Tarjeta</label>
                 <input type="text" id="card-number" maxlength="19" placeholder="1234 5678 9012 3456" required>
@@ -88,11 +92,10 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
-            <button type="submit" id="enviar">Enviar</button>
+            <button type="submit" id="submit-button" disabled>Enviar</button>
         </form>
     </div>
 
-    
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
@@ -103,7 +106,20 @@
         const ninos = localStorage.getItem('selectedKids');
         const adultos = localStorage.getItem('selectedAdults');
 
-       
+        const submitButton = document.getElementById('submit-button');
+
+        function enableSubmitButton() {
+            const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
+            const cardName = document.getElementById('card-name').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+
+            if (cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3) {
+                submitButton.disabled = false;
+            } else {
+                submitButton.disabled = true;
+            }
+        }
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -140,10 +156,12 @@
                     cardType.textContent += ' (Invalid)';
                 }
             }
+            enableSubmitButton();
         });
 
         document.getElementById('card-name').addEventListener('input', function () {
             this.value = this.value.replace(/[^a-zA-Z\s]/g, '');
+            enableSubmitButton();
         });
 
         document.getElementById('expiry-date').addEventListener('input', function (e) {
@@ -152,10 +170,12 @@
             if (input.length === 2 && !input.includes('/')) {
                 e.target.value = input + '/';
             }
+            enableSubmitButton();
         });
 
         document.getElementById('cvv').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
+            enableSubmitButton();
         });
 
         document.getElementById('card-form').addEventListener('submit', function (e) {
@@ -163,6 +183,8 @@
             if (!luhnCheck(cardNumber)) {
                 e.preventDefault();
                 alert('Número de tarjeta inválido.');
+            } else {
+                mandardatos(this);
             }
         });
 
@@ -180,62 +202,13 @@
             }
             return sum % 10 === 0;
         }
-        
-      document.getElementById('enviar').addEventListener('click', function(event) {
-            event.preventDefault(); 
-            mandardatos(); 
-        });  
 
-       
-
-          /*function validarformulario(idFormulario){
-
-            const cvv = document.getElementById('cvv').value;
-            const cardnumber = document.getElementById('card-number').value;
-            const cardname = document.getElementById('card-name').value;
-            const expirydate = document.getElementById('expiry-date').value;
-            var formValido = true;
-
-            if(cvv.value === '' || cardnumber === '' || cardname === '' || expirydate === ''){
-                swal("Todos los datos son obligatorios");
-
-                formValido = false;
-
-      
-            } else {
-                cvv.style.border = '';
-                cardnumber.style.border = '';
-                cardname.style.border = '';
-                expirydate.style.border = '';
-            }
-
-            return formValido;
-      
-            }
-          
-        
-            function enviarformulario(event) {
-    event.preventDefault();
-    var formularioValido = validarformulario('card-form');
-
-    if (formularioValido) {
-        mandardatos();
-    }
-}
-
-        document.addEventListener('DOMContentLoaded', function() {
-    document.getElementByClassName('btn').addEventListener('click', enviarformulario);
-}); */
-
-        
-
-         //mandar datos por fetch api
-         function mandardatos() {
-            fetch('../Scripts/recibirinfopersona.php', {
+        function mandardatos(form) {
+            fetch('../Scripts/recibirinfopersona_fisica.php', {
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
-                'habitaciones': JSON.stringify(habitaciones),
-                'facturacion': JSON.stringify(facturacion),
+                    'habitaciones': JSON.stringify(habitaciones),
+                    'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
@@ -243,27 +216,20 @@
                     'adultos': adultos
                 }),
                 method: 'POST'
-
             }).then(response => {
-                console.log('response:',response)
-                alert('Datos enviados')
-                
+                return response.json()
             }).then((data) => {
-                console.log('Datos recibidos:', data);
-               
-        
+                console.log(data);
+                // Redirigir utilizando JavaScript
+                window.location.href = "Panel_Recepcionista.php";
             }).catch((error) => {
                 console.log(error);
-            })
+                swal("Error al enviar los datos, intenta nuevamente.").then(() => {
+                    // Mostrar el botón de nuevo si hay un error
+                    submitButton.disabled = false;
+                });
+            });
         }
-
-
-        //document.addEventListener('DOMContentLoaded',mandardatos);
-
-        
-
-        
-        
     </script>
 </body>
 </html>

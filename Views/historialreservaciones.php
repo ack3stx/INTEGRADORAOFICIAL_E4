@@ -118,22 +118,22 @@ $db->conectarDB();
 $usuario = $_SESSION["usuario"];
 
 $consulta = "SELECT DISTINCT 
-                CONCAT(persona.nombre, ' ', persona.apellido_paterno, ' ', persona.apellido_materno) AS Nombre_Huesped, 
-                reservacion.id_reservacion AS folio_reserva, 
-                reservacion.estado_reservacion AS estado, 
-                reservacion.FECHA_ AS fecha_reservacion,
-                detalle_reservacion.FECHA_INICIO as fecha_inicio,
-                detalle_reservacion.FECHA_FIN as fecha_fin,
-                t_habitacion.NOMBRE as tipo_habitacion,
-                t_habitacion.PRECIO as precio_habitacion
-            FROM usuarios
-            INNER JOIN persona ON persona.usuario = usuarios.id_usuario
-            INNER JOIN huesped ON huesped.persona_huesped = persona.id_persona
-            INNER JOIN reservacion ON reservacion.huesped = huesped.id_huesped
-            INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-            JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
-            JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-            WHERE usuarios.nombre_usuario = '$usuario'";
+                CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS Nombre_Huesped, 
+                RESERVACION.ID_RESERVACION AS folio_reserva, 
+                RESERVACION.ESTADO_RESERVACION AS estado, 
+                RESERVACION.FECHA_ AS fecha_reservacion,
+                DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
+                DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
+                T_HABITACION.NOMBRE as tipo_habitacion,
+                T_HABITACION.PRECIO as precio_habitacion
+            FROM USUARIOS
+            INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+            INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+            INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+            INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+            JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+            JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+            WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'";
 
 $resultado = $db->seleccionar($consulta);
 
@@ -190,24 +190,24 @@ foreach ($resultado as $value) {
 if (isset($_GET['folio_reserva'])) {
     $folio_reserva = $_GET['folio_reserva'];
     $consulta_detalle = "SELECT 
-                            detalle_reservacion.titular_habitacion AS titular, 
-                            reservacion.id_reservacion AS folio_reserva, 
-                            reservacion.estado_reservacion AS estado, 
-                            TIMESTAMPDIFF(DAY, detalle_reservacion.fecha_inicio, detalle_reservacion.fecha_fin) AS noches,
-                            reservacion.FECHA_ AS fecha_reservacion,
-                            detalle_reservacion.FECHA_INICIO as fecha_inicio,
-                            detalle_reservacion.FECHA_FIN as fecha_fin,
-                            t_habitacion.NOMBRE as tipo_habitacion,
-                            t_habitacion.PRECIO as precio_habitacion
-                          FROM usuarios
-                          INNER JOIN persona ON persona.usuario = usuarios.id_usuario
-                          INNER JOIN huesped ON huesped.persona_huesped = persona.id_persona
-                          INNER JOIN reservacion ON reservacion.huesped = huesped.id_huesped
-                          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-                          JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
-                          JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-                          WHERE usuarios.nombre_usuario = '$usuario'
-                          AND reservacion.id_reservacion = '$folio_reserva'";
+                            DETALLE_RESERVACION.TITULAR_HABITACION AS titular, 
+                            RESERVACION.ID_RESERVACION AS folio_reserva, 
+                            RESERVACION.ESTADO_RESERVACION AS estado, 
+                            TIMESTAMPDIFF(DAY, DETALLE_RESERVACION.FECHA_INICIO, DETALLE_RESERVACION.FECHA_FIN) AS noches,
+                            RESERVACION.FECHA_ AS fecha_reservacion,
+                            DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
+                            DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
+                            T_HABITACION.NOMBRE as tipo_habitacion,
+                            T_HABITACION.PRECIO as precio_habitacion
+                          FROM USUARIOS
+                          INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+                          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+                          INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+                          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+                          JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+                          JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+                          WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
+                          AND RESERVACION.ID_RESERVACION = '$folio_reserva'";
 
     $resultado_detalle = $db->seleccionar($consulta_detalle);
 
@@ -253,24 +253,24 @@ if (isset($_GET['folio_reserva'])) {
       <div class="modal-body">
         <?php        
         $query = "SELECT 
-                    detalle_reservacion.titular_habitacion AS titular, 
-                    reservacion.id_reservacion AS folio_reserva, 
-                    reservacion.estado_reservacion AS estado, 
-                    TIMESTAMPDIFF(DAY, detalle_reservacion.fecha_inicio, detalle_reservacion.fecha_fin) AS noches,
-                    reservacion.FECHA_ AS fecha_reservacion,
-                    detalle_reservacion.FECHA_INICIO as fecha_inicio,
-                    detalle_reservacion.FECHA_FIN as fecha_fin,
-                    t_habitacion.NOMBRE as tipo_habitacion,
-                    t_habitacion.PRECIO as precio_habitacion
-                  FROM usuarios
-                  INNER JOIN persona ON persona.usuario = usuarios.id_usuario
-                  INNER JOIN huesped ON huesped.persona_huesped = persona.id_persona
-                  INNER JOIN reservacion ON reservacion.huesped = huesped.id_huesped
-                  INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
-                  JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
-                  JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-                  WHERE usuarios.nombre_usuario = '$usuario'
-                  AND reservacion.id_reservacion = '$folio_reserva'";
+                    DETALLE_RESERVACION.TITULAR_HABITACION AS titular, 
+                    RESERVACION.ID_RESERVACION AS folio_reserva, 
+                    RESERVACION.ESTADO_RESERVACION AS estado, 
+                    TIMESTAMPDIFF(DAY, DETALLE_RESERVACION.FECHA_INICIO, DETALLE_RESERVACION.FECHA_FIN) AS noches,
+                    RESERVACION.FECHA_ AS fecha_reservacion,
+                    DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
+                    DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
+                    T_HABITACION.NOMBRE as tipo_habitacion,
+                    T_HABITACION.PRECIO as precio_habitacion
+                  FROM USUARIOS
+                  INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+                  INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+                  INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+                  INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+                  JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+                  JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+                  WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
+                  AND RESERVACION.ID_RESERVACION = '$folio_reserva'";
 
         $resultados = $db->seleccionar($query);
         foreach ($resultados as $value) {

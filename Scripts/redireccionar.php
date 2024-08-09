@@ -10,6 +10,6 @@ WHERE ID_DETALLE_PAGO = (SELECT MAX(ID_DETALLE_PAGO) FROM DETALLE_PAGO);";
 
     $db->ejecuta($consulta);
 
-    header('Location: ../views/check2.php');
+    header('Location: ../Views/check2.php');
 
 ?>
