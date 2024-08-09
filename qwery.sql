@@ -490,9 +490,9 @@ INSERT INTO RESERVACION (HUESPED, FECHA_, ESTADO_RESERVACION) VALUES
 (43, '2024-06-22 12:30:00', 'finalizada'),
 (44, '2024-06-25 14:15:00', 'finalizada'),
 (45, '2024-06-26 16:00:00', 'finalizada'),
-(46, '2024-07-02 09:00:00', 'activa'),
-(47, '2024-07-03 11:00:00', 'activa'),
-(48, '2024-07-05 13:00:00', 'activa');
+(46, '2024-07-02 09:00:00', 'finalizada'),
+(47, '2024-07-03 11:00:00', 'finalizada'),
+(48, '2024-07-05 13:00:00', 'finalizada');
 
 
 INSERT INTO RESERVACION (HUESPED, RECEPCIONISTA, FECHA_, ESTADO_RESERVACION) VALUES
@@ -501,14 +501,14 @@ INSERT INTO RESERVACION (HUESPED, RECEPCIONISTA, FECHA_, ESTADO_RESERVACION) VAL
 (51, 3, '2024-07-06 09:45:00', 'cancelada'),
 (52, 4, '2024-07-06 11:00:00', 'cancelada'),
 (53, 1, '2024-07-07 09:00:00', 'cancelada'),
-(54, 2, '2024-07-07 11:30:00', 'activa'),
-(55, 3, '2024-07-08 10:00:00', 'activa'),
-(56, 4, '2024-07-08 10:45:00', 'activa'),
-(57, 1, '2024-07-09 11:15:00', 'activa'),
-(58, 2, '2024-07-09 09:30:00', 'activa'),
-(59, 3, '2024-07-10 10:30:00', 'activa'),
-(60, 4, '2024-07-11 11:45:00', 'activa'),
-(61, 1, '2024-07-11 09:15:00', 'activa'),
+(54, 2, '2024-07-07 11:30:00', 'finalizada'),
+(55, 3, '2024-07-08 10:00:00', 'finalizada'),
+(56, 4, '2024-07-08 10:45:00', 'finalizada'),
+(57, 1, '2024-07-09 11:15:00', 'finalizada'),
+(58, 2, '2024-07-09 09:30:00', 'finalizada'),
+(59, 3, '2024-07-10 10:30:00', 'finalizada'),
+(60, 4, '2024-07-11 11:45:00', 'finalizada'),
+(61, 1, '2024-07-11 09:15:00', 'finalizada'),
 (62, 2, '2024-07-12 10:00:00', 'activa'),
 (63, 3, '2024-07-12 10:30:00', 'activa'),
 (64, 4, '2024-07-12 09:45:00', 'activa'),
