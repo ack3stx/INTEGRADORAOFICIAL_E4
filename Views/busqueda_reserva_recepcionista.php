@@ -106,66 +106,76 @@
   </div>
 
   <div class="container">
-    <?php 
-      extract($_POST);
-      if(empty($numero) && empty($fecha1) && empty($fecha2))
-      {
+  <?php 
+    extract($_POST);
 
-      }
-      else
-      {
+    // Verifica si el formulario ha sido enviado
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+      // Si no se proporcionan datos, muestra el formulario vacío
+      if(empty($numero) && empty($fecha1) && empty($fecha2)) {
+        echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
+      } else {
+        // Realiza la consulta dependiendo si el número está vacío o no
         if (empty($numero)) {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.fecha_ BETWEEN '$fecha1' AND '$fecha2'
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          FROM USUARIOS
+          INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
+          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
+          INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
+          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
+          WHERE RESERVACION.FECHA_ BETWEEN '$fecha1' AND '$fecha2'
+          GROUP BY NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         } else {
-          $consulta = "SELECT DISTINCT CONCAT(persona.nombre,' ',persona.apellido_paterno,' ',persona.apellido_materno) AS Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion, COUNT(detalle_reservacion.id_detalle_reservacion) AS Cantidad_de_habitaciones
-          FROM usuarios
-          INNER JOIN persona ON persona.usuario=usuarios.id_usuario
-          INNER JOIN huesped ON huesped.persona_huesped=persona.id_persona
-          INNER JOIN reservacion ON reservacion.huesped=huesped.id_huesped
-          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion=reservacion.id_reservacion
-          WHERE reservacion.id_reservacion=$numero
-          GROUP BY Nombre_Huesped, persona.numero_de_telefono, reservacion.fecha_, reservacion.estado_reservacion";
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          FROM USUARIOS
+          INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
+          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
+          INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
+          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
+          WHERE RESERVACION.ID_RESERVACION=$numero
+          GROUP BY NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         }
 
         $tabla = $conexion->seleccionar($consulta);
-        echo "<div class='table-responsive'>";
-        echo "<table class='table table-hover table-bordered table-danger'>";
-        echo "<thead class='table-dark'>";
-        echo "<tr>";
-        echo "<th>Nombre</th>";
-        echo "<th>Teléfono</th>";
-        echo "<th>Fecha Reservación</th>";
-        echo "<th>Estado Reservación</th>";
-        echo "<th>Cantidad Habitaciones</th>";
-        echo "</tr>";
-        echo "</thead>";
-        echo "<tbody>";
 
-        foreach ($tabla as $reg) {
+        // Verifica si se encontraron resultados
+        if (empty($tabla)) {
+          echo "<p>No se encontraron reservaciones.</p>";
+        } else {
+          echo "<div class='table-responsive'>";
+          echo "<table class='table table-hover table-bordered table-danger'>";
+          echo "<thead class='table-dark'>";
           echo "<tr>";
-          echo "<td>{$reg->Nombre_Huesped}</td>";
-          echo "<td>{$reg->numero_de_telefono}</td>";
-          echo "<td>{$reg->fecha_}</td>";
-          echo "<td>{$reg->estado_reservacion}</td>";
-          echo "<td>{$reg->Cantidad_de_habitaciones}</td>";
+          echo "<th>Nombre</th>";
+          echo "<th>Teléfono</th>";
+          echo "<th>Fecha Reservación</th>";
+          echo "<th>Estado Reservación</th>";
+          echo "<th>Cantidad Habitaciones</th>";
           echo "</tr>";
-        }
+          echo "</thead>";
+          echo "<tbody>";
 
-        echo "</tbody>";
-        echo "</table>";
-        echo "</div>";
+          foreach ($tabla as $reg) {
+            echo "<tr>";
+            echo "<td>{$reg->NOMBRE_HUESPED}</td>";
+            echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
+            echo "<td>{$reg->FECHA_}</td>";
+            echo "<td>{$reg->ESTADO_RESERVACION}</td>";
+            echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+            echo "</tr>";
+          }
+
+          echo "</tbody>";
+          echo "</table>";
+          echo "</div>";
+        }
       }
-        $conexion->desconectarBD();
       
-    ?>
-  </div>
+      $conexion->desconectarBD();
+    }
+  ?>
+</div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

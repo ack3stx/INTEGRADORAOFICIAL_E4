@@ -173,22 +173,23 @@
                 <input class="form-control me-2" type="text" id="staffEmail" name="afore" required><br>
                 <label for="staffEmail">Numero Emergencia:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="num2" required><br>
+                <button class="btn btn-outline-success" type="submit">Agregar</button>
+            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Agregar</button>
-          </form>
+          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
         </div>
       </div>
     </div>
   </div>
-                <br><br>
+  <br><br>
                 <h4 class="color-hotel">Busqueda</h4>
 <form class="d-flex" role="search" method="post">
     <input class="form-control me-2" type="text" placeholder="Nombre" aria-label="Nombre" name="nombre" id="nombre">
     <input class="form-control me-2" type="text" placeholder="Apellido Paterno" aria-label="Apellido Paterno" name="ap_paterno" id="ap_paterno">
     <input class="form-control me-2" type="text" placeholder="Apellido Materno" aria-label="Apellido Materno" name="ap_materno" id="ap_materno">
-    <button class="btn btn-outline-danger" type="submit" id="buscar-btn" disabled>Buscar</button>
+    <button class="btn btn-outline-danger" type="submit" id="buscar-btn" >Buscar</button>
 </form>
 
                 <?php
@@ -327,37 +328,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const exemptInputs = ['correo', 'contra', 'direccion', 'cd_postal', 'telefono', 'nss', 'afore', 'num2', 'curp', 'usuario'];
+
     const inputs = document.querySelectorAll('input[type="text"]');
-    const submitButton = document.getElementById('buscar-btn');
+    const telefonoInput = document.querySelector('input[name="telefono"]');
+    const submitButton = document.querySelector('button[type="submit"]');
 
     function validateInputs() {
-        const alphaPattern = /^[a-zA-Z\s]+$/; // Solo permite letras y espacios
+        const alphaPattern = /^[a-zA-Z\s]+$/;
         let allValid = true;
 
         inputs.forEach(input => {
-            if (!alphaPattern.test(input.value)) {
-                input.style.borderColor = 'red'; // Cambia el borde a rojo si hay caracteres inválidos
-                
-                submitButton.disabled = true;
-            } else {
-                input.style.borderColor = ''; // Restaura el borde si es válido
-                submitButton.disabled = false; 
+            const fieldName = input.getAttribute('name');
+            if (!exemptInputs.includes(fieldName)) {
+                if (!alphaPattern.test(input.value)) {
+                    input.style.borderColor = 'red';
+                    allValid = true;
+                } else {
+                    input.style.borderColor = '';
+                    allValid = false;
+                }
             }
         });
 
-        
+        // Validación específica para el campo de teléfono
+        if (telefonoInput.value.length > 10 || !/^\d*$/.test(telefonoInput.value)) {
+            telefonoInput.style.borderColor = 'red';
+            allValid = true;
+        } else {
+            telefonoInput.style.borderColor = '';
+        }
+
+        submitButton.disabled = false;
     }
 
     inputs.forEach(input => {
         input.addEventListener('input', function(e) {
-            if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            const fieldName = e.target.getAttribute('name');
+            if (!exemptInputs.includes(fieldName)) {
+                if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                    e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                }
             }
+
+            // Limitar la longitud del campo de teléfono a 10 números
+            if (fieldName === 'telefono') {
+                if (e.target.value.length > 10) {
+                    e.target.value = e.target.value.slice(0, 10);
+                }
+            }
+
             validateInputs();
         });
     });
 
-    validateInputs(); // Valida al cargar la página
+    validateInputs(); 
 });
+
+
+
+
 
 </script>

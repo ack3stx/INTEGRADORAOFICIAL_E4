@@ -23,15 +23,15 @@
         $contraseña_nueva = $_POST['password_nueva'] ?? '';
         $nombre_user = $_POST['nombre_user'] ?? '';
 
-        $obtener_id = "SELECT id_usuario, password FROM USUARIOS WHERE nombre_usuario = '" . $_SESSION['usuario'] . "'";
+        $obtener_id = "SELECT ID_USUARIO, PASSWORD FROM USUARIOS WHERE NOMBRE_USUARIO = '" . $_SESSION['usuario'] . "'";
         $id_result = $db->seleccionar($obtener_id);
 
         if (!empty($id_result)) {
-            $id = $id_result[0]->id_usuario;
-            $hash_contraseña_actual = $id_result[0]->password;
+            $id = $id_result[0]->ID_USUARIO;
+            $hash_contraseña_actual = $id_result[0]->PASSWORD;
 
             if (!empty($correo_act)) {
-                $consulta = "CALL actualizar_informacion_correo_electronico ('$correo_act', $id)";
+                $consulta = "CALL ACTUALIZAR_INFORMACION_CORREO_ELECTRONICO ('$correo_act', $id)";
                 $db->ejecuta($consulta);
                 $_SESSION['mensaje'] = "Información de correo actualizada correctamente.";
             }
@@ -39,7 +39,7 @@
             if (!empty($contraseña_actual) && !empty($contraseña_nueva)) {
                 if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
                     $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
-                    $consulta = "CALL actualizar_informacion_contraseña('$hash_nueva_contraseña', $id)";
+                    $consulta = "CALL ACTUALIZAR_INFORMACION_CONTRASEÑA('$hash_nueva_contraseña', $id)";
                     $db->ejecuta($consulta);
                     $_SESSION['mensaje'] = "Contraseña actualizada correctamente.";
                 } else {
@@ -48,7 +48,7 @@
             }
 
             if (!empty($nombre_user)) {
-                $consulta = "CALL actualizar_informacion_nombre_usuario ('$nombre_user', $id)";
+                $consulta = "CALL ACTUALIZAR_INFORMACION_NOMBRE_USUARIO ('$nombre_user', $id)";
                 $db->ejecuta($consulta);
                 $_SESSION['mensaje'] = "Nombre de usuario actualizado correctamente. Su sesión terminará en 5 segundos.";
                 $db->desconectarBD();

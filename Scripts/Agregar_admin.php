@@ -19,7 +19,7 @@
             
             $hash = password_hash($contra,PASSWORD_DEFAULT);
 
-            $cadena = "CALL RegistrarUsuarioAdmin('$usuario','$hash','$correo');";
+            $cadena = "CALL REGISTRARUSUARIORECEPCIONISTA('$usuario','$hash','$correo');";
 
             $db->ejecuta($cadena);
             

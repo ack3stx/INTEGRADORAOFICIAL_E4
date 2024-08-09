@@ -180,10 +180,10 @@
             return sum % 10 === 0;
         }
         
-      /* document.getElementById('enviar').addEventListener('click', function(event) {
+      document.getElementById('enviar').addEventListener('click', function(event) {
             event.preventDefault(); 
             mandardatos(); 
-        });  */
+        });  
 
        
 
@@ -255,7 +255,7 @@
         }
 
 
-        document.addEventListener('DOMContentLoaded',mandardatos);
+        //document.addEventListener('DOMContentLoaded',mandardatos);
 
         
 
