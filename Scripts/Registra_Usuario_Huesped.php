@@ -141,7 +141,8 @@ $response_message = '';
     header('Location: ../views/Login.php?status=registro_exitoso');
   exit();
 }
-*/
+  */
+    header('Location: ../views/Login.php?status=registro_exitoso');
 
 include '../Clases/BasedeDatos.php';
 $db=new Database();
