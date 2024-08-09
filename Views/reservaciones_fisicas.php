@@ -75,8 +75,8 @@ include '../Clases/BasedeDatos.php';
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet" href="../Estilos/reservafisica.css">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-       
-    <title>Habitacion Rserva</title>
+        <title>Laguna Inn</title>
+        <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
 </head>
 <style>
 
