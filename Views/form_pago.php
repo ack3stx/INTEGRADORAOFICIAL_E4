@@ -217,14 +217,11 @@
                 }),
                 method: 'POST'
             }).then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
+                return response.json()
             }).then((data) => {
                 console.log(data);
                 // Redirigir utilizando JavaScript
-                window.location.href = "Panel_Recepcionista.php";
+                window.location.href = "../index.php";
             }).catch((error) => {
                 console.log(error);
                 swal("Error al enviar los datos, intenta nuevamente.").then(() => {
