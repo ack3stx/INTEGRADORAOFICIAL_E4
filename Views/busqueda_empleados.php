@@ -192,71 +192,82 @@
                     <button class="btn btn-outline-danger" type="submit">Buscar</button>
                 </form>
                 <?php
-extract($_POST);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    extract($_POST);
 
-if (!empty($nombre) && !empty($ap_paterno) && !empty($ap_materno)) 
-{
-    $cadena = "select concat(PERSONA.nombre,' ', PERSONA.apellido_paterno,' ', PERSONA.apellido_materno) as nombre, PERSONA.fecha_de_nacimiento,
-PERSONA.direccion,PERSONA.ciudad,PERSONA.estado,PERSONA.codigo_postal,PERSONA.pais,PERSONA.genero,PERSONA.numero_de_telefono,RECEPCIONISTA.curp,
-RECEPCIONISTA.fecha_de_contratacion, RECEPCIONISTA.numero_de_seguridad_social,RECEPCIONISTA.afore,RECEPCIONISTA.numero_de_emergencia
-from PERSONA
-inner join RECEPCIONISTA on RECEPCIONISTA.persona_recepcionista=PERSONA.id_persona where PERSONA.nombre='$nombre' and PERSONA.apellido_paterno='$ap_paterno' and PERSONA.apellido_materno='$ap_materno'";
-    $tabla = $db->seleccionar($cadena);
+    if (!empty($nombre) && !empty($ap_paterno) && !empty($ap_materno)) {
+        $cadena = "SELECT CONCAT(PERSONA.nombre, ' ', PERSONA.apellido_paterno, ' ', PERSONA.apellido_materno) AS nombre, 
+                          PERSONA.fecha_de_nacimiento, PERSONA.direccion, PERSONA.ciudad, PERSONA.estado, PERSONA.codigo_postal, 
+                          PERSONA.pais, PERSONA.genero, PERSONA.numero_de_telefono, RECEPCIONISTA.curp, 
+                          RECEPCIONISTA.fecha_de_contratacion, RECEPCIONISTA.numero_de_seguridad_social, 
+                          RECEPCIONISTA.afore, RECEPCIONISTA.numero_de_emergencia
+                   FROM PERSONA
+                   INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.persona_recepcionista = PERSONA.id_persona 
+                   WHERE PERSONA.nombre = '$nombre' 
+                   AND PERSONA.apellido_paterno = '$ap_paterno' 
+                   AND PERSONA.apellido_materno = '$ap_materno'";
+        $tabla = $db->seleccionar($cadena);
 
-    echo "
-    <div class='table-responsive h-25'>
-        <table class='table table-hover table-bordered table-danger'>
-            <thead class='table-dark'>
-                <tr>
-                    <th text-white>Nombre&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</th>
-                    <th text-white>Fecha de Nacimiento</th>
-                    <th text-white>Direccion</th>
-                    <th text-white>Ciudad</th>
-                    <th text-white>Estado</th>
-                    <th text-white>Codigo Postal</th>
-                    <th text-white>Pais</th>
-                    <th text-white>Genero</th>
-                    <th text-white>Telefono</th>
-                    <th text-white>Curp</th>
-                    <th text-white>Fecha de Contratacion</th>
-                    <th text-white>Numero de Seguro Social</th>
-                    <th text-white>Afore</th>
-                    <th text-white>Numero Emergencia</th>
-                </tr>
-            </thead>
-            <tbody>
-    ";
+        if (empty($tabla)) {
+            echo "<p>El empleado no existe.</p>";
+        } else {
+            echo "
+            <div class='table-responsive h-25'>
+                <table class='table table-hover table-bordered table-danger'>
+                    <thead class='table-dark'>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Fecha de Nacimiento</th>
+                            <th>Dirección</th>
+                            <th>Ciudad</th>
+                            <th>Estado</th>
+                            <th>Código Postal</th>
+                            <th>País</th>
+                            <th>Género</th>
+                            <th>Teléfono</th>
+                            <th>CURP</th>
+                            <th>Fecha de Contratación</th>
+                            <th>Número de Seguro Social</th>
+                            <th>Afore</th>
+                            <th>Número de Emergencia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            ";
 
-    foreach ($tabla as $reg) {
-        echo "
-                <tr>
-                    <td>{$reg->nombre}</td>
-                    <td>{$reg->fecha_de_nacimiento}</td>
-                    <td>{$reg->direccion}</td>
-                    <td>{$reg->ciudad}</td>
-                    <td>{$reg->estado}</td>
-                    <td>{$reg->codigo_postal}</td>
-                    <td>{$reg->pais}</td>
-                    <td>{$reg->genero}</td>
-                    <td>{$reg->numero_de_telefono}</td>
-                    <td>{$reg->curp}</td>
-                    <td>{$reg->fecha_de_contratacion}</td>
-                    <td>{$reg->numero_de_seguridad_social}</td>
-                    <td>{$reg->afore}</td>
-                    <td>{$reg->numero_de_emergencia}</td>
-                </tr>
-        ";
+            foreach ($tabla as $reg) {
+                echo "
+                        <tr>
+                            <td>{$reg->nombre}</td>
+                            <td>{$reg->fecha_de_nacimiento}</td>
+                            <td>{$reg->direccion}</td>
+                            <td>{$reg->ciudad}</td>
+                            <td>{$reg->estado}</td>
+                            <td>{$reg->codigo_postal}</td>
+                            <td>{$reg->pais}</td>
+                            <td>{$reg->genero}</td>
+                            <td>{$reg->numero_de_telefono}</td>
+                            <td>{$reg->curp}</td>
+                            <td>{$reg->fecha_de_contratacion}</td>
+                            <td>{$reg->numero_de_seguridad_social}</td>
+                            <td>{$reg->afore}</td>
+                            <td>{$reg->numero_de_emergencia}</td>
+                        </tr>
+                ";
+            }
+
+            echo "
+                    </tbody>
+                </table>
+            </div>
+            ";
+        }
+
+        $db->desconectarBD();
     }
-
-    echo "
-            </tbody>
-        </table>
-    </div>
-    ";
-
-    $db->desconectarBD();
 }
 ?>
+
 
                 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -312,3 +323,39 @@ inner join RECEPCIONISTA on RECEPCIONISTA.persona_recepcionista=PERSONA.id_perso
 ?>
 </body>
 </html>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const inputs = document.querySelectorAll('input[type="text"]');
+    const submitButton = document.getElementById('buscar-btn');
+
+    function validateInputs() {
+        const alphaPattern = /^[a-zA-Z\s]+$/; // Solo permite letras y espacios
+        let allValid = true;
+
+        inputs.forEach(input => {
+            if (!alphaPattern.test(input.value)) {
+                input.style.borderColor = 'red'; // Cambia el borde a rojo si hay caracteres inválidos
+                allValid = false;
+            } else {
+                input.style.borderColor = ''; // Restaura el borde si es válido
+            }
+        });
+
+        submitButton.disabled = !allValid;
+    }
+
+    inputs.forEach(input => {
+        input.addEventListener('input', function(e) {
+            if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            }
+            validateInputs();
+        });
+    });
+
+    validateInputs(); // Valida al cargar la página
+});
+
+</script>
