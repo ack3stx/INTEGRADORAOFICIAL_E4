@@ -19,7 +19,7 @@ use Stripe\Terminal\Location;
             $update="UPDATE `integradora_rol_usuariosv2`.`t_habitacion` SET `precio` = $costo WHERE (`id_tipo_habitacion` = '2')";
             break;
     }
-    header('Location: ../views/costos.php?status=correcto');
+    header('Location: ../Views/costos.php?status=correcto');
 
     $db->ejecuta($update);
 

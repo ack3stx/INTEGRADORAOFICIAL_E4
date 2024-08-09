@@ -138,7 +138,7 @@ $response_message = '';
     } catch (Exception $e) {
         $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
     }
-    header('Location: ../views/Login.php?status=registro_exitoso');
+    header('Location: ../Views/Login.php?status=registro_exitoso');
   exit();
 }
   */
