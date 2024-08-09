@@ -185,12 +185,13 @@
   </div>
                 <br><br>
                 <h4 class="color-hotel">Busqueda</h4>
-                <form class="d-flex" role="search" method="post">
-                    <input class="form-control me-2" type="search" placeholder="Nombre" aria-label="Nombre" name="nombre">
-                    <input class="form-control me-2" type="search" placeholder="Apellido Paterno" aria-label="Nombre" name="ap_paterno">
-                    <input class="form-control me-2" type="search" placeholder="Apellido Materno" aria-label="Nombre" name="ap_materno">
-                    <button class="btn btn-outline-danger" type="submit">Buscar</button>
-                </form>
+<form class="d-flex" role="search" method="post">
+    <input class="form-control me-2" type="text" placeholder="Nombre" aria-label="Nombre" name="nombre" id="nombre">
+    <input class="form-control me-2" type="text" placeholder="Apellido Paterno" aria-label="Apellido Paterno" name="ap_paterno" id="ap_paterno">
+    <input class="form-control me-2" type="text" placeholder="Apellido Materno" aria-label="Apellido Materno" name="ap_materno" id="ap_materno">
+    <button class="btn btn-outline-danger" type="submit" id="buscar-btn" disabled>Buscar</button>
+</form>
+
                 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     extract($_POST);
@@ -337,13 +338,15 @@ document.addEventListener("DOMContentLoaded", function() {
         inputs.forEach(input => {
             if (!alphaPattern.test(input.value)) {
                 input.style.borderColor = 'red'; // Cambia el borde a rojo si hay caracteres inválidos
-                allValid = false;
+                
+                submitButton.disabled = true;
             } else {
                 input.style.borderColor = ''; // Restaura el borde si es válido
+                submitButton.disabled = false; 
             }
         });
 
-        submitButton.disabled = !allValid;
+        
     }
 
     inputs.forEach(input => {

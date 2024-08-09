@@ -118,7 +118,7 @@
         <form action="" method="post">
             <div class="form-group">
                 <label for="nombre">Numero De Reservacion</label>
-                <input name="N_reservacion" type="number" class="form-control" id="nombre" placeholder="Porfavor Ingrese El Numero De La Reservacion.">
+                <input name="N_reservacion" type="" class="form-control" id="nombre" placeholder="Porfavor Ingrese El Numero De La Reservacion.">
             </div>
             <button type="submit" class="btn btn-danger">Buscar</button>
             <br>
