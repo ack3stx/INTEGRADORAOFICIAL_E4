@@ -51,9 +51,7 @@ session_start();
             </li>
 
 <?php
-
 if(isset($_SESSION["usuario"])){
- 
   echo ' 
        <div class="header-content">
             <div class="dropdown">
@@ -93,24 +91,15 @@ if(isset($_SESSION["usuario"])){
                             Cerrar Sesión
                         </a>
                     </li>
-                    <?php
-                    
-                    
-                    ?>
-                    
                 </ul>
-                
-                
             </div>
         </div>
     </div>';
-
 } else {
   echo '   <li class="nav-item">
               <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
             </li>';
 }
-
 ?>
 
           </ul>
@@ -143,59 +132,110 @@ $consulta = "SELECT DISTINCT
             INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
             JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
             JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-            WHERE usuarios.nombre_usuario = '$usuario'
-            GROUP BY Nombre_Huesped, folio_reserva, estado, fecha_reservacion, fecha_inicio, fecha_fin, tipo_habitacion, precio_habitacion;";
+            WHERE usuarios.nombre_usuario = '$usuario'";
 
 $resultado = $db->seleccionar($consulta);
 
-foreach($resultado as $value) {
-  $fechaInicio = new DateTime($value->fecha_inicio);
-  $fechaFin = new DateTime($value->fecha_fin);
-  $interval = $fechaInicio->diff($fechaFin);
-  $diasEstancia = $interval->days;
-  $sumaCostos = $value->precio_habitacion * $diasEstancia;
-  $sumaCostos += $sumaCostos;
-  $fecha_reservacion = $value->fecha_reservacion;
+foreach ($resultado as $value) {
+    $fechaInicio = new DateTime($value->fecha_inicio);
+    $fechaFin = new DateTime($value->fecha_fin);
+    $interval = $fechaInicio->diff($fechaFin);
+    $diasEstancia = $interval->days;
+    $sumaCostos = $value->precio_habitacion * $diasEstancia;
+    $fecha_reservacion = $value->fecha_reservacion;
 
-  if ($fecha_reservacion) {
-    $fecha_reservacion_timestamp = strtotime($fecha_reservacion);
+    if ($fecha_reservacion) {
+        $fecha_reservacion_timestamp = strtotime($fecha_reservacion);
 
-    if ($fecha_reservacion_timestamp !== false) {
-      $diferencia_horas = (time() - $fecha_reservacion_timestamp) / 3600;
-      $han_pasado_72_horas = $diferencia_horas > 72;
+        if ($fecha_reservacion_timestamp !== false) {
+            $diferencia_horas = (time() - $fecha_reservacion_timestamp) / 3600;
+            $han_pasado_72_horas = $diferencia_horas > 72;
+        } else {
+            echo "Error al convertir la fecha de reservación a timestamp.<br>";
+        }
     } else {
-      echo "Error al convertir la fecha de reservación a timestamp.<br>";
+        echo "Fecha de Reservación no definida.<br>";
+        $han_pasado_72_horas = true; 
     }
-  } else {
-    echo "Fecha de Reservación no definida.<br>";
-    $han_pasado_72_horas = true; 
-  }
-  
+    ?>
+
+    <div class="card" style="width: 30rem;">
+        <div class="card-body">
+            <h5 class="card-title">Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">
+                Nombre: <?php echo $value->Nombre_Huesped; ?><br>
+                Estado : <?php echo $value->estado; ?><br>
+                Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
+                Noches : <?php echo $diasEstancia; ?><br>
+                Costo Total: <?php echo $sumaCostos; ?><br><br>
+            </h6>
+            <p class="card-text"></p>
+            <a href="historialreservaciones.php?folio_reserva=<?php echo $value->folio_reserva; ?>" class="btn btn-primary">Ver Detalles</a><br><br>
+            <br>
+            <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
+                <form id="cancelForm" action="cancelar_reservacion_huesped.php" method="post">
+                    <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
+                    <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#confirmCancelModal">Cancelar Reservacion</button>
+                </form>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <?php
+}
 ?>
 
-<div class="card" style="width: 30rem;">
-  <div class="card-body">
-    <h5 class="card-title">Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">
-        Nombre: <?php echo $value->Nombre_Huesped; ?><br>
-        Estado : <?php echo $value->estado; ?><br>
-        Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
-        Noches : <?php echo $diasEstancia; ?><br>
-        Costo Total: <?php echo $sumaCostos; ?><br><br>
-    </h6>
-    <p class="card-text"></p>
-    <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#exampleModal">Ver Detalles</button><br><br>
-    <br>
-    <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
-      <form id="cancelForm" action="cancelar_reservacion_huesped.php" method="post">
-        <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
-        <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#confirmCancelModal">Cancelar Reservacion</button>
-      </form>
-    <?php endif; ?>
-  </div>
-</div>
-
 <?php
+if (isset($_GET['folio_reserva'])) {
+    $folio_reserva = $_GET['folio_reserva'];
+    $consulta_detalle = "SELECT 
+                            detalle_reservacion.titular_habitacion AS titular, 
+                            reservacion.id_reservacion AS folio_reserva, 
+                            reservacion.estado_reservacion AS estado, 
+                            TIMESTAMPDIFF(DAY, detalle_reservacion.fecha_inicio, detalle_reservacion.fecha_fin) AS noches,
+                            reservacion.FECHA_ AS fecha_reservacion,
+                            detalle_reservacion.FECHA_INICIO as fecha_inicio,
+                            detalle_reservacion.FECHA_FIN as fecha_fin,
+                            t_habitacion.NOMBRE as tipo_habitacion,
+                            t_habitacion.PRECIO as precio_habitacion
+                          FROM usuarios
+                          INNER JOIN persona ON persona.usuario = usuarios.id_usuario
+                          INNER JOIN huesped ON huesped.persona_huesped = persona.id_persona
+                          INNER JOIN reservacion ON reservacion.huesped = huesped.id_huesped
+                          INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
+                          JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
+                          JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
+                          WHERE usuarios.nombre_usuario = '$usuario'
+                          AND reservacion.id_reservacion = '$folio_reserva'";
+
+    $resultado_detalle = $db->seleccionar($consulta_detalle);
+
+    foreach ($resultado_detalle as $value) {
+        $fechaInicio = new DateTime($value->fecha_inicio);
+        $fechaFin = new DateTime($value->fecha_fin);
+        $interval = $fechaInicio->diff($fechaFin);
+        $diasEstancia = $interval->days;
+        $sumaCostos = $value->precio_habitacion * $diasEstancia;
+        ?>
+
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Detalles de Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">
+                    Titular: <?php echo $value->titular; ?><br>
+                    Estado : <?php echo $value->estado; ?><br>
+                    Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
+                    Fecha Inicio: <?php echo $value->fecha_inicio; ?><br>
+                    Fecha Fin: <?php echo $value->fecha_fin; ?><br>
+                    Noches : <?php echo $diasEstancia; ?><br>
+                    Costo por noche: <?php echo $value->precio_habitacion; ?><br>
+                    Costo Total: <?php echo $sumaCostos; ?><br><br>
+                </h6>
+            </div>
+        </div>
+
+        <?php
+    }
 }
 ?>
 
@@ -210,7 +250,7 @@ foreach($resultado as $value) {
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <?php
+        <?php        
         $query = "SELECT 
                     detalle_reservacion.titular_habitacion AS titular, 
                     reservacion.id_reservacion AS folio_reserva, 
@@ -228,10 +268,11 @@ foreach($resultado as $value) {
                   INNER JOIN detalle_reservacion ON detalle_reservacion.reservacion = reservacion.id_reservacion
                   JOIN habitacion ON detalle_reservacion.HABITACION = habitacion.ID_HABITACION
                   JOIN t_habitacion ON habitacion.TIPO_HABITACION = t_habitacion.ID_TIPO_HABITACION
-                  WHERE usuarios.nombre_usuario = '$usuario';";
+                  WHERE usuarios.nombre_usuario = '$usuario'
+                  AND reservacion.id_reservacion = '$folio_reserva'";
 
         $resultados = $db->seleccionar($query);
-        foreach($resultados as $value) {
+        foreach ($resultados as $value) {
         ?>
         
         Titular de la habitación: <?php echo $value->titular; ?><br>

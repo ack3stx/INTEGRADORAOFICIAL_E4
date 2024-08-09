@@ -20,6 +20,9 @@
         <h1>¡Pago exitoso!</h1>
         <h2>Gracias por tu preferencia</h2>
         <h3>Disfruta tu estancia en nuestro hotel</h3>
+        <?php
+ header("refresh:2;../views/Panel_Recepcionista.php");
+ ?>
     </div>
   </div>
   <script src="../Js/check2.js"></script>

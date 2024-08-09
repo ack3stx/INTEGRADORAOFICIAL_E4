@@ -11,16 +11,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fechainicio = $_POST['fechainicio'];
         $fechafin = $_POST['fechafin'];
 
-        $fechahorainicio = new DateTime($fechainicio);
-        $fechahorainicio->setTime(15,0,0);
-        $fechahorafin = new DateTime($fechafin);
-        $fechahorafin->setTime(12,0,0);
+        $fechainicio = $_POST['fechainicio'] . " 14:00:00"; 
+        $fechafin = $_POST['fechafin'] . " 12:00:00";
+    
 
-        
-        
-        
-        
-        $fecha_actual = date('Y-m-d H:i:s');
+        date_default_timezone_set('America/Monterrey');
+        $fecha = date('Y-m-d H:i:s');
+       
+    
+
         $recepcionista = null;
         $estado_reservacion = 'proceso';
 
@@ -54,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     $id_huesped = $resultadoPasado['huesped'];
 
-                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha_actual, $estado_reservacion);
+                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
@@ -62,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechahorainicio->format('Y-m-d H:i:s'), $fechahorafin->format('Y-m-d H:i:s'), $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
                     
                    }
@@ -95,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
  
                 
                 
-                    $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
+                    $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
@@ -103,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechahorainicio->format('Y-m-d H:i:s'), $fechahorafin->format('Y-m-d H:i:s'), $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
 
                      $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
