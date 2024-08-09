@@ -224,7 +224,7 @@
             }).then((data) => {
                 console.log(data);
                 // Redirigir utilizando JavaScript
-                window.location.href = "Panel_Recepcionista.php";
+                window.location.href = "../index.php";
             }).catch((error) => {
                 console.log(error);
                 swal("Error al enviar los datos, intenta nuevamente.").then(() => {
