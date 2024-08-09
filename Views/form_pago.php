@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Form</title>
+    <title>Laguna Inn</title>
+    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
     <style>
         body {
             font-family: Arial, sans-serif;

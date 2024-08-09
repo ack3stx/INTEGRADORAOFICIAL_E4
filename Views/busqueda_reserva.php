@@ -7,7 +7,8 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-    <title>Hotel Laguna Inn</title>
+    <title>Laguna Inn</title>
+    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
 </head>
 <body>
 <?php

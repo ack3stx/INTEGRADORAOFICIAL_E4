@@ -186,7 +186,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Extender Reservaciones Activas</title>
+        <title>Laguna Inn</title>
+    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
