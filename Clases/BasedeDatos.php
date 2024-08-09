@@ -107,7 +107,7 @@ class Database
                 }
             }
             else{
-                header('Location: ../views/login.php?status=failed_login');
+                header('Location: ../Views/Login.php?status=failed_login');
                 exit();
             }
 
