@@ -42,7 +42,7 @@
 </head>
 <body>
     <div class="container" id="holiwis">
-        <form id="payment-form" method="post">
+        <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
             <h3 class="text-center">Método de Pago</h3><br>
             <select class="form-select" name="metodo" id="metodo" required>
                 <option value="tar">Tarjeta</option>
@@ -72,8 +72,9 @@
         const ninos = localStorage.getItem('selectedKids');
         const adultos = localStorage.getItem('selectedAdults');
 
-        document.getElementById('payment-form').addEventListener('submit', function (e) {
-            e.preventDefault();
+        document.getElementById('payment-form').addEventListener('submit', function () {
+            // Aquí puedes realizar cualquier validación adicional si es necesario
+            // Pero no prevengas el comportamiento predeterminado para que la redirección ocurra
             mandardatos(this);
         });
 
@@ -99,15 +100,9 @@
                 return response.json();
             }).then((data) => {
                 console.log(data);
-                // Ocultar formulario y mostrar mensaje de éxito
-                document.getElementById('holiwis').style.display = 'none';
-                document.getElementById('eso').style.display = 'block';
                 setTimeout(() => {
                     window.location.href = "../index.php";
                 }, 2000); // Redirigir después de 2 segundos
-            }).catch((error) => {
-                console.error('Error:', error);
-                alert("Error al enviar los datos, intenta nuevamente.");
             });
         }
     </script>
