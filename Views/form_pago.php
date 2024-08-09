@@ -217,11 +217,15 @@
                 }),
                 method: 'POST'
             }).then(response => {
-                return response.json()
+                 console.log('response:',response)
+                alert('Datos enviados')
+                
+
+               
             }).then((data) => {
                 console.log(data);
                 // Redirigir utilizando JavaScript
-                window.location.href = "../index.php";
+                window.location.href = "Panel_Recepcionista.php";
             }).catch((error) => {
                 console.log(error);
                 swal("Error al enviar los datos, intenta nuevamente.").then(() => {

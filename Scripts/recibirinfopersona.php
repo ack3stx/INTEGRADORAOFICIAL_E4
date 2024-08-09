@@ -28,6 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
 
+            echo "<p>Usuario: $usuario</p>";
+
             $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = :usuario";
             $stmt = $data->prepare($consulta);
             $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
@@ -36,6 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if ($resultado && isset($resultado['id'])) {
                 $id_usuario = $resultado['id'];
+
+                echo "<p>ID de usuario: $id_usuario</p>";
 
                 $reservacionPasada = "SELECT PERSONA.NOMBRE AS NOMBRE, PERSONA.APELLIDO_PATERNO AS AP_PATERNO, huesped.id_huesped AS huesped
                 FROM PERSONA 
