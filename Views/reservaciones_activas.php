@@ -45,9 +45,9 @@ if (!isset($_SESSION['usuario']) || !isset($_SESSION['rol']) || $_SESSION['rol']
             <div class="error-container">
                 <i class="fas fa-times-circle error-icon"></i>
                 <div class="error-code">404</div>
-                <div class="error-message">Pagina no Encontrada</div>
+                <div class="error-message">Página no Encontrada</div>
                 <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-                <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+                <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
             </div>
         </div>
     </body>
@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $nuevaFechaFin = $fechasFin[$i];
 
             if ($nuevaFechaFin === null || $nuevaFechaFin === '') {
-                continue; 
+                continue;
             }
 
             $consultaActual = "
@@ -109,18 +109,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($resultadoDisponibilidad[0]->Disponibilidad === 'No Disponible') {
                 $mensajesError[] = "La habitación $numHabitacion no está disponible en las fechas seleccionadas.";
-                continue; 
+                continue;
             }
 
             $fechaFinActualDatetime = new DateTime($fechaFinActual);
             $nuevaFechaFinDatetime = new DateTime($nuevaFechaFin);
             $diasEstancia = $fechaFinActualDatetime->diff($nuevaFechaFinDatetime)->days;
 
-
             if ($diasEstancia == 0) {
-                $diasEstancia = 1; 
+                $diasEstancia = 1;
             } else {
-                $diasEstancia += 1; 
+                $diasEstancia += 1;
             }
 
             $costoTotalHabitacion = $precioHabitacion * $diasEstancia;
@@ -134,9 +133,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'costoTotalHabitacion' => $costoTotalHabitacion,
                 'numHabitacion' => $numHabitacion
             ];
-
-            error_log("Detalles de la habitación: " . print_r($detallesHabitaciones, true));
-            error_log("Costo Total hasta ahora: $costoTotal");
         }
 
         if (!empty($mensajesError)) {
@@ -337,8 +333,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        let detallesArray = [];
-
         function openModal(reservacionId) {
             const reservaciones = <?php echo json_encode($reservaciones); ?>;
             const detalles = reservaciones[reservacionId];
