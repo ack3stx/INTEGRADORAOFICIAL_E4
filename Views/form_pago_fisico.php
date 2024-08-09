@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Formulario de Pago</title>
     <style>
         body {
@@ -45,9 +46,9 @@
         <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
             <h3 class="text-center">Método de Pago</h3><br>
             <select class="form-select" name="metodo" id="metodo" required>
-                <option value="tar">Tarjeta</option>
-                <option value="efe">Efectivo</option>
-                <option value="tra">Transferencia</option>
+                <option value="tarjeta">Tarjeta</option>
+                <option value="efectivo">Efectivo</option>
+                <option value="transferencia">Transferencia</option>
             </select> <br>
             <button type="submit" id="submit-button">Enviar</button>
         </form>

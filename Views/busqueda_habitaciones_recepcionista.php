@@ -101,13 +101,13 @@
   <br>
     <div class="container">
       <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
-        Agregar Nueva Habitacion
+        Agregar Nueva HABITACION
       </button>
       <div id="alertContainer">
       <?php
       if (isset($_GET['success']) && $_GET['success'] == 1) {
         echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        Habitación agregada correctamente.
+        HABITACION agregada correctamente.
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>';
       }
@@ -119,7 +119,7 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nueva Habitacion</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nueva HABITACION</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -159,11 +159,11 @@
       <?php
       extract($_POST);
       if ($_POST) {
-        $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
-t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
-from habitacion
-inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
-where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
+        $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
+T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
+FROM HABITACION
+INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
 
         $tabla = $conexion->seleccionar($consulta);
 
@@ -172,7 +172,7 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
         <table class='table table-hover table-bordered table-danger'>
             <thead class='table-dark'>
                 <tr>
-                    <th text-white>Num Habitacion</th>
+                    <th text-white>Num HABITACION</th>
                     <th text-white>Piso</th>
                     <th text-white>Estado</th>
                     <th text-white>Tipo</th>
@@ -186,14 +186,14 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
             ";
         foreach ($tabla as $reg) {
           echo "<tr>";
-          echo "<td> $reg->num_habitacion </td>";
-          echo "<td> $reg->piso </td>";
-          echo "<td> $reg->estado_habitacion </td>";
-          echo "<td> $reg->nombre </td>";
-          echo "<td> $reg->descripcion </td>";
-          echo "<td> $reg->precio </td>";
-          echo "<td> $reg->cantidad_max_adultos </td>";
-          echo "<td> $reg->cantidad_max_niños </td>";
+          echo "<td> $reg->NUM_HABITACION </td>";
+          echo "<td> $reg->PISO </td>";
+          echo "<td> $reg->ESTADO_HABITACION </td>";
+          echo "<td> $reg->NOMBRE </td>";
+          echo "<td> $reg->DESCRIPCION </td>";
+          echo "<td> $reg->PRECIO </td>";
+          echo "<td> $reg->CANTIDAD_MAX_ADULTOS </td>";
+          echo "<td> $reg->CANTIDAD_MAX_NINOS </td>";
           echo "</tr>";
         }
         echo "</tbody>";
