@@ -4,7 +4,7 @@ class Database
     private $PDOLocal;
     private $user="gaelico";
     private $password="1234";
-    private $server="mysql:host=localhost; dbname=INTEGRADORA_ROL_USUARIOSv2";
+    private $server="mysql:host=localhost; dbname=INTEGRADORA_ROL_USUARIOSv2; charset=utf-8";
     function conectarDB()
     {
         try
