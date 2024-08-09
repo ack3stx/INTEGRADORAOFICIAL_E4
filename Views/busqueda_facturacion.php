@@ -131,7 +131,7 @@ extract($_POST);
 
 
 if (!empty($N_reservacion)) {
-    $cadena = "CALL Consultar_Informacion_Facturacion('$N_reservacion');";
+    $cadena = "CALL CONSULTAR_INFORMACION_FACTURACION('$N_reservacion');";
     $tabla = $db->seleccionar($cadena);
 
 
