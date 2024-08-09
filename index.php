@@ -201,10 +201,10 @@ else {
       </div>
       <div class="col-md-6">
           <div class="image-container">
-              <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
+              <img src="Imagenes/SILLONES.png" alt="Main Image">    
               
               <div class="image-overlay">
-                <img src="../INTEGRADORAOFICIAL_E4/Imagenes/SILLONES.png" alt="Main Image">    
+                <img src="Imagenes/SILLONES.png" alt="Main Image">    
               </div>
           </div>
       </div>
