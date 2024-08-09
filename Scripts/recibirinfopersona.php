@@ -8,10 +8,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
-        $fechainicio = $_POST['fechainicio'];
-        $fechafin = $_POST['fechafin'];
-
-        $fechainicio = $_POST['fechainicio'] . " 14:00:00"; 
+        
+    
+        $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
         $fechafin = $_POST['fechafin'] . " 12:00:00";
     
 

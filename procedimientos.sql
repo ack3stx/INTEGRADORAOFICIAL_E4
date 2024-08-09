@@ -164,7 +164,7 @@ DELIMITER ;
 -- para poder ajustarlo a la disponibilidad de nuestras habitaciones 
 DELIMITER //
 create procedure Disponibilidad_habitaciones_doble
-(in fecha_inicio dateTIME , in fecha_fin datetime)
+(in fecha_inicio datetime , in fecha_fin datetime)
 begin
 
 DECLARE fecha_inicioo datetime;
@@ -191,11 +191,11 @@ DELIMITER ;
 --------------------------------------------------------------------------------------------------------------------------
 DELIMITER //
 create procedure Disponibilidad_habitaciones_kingsize
-(in fecha_inicio date , in fecha_fin date)
+(in fecha_inicio datetime , in fecha_fin datetime)
 begin
 
-DECLARE fecha_inicioo date;
-DECLARE fecha_finn date;
+DECLARE fecha_inicioo datetime;
+DECLARE fecha_finn datetime;
 
  SET fecha_inicioo = DATE_FORMAT(fecha_inicio, '%Y-%m-%d 15:00:00');
     SET fecha_finn = DATE_FORMAT(fecha_fin, '%Y-%m-%d 12:00:00');
@@ -217,11 +217,11 @@ DELIMITER ;
 -------------------------------------------------------------------------------------------------------------------------------------
 DELIMITER //
 create procedure Disponibilidad_habitaciones_sencilla
-(in fecha_inicio date , in fecha_fin date)
+(in fecha_inicio datetime , in fecha_fin datetime)
 begin
 
-DECLARE fecha_inicioo date;
-DECLARE fecha_finn date;
+DECLARE fecha_inicioo datetime;
+DECLARE fecha_finn datetime;
 
      SET fecha_inicioo = DATE_FORMAT(fecha_inicio, '%Y-%m-%d 15:00:00');
     SET fecha_finn = DATE_FORMAT(fecha_fin, '%Y-%m-%d 12:00:00');
