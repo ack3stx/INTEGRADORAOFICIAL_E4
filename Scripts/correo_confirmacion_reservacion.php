@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $mail->send();
         $response_message = "Mensaje enviado exitosamente.";
-        header('Location: ../views/Contacto.php?status=success');
+        header('Location: ../Views/Contacto.php?status=success');
     } catch (Exception $e) {
         $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
     }

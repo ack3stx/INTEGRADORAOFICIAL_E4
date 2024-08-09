@@ -6,7 +6,7 @@ $secretkey = "6LccmR0qAAAAAA0xfHs9zDOwVUDtzPU-6Y7_5yi4";
 $respuesta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$secretkey&response=$capchat&remoteip=$ip");
 $atributos = json_decode($respuesta, TRUE);
 if(!$atributos['success']){
-    header('Location: ../views/Contacto.php?status=failed');
+    header('Location: ../Views/Contacto.php?status=failed');
     exit();
 }
 
@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->send();
             $response_message = "Mensaje enviado exitosamente.";
-            header('Location: ../views/Contacto.php?status=success');
+            header('Location: ../Views/Contacto.php?status=success');
         } catch (Exception $e) {
             $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
         }
