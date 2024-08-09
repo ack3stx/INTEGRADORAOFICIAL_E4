@@ -10,16 +10,16 @@ use Stripe\Terminal\Location;
 
     switch ($tipo) {
         case 'sencilla':
-            $update="UPDATE integradora_rol_usuariosv2.t_habitacion SET precio = $costo WHERE (id_tipo_habitacion = '3')";
+            $update="UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`T_HABITACION` SET `PRECIO` = $costo WHERE (`ID_TIPO_HABITACION` = '3')";
             break;
         case 'doble':
-            $update="UPDATE `integradora_rol_usuariosv2`.`t_habitacion` SET `precio` = $costo WHERE (`id_tipo_habitacion` = '1')";
+            $update="UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`T_HABITACION` SET `PRECIO` = $costo WHERE (`ID_TIPO_HABITACION` = '1')";
             break;
         case 'king size':
-            $update="UPDATE `integradora_rol_usuariosv2`.`t_habitacion` SET `precio` = $costo WHERE (`id_tipo_habitacion` = '2')";
+            $update="UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`T_HABITACION` SET `PRECIO` = $costo WHERE (`ID_TIPO_HABITACION` = '2')";
             break;
     }
-    header('Location: ../views/costos.php?status=correcto');
+    header('Location: ../Views/costos.php?status=correcto');
 
     $db->ejecuta($update);
 
