@@ -157,13 +157,13 @@ if (!empty($N_reservacion)) {
         foreach ($tabla as $reg) {
             echo "
                     <tr>
-                        <td>{$reg->nombre}</td>
-                        <td>{$reg->apellido_paterno}</td>
-                        <td>{$reg->apellido_materno}</td>
-                        <td>{$reg->rfc}</td>
-                        <td>{$reg->direccion}</td>
-                        <td>{$reg->monto_total}</td>
-                        <td>{$reg->metodo_pago}</td>
+                        <td>{$reg->NOMBRE}</td>
+                        <td>{$reg->APELLIDO_PATERNO}</td>
+                        <td>{$reg->APELLIDO_MATERNO}</td>
+                        <td>{$reg->RFC}</td>
+                        <td>{$reg->DIRECCION}</td>
+                        <td>{$reg->MONTO_TOTAL}</td>
+                        <td>{$reg->METODO_PAGO}</td>
                     </tr>
             ";
         }
