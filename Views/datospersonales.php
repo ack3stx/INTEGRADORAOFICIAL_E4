@@ -427,7 +427,7 @@ if ($_SESSION["rol"] == "usuario") {
         <h1><strong>Datos personales</strong></h1>
         <?php 
         $campos_persona = [
-            'NOMBRE' => 'NOMBRE', 'APELLIDO_PATERNO' => 'APELLIDO_PATERNO','APELLIDO_MATERNO' => 'APELLIDO_MATERNO','FECHA_DE_NACIMIENTO' => 'FECHA_DE_NACIMIENTO', 'DIRECCION' => 'DIRECCION','CIUDAD' => 'CIUDAD','ESTADO' => 'ESTADO','CODIGO_POSTAL' => 'CODIGO_POSTAL', 'PAIS' => 'PAIS', 'GENERO' => 'GENERO','NUMERO_DE_TELEFONO' => 'NUMERO_DE_TELEFONO'
+            'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
         ];
 
         foreach ($campos_persona as $campo => $titulo) {
