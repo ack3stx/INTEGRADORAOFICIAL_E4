@@ -1,25 +1,24 @@
-
 <!DOCTYPE html>
-  <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navbar Example</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
-    <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
-  </head>
-  <body>
-  <?php
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navbar Example</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+</head>
+<body>
+<?php
   session_start();
   include '../Clases/BasedeDatos.php';
   $conexion = new Database();
   $conexion->conectarDB();
 
   if(isset($_SESSION["rol"]) && $_SESSION["rol"] == "administrador") {
-  ?>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+?>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
     <div class="container-fluid">
       <a class="navbar-brand" href="Panel_Admin.php">Hotel Laguna Inn</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -163,11 +162,11 @@
       <?php
       extract($_POST);
       if ($_POST) {
-        $consulta = "select habitacion.num_habitacion,habitacion.piso,habitacion.estado_habitacion,t_habitacion.nombre,
-t_habitacion.descripcion,t_habitacion.precio,t_habitacion.cantidad_max_adultos,t_habitacion.cantidad_max_niños
-from habitacion
-inner join t_habitacion on habitacion.tipo_habitacion=t_habitacion.id_tipo_habitacion
-where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
+        $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
+T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NIÑOS
+FROM HABITACION
+INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
 
         $tabla = $conexion->seleccionar($consulta);
 
@@ -190,14 +189,14 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
             ";
         foreach ($tabla as $reg) {
           echo "<tr>";
-          echo "<td> $reg->num_habitacion </td>";
-          echo "<td> $reg->piso </td>";
-          echo "<td> $reg->estado_habitacion </td>";
-          echo "<td> $reg->nombre </td>";
-          echo "<td> $reg->descripcion </td>";
-          echo "<td> $reg->precio </td>";
-          echo "<td> $reg->cantidad_max_adultos </td>";
-          echo "<td> $reg->cantidad_max_niños </td>";
+          echo "<td> $reg->NUM_HABITACION </td>";
+          echo "<td> $reg->PISO </td>";
+          echo "<td> $reg->ESTADO_HABITACION </td>";
+          echo "<td> $reg->NOMBRE </td>";
+          echo "<td> $reg->DESCRIPCION </td>";
+          echo "<td> $reg->PRECIO </td>";
+          echo "<td> $reg->CANTIDAD_MAX_ADULTOS </td>";
+          echo "<td> $reg->CANTIDAD_MAX_NIÑOS </td>";
           echo "</tr>";
         }
         echo "</tbody>";
@@ -262,5 +261,5 @@ where t_habitacion.nombre='$tipo' and habitacion.estado_habitacion='$estado'";
 <?php
   }
 ?>
-  </body>
-  </html>
+</body>
+</html>
