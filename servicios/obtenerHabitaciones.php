@@ -13,28 +13,28 @@
             $disponibilidadkingsize = $data->disponibilidad_kingsize($startDate, $endDate);
             $disponibilidadsencilla = $data->disponibilidad_sencilla($startDate, $endDate);
             
-            $gentedoble = "SELECT T_HABITACION.cantidad_max_adultos as adultos, T_HABITACION.cantidad_max_niños as niños
+            $gentedoble = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
-            where T_HABITACION.nombre='Doble';";
+            where T_HABITACION.NOMBRE='Doble';";
             $doblegente = $data->seleccionar($gentedoble);
             
-            $gentekingsize = "SELECT T_HABITACION.cantidad_max_adultos as adultos, T_HABITACION.cantidad_max_niños as niños
+            $gentekingsize = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
-            where T_HABITACION.nombre='King Size';";
+            where T_HABITACION.NOMBRE='King Size';";
             $kingsizegente = $data->seleccionar($gentekingsize);
 
-            $gentesencilla = "SELECT T_HABITACION.cantidad_max_adultos as adultos, T_HABITACION.cantidad_max_niños as niños
+            $gentesencilla = "SELECT T_HABITACION.CANTIDAD_MAX_ADULTOS as adultos, T_HABITACION.CANTIDAD_MAX_NINOS as ninos
             from T_HABITACION
-            where T_HABITACION.nombre='Sencilla';";
+            where T_HABITACION.NOMBRE='Sencilla';";
            $sencillagente = $data->seleccionar($gentesencilla);
 
-           $preciodoble = "SELECT t_habitacion.precio as precio from t_habitacion where t_habitacion.nombre = 'Doble';";
+           $preciodoble = "SELECT T_HABITACION.PRECIO as precio from T_HABITACION where T_HABITACION.NOMBRE = 'Doble';";
            $dobles = $data->seleccionar($preciodoble);
 
-           $precioskingsize = "SELECT t_habitacion.precio as precio from t_habitacion where t_habitacion.nombre = 'King Size';";
+           $precioskingsize = "SELECT T_HABITACION.PRECIO as precio from T_HABITACION where T_HABITACION.NOMBRE = 'King Size';";
            $kingsizes = $data->seleccionar($precioskingsize);
 
-           $preciosencilla = "SELECT t_habitacion.precio as precio from t_habitacion where t_habitacion.nombre = 'Sencilla';";
+           $preciosencilla = "SELECT T_HABITACION.PRECIO as precio from T_HABITACION where T_HABITACION.NOMBRE = 'Sencilla';";
            $sencillas = $data->seleccionar($preciosencilla);
 
 

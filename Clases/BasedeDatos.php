@@ -185,7 +185,7 @@ function obtenerMesYAñoActual() {
 function disponibilidad($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_doble(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_DOBLE(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
@@ -203,7 +203,7 @@ function disponibilidad($fechaInicio,$fechaFin)
 function disponibilidad_kingsize($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_kingsize(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_KINGSIZE(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
@@ -222,7 +222,7 @@ function disponibilidad_kingsize($fechaInicio,$fechaFin)
 function disponibilidad_sencilla($fechaInicio,$fechaFin)
 {
     try{
-    $stmt = $this->PDOLocal->prepare("CALL Disponibilidad_habitaciones_sencilla(:fecha_inicio,:fecha_fin)");
+    $stmt = $this->PDOLocal->prepare("CALL DISPONIBILIDAD_HABITACIONES_SENCILLA(:fecha_inicio,:fecha_fin)");
     $stmt->bindParam(':fecha_inicio',$fechaInicio,PDO::PARAM_STR);
     $stmt->bindParam(':fecha_fin',$fechaFin,PDO::PARAM_STR);
     $stmt->execute();
