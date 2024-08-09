@@ -170,7 +170,7 @@ else {
               <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
             </p>
             <br><br>
-            <a href="#" class="btn">Reservar</a>
+            <a href="Calendario.php" class="btn">Reservar</a>
           </div>
         </div>
         <br><br>
@@ -208,7 +208,7 @@ else {
               <i class="fa-solid fa-bed img"></i>&nbsp;2 camas&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
             </p>
             <br><br>
-            <a href="#" class="btn">Reservar</a>
+            <a href="Calendario.php" class="btn">Reservar</a>
           </div>
         </div>
         <br><br>
@@ -246,7 +246,7 @@ else {
               <i class="fa-solid fa-bed img"></i>&nbsp;1 cama&nbsp;&nbsp;&nbsp; <i class="fa-solid fa-mug-saucer img"></i>&nbsp;Desayuno
             </p>
             <br><br>
-            <a href="#" class="btn">Reservar</a>
+            <a href="Calendario.php" class="btn">Reservar</a>
           </div>
         </div>
       </div>
