@@ -45,7 +45,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservas Fisicas
+              <i class="fas fa-book"></i> Reservaciones Fisicas
             </a>
           </li>
           <li class="nav-item">
@@ -60,22 +60,22 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_empleados.php">
-              <i class="fas fa-user"></i> Personal
+              <i class="fas fa-bed"></i> Personal
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="reportes_hotel.php">
-              <i class="fas fa-hotel"></i> Hotel
+              <i class="fas fa-bed"></i> Hotel
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_facturacion.php">
-              <i class="fas fa-file-alt"></i> Facturacion
+              <i class="fas fa-bed"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="costos.php">
-              <i class="fas fa-dollar-sign"></i> Costos
+              <i class="fas fa-bed"></i> Costos
             </a>
           </li>
           <li class="nav-item">
@@ -173,11 +173,12 @@
                 <input class="form-control me-2" type="text" id="staffEmail" name="afore" required><br>
                 <label for="staffEmail">Numero Emergencia:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="num2" required><br>
+                <button class="btn btn-outline-success" type="submit">Agregar</button>
+            </form>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Agregar</button>
-          </form>
+          <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
         </div>
       </div>
     </div>
@@ -331,16 +332,16 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitButton = document.getElementById('buscar-btn');
 
     function validateInputs() {
-        const alphaPattern = /^[a-zA-Z\s]+$/; // Solo permite letras y espacios
+        const alphaPattern = /^[a-zA-Z\s]+$/; 
         let allValid = true;
 
         inputs.forEach(input => {
             if (!alphaPattern.test(input.value)) {
-                input.style.borderColor = 'red'; // Cambia el borde a rojo si hay caracteres inválidos
+                input.style.borderColor = 'red'; 
                 
                 submitButton.disabled = true;
             } else {
-                input.style.borderColor = ''; // Restaura el borde si es válido
+                input.style.borderColor = ''; 
                 submitButton.disabled = false; 
             }
         });
@@ -357,7 +358,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    validateInputs(); // Valida al cargar la página
+    validateInputs(); 
 });
 
 </script>
