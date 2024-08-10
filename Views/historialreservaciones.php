@@ -144,7 +144,7 @@ WHERE
 GROUP BY
     RESERVACION.ID_RESERVACION, T_HABITACION.NOMBRE
 ORDER BY
-    RESERVACION.FECHA_ ASC";
+    RESERVACION.FECHA_ DESC";
 
 $resultado = $db->seleccionar($consulta);
 
@@ -174,8 +174,8 @@ foreach ($resultado as $value) {
 
 foreach ($reservaciones as $folio_reserva => $reservacion) {
     ?>
-
-    <div class="card mb-3" style="width: 50%; display: flex; flex-direction: row;">
+    <div class="d-flex justify-content-center">
+    <div class="card mb-3" style="width: 50%; display: flex; flex-direction: row; padding-right: 50px;">
         <div class="card-body" style="flex: 1;">
             <h5 class="card-title">Reservación Folio: <?php echo $folio_reserva; ?></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
@@ -196,6 +196,7 @@ foreach ($reservaciones as $folio_reserva => $reservacion) {
             <?php endif; ?>
         </div>
     </div>
+</div>
 
     <?php
 }
