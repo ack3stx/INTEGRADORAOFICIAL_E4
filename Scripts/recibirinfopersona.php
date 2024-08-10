@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
-                   $ninos = $habitaciones['niños'];
-                   $adultos = $habitaciones['adultos'];
-                   $tipo_habitacion = $habitaciones['tipo'];
+                   $ninos = $habitacion['niños'];
+                   $adultos = $habitacion['adultos'];
+                   $tipo_habitacion = $habitacion['tipo'];
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
@@ -101,9 +101,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
-                   $ninos = $habitaciones['niños'];
-                   $adultos = $habitaciones['adultos'];
-                   $tipo_habitacion = $habitaciones['tipo'];
+                   $ninos = $habitacion['niños'];
+                   $adultos = $habitacion['adultos'];
+                   $tipo_habitacion = $habitacion['tipo'];
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
 
