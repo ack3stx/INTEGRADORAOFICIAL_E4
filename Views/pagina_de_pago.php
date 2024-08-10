@@ -31,9 +31,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $costoTotalHabitaciones += $costoTotalHabitacion;
 
             $consultaIdHabitacion = "
-                SELECT id_habitacion 
-                FROM habitacion
-                WHERE num_habitacion = $numHabitacion";
+                SELECT ID_HABITACION 
+                FROM HABITACION
+                WHERE NUM_HABITACION = $numHabitacion";
             error_log("Consulta de ID de habitación: $consultaIdHabitacion");
             $resultadoIdHabitacion = $db->seleccionar($consultaIdHabitacion);
 
@@ -42,18 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("No se pudo obtener el ID de la habitación para el número de habitación $numHabitacion.");
             }
 
-            if (!isset($resultadoIdHabitacion[0]->id_habitacion)) {
-                error_log("Campo 'id_habitacion' no encontrado en el resultado de la consulta para el número de habitación $numHabitacion.");
+            if (!isset($resultadoIdHabitacion[0]->ID_HABITACION)) {
+                error_log("Campo 'ID_HABITACION' no encontrado en el resultado de la consulta para el número de habitación $numHabitacion.");
                 throw new Exception("No se pudo obtener el ID de la habitación para el número de habitación $numHabitacion.");
             }
 
-            $idHabitacion = $resultadoIdHabitacion[0]->id_habitacion;
+            $idHabitacion = $resultadoIdHabitacion[0]->ID_HABITACION;
             error_log("ID de la habitación: $idHabitacion");
 
             $consultaFechaFinActual = "
-                SELECT fecha_fin 
-                FROM detalle_reservacion
-                WHERE habitacion = $idHabitacion AND reservacion = $numeroReservacion";
+                SELECT FECHA_FIN 
+                FROM DETALLE_RESERVACION
+                WHERE HABITACION = $idHabitacion AND RESERVACION = $numeroReservacion";
             error_log("Consulta de fecha fin actual: $consultaFechaFinActual");
             $resultadoFechaFinActual = $db->seleccionar($consultaFechaFinActual);
 
@@ -62,12 +62,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new Exception("No se pudo obtener la fecha de fin actual para la habitación $idHabitacion en la reservación $numeroReservacion.");
             }
 
-            if (!isset($resultadoFechaFinActual[0]->fecha_fin)) {
-                error_log("Campo 'fecha_fin' no encontrado en el resultado de la consulta para la habitación $idHabitacion en la reservación $numeroReservacion.");
+            if (!isset($resultadoFechaFinActual[0]->FECHA_FIN)) {
+                error_log("Campo 'FECHA_FIN' no encontrado en el resultado de la consulta para la habitación $idHabitacion en la reservación $numeroReservacion.");
                 throw new Exception("No se pudo obtener la fecha de fin actual para la habitación $idHabitacion en la reservación $numeroReservacion.");
             }
 
-            $fechaFinActual = $resultadoFechaFinActual[0]->fecha_fin;
+            $fechaFinActual = $resultadoFechaFinActual[0]->FECHA_FIN;
             error_log("Fecha fin actual: $fechaFinActual");
 
             $fechaFinActualDatetime = new DateTime($fechaFinActual);
@@ -81,21 +81,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             error_log("Nueva fecha fin ajustada a las 12:00:00: $nuevaFechaFin");
 
             $updateConsulta = "
-                UPDATE detalle_reservacion
-                SET fecha_fin = '$nuevaFechaFin'
-                WHERE habitacion = $idHabitacion AND reservacion = $numeroReservacion";
+                UPDATE DETALLE_RESERVACION
+                SET FECHA_FIN = '$nuevaFechaFin'
+                WHERE HABITACION = $idHabitacion AND RESERVACION = $numeroReservacion";
             error_log("Consulta de actualización: $updateConsulta");
             $db->ejecuta($updateConsulta);
         }
 
         $registrarPagoConsulta = "
-            CALL RegistrarPagoReservacion($numeroReservacion, '$metodoPago', $costoTotalHabitaciones)";
+            CALL REGISTRARPAGORESERVACION($numeroReservacion, '$metodoPago', $costoTotalHabitaciones)";
         error_log("Consulta de registrar pago: $registrarPagoConsulta");
         $db->ejecuta($registrarPagoConsulta);
 
         if ($nombreFactura && $apellidoPaternoFactura && $apellidoMaternoFactura && $direccion && $rfc) {
             $registrarFacturacionConsulta = "
-                CALL registro_facturacion('$nombreFactura', '$apellidoPaternoFactura', '$apellidoMaternoFactura', '$rfc', '$direccion')";
+                CALL REGISTRO_FACTURACION('$nombreFactura', '$apellidoPaternoFactura', '$apellidoMaternoFactura', '$rfc', '$direccion')";
             error_log("Consulta de registrar facturación: $registrarFacturacionConsulta");
             $db->ejecuta($registrarFacturacionConsulta);
         }
