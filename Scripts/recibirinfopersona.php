@@ -54,12 +54,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if($resultadoPasado && isset($resultadoPasado['huesped'])) {
 
+                    echo json_encode(["estatus"=>true]);
+
                     $id_huesped = $resultadoPasado['huesped'];
 
                     $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
-                        echo "Hola si se estan insertando los detalles";
+                        echo json_encode(["estatus"=>true]);
                    $titular = null; 
                    $ninos = $habitacion['niños'];
                    $adultos = $habitacion['adultos'];
