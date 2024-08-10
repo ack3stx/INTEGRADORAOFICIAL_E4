@@ -1297,7 +1297,7 @@ cardFooter.className = 'card-footer-custom';
         const detalleHabitacion = {
             tipo: tipo,
             adultos: adultos,
-            ninos: ninos,
+            niños: ninos,
             precioTotal : precioTotal
         };
         

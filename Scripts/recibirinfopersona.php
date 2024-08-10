@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
-                   $ninos = $habitacion['ninos'];
+                   $ninos = $habitacion['niños'];
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
-                   $ninos = $habitacion['ninos'];
+                   $ninos = $habitacion['niños'];
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
     
