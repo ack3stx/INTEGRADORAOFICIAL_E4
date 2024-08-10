@@ -1,9 +1,4 @@
-|<?php
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-
+<?php
 include '../Clases/BasedeDatos.php';
 session_start();
 
@@ -39,62 +34,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
 
-            echo "<p>Usuario: $usuario</p>";
+            
 
-            $consulta = "SELECT usuarios.id_usuario as id FROM usuarios WHERE usuarios.nombre_usuario = :usuario";
+            $consulta = "SELECT USUARIOS.ID_USUARIO as ID FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
             $stmt = $data->prepare($consulta);
             $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
             $stmt->execute();
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            if ($resultado && isset($resultado['id'])) {
-                $id_usuario = $resultado['id'];
+            if ($resultado && isset($resultado['ID'])) {
+                $id_usuario = $resultado['ID'];
 
-                echo "<p>ID de usuario: $id_usuario</p>";
-
-                $reservacionPasada = "SELECT PERSONA.NOMBRE AS NOMBRE, PERSONA.APELLIDO_PATERNO AS AP_PATERNO, huesped.id_huesped AS huesped
-                FROM PERSONA 
-                INNER JOIN USUARIOS ON PERSONA.usuario = USUARIOS.id_usuario
-                INNER JOIN huesped ON persona.id_persona = huesped.persona_huesped
-                WHERE usuarios.nombre_usuario = :usuario";
-
-                $stmt = $data->prepare($reservacionPasada);
-                $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-                $stmt->execute();
-                $resultadoPasado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-                if($resultadoPasado && isset($resultadoPasado['huesped'])) {
-
-                    echo json_encode(["estatus"=>true]);
-
-                    $id_huesped = $resultadoPasado['huesped'];
-
-                    $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha, $estado_reservacion);
-
-                    foreach ($habitaciones as $habitacion) {
-                        echo json_encode(["estatus"=>true]);
-                   $titular = null; 
-                   $ninos = $habitacion['niños'];
-                   $adultos = $habitacion['adultos'];
-                   $tipo_habitacion = $habitacion['tipo'];
-    
-                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
-
-                    
-                   }
-                   
-                   $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
-
-                   if($facturacion === null){
-                    echo "No se ha facturado";
-                   }
-                   else{
-                    $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
-                   }
-                }
-                else {
-                    
-                    $registro = $data->registro(
+                
+                  $registro = $data->registro(
                     $persona['nombre'], 
                     $persona['ap_paterno'], 
                     $persona['ap_materno'], 
@@ -114,12 +66,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
-                   $titular = null; 
-                   $ninos = $habitacion['niños'];
-                   $adultos = $habitacion['adultos'];
-                   $tipo_habitacion = $habitacion['tipo'];
+                  
+                     $ninos = $habitacion['ninos'];
+                     $adultos = $habitacion['adultos'];
+                     $tipo_habitacion = $habitacion['tipo'];
     
-                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
+                     $detalle = $data->detalle_reservacion($fechainicio, $fechafin,'', $ninos, $adultos, $tipo_habitacion);
+                    }
 
 
                      $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
@@ -133,20 +86,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                        }
 
                     
-                   }
+                
 
                     
 
                 
                 
                 
-                }
+            }
 
                 
-            } 
-            
         } 
-    }
+            
+    } 
+}
 
-} 
+
 ?>

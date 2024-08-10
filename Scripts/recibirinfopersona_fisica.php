@@ -8,11 +8,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
-        $fechainicio = $_POST['fechainicio'];
-        $fechafin = $_POST['fechafin'];
         
 
-        $fecha_actual = date('Y-m-d H:i:s');
+        $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
+        $fechafin = $_POST['fechafin'] . " 12:00:00";
+    
+
+        date_default_timezone_set('America/Monterrey');
+        $fecha = date('Y-m-d H:i:s');
+       
         $estado_reservacion = 'proceso';
 
         $data = new Database();
@@ -20,10 +24,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $recep = $_SESSION["usuario"];
         $consulta = "SELECT RECEPCIONISTA.ID_RECEPCIONISTA AS ID 
-FROM USUARIOS
-INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA
-WHERE USUARIOS.NOMBRE_USUARIO = :recep";
+                      FROM USUARIOS
+                      INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+                      INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA
+                      WHERE USUARIOS.NOMBRE_USUARIO = :recep";
 
             $stmt = $data->prepare($consulta);
             $stmt->bindParam(':recep', $recep, PDO::PARAM_STR);
@@ -55,7 +59,7 @@ WHERE USUARIOS.NOMBRE_USUARIO = :recep";
  
                 
                 
-                    $reservacion = $data->reservacion($recepcionista, $fecha_actual, $estado_reservacion);
+                    $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
                    $titular = null; 
