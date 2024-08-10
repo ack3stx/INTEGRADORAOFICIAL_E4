@@ -218,7 +218,8 @@
                 method: 'POST'
             }).then(response => {
                 console.log('response:',response)
-        }).then((data) => {
+                return response.json();
+            }).then((data) => {
                 console.log(data);
                 alert('Datos enviados')
                 window.location.href = "Panel_Recepcionista.php";
