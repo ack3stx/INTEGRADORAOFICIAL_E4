@@ -59,6 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $pasada=$data->reservacionpasada($id_huesped,$recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
+                        echo "Hola si se estan insertando los detalles";
                    $titular = null; 
                    $ninos = $habitacion['niños'];
                    $adultos = $habitacion['adultos'];
