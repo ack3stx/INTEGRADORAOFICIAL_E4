@@ -157,6 +157,7 @@
         </select>&nbsp;
         <button class="btn btn-outline-danger" type="submit">Buscar</button>
       </form>
+      <br>
       <?php
       extract($_POST);
       if ($_POST) {

@@ -282,7 +282,7 @@ function reservacion($recepcionista,$fecha,$estado_reservacion){
     }
 }
 
-function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$tipo_habitacion){
+function detalle_reservacion($fechaInicio,$fechaFin,$titular,$ninos,$adultos,$tipo_habitacion){
     try{
 
         echo "Hola";
@@ -290,7 +290,7 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$niños,$adultos,$t
         $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
         $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
         $stmt->bindParam(':titular',$titular,PDO::PARAM_STR);
-        $stmt->bindParam(':ninos',$niños,PDO::PARAM_INT);
+        $stmt->bindParam(':ninos',$ninos,PDO::PARAM_INT);
         $stmt->bindParam(':adultos',$adultos,PDO::PARAM_INT);
         $stmt->bindParam(':tipo_habitacion',$tipo_habitacion,PDO::PARAM_STR);
         $stmt->execute();
