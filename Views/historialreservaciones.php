@@ -56,7 +56,7 @@ if(isset($_SESSION["usuario"])){
   echo ' 
        <div class="header-content">
             <div class="dropdown">
-                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnusr">
+                <button class="btn dropdown-toggle olap" type="button" id="btnusr">
                     <span class="material-symbols-outlined ">
                         account_circle
                     </span>
@@ -125,7 +125,8 @@ $consulta = "SELECT DISTINCT
                 DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
                 DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
                 T_HABITACION.NOMBRE as tipo_habitacion,
-                T_HABITACION.PRECIO as precio_habitacion
+                T_HABITACION.PRECIO as precio_habitacion,
+                COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS cantidad_habitaciones
             FROM USUARIOS
             INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
             INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
@@ -133,7 +134,9 @@ $consulta = "SELECT DISTINCT
             INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
             JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
             JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-            WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'";
+            WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
+            GROUP BY RESERVACION.ID_RESERVACION, T_HABITACION.NOMBRE
+            ORDER BY RESERVACION.FECHA_ ASC";
 
 $resultado = $db->seleccionar($consulta);
 
@@ -142,7 +145,7 @@ foreach ($resultado as $value) {
     $fechaFin = new DateTime($value->fecha_fin);
     $interval = $fechaInicio->diff($fechaFin);
     $diasEstancia = $interval->days;
-    $sumaCostos = $value->precio_habitacion * $diasEstancia;
+    $sumaCostos = $value->precio_habitacion * $diasEstancia * $value->cantidad_habitaciones;
     $fecha_reservacion = $value->fecha_reservacion;
 
     if ($fecha_reservacion) {
@@ -160,23 +163,20 @@ foreach ($resultado as $value) {
     }
     ?>
 
-    <div class="card" style="width: 30rem;">
+    <div class="card mb-3" style="width: 30rem;">
         <div class="card-body">
-            <h5 class="card-title">Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
+            <h5 class="card-title">Reservación Folio: <?php echo $value->folio_reserva; ?></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
                 Nombre: <?php echo $value->Nombre_Huesped; ?><br>
                 Estado : <?php echo $value->estado; ?><br>
                 Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
-                Noches : <?php echo $diasEstancia; ?><br>
+                Cantidad de Habitaciones: <?php echo $value->cantidad_habitaciones; ?><br>
                 Costo Total: <?php echo $sumaCostos; ?><br><br>
             </h6>
-            <p class="card-text"></p>
-            <a href="historialreservaciones.php?folio_reserva=<?php echo $value->folio_reserva; ?>" class="btn btn-primary">Ver Detalles</a><br><br>
-            <br>
             <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
-                <form id="cancelForm" action="cancelar_reservacion_huesped.php" method="post">
+                <form action="cancelar_reservacion_huesped.php" method="post">
                     <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
-                    <button type="button" class="btn btn-danger" style="margin-left: 70%; margin-top: -25%;" data-bs-toggle="modal" data-bs-target="#confirmCancelModal">Cancelar Reservacion</button>
+                    <button type="submit" class="btn btn-danger">Cancelar Reservación</button>
                 </form>
             <?php endif; ?>
         </div>
@@ -185,177 +185,6 @@ foreach ($resultado as $value) {
     <?php
 }
 ?>
-
-<?php
-if (isset($_GET['folio_reserva'])) {
-    $folio_reserva = $_GET['folio_reserva'];
-    $consulta_detalle = "SELECT 
-                            DETALLE_RESERVACION.TITULAR_HABITACION AS titular, 
-                            RESERVACION.ID_RESERVACION AS folio_reserva, 
-                            RESERVACION.ESTADO_RESERVACION AS estado, 
-                            TIMESTAMPDIFF(DAY, DETALLE_RESERVACION.FECHA_INICIO, DETALLE_RESERVACION.FECHA_FIN) AS noches,
-                            RESERVACION.FECHA_ AS fecha_reservacion,
-                            DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
-                            DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
-                            T_HABITACION.NOMBRE as tipo_habitacion,
-                            T_HABITACION.PRECIO as precio_habitacion
-                          FROM USUARIOS
-                          INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-                          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-                          INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-                          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-                          JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-                          JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-                          WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
-                          AND RESERVACION.ID_RESERVACION = '$folio_reserva'";
-
-    $resultado_detalle = $db->seleccionar($consulta_detalle);
-
-    foreach ($resultado_detalle as $value) {
-        $fechaInicio = new DateTime($value->fecha_inicio);
-        $fechaFin = new DateTime($value->fecha_fin);
-        $interval = $fechaInicio->diff($fechaFin);
-        $diasEstancia = $interval->days;
-        $sumaCostos = $value->precio_habitacion * $diasEstancia;
-        ?>
-
-        <div class="card" style="width: 30rem;">
-            <div class="card-body">
-                <h5 class="card-title">Detalles de Reservacion Folio: <?php echo $value->folio_reserva; ?></h5>
-                <h6 class="card-subtitle mb-2 text-body-secondary">
-                    Titular: <?php echo $value->titular; ?><br>
-                    Estado : <?php echo $value->estado; ?><br>
-                    Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
-                    Fecha Inicio: <?php echo $value->fecha_inicio; ?><br>
-                    Fecha Fin: <?php echo $value->fecha_fin; ?><br>
-                    Noches : <?php echo $diasEstancia; ?><br>
-                    Costo por noche: <?php echo $value->precio_habitacion; ?><br>
-                    Costo Total: <?php echo $sumaCostos; ?><br><br>
-                </h6>
-            </div>
-        </div>
-
-        <?php
-    }
-}
-?>
-
-<!-- MODALS -->
-
-<!-- BOTON DE VER DETALLES -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Detalle de tu reservación</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <?php        
-        $query = "SELECT 
-                    DETALLE_RESERVACION.TITULAR_HABITACION AS titular, 
-                    RESERVACION.ID_RESERVACION AS folio_reserva, 
-                    RESERVACION.ESTADO_RESERVACION AS estado, 
-                    TIMESTAMPDIFF(DAY, DETALLE_RESERVACION.FECHA_INICIO, DETALLE_RESERVACION.FECHA_FIN) AS noches,
-                    RESERVACION.FECHA_ AS fecha_reservacion,
-                    DETALLE_RESERVACION.FECHA_INICIO as fecha_inicio,
-                    DETALLE_RESERVACION.FECHA_FIN as fecha_fin,
-                    T_HABITACION.NOMBRE as tipo_habitacion,
-                    T_HABITACION.PRECIO as precio_habitacion
-                  FROM USUARIOS
-                  INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-                  INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-                  INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-                  INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-                  JOIN HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-                  JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-                  WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
-                  AND RESERVACION.ID_RESERVACION = '$folio_reserva'";
-
-        $resultados = $db->seleccionar($query);
-        foreach ($resultados as $value) {
-        ?>
-        
-        Titular de la habitación: <?php echo $value->titular; ?><br>
-        Fecha Inicial Reservacion: <?php echo $value->fecha_inicio; ?><br>
-        Fecha Final Reservacion: <?php echo $value->fecha_fin; ?><br>
-        Tipo de Habitacion Reservada: <?php echo $value->tipo_habitacion; ?><br>
-        Costo por noche: <?php echo $value->precio_habitacion; ?><br>
-        <?php 
-        $fechaInicio = new DateTime($value->fecha_inicio);
-        $fechaFin = new DateTime($value->fecha_fin);
-        $interval = $fechaInicio->diff($fechaFin);
-        $diasEstancia = $interval->days;
-        $valorT = $value->precio_habitacion * $diasEstancia;
-        ?>
-        Precio total por el tipo de habitacion: <?php echo $valorT; ?><br><br>
-        <?php
-        }
-        ?>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="confirmCancelModal" tabindex="-1" aria-labelledby="confirmCancelModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="confirmCancelModalLabel">Confirmar Cancelación</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        ¿Estás seguro de que deseas cancelar esta reservación?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, mantener reservación</button>
-        <button type="button" class="btn btn-danger" id="confirmCancelButton">Sí, cancelar reservación</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="cancelModalLabel">Cancelación Exitosa</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Para consultar sobre los temas de reembolso por favor comuníquese con el número 87-15-73-25-05 para dicha aclaración.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closeSuccessModal">Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<script>
-document.getElementById('confirmCancelButton').addEventListener('click', function() {
-    var form = document.getElementById('cancelForm');
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', form.action, true);
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-            // Ocultar el modal de confirmación
-            var confirmCancelModal = bootstrap.Modal.getInstance(document.getElementById('confirmCancelModal'));
-            confirmCancelModal.hide();
-            // Mostrar el modal de cancelación exitosa
-            var cancelModal = new bootstrap.Modal(document.getElementById('cancelModal'));
-            cancelModal.show();
-            
-            // Añadir listener para recargar la página cuando se cierre el modal de cancelación exitosa
-            document.getElementById('closeSuccessModal').addEventListener('click', function() {
-                location.reload();
-            });
-        }
-    };
-    xhr.send(new URLSearchParams(new FormData(form)).toString());
-});
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
