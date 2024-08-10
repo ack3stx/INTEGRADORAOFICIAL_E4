@@ -2,9 +2,15 @@
 include '../Clases/BasedeDatos.php';
 session_start();
 
+echo json_encode(["estatus"=>true]);
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    echo json_encode(["estatus"=>true]);
     
     if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['facturacion']) ) {
+
+        echo json_encode(["estatus"=>true]);
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $facturacion = json_decode($_POST['facturacion'], true);
