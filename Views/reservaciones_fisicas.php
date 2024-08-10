@@ -229,9 +229,7 @@ margin-bottom: 1%;
 
   }
 
-  #info1{
-    display:none;
-  }
+
 
   #persona{
     width: 30%;
@@ -240,6 +238,108 @@ margin-bottom: 1%;
     margin-top: 10%;
     display: inline-block;
   }
+
+/* Estilo existente */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2ecc71; /* Color del fondo del footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
+}
+
+.hidden-content {
+    display: none;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-height: 300px; /* Altura máxima del contenido desplegable */
+    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
+}
+
+/* Botón para bajar el contenido */
+.scroll-button {
+    display: block;
+    width: 100%;
+    background-color: #3498db; /* Color del botón de scroll */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.scroll-button:hover {
+    background-color: #2980b9;
+}
+
+.toggle-button {
+    cursor: pointer;
+}
+
+.reserve-button {
+    background-color: #3498db; /* Color del botón de reserva */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.reserve-button:hover {
+    background-color: #2980b9;
+}
+#contenedor-fluido
+{
+    width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+}
+#dobid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #sencid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important; 
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #kingid
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #card-custom
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+@media screen and (min-width: 950px) {
+            .desplegable {
+                display: none;
+            }
+            #contenedor-fluido{
+                margin: 0;
+            }
+            #info1
+            {
+                display: block;
+            }
+
+        }
 
 </style>
 <body>
@@ -486,12 +586,45 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             </form>    
 
 
+<div class="fixed-footer desplegable">
+    <div class="toggle-button">
+        Ver resumen (1) <span id="arrow">▲</span>
+    </div>
+    <div id="content" class="hidden-content">
+        <div id="info1" class="container" style="
+         margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;">
+        <div class="card-body" style="
+        top: 100%;
+    height: 100%;
+    width: 100%;">
+            <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
+            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+            </button>
+            <br><br>
+            <hr class="mb-4">
+            <div id="room-summary">
+                <!-- Resumen breve de habitaciones -->
+            </div>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+            <br><br>
+            <div class="d-grid gap-6 col-10 mx-auto">
+                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+            </div>
+        </div>
+</div>
+    </div>
+</div>
 
-
-<!---->
-    <div id="info1" class="container" style="display: none;
-    position: absolute;
-    top: 56%;
+<div id="info1" class="container" style="
+    position: fixed;
+    top: 15%;
     left: 30%;
     transform: translate(-50%, -50%);
     height: 114%;
@@ -518,6 +651,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div>
 </div>
+
+
+<!---->
 
 <!-- Modal de Advertencia 
 <div class="modal fade" id="warningModal" tabindex="-1" aria-labelledby="warningModalLabel" aria-hidden="true">
@@ -570,6 +706,27 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </footer>-->
 
 
+
+<script>
+    document.querySelector('.toggle-button').addEventListener('click', function() {
+    const content = document.getElementById('content');
+    const arrow = document.getElementById('arrow');
+
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.textContent = "▼"; // Cambia la flecha hacia abajo
+    } else {
+        content.style.display = "none";
+        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
+    }
+});
+
+function scrollToContent() {
+    const content = document.getElementById('content');
+    content.scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
 
 
 

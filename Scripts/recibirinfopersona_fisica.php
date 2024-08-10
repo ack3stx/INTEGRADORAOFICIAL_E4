@@ -36,7 +36,7 @@ WHERE USUARIOS.NOMBRE_USUARIO = :recep";
             $usuario = $_SESSION["usuario"];
 
             
-                $id_usuario = 78;
+                $id_usuario = 94;
 
                 $registro = $data->registro(
                     $persona['nombre'], 
