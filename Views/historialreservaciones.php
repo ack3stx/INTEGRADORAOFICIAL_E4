@@ -165,15 +165,41 @@ session_start();
                 <?php } ?>
                 Costo Total: <?php echo $reservacion['COSTO_TOTAL']; ?><br><br>
             <?php if ($reservacion['ESTADO'] == 'proceso'): ?>
-                <form action="cancelar_reservacion_huesped.php" method="post">
-                    <input type="hidden" name="id_reservacion" value="<?php echo $folio_reserva; ?>">
-                    <button type="submit" class="btn btn-danger">Cancelar Reservación</button>
-                </form>
+                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-reservacion-id="<?php echo $folio_reserva; ?>">
+                    Cancelar Reservación
+                </button>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
+
+<!-- Modal de confirmación -->
+<div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmModalLabel">Confirmar Cancelación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ¿Está seguro de que desea cancelar la reservación?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                <form id="cancelForm" action="cancelar_reservacion_huesped.php" method="post">
+                    <input type="hidden" name="id_reservacion" id="reservacionId">
+                    <button type="submit" class="btn btn-danger">Sí, Cancelar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Spinner de carga -->
+<div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
+    <span class="visually-hidden">Loading...</span>
+</div>
 
         <?php
     }
@@ -182,5 +208,22 @@ session_start();
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Asignar el ID de la reservación al formulario cuando se hace clic en el botón de cancelar
+    const confirmModal = document.getElementById('confirmModal');
+    confirmModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const reservacionId = button.getAttribute('data-reservacion-id');
+        const inputReservacionId = document.getElementById('reservacionId');
+        inputReservacionId.value = reservacionId;
+    });
+
+    // Mostrar el spinner cuando se envía el formulario
+    const cancelForm = document.getElementById('cancelForm');
+    cancelForm.addEventListener('submit', function () {
+        const spinner = document.getElementById('loadingSpinner');
+        spinner.style.display = 'inline-block';
+    });
+</script>
 </body>
 </html>
