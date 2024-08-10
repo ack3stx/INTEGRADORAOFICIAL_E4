@@ -222,13 +222,10 @@
             }).then((data) => {
                 console.log(data);
                 alert('Datos enviados')
-                window.location.href = "Panel_Recepcionista.php";
+                window.location.href = "../index.php";
             }).catch((error) => {
                 console.log(error);
-                swal("Error al enviar los datos, intenta nuevamente.").then(() => {
-                    // Mostrar el botón de nuevo si hay un error
-                    submitButton.disabled = false;
-                });
+               
             });
         }
     </script>
