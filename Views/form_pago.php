@@ -179,12 +179,13 @@
         });
 
         document.getElementById('card-form').addEventListener('submit', function (e) {
+            e.preventDefault();
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
             if (!luhnCheck(cardNumber)) {
-                e.preventDefault();
+                
                 alert('Número de tarjeta inválido.');
             } else {
-                mandardatos(this);
+                mandardatos();
             }
         });
 
@@ -203,8 +204,8 @@
             return sum % 10 === 0;
         }
 
-        function mandardatos(form) {
-            fetch('../Scripts/recibirinfopersona_fisica.php', {
+        function mandardatos() {
+            fetch('../Scripts/recibirinfopersona.php', {
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                     'habitaciones': JSON.stringify(habitaciones),
@@ -216,14 +217,25 @@
                 }),
                 method: 'POST'
             }).then(response => {
-                 console.log('response:',response)
-                alert('Datos enviados')
+                if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor.');
+        }
+        alert('Datos enviados')
+        return response.json(); // Procesar la respuesta como JSON
+
+    }).then(data => {
+        if (data.status === 'success') {
+            alert(data.message);
+            window.location.href = "Panel_Recepcionista.php";
+        } else {
+            throw new Error(data.message || 'Error desconocido.');
+        }
                 
 
                
             }).then((data) => {
                 console.log(data);
-                // Redirigir utilizando JavaScript
+                alert('Datos enviados')
                 window.location.href = "Panel_Recepcionista.php";
             }).catch((error) => {
                 console.log(error);
