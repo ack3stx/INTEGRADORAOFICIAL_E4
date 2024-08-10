@@ -205,7 +205,7 @@
         }
 
         function mandardatos() {
-            fetch('../Scripts/recibirinfopersona_fisica.php', {
+            fetch('../Scripts/recibirinfopersona.php', {
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                     'habitaciones': JSON.stringify(habitaciones),
