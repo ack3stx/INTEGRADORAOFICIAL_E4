@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $usuario = $_SESSION["usuario"];
 
             
-                $id_usuario = 78;
+                $id_usuario = 94;
 
                 $registro = $data->registro(
                     $persona['nombre'], 
