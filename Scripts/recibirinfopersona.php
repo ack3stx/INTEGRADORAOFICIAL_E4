@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
 
                     foreach ($habitaciones as $habitacion) {
-                   $titular = 'etni'; 
+                   $titular = null; 
                    $ninos = $habitacion['niños'];
                    $adultos = $habitacion['adultos'];
                    $tipo_habitacion = $habitacion['tipo'];
