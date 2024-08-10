@@ -217,23 +217,8 @@
                 }),
                 method: 'POST'
             }).then(response => {
-                if (!response.ok) {
-            throw new Error('Error en la respuesta del servidor.');
-        }
-        alert('Datos enviados')
-        return response.json(); // Procesar la respuesta como JSON
-
-    }).then(data => {
-        if (data.status === 'success') {
-            alert(data.message);
-            window.location.href = "Panel_Recepcionista.php";
-        } else {
-            throw new Error(data.message || 'Error desconocido.');
-        }
-                
-
-               
-            }).then((data) => {
+                console.log('response:',response)
+        }).then((data) => {
                 console.log(data);
                 alert('Datos enviados')
                 window.location.href = "Panel_Recepcionista.php";
