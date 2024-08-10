@@ -175,7 +175,7 @@ foreach ($resultado as $value) {
 foreach ($reservaciones as $folio_reserva => $reservacion) {
     ?>
     <div class="d-flex justify-content-center">
-    <div class="card mb-3" style="width: 50%; display: flex; flex-direction: row; padding-right: 50px;">
+    <div class="card mb-3" style="width: 50%; display: flex; flex-direction: row; padding-right: 200px;">
         <div class="card-body" style="flex: 1;">
             <h5 class="card-title">Reservación Folio: <?php echo $folio_reserva; ?></h5>
             <h6 class="card-subtitle mb-2 text-body-secondary">
