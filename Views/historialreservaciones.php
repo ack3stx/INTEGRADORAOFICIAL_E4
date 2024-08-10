@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,43 +42,105 @@ session_start();
 </head>
 
 <body>
-
 <header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4">
-        <div class="container-fluid">
-            <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
-                <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
-                <ul class="navbar-nav text-center">
-                    <li class="nav-item"><a class="nav-link" href="../index.php">INICIO</a></li>
-                    <li class="nav-item"><a class="nav-link" href="nosotros.php">NOSOTROS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="vistahab.php">HABITACIONES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.php#2424">SERVICIOS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Contacto.php">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Calendario.php">RESERVAR AHORA</a></li>
-                </ul>
-            </div>
-            <div class="header-content">
-                <div class="dropdown">
-                    <button class="btn dropdown-toggle olap" type="button" id="btnusr">
-                        <span class="material-symbols-outlined">account_circle</span>
-                    </button>
-                    <ul class="dropdown-menu glass">
-                        <li><a class="dropdown-item" href="panelusuario.php"><span class="material-symbols-outlined lia">manage_accounts</span>Gestionar cuenta</a></li>
-                        <li><a class="dropdown-item" href="ver_datos_personales.php"><span class="material-symbols-outlined lia">person</span>Datos Personales</a></li>
-                        <li><a class="dropdown-item" href="datospersonales.php"><span class="material-symbols-outlined lia">edit</span>Modificar mis Datos</a></li>
-                        <li><a class="dropdown-item" href="historialreservaciones.php"><span class="material-symbols-outlined">travel_explore</span>Historial de Reservación</a></li>
-                        <li><a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php"><span class="material-symbols-outlined">logout</span>Cerrar Sesión</a></li>
-                    </ul>
-                </div>
-            </div>
+    <div class="row">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
+      <div class="container-fluid">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
+          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+        </a>
+        
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
+          <ul class="navbar-nav text-center">
+            <li class="nav-item">
+              <a class="nav-link" href="../index.php"><label>INICIO</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="nosotros.php"><label>NOSOTROS</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="vistahab.php"><label>HABITACIONES</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="../index.php#2424"><label>SERVICIOS</label></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
+</li>
+
+         
+
+            <li class="nav-item">
+              <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
+            </li>
+
+<?php
+session_start();
+if(isset($_SESSION["usuario"])){
+
+  echo ' 
+       <div class="header-content">
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnusr">
+            <span class="material-symbols-outlined">
+                account_circle
+            </span>
+        </button>
+        <ul class="dropdown-menu glass">
+            <li>
+                <a class="dropdown-item" href="panelusuario.php">
+                    <span class="material-symbols-outlined lia">manage_accounts</span>
+                    Gestionar cuenta
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="ver_datos_personales.php">
+                    <span class="material-symbols-outlined lia">person</span>
+                    Datos Personales
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="datospersonales.php">
+                    <span class="material-symbols-outlined lia">edit</span>
+                    Modificar mis Datos
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="historialreservaciones.php">
+                    <span class="material-symbols-outlined">travel_explore</span>
+                    Historial de Reservación
+                </a>
+            </li>
+            <li>
+                <a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php">
+                    <span class="material-symbols-outlined">logout</span>
+                    Cerrar Sesión
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+';
+
+}
+else {
+  echo '   <li class="nav-item">
+              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
+            </li>';
+}
+
+?>
+
+          </ul>
         </div>
+      </div>
     </nav>
-</header>
+  </div>
+    </header>
+
 <br>
 <div class="container">
     <h1>Historial de Reservaciones</h1>
@@ -174,7 +233,6 @@ session_start();
 </div>
 
 
-<!-- Modal de confirmación -->
 <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -196,7 +254,6 @@ session_start();
     </div>
 </div>
 
-<!-- Spinner de carga -->
 <div class="spinner-border text-primary" role="status" id="loadingSpinner" style="display: none;">
     <span class="visually-hidden">Loading...</span>
 </div>
@@ -209,7 +266,6 @@ session_start();
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-    // Asignar el ID de la reservación al formulario cuando se hace clic en el botón de cancelar
     const confirmModal = document.getElementById('confirmModal');
     confirmModal.addEventListener('show.bs.modal', function (event) {
         const button = event.relatedTarget;
@@ -218,7 +274,6 @@ session_start();
         inputReservacionId.value = reservacionId;
     });
 
-    // Mostrar el spinner cuando se envía el formulario
     const cancelForm = document.getElementById('cancelForm');
     cancelForm.addEventListener('submit', function () {
         const spinner = document.getElementById('loadingSpinner');
