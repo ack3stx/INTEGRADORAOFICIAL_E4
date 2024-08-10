@@ -103,8 +103,8 @@
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
-        const ninos = localStorage.getItem('selectedKids');
-        const adultos = localStorage.getItem('selectedAdults');
+        
+        
 
         const submitButton = document.getElementById('submit-button');
 
@@ -212,8 +212,7 @@
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
-                    'ninos': ninos,
-                    'adultos': adultos
+                    
                 }),
                 method: 'POST'
             }).then(response => {
