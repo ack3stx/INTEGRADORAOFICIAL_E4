@@ -103,8 +103,8 @@
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
-        const ninos = localStorage.getItem('selectedKids');
-        const adultos = localStorage.getItem('selectedAdults');
+        
+        
 
         const submitButton = document.getElementById('submit-button');
 
@@ -179,12 +179,13 @@
         });
 
         document.getElementById('card-form').addEventListener('submit', function (e) {
+            e.preventDefault();
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
             if (!luhnCheck(cardNumber)) {
-                e.preventDefault();
+                
                 alert('Número de tarjeta inválido.');
             } else {
-                mandardatos(this);
+                mandardatos();
             }
         });
 
@@ -203,8 +204,8 @@
             return sum % 10 === 0;
         }
 
-        function mandardatos(form) {
-            fetch('../Scripts/recibirinfopersona_fisica.php', {
+        function mandardatos() {
+            fetch('../Scripts/recibirinfopersona.php', {
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                     'habitaciones': JSON.stringify(habitaciones),
@@ -212,26 +213,18 @@
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
-                    'ninos': ninos,
-                    'adultos': adultos
+                    
                 }),
                 method: 'POST'
             }).then(response => {
-                 console.log('response:',response)
-                alert('Datos enviados')
-                
-
-               
+                console.log('response:',response)
             }).then((data) => {
                 console.log(data);
-                // Redirigir utilizando JavaScript
-                window.location.href = "Panel_Recepcionista.php";
+                alert('Datos enviados')
+                window.location.href = "../index.php";
             }).catch((error) => {
                 console.log(error);
-                swal("Error al enviar los datos, intenta nuevamente.").then(() => {
-                    // Mostrar el botón de nuevo si hay un error
-                    submitButton.disabled = false;
-                });
+               
             });
         }
     </script>
