@@ -136,7 +136,7 @@ $consulta = "SELECT DISTINCT
             JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
             WHERE USUARIOS.NOMBRE_USUARIO = '$usuario'
             GROUP BY RESERVACION.ID_RESERVACION, T_HABITACION.NOMBRE
-            ORDER BY RESERVACION.FECHA_ ASC";
+            ORDER BY RESERVACION.FECHA_ DESC";
 
 $resultado = $db->seleccionar($consulta);
 
@@ -163,24 +163,24 @@ foreach ($resultado as $value) {
     }
     ?>
 
-    <div class="card mb-3" style="width: 30rem;">
-        <div class="card-body">
-            <h5 class="card-title">Reservación Folio: <?php echo $value->folio_reserva; ?></h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">
-                Nombre: <?php echo $value->Nombre_Huesped; ?><br>
-                Estado : <?php echo $value->estado; ?><br>
-                Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
-                Cantidad de Habitaciones: <?php echo $value->cantidad_habitaciones; ?><br>
-                Costo Total: <?php echo $sumaCostos; ?><br><br>
-            </h6>
-            <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
-                <form action="cancelar_reservacion_huesped.php" method="post">
-                    <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
-                    <button type="submit" class="btn btn-danger">Cancelar Reservación</button>
-                </form>
-            <?php endif; ?>
-        </div>
+<div class="card mb-3" style="width: 50%; display: flex; flex-direction: row;">
+    <div class="card-body" style="flex: 1;">
+        <h5 class="card-title">Reservación Folio: <?php echo $value->folio_reserva; ?></h5>
+        <h6 class="card-subtitle mb-2 text-body-secondary">
+            Nombre: <?php echo $value->Nombre_Huesped; ?><br>
+            Estado : <?php echo $value->estado; ?><br>
+            Fecha de reservación: <?php echo $value->fecha_reservacion; ?><br>
+            Cantidad de Habitaciones: <?php echo $value->cantidad_habitaciones; ?><br>
+            Costo Total: <?php echo $sumaCostos; ?><br><br>
+        </h6>
+        <?php if ($value->estado == 'proceso' && !$han_pasado_72_horas): ?>
+            <form action="cancelar_reservacion_huesped.php" method="post">
+                <input type="hidden" name="id_reservacion" value="<?php echo $value->folio_reserva; ?>">
+                <button type="submit" class="btn btn-danger">Cancelar Reservación</button>
+            </form>
+        <?php endif; ?>
     </div>
+</div>
 
     <?php
 }
