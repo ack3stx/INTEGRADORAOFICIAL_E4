@@ -23,12 +23,13 @@
         }
         .login-card {
             width: 600px;
-            height: 550px;
+            height: auto;
             padding: 2rem;
             border-radius: 0.5rem;
             box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
             background: linear-gradient(145deg, #ffffff, #e6e6e6);
             animation: fadeIn 1s ease-in-out;
+            
         }
         .login-card h3 {
             color: #0056b3;
@@ -121,6 +122,10 @@
                     <button type="submit" class="btn text-light btn-block" style="background-color: maroon;">Entrar</button>
                 </form><br>
                 <?php
+            if (!empty($_GET['status']) && $_GET['status'] == 'fallo_registro') {
+            echo '<div class="alert alert-danger">Tu registro ha fallado. Intentalo una vez más</div>';
+            }
+                
         if (isset($_GET['status']) && $_GET['status'] == 'failed_login') {
             echo '<div class="alert alert-danger">Usuario O Contraseña Incorrectos.</div>';
           }
@@ -144,16 +149,26 @@
 
 
 <!-- AQUI INICIALIZA EL REGISTRARSE -->
-
 <section id="Registrate" class="content-section">
     <div class="container login-container">
         <div class="card login-card">
             <div class="card-body">
                 <h3 class="text-center" style="color: maroon;">Registrate</h3><br>
+                
+                <?php
+                if (!empty($_GET['status']) && $_GET['status'] == 'fallo_registro') {
+                    echo '<div class="alert alert-danger">El nombre de usuario ya existe.</div>';
+                }
+                
+                if (isset($_GET['status']) && $_GET['status'] == 'contraseñas_no_coinciden') {
+                    echo '<div class="alert alert-danger">Las contraseñas no coinciden.</div>';
+                }
+                ?>
+
                 <form action="../Scripts/Registra_Usuario_Huesped.php" method="post" onsubmit="return validarContraseñas()">
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-user" id="basic-addon1"></span>
-                        <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario">
+                        <input type="text" class="form-control" id="user" placeholder="Nombre de Usuario" name="usuario" required>
                     </div>
                     <div class="input-group mb-3">
                         <span class="input-group-text fas fa-envelope" id="basic-addon1"></span>
@@ -169,18 +184,16 @@
                     </div>
                     <span id="error" class="error">Las contraseñas no coinciden</span><br>
                     <div class="mb-3">
-            <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4">
-
-            </div>
+                        <div class="g-recaptcha" data-sitekey="6LccmR0qAAAAAMnf_ciVols2t2F9ned4iYeWxHT4"></div>
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block" style="background-color: maroon;">Registrarte</button>
                 </form>
                 <h6>Ya tienes cuenta? <a href="#" onclick="showSection('reservaciones')">Inicia Sesion aqui</a></h6>
             </div>
-            <?php
-        ?>
         </div>
     </div>
 </section>
+
 
 <script>
     function validarContraseñas() {
@@ -213,3 +226,6 @@
 <script src="../Js/Panel_Admin.js"></script>
 </body>
 </html>
+
+
+

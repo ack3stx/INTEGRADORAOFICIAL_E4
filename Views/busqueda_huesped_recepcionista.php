@@ -115,10 +115,14 @@
       </div>
     </div>
     <?php
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        extract($_POST);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    extract($_POST);
 
-        if (!empty($n_reservacion)) {
+    // Verifica si el campo n_reservacion no está vacío y no excede los 10 caracteres (puedes ajustar este número según lo necesites)
+    if (!empty($n_reservacion)) {
+        if (strlen($n_reservacion) > 500) {
+            echo "<p>El número de reservación es demasiado largo. Por favor, ingresa un número de reservación válido.</p>";
+        } else {
             $cadena = "CALL info_huesped('$n_reservacion');";
             $tabla = $db->seleccionar($cadena);
 
@@ -162,8 +166,12 @@
 
             $db->desconectarBD();
         }
+    } else {
+        echo "<p>No se encontró ningún número de reservación proporcionado.</p>";
     }
-    ?>
+}
+?>
+
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
