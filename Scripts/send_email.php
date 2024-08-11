@@ -11,22 +11,17 @@ if(!$atributos['success']){
 }
 
 
-if($_POST){
-    header('Location: ../Views/Contacto.php?status=exit');
-    exit;
-}
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
-require _DIR_ . '/../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$dotenv = Dotenv::createImmutable(_DIR_ . '/..');
+$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
 
 $smtp_user = $_ENV['SMTP_USER'] ?? 'No definido';
@@ -40,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'] ?? '';
     $mensaje = $_POST['mensaje'] ?? '';
 
-    // Verificar si se reciben los datos
     echo "Datos recibidos:<br>";
     echo "Nombre: " . htmlspecialchars($nombre) . "<br>";
     echo "Teléfono: " . htmlspecialchars($telefono) . "<br>";
@@ -131,12 +125,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->send();
             $response_message = "Mensaje enviado exitosamente.";
-            echo $response_message; // Añadir mensaje de éxito
-            header('Location: http://52.15.205.48/INTEGRADORAOFICIAL_E4/Views/Contacto.php?status=success');
+            echo $response_message; 
+            header('Location: ../Views/Contacto.php?status=success');
             exit();
         } catch (Exception $e) {
             $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
-            echo $response_message; // Mostrar el error
+            echo $response_message; 
         }
     }
 } else {
