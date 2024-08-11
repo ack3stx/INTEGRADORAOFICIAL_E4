@@ -129,8 +129,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header('Location: ../Views/Contacto.php?status=success');
             exit();
         } catch (Exception $e) {
-            $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
-            echo $response_message; 
+            echo "Hubo un error al enviar el mensaje: " . $e->getMessage();
         }
     }
 } else {
