@@ -15,13 +15,13 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
-require __DIR__ . '/../vendor/autoload.php';
+require _DIR_ . '/../vendor/autoload.php';
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv = Dotenv::createImmutable(_DIR_ . '/..');
 $dotenv->load();
 var_dump($_ENV['SMTP_USER'], $_ENV['SMTP_PASSWORD']);
 
