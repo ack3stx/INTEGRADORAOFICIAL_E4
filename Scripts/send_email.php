@@ -16,14 +16,17 @@ if($_POST){
     exit;
 }
 
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;
 
-require __DIR__ . '/../vendor/autoload.php';
+require _DIR_ . '/../vendor/autoload.php';
 
-$dotenv = Dotenv::createImmutable(__DIR__ . '/..');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+$dotenv = Dotenv::createImmutable(_DIR_ . '/..');
 $dotenv->load();
 
 $smtp_user = $_ENV['SMTP_USER'] ?? 'No definido';
@@ -37,8 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $correo = $_POST['correo'] ?? '';
     $mensaje = $_POST['mensaje'] ?? '';
 
+    // Verificar si se reciben los datos
+    echo "Datos recibidos:<br>";
+    echo "Nombre: " . htmlspecialchars($nombre) . "<br>";
+    echo "Teléfono: " . htmlspecialchars($telefono) . "<br>";
+    echo "Correo: " . htmlspecialchars($correo) . "<br>";
+    echo "Mensaje: " . htmlspecialchars($mensaje) . "<br>";
+
     if (empty($nombre) || empty($telefono) || empty($correo) || empty($mensaje)) {
         $response_message = "Todos los campos son obligatorios";
+        echo $response_message;
     } else {
         $smtp_server = "smtp.gmail.com";
         $smtp_port = 587;
@@ -50,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->SMTPAuth = true;
             $mail->Username = $smtp_user;
             $mail->Password = $smtp_password;
-            $mail->SMTPSecure = 'tls';
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = $smtp_port;
 
             $mail->setFrom($smtp_user, 'Sitio Web');
@@ -120,11 +131,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->send();
             $response_message = "Mensaje enviado exitosamente.";
-            header('Location: ../Views/Contacto.php?status=success');
+            echo $response_message; // Añadir mensaje de éxito
+            header('Location: http://52.15.205.48/INTEGRADORAOFICIAL_E4/Views/Contacto.php?status=success');
+            exit();
         } catch (Exception $e) {
             $response_message = "Hubo un error al enviar el mensaje: {$mail->ErrorInfo}";
+            echo $response_message; // Mostrar el error
         }
     }
+} else {
+    echo "Método de solicitud no permitido.";
 }
-
 ?>
