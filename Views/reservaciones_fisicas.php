@@ -615,6 +615,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </div>
 
 <div id="info1" class="container" style="
+display: none;
     position:fixed;
     top: 0%;
     left: 30%;
