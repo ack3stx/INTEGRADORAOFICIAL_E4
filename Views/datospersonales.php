@@ -40,6 +40,19 @@ if ($_SESSION["rol"] == "usuario") {
                 }
             }
 
+            // Validar si el nombre de usuario ya existe en la base de datos
+            if (!empty($nombre_user)) {
+                $db = new Database();
+                $db->conectarDB();
+
+                $consulta_nombre = "SELECT COUNT(*) AS count FROM USUARIOS WHERE NOMBRE_USUARIO = '$nombre_user' AND NOMBRE_USUARIO != '" . $_SESSION['usuario'] . "'";
+                $resultado_nombre = $db->seleccionar($consulta_nombre);
+
+                if ($resultado_nombre[0]->count > 0) {
+                    $errores[] = "Este nombre de usuario ya existe.";
+                }
+            }
+
             if (empty($errores)) {
                 $db = new Database();
                 $db->conectarDB();
@@ -115,6 +128,25 @@ if ($_SESSION["rol"] == "usuario") {
             $genero = $_POST['GENERO'] ?? '';
             $numero_de_telefono = $_POST['NUMERO_DE_TELEFONO'] ?? '';
 
+            
+
+            if (strlen($numero_de_telefono) < 10) {
+                $errores[] = "El numero de telefono debe contener al menos 10 digitos.";
+            }
+             // Validar si el número de teléfono ya existe en la base de datos
+             if (!empty($numero_de_telefono)) {
+                $db = new Database();
+                $db->conectarDB();
+            
+                $consulta_telefono = "SELECT COUNT(*) AS count FROM PERSONA WHERE NUMERO_DE_TELEFONO = '$numero_de_telefono' AND USUARIO != (SELECT ID_USUARIO FROM USUARIOS WHERE NOMBRE_USUARIO = '" . $_SESSION['usuario'] . "')";
+                $resultado_telefono = $db->seleccionar($consulta_telefono);
+            
+                if ($resultado_telefono[0]->count > 0) {
+                    $errores[] = "Este número de teléfono ya está registrado.";
+                }
+            }
+            
+
             if (empty($errores)) {
                 $db = new Database();
                 $db->conectarDB();
@@ -144,6 +176,7 @@ if ($_SESSION["rol"] == "usuario") {
                         VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
                         $db->ejecuta($CONSULTA_INSERT_PERSONA);
                         $_SESSION['mensaje'] = "Datos personales añadidos correctamente.";
+                        
                     }
                     
 
@@ -241,6 +274,7 @@ if ($_SESSION["rol"] == "usuario") {
     </style>
 </head>
 <body>
+
 
 <header>
 <div class="row">
@@ -422,53 +456,202 @@ if ($_SESSION["rol"] == "usuario") {
 
 <form id="formPersona" action="datospersonales.php" method="post">
     <input type="hidden" name="tipo_formulario" value="persona">
-    <hr class="mb-4">
+    <h1><strong>Mis datos</strong></h1>
     <div class="section">
-        <h1><strong>Datos personales</strong></h1>
-        <?php 
-        $campos_persona = [
-            'NOMBRE' => 'Nombre', 'APELLIDO_PATERNO' => 'Apellido Paterno','APELLIDO_MATERNO' => 'Apellido Materno','FECHA_DE_NACIMIENTO' => 'Fecha de Nacimiento', 'DIRECCION' => 'Dirección','CIUDAD' => 'Ciudad','ESTADO' => 'Estado','CODIGO_POSTAL' => 'Código Postal', 'PAIS' => 'País', 'GENERO' => 'Género','NUMERO_DE_TELEFONO' => 'Número de Teléfono'
-        ];
-
-        foreach ($campos_persona as $campo => $titulo) {
-            $valor = htmlspecialchars($usuario[0]->$campo ?? '');
-            $clase_peligro = empty($valor) ? 'is-invalid' : '';
-            $inputType = ($campo == 'FECHA_DE_NACIMIENTO') ? 'date' : 'text';
-            if ($campo == 'GENERO') {
-                $inputType = 'select';
-            }
-        ?>
-            <div class="section">
-                <div class="d-flex justify-content-between align-items-center">
-                    <div>
-                        <p class="section-title"><?= $titulo ?></p>
-                        <p id="<?= $campo ?>Texto"><?= $valor ?></p>
-                    </div>
-                    <button type="button" id="btnEditar<?= ucfirst($campo) ?>" class="btn btn-danger">Editar</button>
-                </div>
-                <div id="form<?= ucfirst($campo) ?>" class="hidden">
-                    <?php if ($inputType == 'select'): ?>
-                        <select id="<?= $campo ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>">
-                            <option value="M" <?= $valor == 'M' ? 'selected' : '' ?>>Masculino</option>
-                            <option value="F" <?= $valor == 'F' ? 'selected' : '' ?>>Femenino</option>
-                        </select>
-                    <?php else: ?>
-                        <input type="<?= $inputType ?>" id="<?= $campo ?>" name="<?= $campo ?>" class="form-control mb-2 <?= $clase_peligro ?>" placeholder="<?= $titulo ?>" value="<?= $valor ?>"
-                        <?php if ($campo == 'FECHA_DE_NACIMIENTO') echo "min='1950-01-01' max='" . date('Y-m-d', strtotime('-18 years')) . "'"; ?>>
-                        <div class="invalid-feedback"></div>
-                        <div class="valid-feedback"></div>
-                    <?php endif; ?>
-                    <button type="button" id="btnCancelar<?= ucfirst($campo) ?>" class="btn btn-danger">Cancelar</button>
-                </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Nombre</p>
+                <p id="NOMBRETexto"><?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?></p>
             </div>
-            <hr class="mb-4">
-        <?php } ?>
+            <button type="button" id="btnEditarNombre" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formNombre" class="hidden">
+            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control mb-2 <?= empty($usuario[0]->NOMBRE) ? 'is-invalid' : '' ?>" placeholder="Nombre" value="<?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarNombre" class="btn btn-danger">Cancelar</button>
+        </div>
     </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Apellido Paterno</p>
+                <p id="APELLIDO_PATERNOTexto"><?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarApellidoPaterno" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formApellidoPaterno" class="hidden">
+            <input type="text" id="APELLIDO_PATERNO" name="APELLIDO_PATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_PATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Paterno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarApellidoPaterno" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Apellido Materno</p>
+                <p id="APELLIDO_MATERNOTexto"><?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarApellidoMaterno" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formApellidoMaterno" class="hidden">
+            <input type="text" id="APELLIDO_MATERNO" name="APELLIDO_MATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_MATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Materno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarApellidoMaterno" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Fecha de Nacimiento</p>
+                <p id="FECHA_DE_NACIMIENTOTexto"><?= htmlspecialchars($usuario[0]->FECHA_DE_NACIMIENTO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarFechaNacimiento" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formFechaNacimiento" class="hidden">
+            <input type="date" id="FECHA_DE_NACIMIENTO" name="FECHA_DE_NACIMIENTO" class="form-control mb-2 <?= empty($usuario[0]->FECHA_DE_NACIMIENTO) ? 'is-invalid' : '' ?>" value="<?= htmlspecialchars($usuario[0]->FECHA_DE_NACIMIENTO ?? '') ?>" min="1950-01-01" max="<?= date('Y-m-d', strtotime('-18 years')) ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarFechaNacimiento" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Dirección</p>
+                <p id="DIRECCIONTexto"><?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarDireccion" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formDireccion" class="hidden">
+            <input type="text" id="DIRECCION" name="DIRECCION" class="form-control mb-2 <?= empty($usuario[0]->DIRECCION) ? 'is-invalid' : '' ?>" placeholder="Dirección" value="<?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarDireccion" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Ciudad</p>
+                <p id="CIUDADTexto"><?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarCiudad" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formCiudad" class="hidden">
+            <input type="text" id="CIUDAD" name="CIUDAD" class="form-control mb-2 <?= empty($usuario[0]->CIUDAD) ? 'is-invalid' : '' ?>" placeholder="Ciudad" value="<?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarCiudad" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Estado</p>
+                <p id="ESTADOTexto"><?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarEstado" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formEstado" class="hidden">
+            <input type="text" id="ESTADO" name="ESTADO" class="form-control mb-2 <?= empty($usuario[0]->ESTADO) ? 'is-invalid' : '' ?>" placeholder="Estado" value="<?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarEstado" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Código Postal</p>
+                <p id="CODIGO_POSTALTexto"><?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarCodigoPostal" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formCodigoPostal" class="hidden">
+            <input type="text" id="CODIGO_POSTAL" name="CODIGO_POSTAL" class="form-control mb-2 <?= empty($usuario[0]->CODIGO_POSTAL) ? 'is-invalid' : '' ?>" placeholder="Código Postal" value="<?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarCodigoPostal" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">País</p>
+                <p id="PAISTexto"><?= htmlspecialchars($usuario[0]->PAIS ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarPais" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formPais" class="hidden">
+            <input type="text" id="PAIS" name="PAIS" class="form-control mb-2 <?= empty($usuario[0]->PAIS) ? 'is-invalid' : '' ?>" placeholder="País" value="<?= htmlspecialchars($usuario[0]->PAIS ?? '') ?>">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarPais" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Género</p>
+                <p id="GENEROTexto"><?= htmlspecialchars($usuario[0]->GENERO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarGenero" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formGenero" class="hidden">
+            <select id="GENERO" name="GENERO" class="form-control mb-2 <?= empty($usuario[0]->GENERO) ? 'is-invalid' : '' ?>">
+                <option value="M" <?= ($usuario[0]->GENERO ?? '') == 'M' ? 'selected' : '' ?>>Masculino</option>
+                <option value="F" <?= ($usuario[0]->GENERO ?? '') == 'F' ? 'selected' : '' ?>>Femenino</option>
+            </select>
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarGenero" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <p class="section-title">Número de Teléfono</p>
+                <p id="NUMERO_DE_TELEFONOTexto"><?= htmlspecialchars($usuario[0]->NUMERO_DE_TELEFONO ?? '') ?></p>
+            </div>
+            <button type="button" id="btnEditarNumeroDeTelefono" class="btn btn-danger">Editar</button>
+        </div>
+        <div id="formNumeroDeTelefono" class="hidden">
+            <input type="text" id="NUMERO_DE_TELEFONO" name="NUMERO_DE_TELEFONO" class="form-control mb-2 <?= empty($usuario[0]->NUMERO_DE_TELEFONO) ? 'is-invalid' : '' ?>" placeholder="Número de Teléfono" value="<?= htmlspecialchars($usuario[0]->NUMERO_DE_TELEFONO ?? '') ?>" maxlength="10">
+            <div class="invalid-feedback"></div>
+            <div class="valid-feedback"></div>
+            <button type="button" id="btnCancelarNumeroDeTelefono" class="btn btn-danger">Cancelar</button>
+        </div>
+    </div>
+    <hr class="mb-4">
 
     <div class="d-flex justify-content-end mt-4">
-        <button type="submit" id="btnGuardarCambios" class="btn btn-danger">Guardar cambios</button>
+    <button type="submit" id="btnGuardarUsuario" class="btn btn-danger">Guardar cambios</button>
     </div>
 </form>
+
 
         <?php endif; ?>
     </div>
@@ -476,287 +659,286 @@ if ($_SESSION["rol"] == "usuario") {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
     
+    
     <script>
     document.addEventListener('DOMContentLoaded', function () {
-    const formUsuario = document.getElementById('formUsuario');
-    const formPersona = document.getElementById('formPersona');
+        const formUsuario = document.getElementById('formUsuario');
+        const formPersona = document.getElementById('formPersona');
 
-    const nombreUsuario = formUsuario.querySelector('#nombreUsuario');
-    const correo = formUsuario.querySelector('#correo');
-    const passwordActual = formUsuario.querySelector('#passwordActual');
-    const passwordNueva = formUsuario.querySelector('#passwordNueva');
-    const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
-    const btnGuardarUsuario = formUsuario.querySelector('#btnGuardarUsuario');
-    const btnCancelarNombreUsuario = formUsuario.querySelector('#btnCancelarNombreUsuario');
-    const numeroDeTelefono = formPersona.querySelector('#NUMERO_DE_TELEFONO');
-    const fechaNacimiento = formPersona.querySelector('#FECHA_DE_NACIMIENTO');
-    const codigoPostal = formPersona.querySelector('#CODIGO_POSTAL');
-    const direccion = formPersona.querySelector('#DIRECCION');
-    const btnGuardarCambios = formPersona.querySelector('#btnGuardarCambios');
+        const nombreUsuario = formUsuario.querySelector('#nombreUsuario');
+        const correo = formUsuario.querySelector('#correo');
+        const passwordActual = formUsuario.querySelector('#passwordActual');
+        const passwordNueva = formUsuario.querySelector('#passwordNueva');
+        const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
+        const btnGuardarUsuario = formUsuario.querySelector('#btnGuardarUsuario');
+        const numeroDeTelefono = formPersona.querySelector('#NUMERO_DE_TELEFONO');
+        const fechaNacimiento = formPersona.querySelector('#FECHA_DE_NACIMIENTO');
+        const codigoPostal = formPersona.querySelector('#CODIGO_POSTAL');
+        const direccion = formPersona.querySelector('#DIRECCION');
+        const btnGuardarCambios = formPersona.querySelector('#btnGuardarCambios');
 
-    const fieldsToValidate = [
-        'NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'PAIS', 'ESTADO', 'CIUDAD'
-    ];
+        const fieldsToValidate = [
+            'NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'PAIS', 'ESTADO', 'CIUDAD'
+        ];
 
-    function validarContraseñas() {
-        let errores = false;
+        function validarContraseñas() {
+            let errores = false;
 
-        if (passwordActual.value.trim() === '') {
-            passwordActual.classList.add('is-invalid');
-            passwordActual.nextElementSibling.textContent = 'Debe ingresar la contraseña actual.';
-            errores = true;
-        } else {
-            passwordActual.classList.remove('is-invalid');
-            passwordActual.classList.add('is-valid');
-            passwordActual.nextElementSibling.textContent = '';
+            if (passwordActual.value.trim() === '') {
+                passwordActual.classList.add('is-invalid');
+                passwordActual.nextElementSibling.textContent = 'Debe ingresar la contraseña actual.';
+                errores = true;
+            } else {
+                passwordActual.classList.remove('is-invalid');
+                passwordActual.classList.add('is-valid');
+                passwordActual.nextElementSibling.textContent = '';
+            }
+
+            if (passwordNueva.value !== passwordNuevaConfirm.value) {
+                passwordNuevaConfirm.classList.add('is-invalid');
+                passwordNuevaConfirm.nextElementSibling.textContent = 'Las contraseñas no coinciden.';
+                errores = true;
+            } else {
+                passwordNuevaConfirm.classList.remove('is-invalid');
+                passwordNuevaConfirm.classList.add('is-valid');
+                passwordNuevaConfirm.nextElementSibling.textContent = '';
+            }
+
+            if (passwordNueva.value.length > 0 && passwordNueva.value.length < 6) {
+                passwordNueva.classList.add('is-invalid');
+                passwordNueva.nextElementSibling.textContent = 'La nueva contraseña debe tener al menos 6 caracteres.';
+                errores = true;
+            } else {
+                passwordNueva.classList.remove('is-invalid');
+                passwordNueva.classList.add('is-valid');
+                passwordNueva.nextElementSibling.textContent = '';
+            }
+
+            btnGuardarUsuario.disabled = errores;
+            return !errores;
         }
 
-        if (passwordNueva.value !== passwordNuevaConfirm.value) {
-            passwordNuevaConfirm.classList.add('is-invalid');
-            passwordNuevaConfirm.nextElementSibling.textContent = 'Las contraseñas no coinciden.';
-            errores = true;
-        } else {
-            passwordNuevaConfirm.classList.remove('is-invalid');
-            passwordNuevaConfirm.classList.add('is-valid');
-            passwordNuevaConfirm.nextElementSibling.textContent = '';
+        function validarNumeroDeTelefono() {
+            let errores = false;
+            if (numeroDeTelefono.value.length < 10 || /[^0-9]/.test(numeroDeTelefono.value)) {
+                numeroDeTelefono.classList.add('is-invalid');
+                numeroDeTelefono.nextElementSibling.textContent = 'El número de teléfono debe tener 10 dígitos y solo contener números.';
+                errores = true;
+            } else {
+                numeroDeTelefono.classList.remove('is-invalid');
+                numeroDeTelefono.classList.add('is-valid');
+                numeroDeTelefono.nextElementSibling.textContent = '';
+            }
+
+            btnGuardarCambios.disabled = errores;
+            return !errores;
         }
 
-        if (passwordNueva.value.length > 0 && passwordNueva.value.length < 6) {
-            passwordNueva.classList.add('is-invalid');
-            passwordNueva.nextElementSibling.textContent = 'La nueva contraseña debe tener al menos 6 caracteres.';
-            errores = true;
-        } else {
-            passwordNueva.classList.remove('is-invalid');
-            passwordNueva.classList.add('is-valid');
-            passwordNueva.nextElementSibling.textContent = '';
-        }
-
-        btnGuardarUsuario.disabled = errores;
-        return !errores;
-    }
-
-    function validarNumeroDeTelefono() {
-        let errores = false;
-        if (numeroDeTelefono.value.length < 10 || /[^0-9]/.test(numeroDeTelefono.value)) {
-            numeroDeTelefono.classList.add('is-invalid');
-            numeroDeTelefono.nextElementSibling.textContent = 'El número de teléfono debe tener 10 dígitos y solo contener números.';
-            errores = true;
-        } else {
-            numeroDeTelefono.classList.remove('is-invalid');
-            numeroDeTelefono.classList.add('is-valid');
-            numeroDeTelefono.nextElementSibling.textContent = '';
-        }
-
-        btnGuardarCambios.disabled = errores;
-        return !errores;
-    }
-
-    function validarCampoSinCaracteresEspeciales(event) {
-        const regex = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
-        if (regex.test(event.target.value)) {
-            event.target.classList.add('is-invalid');
-            event.target.nextElementSibling.textContent = 'No se permiten caracteres especiales.';
-            btnGuardarCambios.disabled = true;
-        } else {
-            event.target.classList.remove('is-invalid');
-            event.target.classList.add('is-valid');
-            event.target.nextElementSibling.textContent = '';
-            btnGuardarCambios.disabled = false;
-        }
-    }
-
-    function validarCodigoPostal(event) {
-        const regex = /[^a-zA-Z0-9]/g;
-        if (regex.test(event.target.value)) {
-            event.target.classList.add('is-invalid');
-            event.target.nextElementSibling.textContent = 'El código postal no puede contener caracteres especiales.';
-            btnGuardarCambios.disabled = true;
-        } else {
-            event.target.classList.remove('is-invalid');
-            event.target.classList.add('is-valid');
-            event.target.nextElementSibling.textContent = '';
-            btnGuardarCambios.disabled = false;
-        }
-    }
-
-  
-
-    passwordActual.addEventListener('input', validarContraseñas);
-    passwordNueva.addEventListener('input', validarContraseñas);
-    passwordNuevaConfirm.addEventListener('input', validarContraseñas);
-
-    numeroDeTelefono.addEventListener('input', validarNumeroDeTelefono);
-    codigoPostal.addEventListener('input', validarCodigoPostal);
-    direccion.addEventListener('input', validarDireccion);
-
-    fieldsToValidate.forEach(fieldName => {
-        const field = formPersona.querySelector(`#${fieldName}`);
-        field.addEventListener('input', validarCampoSinCaracteresEspeciales);
-    });
-
-    fechaNacimiento.addEventListener('input', function () {
-        const fechaNacimientoValue = new Date(fechaNacimiento.value);
-        const fechaMinima = new Date();
-        const fechaMinima2 = new Date();
-        fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
-        fechaMinima2.setFullYear(fechaMinima2.getFullYear() - 74);
-
-        if (fechaNacimientoValue > fechaMinima) {
-            fechaNacimiento.classList.add('is-invalid');
-            fechaNacimiento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
-            btnGuardarCambios.disabled = true;
-        } else if (fechaNacimientoValue < fechaMinima2) {
-            fechaNacimiento.classList.add('is-invalid');
-            fechaNacimiento.nextElementSibling.textContent = 'Fecha no válida.';
-            btnGuardarCambios.disabled = true;
-        } else {
-            fechaNacimiento.classList.remove('is-invalid');
-            fechaNacimiento.classList.add('is-valid');
-            fechaNacimiento.nextElementSibling.textContent = '';
-            btnGuardarCambios.disabled = false;
-        }
-    });
-
-    function limpiarCamposUsuario() {
-        nombreUsuario.value = '';
-        correo.value = '';
-        passwordActual.value = '';
-        passwordNueva.value = '';
-        passwordNuevaConfirm.value = '';
-
-        nombreUsuario.classList.remove('is-valid', 'is-invalid');
-        correo.classList.remove('is-valid', 'is-invalid');
-        passwordActual.classList.remove('is-valid', 'is-invalid');
-        passwordNueva.classList.remove('is-valid', 'is-invalid');
-        passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
-    }
-
-    btnCancelarNombreUsuario.addEventListener('click', limpiarCamposUsuario);
-
-    function mostrarErrorYDesplazarse(form, input) {
-        const inputContainer = input.closest('.section').querySelector('div.hidden');
-        inputContainer.classList.remove('hidden');
-        const offset = inputContainer.getBoundingClientRect().top + window.scrollY - 100;
-        window.scrollTo({ top: offset, behavior: 'smooth' });
-        input.focus();
-    }
-
-    formUsuario.addEventListener('submit', function (event) {
-        let valid = validarContraseñas();
-        if (!valid) {
-            event.preventDefault();
-            const firstInvalidInput = formUsuario.querySelector('.is-invalid');
-            if (firstInvalidInput) {
-                mostrarErrorYDesplazarse(formUsuario, firstInvalidInput);
+        function validarCampoSinCaracteresEspeciales(event) {
+            const regex = /[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g;
+            if (regex.test(event.target.value)) {
+                event.target.classList.add('is-invalid');
+                event.target.nextElementSibling.textContent = 'No se permiten caracteres especiales.';
+                btnGuardarCambios.disabled = true;
+            } else {
+                event.target.classList.remove('is-invalid');
+                event.target.classList.add('is-valid');
+                event.target.nextElementSibling.textContent = '';
+                btnGuardarCambios.disabled = false;
             }
         }
-    });
 
-    formPersona.addEventListener('submit', function (event) {
-        let valid = true;
+        function validarCodigoPostal(event) {
+            const regex = /[^a-zA-Z0-9]/g;
+            if (regex.test(event.target.value)) {
+                event.target.classList.add('is-invalid');
+                event.target.nextElementSibling.textContent = 'El código postal no puede contener caracteres especiales.';
+                btnGuardarCambios.disabled = true;
+            } else {
+                event.target.classList.remove('is-invalid');
+                event.target.classList.add('is-valid');
+                event.target.nextElementSibling.textContent = '';
+                btnGuardarCambios.disabled = false;
+            }
+        }
+
+        passwordActual.addEventListener('input', validarContraseñas);
+        passwordNueva.addEventListener('input', validarContraseñas);
+        passwordNuevaConfirm.addEventListener('input', validarContraseñas);
+
+        numeroDeTelefono.addEventListener('input', validarNumeroDeTelefono);
+        codigoPostal.addEventListener('input', validarCodigoPostal);
+        direccion.addEventListener('input', function() {
+            validarCampoSinCaracteresEspeciales({ target: direccion });
+        });
+
         fieldsToValidate.forEach(fieldName => {
             const field = formPersona.querySelector(`#${fieldName}`);
-            validarCampoSinCaracteresEspeciales({ target: field });
-            if (field.classList.contains('is-invalid')) {
-                valid = false;
+            field.addEventListener('input', validarCampoSinCaracteresEspeciales);
+        });
+
+        fechaNacimiento.addEventListener('input', function () {
+            const fechaNacimientoValue = new Date(fechaNacimiento.value);
+            const fechaMinima = new Date();
+            const fechaMinima2 = new Date();
+            fechaMinima.setFullYear(fechaMinima.getFullYear() - 18);
+            fechaMinima2.setFullYear(fechaMinima2.getFullYear() - 74);
+
+            if (fechaNacimientoValue > fechaMinima) {
+                fechaNacimiento.classList.add('is-invalid');
+                fechaNacimiento.nextElementSibling.textContent = 'Debe ser mayor de 18 años.';
+                btnGuardarCambios.disabled = true;
+            } else if (fechaNacimientoValue < fechaMinima2) {
+                fechaNacimiento.classList.add('is-invalid');
+                fechaNacimiento.nextElementSibling.textContent = 'Fecha no válida.';
+                btnGuardarCambios.disabled = true;
+            } else {
+                fechaNacimiento.classList.remove('is-invalid');
+                fechaNacimiento.classList.add('is-valid');
+                fechaNacimiento.nextElementSibling.textContent = '';
+                btnGuardarCambios.disabled = false;
             }
         });
-        if (!valid) {
-            event.preventDefault();
-            const firstInvalidInput = formPersona.querySelector('.is-invalid');
-            if (firstInvalidInput) {
-                mostrarErrorYDesplazarse(formPersona, firstInvalidInput);
+
+        function limpiarCamposUsuario() {
+            nombreUsuario.value = '';
+            correo.value = '';
+            passwordActual.value = '';
+            passwordNueva.value = '';
+            passwordNuevaConfirm.value = '';
+
+            nombreUsuario.classList.remove('is-valid', 'is-invalid');
+            correo.classList.remove('is-valid', 'is-invalid');
+            passwordActual.classList.remove('is-valid', 'is-invalid');
+            passwordNueva.classList.remove('is-valid', 'is-invalid');
+            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
+        }
+
+        formUsuario.querySelector('#btnCancelarNombreUsuario').addEventListener('click', limpiarCamposUsuario);
+
+        function mostrarErrorYDesplazarse(form, input) {
+            const inputContainer = input.closest('.section').querySelector('div.hidden');
+            inputContainer.classList.remove('hidden');
+            const offset = inputContainer.getBoundingClientRect().top + window.scrollY - 100;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+            input.focus();
+        }
+
+        formUsuario.addEventListener('submit', function (event) {
+            let valid = validarContraseñas();
+            if (!valid) {
+                event.preventDefault();
+                const firstInvalidInput = formUsuario.querySelector('.is-invalid');
+                if (firstInvalidInput) {
+                    mostrarErrorYDesplazarse(formUsuario, firstInvalidInput);
+                }
             }
-        }
+        });
 
-        const validTelefono = validarNumeroDeTelefono();
-        if (!validTelefono) {
-            event.preventDefault();
-            mostrarErrorYDesplazarse(formPersona, numeroDeTelefono);
-        }
-
-        const validCodigoPostal = validarCodigoPostal({ target: codigoPostal });
-        if (!validCodigoPostal) {
-            event.preventDefault();
-            mostrarErrorYDesplazarse(formPersona, codigoPostal);
-        }
-
-        const validDireccion = validarDireccion({ target: direccion });
-        if (!validDireccion) {
-            event.preventDefault();
-            mostrarErrorYDesplazarse(formPersona, direccion);
-        }
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const inputLettersOnly = ['NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'CIUDAD', 'PAIS', 'ESTADO'];
-    const inputNumbersOnly = ['NUMERO_DE_TELEFONO'];
-
-    inputLettersOnly.forEach(id => {
-        const input = document.querySelector(`#${id}`);
-        if (input) {
-            input.addEventListener('keypress', function (event) {
-                if (/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(event.key)) {
-                    event.preventDefault();
+        formPersona.addEventListener('submit', function (event) {
+            let valid = true;
+            fieldsToValidate.forEach(fieldName => {
+                const field = formPersona.querySelector(`#${fieldName}`);
+                validarCampoSinCaracteresEspeciales({ target: field });
+                if (field.classList.contains('is-invalid')) {
+                    valid = false;
                 }
             });
-        }
-    });
-
-    inputNumbersOnly.forEach(id => {
-        const input = document.querySelector(`#${id}`);
-        if (input) {
-            input.addEventListener('keypress', function (event) {
-                if (/\D/.test(event.key) || input.value.length >= 10) {
-                    event.preventDefault();
+            if (!valid) {
+                event.preventDefault();
+                const firstInvalidInput = formPersona.querySelector('.is-invalid');
+                if (firstInvalidInput) {
+                    mostrarErrorYDesplazarse(formPersona, firstInvalidInput);
                 }
+            }
+
+            const validTelefono = validarNumeroDeTelefono();
+            if (!validTelefono) {
+                event.preventDefault();
+                mostrarErrorYDesplazarse(formPersona, numeroDeTelefono);
+            }
+
+            const validCodigoPostal = validarCodigoPostal({ target: codigoPostal });
+            if (!validCodigoPostal) {
+                event.preventDefault();
+                mostrarErrorYDesplazarse(formPersona, codigoPostal);
+            }
+        });
+
+        // Validación de letras y números
+        const inputLettersOnly = ['NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'CIUDAD', 'PAIS', 'ESTADO'];
+        const inputNumbersOnly = ['NUMERO_DE_TELEFONO'];
+
+        inputLettersOnly.forEach(id => {
+            const input = document.querySelector(`#${id}`);
+            if (input) {
+                input.addEventListener('keypress', function (event) {
+                    if (/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/.test(event.key)) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        });
+
+        inputNumbersOnly.forEach(id => {
+            const input = document.querySelector(`#${id}`);
+            if (input) {
+                input.addEventListener('keypress', function (event) {
+                    if (/\D/.test(event.key) || input.value.length >= 10) {
+                        event.preventDefault();
+                    }
+                });
+            }
+        });
+
+        const disableFormButtons = (disableFormId, isDisabled) => {
+            const form = document.getElementById(disableFormId);
+            const buttons = form.querySelectorAll('button');
+            buttons.forEach(button => {
+                button.disabled = isDisabled;
             });
-        }
+        };
+
+        const toggleSection = (buttonId, formId, disableButtons, disableFormId) => {
+            document.getElementById(buttonId).addEventListener('click', () => {
+                document.getElementById(formId).classList.remove('hidden');
+                document.getElementById(buttonId).classList.add('hidden');
+                disableButtons.forEach(btn => {
+                    document.getElementById(btn).disabled = true;
+                });
+                disableFormButtons(disableFormId, true);
+            });
+
+            document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
+                document.getElementById(formId).classList.add('hidden');
+                document.getElementById(buttonId).classList.remove('hidden');
+                disableButtons.forEach(btn => {
+                    document.getElementById(btn).disabled = false;
+                });
+                disableFormButtons(disableFormId, false);
+            });
+        };
+
+        // Secciones para editar y cancelar
+        toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
+
+        // Secciones para los campos de persona
+        toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarApellidoPaterno', 'formApellidoPaterno', ['btnEditarNombre', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarApellidoMaterno', 'formApellidoMaterno', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarFechaNacimiento', 'formFechaNacimiento', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarDireccion', 'formDireccion', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarCiudad', 'formCiudad', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarEstado', 'formEstado', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarCodigoPostal', 'formCodigoPostal', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarPais', 'formPais', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarGenero', 'formGenero', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarNumeroDeTelefono', 'formNumeroDeTelefono', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero'], 'formUsuario');
     });
-});
-
-const disableFormButtons = (disableFormId, isDisabled) => {
-    const form = document.getElementById(disableFormId);
-    const buttons = form.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.disabled = isDisabled;
-    });
-};
-
-const toggleSection = (buttonId, formId, disableButtons, disableFormId) => {
-    document.getElementById(buttonId).addEventListener('click', () => {
-        document.getElementById(formId).classList.remove('hidden');
-        document.getElementById(buttonId).classList.add('hidden');
-        disableButtons.forEach(btn => {
-            document.getElementById(btn).disabled = true;
-        });
-        disableFormButtons(disableFormId, true);
-    });
-
-    document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
-        document.getElementById(formId).classList.add('hidden');
-        document.getElementById(buttonId).classList.remove('hidden');
-        disableButtons.forEach(btn => {
-            document.getElementById(btn).disabled = false;
-        });
-        disableFormButtons(disableFormId, false);
-    });
-};
-
-toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
-toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
-toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
-
-<?php foreach ($campos_persona as $campo => $titulo) { ?>
-    toggleSection('btnEditar<?= ucfirst($campo) ?>', 'form<?= ucfirst($campo) ?>', ['btnEditarNombreUsuario', 'btnEditarEmail', 'btnEditarPassword', 
-        <?php foreach ($campos_persona as $campo_inner => $titulo_inner) { if ($campo != $campo_inner) echo "'btnEditar" . ucfirst($campo_inner) . "',"; } ?> 
-    ], 'formUsuario');
-<?php } ?>
-
-
-
 </script>
+
 
 
 </body>

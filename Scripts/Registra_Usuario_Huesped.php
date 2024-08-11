@@ -144,19 +144,45 @@ $response_message = '';
   */
     header('Location: ../Views/Login.php?status=registro_exitoso');
 
-include '../Clases/BasedeDatos.php';
-$db=new Database();
-$db->conectarDB();
-
-extract($_POST);
-if ($contra==$contra2)
-{
-$hash = password_hash($contra,PASSWORD_DEFAULT);
-
-$cadena = "CALL RegistrarUsuarioHuesped('$usuario','$hash','$correo');";
-
-$db->ejecuta($cadena);
-}
+    
+    include '../Clases/BasedeDatos.php';
+    $db = new Database();
+    $db->conectarDB();
+    
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $usuario = $_POST['usuario'];
+        $correo = $_POST['correo'];
+        $contra = $_POST['contra'];
+        $contra2 = $_POST['contra2'];
+    
+        // Verificar si el nombre de usuario ya existe
+        $consulta = "SELECT * FROM USUARIOS WHERE nombre_usuario = '$usuario'";
+        $usersexistentes = $db->seleccionar($consulta);
+    
+        if (count($usersexistentes) > 0) {
+            // El nombre de usuario ya existe, redirigir con un mensaje de error
+            header('Location: ../Views/Login.php?status=fallo_registro');
+            exit();
+        }
+    
+        // Continuar con el registro si el nombre de usuario no existe
+        if ($contra == $contra2) {
+            $hash = password_hash($contra, PASSWORD_DEFAULT);
+    
+            $cadena = "CALL RegistrarUsuarioHuesped('$usuario', '$hash', '$correo')";
+            $db->ejecuta($cadena);
+    
+            header('Location: ../Views/Login.php?status=registro_exitoso');
+            exit();
+        } else {
+            header('Location: ../Views/Login.php?status=contraseñas_no_coinciden');
+            exit();
+        }
+    }
+    
+    $db->desconectarBD();
+    
+    
 /*
 else
 {
