@@ -204,16 +204,16 @@ session_start();
         function validateExpiryDate(input) {
     const [month, year] = input.split('/');
 
-    // Convertir los valores a enteros para la comparación
+    
     const inputMonth = parseInt(month, 10);
     const inputYear = parseInt(year, 10);
 
-    // Obtener la fecha actual
+
     const currentDate = new Date();
-    const currentMonth = currentDate.getMonth() + 1; // Enero es 0, por eso sumamos 1
+    const currentMonth = currentDate.getMonth() + 1; 
     const currentYear = parseInt(currentDate.getFullYear().toString().slice(-2)); 
 
-    // Validar que el mes sea válido
+   
     if (inputMonth < 1 || inputMonth > 12) {
         Toastify({
                 text: "El mes debe estar entre 1 y 12.",
@@ -231,7 +231,7 @@ session_start();
         return;
     }
 
-    // Validar que la fecha no esté en el pasado
+    
     if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
         Toastify({
                 text: "La fecha de expiración no puede estar en el pasado.",
