@@ -23,6 +23,8 @@ error_reporting(E_ALL);
 
 $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
 $dotenv->load();
+var_dump($_ENV['SMTP_USER'], $_ENV['SMTP_PASSWORD']);
+
 
 $smtp_user = $_ENV['SMTP_USER'] ?? 'No definido';
 $smtp_password = $_ENV['SMTP_PASSWORD'] ?? 'No definido';
@@ -126,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail->send();
             $response_message = "Mensaje enviado exitosamente.";
             echo $response_message; 
-            header('Location: ../Views/Contacto.php?status=success');
+            header('Location: http://52.15.205.48/INTEGRADORAOFICIAL_E4/Views/Contacto.php?status=success');
             exit();
         } catch (Exception $e) {
             echo "Hubo un error al enviar el mensaje: " . $e->getMessage();
