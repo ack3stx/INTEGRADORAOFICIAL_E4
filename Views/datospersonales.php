@@ -128,6 +128,8 @@ if ($_SESSION["rol"] == "usuario") {
             $genero = $_POST['GENERO'] ?? '';
             $numero_de_telefono = $_POST['NUMERO_DE_TELEFONO'] ?? '';
 
+            
+
             if (strlen($numero_de_telefono) < 10) {
                 $errores[] = "El numero de telefono debe contener al menos 10 digitos.";
             }
@@ -272,6 +274,22 @@ if ($_SESSION["rol"] == "usuario") {
     </style>
 </head>
 <body>
+<script>
+        const persona = {
+        nombre: <?php echo json_encode($nombre); ?>;
+        apellido_paterno: <?php echo json_encode($apellido_paterno); ?>;
+        apellido_materno: <?php echo json_encode($apellido_materno); ?>;
+        f_nac: <?php echo json_encode($fecha_de_nacimiento); ?>;
+        direccion: <?php echo json_encode($direccion); ?>;
+        ciudad: <?php echo json_encode($ciudad); ?>;
+        estado: <?php echo json_encode($estado); ?>;
+        cd_postal: <?php echo json_encode($codigo_postal); ?>;
+        pais: <?php echo json_encode($pais); ?>;
+        genero: <?php echo json_encode($genero); ?>;
+        telefono: <?php echo json_encode($numero_de_telefono); ?>;
+        }
+        localStorage.setItem('persona', JSON.stringify(persona)); 
+    </script>
 
 <header>
 <div class="row">
