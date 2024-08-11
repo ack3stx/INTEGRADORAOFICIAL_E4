@@ -275,18 +275,20 @@ if ($_SESSION["rol"] == "usuario") {
 </head>
 <body>
 <script>
-        
-        localStorage.setItem('nombre', <?php echo json_encode($nombre); ?>);
-        localStorage.setItem('apellido_paterno', <?php echo json_encode($apellido_paterno); ?>);
-        localStorage.setItem('apellido_materno', <?php echo json_encode($apellido_materno); ?>);
-        localStorage.setItem('f_nac', <?php echo json_encode($fecha_de_nacimiento); ?>);
-        localStorage.setItem('direccion', <?php echo json_encode($direccion); ?>);
-        localStorage.setItem('ciudad', <?php echo json_encode($ciudad); ?>);
-        localStorage.setItem('estado', <?php echo json_encode($estado); ?>);
-        localStorage.setItem('cd_postal', <?php echo json_encode($codigo_postal); ?>);
-        localStorage.setItem('pais', <?php echo json_encode($pais); ?>);
-        localStorage.setItem('genero', <?php echo json_encode($genero); ?>);
-        localStorage.setItem('telefono', <?php echo json_encode($numero_de_telefono); ?>);
+        const persona = [
+        nombre: <?php echo json_encode($nombre); ?>;
+        apellido_paterno: <?php echo json_encode($apellido_paterno); ?>;
+        apellido_materno: <?php echo json_encode($apellido_materno); ?>;
+        f_nac: <?php echo json_encode($fecha_de_nacimiento); ?>;
+        direccion: <?php echo json_encode($direccion); ?>;
+        ciudad: <?php echo json_encode($ciudad); ?>;
+        estado: <?php echo json_encode($estado); ?>;
+        cd_postal: <?php echo json_encode($codigo_postal); ?>;
+        pais: <?php echo json_encode($pais); ?>;
+        genero: <?php echo json_encode($genero); ?>;
+        telefono: <?php echo json_encode($numero_de_telefono); ?>;
+        ]
+        localStorage.setItem('persona', JSON.stringify(persona)); 
     </script>
 
 <header>
