@@ -275,7 +275,7 @@ if ($_SESSION["rol"] == "usuario") {
 </head>
 <body>
 <script>
-        const persona = [
+        const persona = {
         nombre: <?php echo json_encode($nombre); ?>;
         apellido_paterno: <?php echo json_encode($apellido_paterno); ?>;
         apellido_materno: <?php echo json_encode($apellido_materno); ?>;
@@ -287,7 +287,7 @@ if ($_SESSION["rol"] == "usuario") {
         pais: <?php echo json_encode($pais); ?>;
         genero: <?php echo json_encode($genero); ?>;
         telefono: <?php echo json_encode($numero_de_telefono); ?>;
-        ]
+        }
         localStorage.setItem('persona', JSON.stringify(persona)); 
     </script>
 
