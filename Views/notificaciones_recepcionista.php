@@ -1,11 +1,10 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laguna Inn</title>
-    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+  <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
@@ -159,23 +158,23 @@ $db->conectarDB();
 
 extract($_POST);
 
-$cadena = "select RESERVACION.id_reservacion as folio, RESERVACION.fecha_,concat(PERSONA.nombre,PERSONA.apellido_paterno,PERSONA.apellido_materno) as nombre,
-PERSONA.numero_de_telefono,USUARIOS.correo,DETALLE_PAGO.monto_total,DETALLE_PAGO.metodo_pago,detalle_pago.id_detalle_pago,count(DETALLE_RESERVACION.id_detalle_reservacion) as CANTIDAD
-from USUARIOS
-inner join persona on persona.usuario=usuarios.id_usuario
-inner join huesped on huesped.persona_huesped=persona.id_persona
-inner join reservacion on reservacion.huesped=huesped.id_huesped
-inner join detalle_reservacion on detalle_reservacion.reservacion=reservacion.id_reservacion
-inner join detalle_pago on detalle_pago.reservacion=reservacion.id_reservacion
-where reservacion.estado_reservacion='proceso'
-group by folio, RESERVACION.fecha_,nombre,
-PERSONA.numero_de_telefono,USUARIOS.correo,DETALLE_PAGO.monto_total,DETALLE_PAGO.metodo_pago";
+$cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_, CONCAT(PERSONA.NOMBRE, PERSONA.APELLIDO_PATERNO, PERSONA.APELLIDO_MATERNO) AS NOMBRE,
+PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
+FROM USUARIOS
+INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+WHERE RESERVACION.ESTADO_RESERVACION = 'proceso'
+GROUP BY FOLIO, RESERVACION.FECHA_, NOMBRE,
+PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO";
 $tabla = $db->seleccionar($cadena);
 
-$cadena2 = "select datos_facturacion.detalle_pago from datos_facturacion;";
+$cadena2 = "SELECT DATOS_FACTURACION.DETALLE_PAGO FROM DATOS_FACTURACION;";
 $consultita = $db->seleccionar($cadena2);
 
-$facturacion_detalles = array_map(function($item) { return $item->detalle_pago; }, $consultita);
+$facturacion_detalles = array_map(function($item) { return $item->DETALLE_PAGO; }, $consultita);
 
 echo "
 <div class='table-responsive'>
@@ -199,42 +198,42 @@ echo "
 foreach ($tabla as $reg) {
     echo "
             <tr>
-                <td>{$reg->folio}</td>
-                <td>{$reg->fecha_}</td>
-                <td>{$reg->nombre}</td>
-                <td>{$reg->numero_de_telefono}</td>
-                <td>{$reg->correo}</td>
-                <td>{$reg->monto_total}</td>
-                <td>{$reg->metodo_pago}</td>
+                <td>{$reg->FOLIO}</td>
+                <td>{$reg->FECHA_}</td>
+                <td>{$reg->NOMBRE}</td>
+                <td>{$reg->NUMERO_DE_TELEFONO}</td>
+                <td>{$reg->CORREO}</td>
+                <td>{$reg->MONTO_TOTAL}</td>
+                <td>{$reg->METODO_PAGO}</td>
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
-    if (isset($reg->id_detalle_pago) && in_array($reg->id_detalle_pago, $facturacion_detalles)) 
+    if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) 
     {
-        $consultona = "select datos_facturacion.nombre, datos_facturacion.apellido_paterno, datos_facturacion.apellido_paterno as apellido_materno, datos_facturacion.rfc, datos_facturacion.direccion 
-                                 from datos_facturacion
-                                 where datos_facturacion.detalle_pago={$reg->id_detalle_pago}";
+        $consultona = "SELECT DATOS_FACTURACION.NOMBRE, DATOS_FACTURACION.APELLIDO_PATERNO, DATOS_FACTURACION.APELLIDO_MATERNO, DATOS_FACTURACION.RFC, DATOS_FACTURACION.DIRECCION 
+                      FROM DATOS_FACTURACION
+                      WHERE DATOS_FACTURACION.DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}";
         $datos_facturacion = $db->seleccionar($consultona);
 
         if (!empty($datos_facturacion)) {
             $facturacion = $datos_facturacion[0];
             echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->id_detalle_pago}'>
+<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->ID_DETALLE_PAGO}'>
   Factura
 </button>
 
 <!-- Modal -->
-<div class='modal fade' id='staticBackdrop{$reg->id_detalle_pago}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->id_detalle_pago}' aria-hidden='true'>
+<div class='modal fade' id='staticBackdrop{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->id_detalle_pago}'>Datos de Facturacion</h1>
+        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturacion</h1>
       </div>
       <div class='modal-body'>
-        <label>Nombre: {$facturacion->nombre}</label><br>
-        <label>Apellido Paterno: {$facturacion->apellido_paterno}</label><br>
-        <label>Apellido Materno: {$facturacion->apellido_materno}</label><br>
-        <label>RFC: {$facturacion->rfc}</label><br>
-        <label>Dirección: {$facturacion->direccion}</label><br>
+        <label>Nombre: {$facturacion->NOMBRE}</label><br>
+        <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
+        <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
+        <label>RFC: {$facturacion->RFC}</label><br>
+        <label>Dirección: {$facturacion->DIRECCION}</label><br>
       </div>
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
@@ -245,23 +244,23 @@ foreach ($tabla as $reg) {
         }
     }
     echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->folio}'>
+<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
   Cancelar
 </button>
 
 <!-- Modal -->
-<div class='modal fade' id='staticBackdrop1{$reg->folio}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->folio}' aria-hidden='true'>
+<div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->folio}'>&nbsp;ALERTA</h1>
+        <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
       <div class='modal-body'>
         <h4>Seguro que deseas cancelar esta reservacion?</h4>
       </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelacion_reservacion.php'>
-          <input type='hidden' name='id_reservacion' value='{$reg->folio}'>
+          <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
         </form>
@@ -282,12 +281,9 @@ echo "
 $db->desconectarBD();
 ?>
 
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
