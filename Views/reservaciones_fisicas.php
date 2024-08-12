@@ -610,7 +610,34 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         Ver resumen (1) <span id="arrow">▲</span>
     </div>
     <div id="content" class="hidden-content">
-        
+    <div id="info1" class="container" style="
+         margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;">
+        <div class="card-body" style="
+        top: 100%;
+    height: 100%;
+    width: 100%;">
+            <h5 class="card-title custom1">Resumen de la Reserva</h5>
+            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
+            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+            </button>
+            <br><br>
+            <hr class="mb-4">
+            <div id="room-summary">
+                <!-- Resumen breve de habitaciones -->
+            </div>
+            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+            <br><br>
+            <div class="d-grid gap-6 col-10 mx-auto">
+                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+            </div>
+        </div>
+</div>
     </div>
 </div>
 
