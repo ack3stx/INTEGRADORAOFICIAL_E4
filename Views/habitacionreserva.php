@@ -790,34 +790,40 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 //lert(habitacionesSencilla);
 
+console.log(habitacionesSencilla)
+
+const doble = document.getElementById('doble');
+const king = document.getElementById('king');
+const sencilla = document.getElementById('sencilla');
+
 if( roomdoble > habitacionesDoble - 1){
 
     alert('Sobre pasaste el limite de habitaciones dobles');
     roomdoble -= 1;
-    document.getElementById('doble').disabled = true;
+    doble.disabled = true;
 
 }
 else if( roomdoble < habitacionesDoble){
-    document.getElementById('doble').disabled = false;
+    doble.disabled = false;
 }
 if( roomKing > habitacionesKingSize - 1){
 
     alert('Sobre pasaste el limite de habitaciones KingSize');
     roomKing -= 1;
-    document.getElementById('king').disabled = true;
+    king.disabled = true;
 }
 else if( roomKing < habitacionesKingSize ){
 
-    document.getElementById('king').disabled = false;
+    king.disabled = false;
 }
 
 if( roomSencilla > habitacionesSencilla - 1 ){
     alert('Sobre pasaste el limite de habitaciones Sencilla');
     roomSencilla -= 1;
-    document.getElementById('sencilla').disabled = true;
+    sencilla.disabled = true;
 }
 else if( roomSencilla < habitacionesSencilla ){
-    document.getElementById('sencilla').disabled = false;
+    sencilla.disabled = false;
 }
 }
 
