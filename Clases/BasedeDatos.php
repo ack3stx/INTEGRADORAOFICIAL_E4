@@ -111,7 +111,7 @@ class Database
                            $stmt->execute();
                           $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                           if ($row['count'] === 0) {
+                           if ($row['count'] == 0) {
                             header("Location:../Views/form_persona.php");
                           }
                           else {
