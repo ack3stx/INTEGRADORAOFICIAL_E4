@@ -111,14 +111,12 @@ class Database
                            $stmt->execute();
                           $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                           if ($row['count'] = 0) {
-                            header("Location:../Views/form_persona.php");
-                          }
-                          else {
+                           if ($row['count'] > 0) {
+
                             $huesped= "SELECT HUESPED.ID_HUESPED AS HUESPED
                                     FROM PERSONA INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
                                     INNER JOIN HUESPED ON PERSONA.ID_PERSONA = HUESPED.PERSONA_HUESPED
-                                    WHERE USUARIOS.ID_USUARIO= :id;";
+                                    WHERE USUARIOS.ID_USUARIO= :id;  ";
 
                               $stmt = $this->PDOLocal->prepare($huesped);
                               $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
@@ -128,6 +126,10 @@ class Database
                             $_SESSION['huesped'] = $huesped['HUESPED'];
 
                             header("Location:../index.php");
+                            
+                          }
+                          else {
+                            header("Location:../Views/form_persona.php");
                       }
 
 
