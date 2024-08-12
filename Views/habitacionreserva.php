@@ -750,6 +750,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }).catch(error => { console.log(error)})
     }
 
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
             
@@ -1590,7 +1592,7 @@ document.getElementById('continuar').addEventListener('click',enviarformulario);
 
 
         
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+    
 
 
       
