@@ -120,7 +120,6 @@ $id_usuario = $_SESSION['id_usuario'];
         $_SESSION['huesped'] = $huesped;
     
 
-        header("Location:../index.php");
         exit();
 
 

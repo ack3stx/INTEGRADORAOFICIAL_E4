@@ -11,6 +11,7 @@
 <body>
 <div class="container">
         <?php
+        /*
         $ip = $_SERVER['REMOTE_ADDR'];
         $capchat = $_POST['g-recaptcha-response'];
         $secretkey = "6LccmR0qAAAAAA0xfHs9zDOwVUDtzPU-6Y7_5yi4";
@@ -20,7 +21,7 @@
             header('Location: ../Views/Login.php?status=failed');
             exit();
         }
-/*
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Dotenv\Dotenv;

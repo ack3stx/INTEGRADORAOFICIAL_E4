@@ -105,7 +105,7 @@ class Database
 
                             $id_usuario = $resultado['ID'];
 
-                            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE PERSONA.USUARIO = :usuario";
+                            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE USUARIO = :usuario";
                            $stmt = $this->PDOLocal->prepare($sql);
                            $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
                            $stmt->execute();
@@ -143,7 +143,7 @@ class Database
                             header("Location:../Views/Panel_Admin.php");
                         break;
                     }
-                    $_SESSION["rol"]=$reg->nombre;
+                    $_SESSION["rol"]=$reg->NOMBRE;
                 }
             }
             else{
