@@ -1339,7 +1339,8 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 function desabilitarbotonañadir (contador1, contador2, contador3){
 
 //lert(habitacionesSencilla);
-            
+alert(roomSencilla);
+
 if( roomdoble === habitacionesDoble){
 
     alert('Sobre pasaste el limite de habitaciones dobles');
