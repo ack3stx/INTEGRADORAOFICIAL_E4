@@ -1334,6 +1334,10 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 
      function desabilitarbotonañadir (contador1, contador2, contador3){
 
+        roomdoble = contador1;
+        roomKing = contador2;
+        roomSencilla = contador3;
+
       const botondoble = document.getElementById('doble');
       const botonKing = document.getElementById('king');
       const botonSencilla = document.getElementById('sencilla');
