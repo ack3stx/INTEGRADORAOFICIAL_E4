@@ -67,11 +67,11 @@ class Database
         try
         {
             $pase = false;
-            $query = "select nombre_usuario,password from USUARIOS where nombre_usuario='$usuario'";
+            $query = "SELECT NOMBRE_USUARIO,PASSWORD FROM USUARIOS WHERE NOMBRE_USUARIO='$usuario'";
             $resultado=$this->PDOLocal->query($query);
             while($renglon = $resultado->fetch(PDO::FETCH_ASSOC))
             {
-                if(password_verify($contra,$renglon['password']))
+                if(password_verify($contra,$renglon['PASSWORD']))
                 {
                     $pase=true;
                 }
@@ -92,7 +92,7 @@ class Database
 
                 foreach($fila as $reg)
                 {
-                    switch ($reg->nombre) {
+                    switch ($reg->NOMBRE) {
                         case 'usuario':
                            
                             $consulta = "SELECT USUARIOS.ID_USUARIO as ID FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
