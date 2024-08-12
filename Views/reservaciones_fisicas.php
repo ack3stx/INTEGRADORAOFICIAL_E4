@@ -239,39 +239,6 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
-/* Estilo existente */
-.fixed-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #2ecc71; /* Color del fondo del footer */
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
-}
-
-.hidden-content {
-    display: none;
-    background-color: white;
-    color: black;
-    padding: 10px;
-    max-height: 300px; /* Altura máxima del contenido desplegable */
-    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
-}
-
-/* Botón para bajar el contenido */
-.scroll-button {
-    display: block;
-    width: 100%;
-    background-color: #3498db; /* Color del botón de scroll */
-    color: white;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
 .scroll-button:hover {
     background-color: #2980b9;
 }
@@ -491,7 +458,7 @@ margin-bottom: 1%;
             </a>
           </li>
         </ul>
-        <div class="header-right">
+        <div class="header-right" style="z-index: 10;">
           <div class="btn-group">
           <?php
             if (isset($_SESSION["usuario"])) {
