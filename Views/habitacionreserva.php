@@ -1334,41 +1334,37 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 
      function desabilitarbotonañadir (contador1, contador2, contador3){
 
-      roomdoble = contador1;
-      roomKing = contador2;
-      roomSencilla = contador3;
-
       const botondoble = document.getElementById('doble');
       const botonKing = document.getElementById('king');
       const botonSencilla = document.getElementById('sencilla');
 
-      if( roomdoble >= habitacionesDoble){
+      if( roomdoble == habitacionesDoble){
 
       alert('Sobre pasaste el limite de habitaciones dobles');
-      botondoble.disabled = true;
+      //botondoble.disabled = true;
       console.log('entro');
 
-    }
-   else if( roomdoble < habitacionesDoble){
-    botondoble.disabled = false;
+      }
+      else if( roomdoble < habitacionesDoble){
+      //botondoble.disabled = false;
 
     }
-    if( roomKing >= habitacionesKingSize ){
+    if( roomKing == habitacionesKingSize ){
 
     alert('Sobre pasaste el limite de habitaciones King Size');
-    botonKing.disabled = true;
+   // botonKing.disabled = true;
    console.log('entro');
     }
     else if( roomKing < habitacionesKingSize ){
 
-    botonKing.disabled = false;
+    //botonKing.disabled = false;
    }
-   if( roomSencilla >= habitacionesSencilla ){
+   if( roomSencilla == habitacionesSencilla ){
     alert('Sobre pasaste el limite de habitaciones sencillas');
-    botonSencilla.disabled = true;
+    //botonSencilla.disabled = true;
    }
    else if( roomSencilla < habitacionesSencilla ){
-    botonSencilla.disabled = false;
+    //botonSencilla.disabled = false;
    }
    }
 
