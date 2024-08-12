@@ -1339,7 +1339,6 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 function desabilitarbotonañadir (contador1, contador2, contador3){
 
 //lert(habitacionesSencilla);
-alert(roomSencilla);
 
 if( roomdoble === habitacionesDoble){
 
@@ -1352,6 +1351,7 @@ else if( roomdoble < habitacionesDoble){
 }
 if( roomKing === habitacionesKingSize){
 
+    alert('Sobre pasaste el limite de habitaciones KingSize');
 document.getElementById('king').disabled = true;
 }
 else if( roomKing < habitacionesKingSize ){
@@ -1360,6 +1360,7 @@ else if( roomKing < habitacionesKingSize ){
 }
 
 if( roomSencilla === habitacionesSencilla ){
+    alert('Sobre pasaste el limite de habitaciones Sencilla');
     document.getElementById('sencilla').disabled = true;
 }
 else if( roomSencilla < habitacionesSencilla ){
