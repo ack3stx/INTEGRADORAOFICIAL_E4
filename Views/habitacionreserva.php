@@ -1425,9 +1425,9 @@ function actualizarEstadoBotonAñadir() {
 
     // con este comparador, lo que hago es que cuando se añaden, o se quieran habitaciones, el boton de añadir actualiza su estaod, para ya no pdoer agrefar o seguir ageregando gagagagagagagagga
     if (roomCount === 0) {
-        addButtonDoble.disabled = false;
-        addButtonKing.disabled = false;
-        addButtonSencilla.disabled = false;
+        addButtonDoble.disabled = true;
+        addButtonKing.disabled = true;
+        addButtonSencilla.disabled = true;
     } else if (roomCount !=  0) { 
         addButtonDoble.disabled = false;
         addButtonKing.disabled = false;
