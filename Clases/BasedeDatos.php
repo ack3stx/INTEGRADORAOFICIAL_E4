@@ -177,6 +177,9 @@ class Database
             echo $e->getMessage();
         }
     }
+    function consultin($sql) {
+        return $this->PDOLocal->prepare($sql);
+    }
    
     function obtenerMesActualn() {
         date_default_timezone_set('America/Monterrey');
