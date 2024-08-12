@@ -125,20 +125,19 @@ class Database
 
                             $_SESSION['huesped'] = $huesped['HUESPED'];
 
-                            header("Location:../Views/form_persona.php");
+                            header("Location:../index.php");
                             
                           }
                           else {
                             header("Location:../Views/form_persona.php");
                       }
-                      header("Location:../Views/form_persona.php");
 
 
 
                            
                         break;
                         case 'recepcionista':
-                            header("Location:../Views/Panel_Recepcionista.php");
+                            header("Location:../Views/form_persona.php");
                         break;
                         case 'administrador':
                             header("Location:../Views/Panel_Admin.php");
