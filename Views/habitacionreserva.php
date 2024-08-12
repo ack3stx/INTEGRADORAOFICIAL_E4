@@ -325,31 +325,7 @@ else {
         
       </div>
 </form>
-<script>
-function actualizarLocalStorage(datos) {
-        localStorage.setItem('persona', JSON.stringify(datos.persona));
-        
-    }
 
-    function cargarDatosFormulario() {
-    if (localStorage.getItem('persona')) {
-        const datosPersona = JSON.parse(localStorage.getItem('persona'));
-        document.getElementById('nombre').value = datosPersona.nombre || '';
-        document.getElementById('ap_paterno').value = datosPersona.ap_paterno || '';
-        document.getElementById('ap_materno').value = datosPersona.ap_materno || '';
-        document.getElementById('f_nac').value = datosPersona.f_nac || '';
-        document.getElementById('direccion').value = datosPersona.direccion || '';
-        document.getElementById('ciudad').value = datosPersona.ciudad || '';
-        document.getElementById('estado').value = datosPersona.estado || '';
-        document.getElementById('cd_postal').value = datosPersona.cd_postal || '';
-        document.getElementById('pais').value = datosPersona.pais || '';
-        document.getElementById('genero').value = datosPersona.genero || '';
-        document.getElementById('telefono').value = datosPersona.telefono || '';
-        
-        
-    }
-    }
-</script>
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
