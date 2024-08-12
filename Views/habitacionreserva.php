@@ -1473,6 +1473,7 @@ function toggleBilling() {
             }
            if( roomKing === habitacionesKingSize ){
 
+            alert('Sobre pasaste el limite de habitaciones King Size');
             document.getElementById('king').disabled = true;
             }
             else if( roomKing < habitacionesKingSize ){
@@ -1480,6 +1481,7 @@ function toggleBilling() {
                 document.getElementById('king').disabled = false;
             }
             if( roomSencilla === habitacionesSencilla ){
+                alert('Sobre pasaste el limite de habitaciones sencillas');
                 document.getElementById('sencilla').disabled = true;
             }
             else if( roomSencilla < habitacionesSencilla ){
