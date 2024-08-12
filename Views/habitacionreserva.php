@@ -1466,15 +1466,18 @@ function toggleBilling() {
 
                 alert('Sobre pasaste el limite de habitaciones dobles');
                 document.getElementById('doble').disabled = true;
+                console.log('entro');
 
             }
             else if( roomdoble < habitacionesDoble){
                 document.getElementById('doble').disabled = false;
+
             }
            if( roomKing === habitacionesKingSize ){
 
             alert('Sobre pasaste el limite de habitaciones King Size');
             document.getElementById('king').disabled = true;
+            console.log('entro');
             }
             else if( roomKing < habitacionesKingSize ){
 
