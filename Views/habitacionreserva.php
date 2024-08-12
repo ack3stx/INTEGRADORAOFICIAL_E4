@@ -1339,9 +1339,6 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 function desabilitarbotonañadir (contador1, contador2, contador3){
 
 //lert(habitacionesSencilla);
-alert(roomSencilla > habitacionesSencilla - 1);
-alert(roomSencilla);
-alert(habitacionesSencilla);
 
 if( roomdoble === habitacionesDoble){
 
@@ -1362,7 +1359,7 @@ else if( roomKing < habitacionesKingSize ){
     document.getElementById('king').disabled = false;
 }
 
-if( roomSencilla === habitacionesSencilla ){
+if( roomSencilla > habitacionesSencilla - 1 ){
     alert('Sobre pasaste el limite de habitaciones Sencilla');
     document.getElementById('sencilla').disabled = true;
 }
