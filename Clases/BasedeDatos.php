@@ -137,7 +137,7 @@ class Database
                            
                         break;
                         case 'recepcionista':
-                            header("Location:Views/form_persona.php");
+                            header("Location:../Views/form_persona.php");
                         break;
                         case 'administrador':
                             header("Location:../Views/Panel_Admin.php");
