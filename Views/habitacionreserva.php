@@ -1394,7 +1394,7 @@ function actualizarResumen(tipo) {
             document.getElementById('info1').style.display = 'none'; 
         }
 
-        //actualizarEstadoBotonAñadir();
+        actualizarEstadoBotonAñadir();
         desabilitarbotonañadir();
     };
 
@@ -1414,7 +1414,8 @@ function actualizarResumen(tipo) {
     resumenContenido.appendChild(div);
     document.getElementById('info1').style.display = 'block'; 
 
-   // actualizarEstadoBotonAñadir();
+   actualizarEstadoBotonAñadir();
+   desabilitarbotonañadir();
     
 
 
