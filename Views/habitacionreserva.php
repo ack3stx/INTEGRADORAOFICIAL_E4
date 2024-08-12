@@ -325,8 +325,31 @@ else {
         
       </div>
 </form>
+<script>
+function actualizarLocalStorage(datos) {
+        localStorage.setItem('persona', JSON.stringify(datos.persona));
+        
+    }
 
-
+    function cargarDatosFormulario() {
+    if (localStorage.getItem('persona')) {
+        const datosPersona = JSON.parse(localStorage.getItem('persona'));
+        document.getElementById('nombre').value = datosPersona.nombre || '';
+        document.getElementById('ap_paterno').value = datosPersona.ap_paterno || '';
+        document.getElementById('ap_materno').value = datosPersona.ap_materno || '';
+        document.getElementById('f_nac').value = datosPersona.f_nac || '';
+        document.getElementById('direccion').value = datosPersona.direccion || '';
+        document.getElementById('ciudad').value = datosPersona.ciudad || '';
+        document.getElementById('estado').value = datosPersona.estado || '';
+        document.getElementById('cd_postal').value = datosPersona.cd_postal || '';
+        document.getElementById('pais').value = datosPersona.pais || '';
+        document.getElementById('genero').value = datosPersona.genero || '';
+        document.getElementById('telefono').value = datosPersona.telefono || '';
+        
+        
+    }
+    }
+</script>
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
@@ -422,7 +445,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             </div>
         </div>
     </div> -->
-<!--FORMULARIO PERSONA-->
+<!--FORMULARIO PERSONA
             <form id="form-persona" style="display: none;
             position: absolute;
     top: 80%;
@@ -430,7 +453,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     transform: translate(-50%, -50%);
     height: 130%;
     width:150%;
-    padding-left:25%;">
+    padding-left:25%;" action="../Scripts/recibirinfopersona.php" method="post">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
@@ -457,13 +480,19 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
+
+                <input type="submit" value="Continuar" class="text">
+
+              </form>
                 <div class="form-check mb-3 mt-4">
         <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
         <label class="form-check-label" for="facturar">Desea Facturar</label>
       </div>
 
+
       <div id="billingForm" style="display: none;">
-        <h4 class="mb-3">Datos de Facturación</h4>
+       <form>
+         <h4 class="mb-3">Datos de Facturación</h4>
         <div class="mb-3">
           <label for="nombreFactura" class="form-label">Nombre</label>
           <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
@@ -486,7 +515,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
       </div>
       </div>
-                </div>
+                </div> 
                 
             </form>    
 
@@ -494,7 +523,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 
-<!---->
+-->
     <div id="info1" class="container" style="display: none;
     position: absolute;
     top: 56%;
@@ -517,7 +546,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             <br><br>
             <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="redireccionar();">Reservar Ahora</button> <br>
                 <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
                 <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
             </div>
@@ -1238,10 +1267,13 @@ cardFooter.className = 'card-footer-custom';
         
         
   
+        function redireccionar() {
+            window.location.href = 'form_pago.php';
+        }
 
 
-  //mostramos el formulario de persona
-    function mostrarformulario(buttonType) {
+ 
+ /*function mostrarformulario(buttonType) {
             var reservarboton = document.getElementById('porsilasdudas');
             var continuar = document.getElementById('continuar');
 
@@ -1260,7 +1292,19 @@ cardFooter.className = 'card-footer-custom';
                 reservarboton.classList.remove('hidden');
                 continuar.classList.add('hidden');
             }
-        }
+        } */
+
+
+/*function realizarReserva() {
+    // Aquí puedes añadir cualquier lógica o redirección necesaria
+    console.log("Datos de reserva ya están almacenados. Procesando reserva...");
+    window.location.href = 'form_pago.php'; // Cambia esto por la ruta adecuada
+    // O simplemente invoca aquí a cualquier función que ya tengas definida para manejar la reserva
+}
+
+document.getElementById('porsilasdudas').addEventListener('click', function() {
+    mostrarformulario('reservarboton');
+}); */
 
 
         // calcular la diferencia entre dos fechas
@@ -1371,7 +1415,7 @@ function actualizarResumen(tipo) {
     document.getElementById('info1').style.display = 'block'; 
 
     actualizarEstadoBotonAñadir();
-    desabilitarbotonañadir(tipo);
+    desabilitarbotonañadir();
 
 
 }
@@ -1437,8 +1481,9 @@ function toggleBilling() {
             
         }
 
-        function desabilitarbotonañadir (buttonType){
-            if(  roomdoble === habitacionesDoble){
+        function desabilitarbotonañadir (){
+
+            if( roomdoble === habitacionesDoble){
 
                 document.getElementById('doble').disabled = true;
 
@@ -1491,6 +1536,8 @@ function toggleBilling() {
         }
         */
 
+        /*              FORMULARIO DE PERSONA                                                                                                       
+
         function validarformulario(idFormulario) {
     var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
     var formValido = true;
@@ -1531,21 +1578,7 @@ function enviarformulario(event) {
     var formularioValido = validarformulario('form-persona');
 
     if (formularioValido) {
-        const persona = {
-            nombre: document.getElementById('nombre').value,
-            ap_paterno: document.getElementById('ap_paterno').value,
-            ap_materno: document.getElementById('ap_materno').value,
-            f_nac: document.getElementById('f_nac').value,
-            direccion: document.getElementById('direccion').value,
-            ciudad: document.getElementById('ciudad').value,
-            estado: document.getElementById('estado').value,
-            cd_postal: document.getElementById('cd_postal').value,
-            pais: document.getElementById('pais').value,
-            genero: document.getElementById('genero').value,
-            telefono: document.getElementById('telefono').value,
-        };
-
-        localStorage.setItem('persona', JSON.stringify(persona));
+        
 
         if (document.getElementById('facturar').checked) {
             const facturacion = {
@@ -1564,9 +1597,11 @@ function enviarformulario(event) {
     }
 }
 
-        document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('continuar').addEventListener('click', enviarformulario);
-}); 
+ 
+
+document.getElementById('continuar').addEventListener('click',enviarformulario); */
+
+
 
         
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);

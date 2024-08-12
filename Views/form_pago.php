@@ -1,3 +1,7 @@
+<?php
+
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -97,7 +101,7 @@
     </div>
 
     <script>
-        const persona = JSON.parse(localStorage.getItem('persona'));
+       
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
         const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
@@ -108,6 +112,8 @@
 
         const submitButton = document.getElementById('submit-button');
 
+     
+
         function enableSubmitButton() {
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
             const cardName = document.getElementById('card-name').value;
@@ -116,6 +122,7 @@
 
             if (cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3) {
                 submitButton.disabled = false;
+                
             } else {
                 submitButton.disabled = true;
             }
@@ -207,7 +214,7 @@
         function mandardatos() {
             fetch('../Scripts/recibirinfopersona.php', {
                 body: new URLSearchParams({
-                    'persona': JSON.stringify(persona),
+                    
                     'habitaciones': JSON.stringify(habitaciones),
                     'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
@@ -218,6 +225,7 @@
                 method: 'POST'
             }).then(response => {
                 console.log('response:',response)
+                return response.json();
             }).then((data) => {
                 console.log(data);
                 alert('Datos enviados')
@@ -227,6 +235,8 @@
                
             });
         }
+
+        
     </script>
 </body>
 </html>

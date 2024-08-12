@@ -67,11 +67,11 @@ class Database
         try
         {
             $pase = false;
-            $query = "select nombre_usuario,password from USUARIOS where nombre_usuario='$usuario'";
+            $query = "SELECT NOMBRE_USUARIO,PASSWORD FROM USUARIOS WHERE NOMBRE_USUARIO='$usuario'";
             $resultado=$this->PDOLocal->query($query);
             while($renglon = $resultado->fetch(PDO::FETCH_ASSOC))
             {
-                if(password_verify($contra,$renglon['password']))
+                if(password_verify($contra,$renglon['PASSWORD']))
                 {
                     $pase=true;
                 }
@@ -82,19 +82,59 @@ class Database
                 session_start();
                 $_SESSION["usuario"]= $usuario;
                 
-                $consulta = "select ROLES.nombre
-                from ROLES
-                inner join ROL_USUARIO on ROLES.id_rol=ROL_USUARIO.rol
-                inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario
-                where USUARIOS.nombre_usuario='$usuario'";
+                $consulta = "SELECT ROLES.NOMBRE
+                FROM ROLES
+                INNER JOIN ROL_USUARIO ON ROLES.ID_ROL=ROL_USUARIO.ROL
+                INNER JOIN USUARIOS on USUARIOS.ID_USUARIO=ROL_USUARIO.USUARIO
+                WHERE USUARIOS.NOMBRE_USUARIO='$usuario'";
                 $resultado=$this->PDOLocal->query($consulta);
                 $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
 
                 foreach($fila as $reg)
                 {
-                    switch ($reg->nombre) {
+                    switch ($reg->NOMBRE) {
                         case 'usuario':
+                           
+                            $consulta = "SELECT USUARIOS.ID_USUARIO as ID FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
+                            $stmt = $this->PDOLocal->prepare($consulta);
+                            $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+                            $stmt->execute();
+                            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                            $_SESSION['id_usuario'] = $resultado['ID']; 
+
+                            $id_usuario = $resultado['ID'];
+
+                            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE USUARIO = :usuario";
+                           $stmt = $this->PDOLocal->prepare($sql);
+                           $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
+                           $stmt->execute();
+                          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+                           if ($row['count'] > 0) {
+
+                            $huesped= "SELECT HUESPED.ID_HUESPED AS HUESPED
+                                    FROM PERSONA INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+                                    INNER JOIN HUESPED ON PERSONA.ID_PERSONA = HUESPED.PERSONA_HUESPED
+                                    WHERE USUARIOS.ID_USUARIO= :id;  ";
+
+                              $stmt = $this->PDOLocal->prepare($huesped);
+                              $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
+                              $stmt->execute();
+                              $huesped= $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                            $_SESSION['huesped'] = $huesped['HUESPED'];
+
                             header("Location:../index.php");
+                            
+                          }
+                          else {
+                            header("Location:../Views/form_persona.php");
+                      }
+
+
+
+                           
                         break;
                         case 'recepcionista':
                             header("Location:../Views/Panel_Recepcionista.php");
@@ -103,7 +143,7 @@ class Database
                             header("Location:../Views/Panel_Admin.php");
                         break;
                     }
-                    $_SESSION["rol"]=$reg->nombre;
+                    $_SESSION["rol"]=$reg->NOMBRE;
                 }
             }
             else{
@@ -304,10 +344,13 @@ function detalle_reservacion($fechaInicio,$fechaFin,$titular,$ninos,$adultos,$ti
 
 function detalle_pago($metodo_pago,$monto_total){
     try{
+        echo "Hola";
      $stmt = $this->PDOLocal->prepare("CALL RegistrarPagoReservacionLinea(:metodo_pago,:monto_total)");
      $stmt->bindParam(':metodo_pago',$metodo_pago,PDO::PARAM_STR);
      $stmt->bindParam(':monto_total',$monto_total,PDO::PARAM_INT);
      $stmt->execute();
+
+     echo "Adios";
     }
     catch(PDOException $e){
         echo $e->getMessage();
@@ -316,12 +359,15 @@ function detalle_pago($metodo_pago,$monto_total){
 
 function reservacionpasada($huesped,$recepcionista,$fecha,$estado_reservacion){
     try{
+        echo"Hola";
      $stmt = $this->PDOLocal->prepare("CALL linea_reservacion_vieja(:huesped,:recepcionista,:fecha_actual,:estado_reservacion)");
      $stmt->bindParam(':huesped',$huesped,PDO::PARAM_INT);
      $stmt->bindParam(':recepcionista',$recepcionista,PDO::PARAM_INT);
      $stmt->bindParam(':fecha_actual',$fecha,PDO::PARAM_STR);
      $stmt->bindParam(':estado_reservacion',$estado_reservacion,PDO::PARAM_STR);
      $stmt->execute();
+
+     echo "Adios";
     }
     catch(PDOException $e){
         echo $e->getMessage();
