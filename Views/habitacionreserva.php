@@ -1332,45 +1332,6 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
     }
 }
 
-     function desabilitarbotonañadir (contador1, contador2, contador3){
-
-        roomdoble = contador1;
-        roomKing = contador2;
-        roomSencilla = contador3;
-
-      const botondoble = document.getElementById('doble');
-      const botonKing = document.getElementById('king');
-      const botonSencilla = document.getElementById('sencilla');
-
-      if( roomdoble >= habitacionesDoble){
-
-      alert('Sobre pasaste el limite de habitaciones dobles');
-      //botondoble.disabled = true;
-      console.log('entro');
-
-      }
-      else if( roomdoble < habitacionesDoble){
-      //botondoble.disabled = false;
-
-    }
-    if( roomKing >= habitacionesKingSize ){
-
-    alert('Sobre pasaste el limite de habitaciones King Size');
-   // botonKing.disabled = true;
-   console.log('entro');
-    }
-    else if( roomKing < habitacionesKingSize ){
-
-    //botonKing.disabled = false;
-   }
-   if( roomSencilla >= habitacionesSencilla ){
-    alert('Sobre pasaste el limite de habitaciones sencillas');
-    //botonSencilla.disabled = true;
-   }
-   else if( roomSencilla < habitacionesSencilla ){
-    //botonSencilla.disabled = false;
-   }
-   }
 
 function actualizarResumen(tipo) {
     const resumenContenido = document.getElementById('room-summary');
@@ -1456,7 +1417,7 @@ function vaciarResumen() {
 }
 
 
-function actualizarEstadoBotonAñadir() {
+/*function actualizarEstadoBotonAñadir() {
     const addButtonDoble = document.getElementById('doble');
     const addButtonKing = document.getElementById('king');
     const addButtonSencilla = document.getElementById('sencilla');
@@ -1464,15 +1425,15 @@ function actualizarEstadoBotonAñadir() {
 
     // con este comparador, lo que hago es que cuando se añaden, o se quieran habitaciones, el boton de añadir actualiza su estaod, para ya no pdoer agrefar o seguir ageregando gagagagagagagagga
     if (roomCount === 0) {
-        addButtonDoble.disabled = true;
-        addButtonKing.disabled = true;
-        addButtonSencilla.disabled = true;
+        addButtonDoble.disabled = false;
+        addButtonKing.disabled = false;
+        addButtonSencilla.disabled = false;
     } else if (roomCount !=  0) { 
         addButtonDoble.disabled = false;
         addButtonKing.disabled = false;
         addButtonSencilla.disabled = false;
     }
-} 
+} */
 
 
 
@@ -1497,8 +1458,34 @@ function toggleBilling() {
             
         }
 
+        function desabilitarbotonañadir (contador1, contador2, contador3){
 
-      
+           
+            
+            if( roomdoble === habitacionesDoble){
+
+                alert('Sobre pasaste el limite de habitaciones dobles');
+                document.getElementById('doble').disabled = true;
+
+            }
+            else if( roomdoble < habitacionesDoble){
+                document.getElementById('doble').disabled = false;
+            }
+           if( roomKing === habitacionesKingSize ){
+
+            document.getElementById('king').disabled = true;
+            }
+            else if( roomKing < habitacionesKingSize ){
+
+                document.getElementById('king').disabled = false;
+            }
+            if( roomSencilla === habitacionesSencilla ){
+                document.getElementById('sencilla').disabled = true;
+            }
+            else if( roomSencilla < habitacionesSencilla ){
+                document.getElementById('sencilla').disabled = false;
+            }
+        } 
 
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
