@@ -1,16 +1,6 @@
 <?php
 session_start();
-if(isset($_SESSION["rol"])){
-    $rol=$_SESSION["rol"];
-    switch ($rol) {
-        case 'recepcionista':
-            header("Location:Views/Panel_Recepcionista.php");
-        break;
-        case 'administrador':
-            header("Location:Views/Panel_Admin.php");
-        break;
-    }
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
