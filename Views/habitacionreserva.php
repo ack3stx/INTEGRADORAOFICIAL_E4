@@ -755,32 +755,7 @@ document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 const doble = document.getElementById('doble');
 const king = document.getElementById('king');
 const sencilla = document.getElementById('sencilla');
-    if(doble)
-    {
-        console.log("existe")
-        
-    }
-    else {
-        console.log("no existe")
-    }
-
-    if(king)
-    {
-        console.log("existe")
-        
-    }
-    else {
-        console.log("no existe")
-    }
-
-    if(sencilla)
-    {
-        console.log("existe")
-        
-    }
-    else {
-        console.log("no existe")
-    }
+   
     
     function mostrar() {
             document.getElementById('info1').style.display = 'block';
@@ -1441,6 +1416,32 @@ cardFooter.className = 'card-footer-custom';
             window.location.href = 'form_pago.php';
         }
 
+        if(doble)
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
+
+    if(king)
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
+
+    if(sencilla)
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
 
  
  /*function mostrarformulario(buttonType) {
