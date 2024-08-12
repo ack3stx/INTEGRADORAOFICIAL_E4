@@ -1481,7 +1481,7 @@ function toggleBilling() {
             
         }
 
-        function desabilitarbotonañadir (){
+        document.addEventListener('DOMContentLoaded',  function desabilitarbotonañadir (){
 
             var doble = document.getElementById('doble');
             var king = document.getElementById('king');
@@ -1507,7 +1507,7 @@ function toggleBilling() {
             else if( roomSencilla === 0){
                 sencilla.disabled = false;
             }
-        }
+        });
 
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
