@@ -111,7 +111,7 @@ class Database
                            $stmt->execute();
                           $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                           if ($row['count'] > 0) {
+                           if ($row['count'] == 0) {
 
                             $huesped= "SELECT HUESPED.ID_HUESPED AS HUESPED
                                     FROM PERSONA INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
