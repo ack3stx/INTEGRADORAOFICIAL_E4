@@ -1458,9 +1458,10 @@ function toggleBilling() {
             
         }
 
+
         function desabilitarbotonañadir (contador1, contador2, contador3){
 
-           
+           console.log(contador1, contador2, contador3);
             
             if( roomdoble === habitacionesDoble){
 
