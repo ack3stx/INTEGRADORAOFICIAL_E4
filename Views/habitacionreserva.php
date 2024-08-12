@@ -752,6 +752,32 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
+    if(document.getElementbyId('doble'))
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
+
+    if(document.getElementbyId('king'))
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
+
+    if(document.getElementbyId('sencilla'))
+    {
+        console.log("existe")
+        
+    }
+    else {
+        console.log("no existe")
+    }
     
     function mostrar() {
             document.getElementById('info1').style.display = 'block';
