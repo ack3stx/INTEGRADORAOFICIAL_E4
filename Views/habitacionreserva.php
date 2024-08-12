@@ -1395,7 +1395,7 @@ function actualizarResumen(tipo) {
         }
 
         actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(tipo);
+        desabilitarbotonañadir();
     };
 
     div.appendChild(boton);
