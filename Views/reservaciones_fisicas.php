@@ -239,6 +239,39 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
+/* Estilo existente */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2ecc71; /* Color del fondo del footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
+}
+
+.hidden-content {
+    display: none;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-height: 300px; /* Altura máxima del contenido desplegable */
+    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
+}
+
+/* Botón para bajar el contenido */
+.scroll-button {
+    display: block;
+    width: 100%;
+    background-color: #3498db; /* Color del botón de scroll */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
 .scroll-button:hover {
     background-color: #2980b9;
 }
@@ -294,12 +327,6 @@ margin-bottom: 1%;
     margin-right: 0 !important;
     padding: 20px;
             }
-            #info1
-            {
-                background-image: url(https://static.vecteezy.com/system/resources/previews/000/696/200/non_2x/elegant-pattern-background-vector.jpg);
-                background-repeat: no-repeat;
-                background-size: 100% 100%;
-            }
 @media screen and (min-width: 950px) {
             .desplegable {
                 display: none;
@@ -310,7 +337,7 @@ margin-bottom: 1%;
             #info1
             {
                 display: none;
-    position:fixed;
+                position:fixed;
     top: 0%;
     left: 30%;
     transform: translate(-50%, -50%);
@@ -325,80 +352,28 @@ margin-bottom: 1%;
     overflow-y: auto;
     padding-right: 10px;
 }
-#espaciao
-    {
-        display: none;
-    }
-    .fixed-buttons {
-    position: sticky;
-    bottom: 0;
-    background-color: white; /* Asegura que los botones se destaquen */
-    padding: 10px 0;
-}
-#espaciado2
-    {
-        display: none;
-    }
 
         }
-        #form-persona
-        {
-            display: none;
-            position: absolute;
-    top: 80%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 130%;
-    width:150%;
-    padding-left:25%;
-        }
-        
-        
         @media screen and (max-width: 949px) {
-    .desplegable {
-        display: none;
-    }
-    #contenedor-fluido {
-        margin: 0;
-    }
-    #info1 {
-        display: none;
-        position: fixed;
-        top: 15%;
-        height: 70%;
-        margin-left: -1%;
-        margin-right: -1%;
-        width: 100%;
-        overflow: hidden;
-    }
-    .scroll-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 45%; /* Limita la altura máxima del contenedor para permitir el scroll */
-    overflow-y: auto;
-    padding-right: 10px;
+            #info1
+            {
+                margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
     width: 100%;
-    margin-right: 0%;
-    margin-left: 0%;
-}
-#espaciado2
-    {
-        display: block;
-    }
-    #espaciao
-    {
-        display: block;
-    }
-        #persona
+            }
+            .card-body
         {
-            width: 70%;
+            top: 100%;
+    height: 100%;
+    width: 100%;
         }
 }
-
 
 .card-body {
     flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
 }
+
 
 
 
@@ -458,7 +433,7 @@ margin-bottom: 1%;
             </a>
           </li>
         </ul>
-        <div class="header-right" style="z-index: 10;">
+        <div class="header-right">
           <div class="btn-group">
           <?php
             if (isset($_SESSION["usuario"])) {
@@ -489,9 +464,6 @@ margin-bottom: 1%;
     
 </div>
 
-<div id="espaciao">
-    <br><br><br><br><br><br><br><br><br><br>
-</div>
 <!--
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -582,7 +554,14 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona">
+            <form id="form-persona" style="display: none;
+            position: absolute;
+    top: 80%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
@@ -639,15 +618,21 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
       </div>
       </div>
                 </div>
-                <div id="espaciado2">
-                    <br><br><br><br><br><br><br><br><br><br><br><br>
-                </div>
                 
             </form>    
 
 
-<div id="info1" class="container rounded-5" style="padding: 30px;">
-    <div class="scroll-container rounded-5">
+<div class="fixed-footer desplegable">
+    <div class="toggle-button">
+        Ver resumen (1) <span id="arrow">▲</span>
+    </div>
+    <div id="content" class="hidden-content">
+        
+    </div>
+</div>
+
+<div id="info1" class="container">
+    <div class="scroll-container">
         <div class="card card-custom">
             <div class="card-body">
                 <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -753,16 +738,29 @@ function scrollToContent() {
 </script>
 
 <script>
-    // Seleccionar el párrafo que se va a mover
-    const para = document.getElementById('para');
+  // Función que mueve el elemento si la pantalla es menor a 950px
+  function moveElement() {
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    if (screenWidth < 950) {
+      // Seleccionar el párrafo que se va a mover
+      const info1 = document.getElementById('info1');
 
-    // Seleccionar el segundo contenedor
-    const container2 = document.getElementById('container2');
+      // Seleccionar el segundo contenedor
+      const content = document.getElementById('content');
 
-    // Mover el párrafo al final del segundo contenedor
-    container2.appendChild(para);
+      // Mover el párrafo al final del segundo contenedor si aún no se ha movido
+      if (info1 && content && !content.contains(info1)) {
+        content.appendChild(info1);
+      }
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = moveElement;
+
+  // Ejecutar cuando se cambie el tamaño de la ventana
+  window.onresize = moveElement;
 </script>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -1567,6 +1565,49 @@ function actualizarResumen(tipo) {
 
     desabilitarbotonañadir(tipo);
 }
+
+
+function vaciarResumen() {
+    const resumenContenido = document.getElementById('room-summary');
+    resumenContenido.innerHTML = ''; // Vacía el contenido del resumen
+    roomCount = 0;
+    roomdoble = 0;
+    roomKing = 0;
+    roomSencilla = 0;
+    acumulador = 0;
+    document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+    tiposSeleccionados = [];
+    localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+    localStorage.setItem('cantidad', acumulador);
+
+    document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
+
+    actualizarEstadoBotonAñadir();
+}
+
+
+function actualizarEstadoBotonAñadir() {
+    const addButtonDoble = document.getElementById('doble');
+    const addButtonKing = document.getElementById('king');
+    const addButtonSencilla = document.getElementById('sencilla');
+
+
+    // con este comparador, lo que hago es que cuando se añaden, o se quieran habitaciones, el boton de añadir actualiza su estaod, para ya no pdoer agrefar o seguir ageregando gagagagagagagagga
+    if (roomCount === 0) {
+        addButtonDoble.disabled = false;
+        addButtonKing.disabled = false;
+        addButtonSencilla.disabled = false;
+    } else if (roomCount !=  0) { 
+        addButtonDoble.disabled = false;
+        addButtonKing.disabled = false;
+        addButtonSencilla.disabled = false;
+    }
+}
+
+
+
+document.getElementById('borrarCambios').onclick = vaciarResumen;
+
 
 function toggleBilling() {
       var checkbox = document.getElementById("facturar");
