@@ -115,9 +115,9 @@ $id_usuario = $_SESSION['id_usuario'];
         $stmt = $db->prepare($huesped);
         $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
         $stmt->execute();
-        $huesped= $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $huesped= $stmt->fetch(PDO::FETCH_ASSOC);
 
-        $_SESSION['huesped'] = $huesped;
+        $_SESSION['huesped'] = $huesped['HUESPED'];
     
 
         exit();
