@@ -239,39 +239,6 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
-/* Estilo existente */
-.fixed-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background-color: #2ecc71; /* Color del fondo del footer */
-    color: white;
-    text-align: center;
-    padding: 10px 0;
-    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
-}
-
-.hidden-content {
-    display: none;
-    background-color: white;
-    color: black;
-    padding: 10px;
-    max-height: 300px; /* Altura máxima del contenido desplegable */
-    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
-}
-
-/* Botón para bajar el contenido */
-.scroll-button {
-    display: block;
-    width: 100%;
-    background-color: #3498db; /* Color del botón de scroll */
-    color: white;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-    margin-bottom: 10px;
-}
-
 .scroll-button:hover {
     background-color: #2980b9;
 }
@@ -327,6 +294,12 @@ margin-bottom: 1%;
     margin-right: 0 !important;
     padding: 20px;
             }
+            #info1
+            {
+                background-image: url(https://static.vecteezy.com/system/resources/previews/000/696/200/non_2x/elegant-pattern-background-vector.jpg);
+                background-repeat: no-repeat;
+                background-size: 100% 100%;
+            }
 @media screen and (min-width: 950px) {
             .desplegable {
                 display: none;
@@ -336,28 +309,97 @@ margin-bottom: 1%;
             }
             #info1
             {
-                display: block;
+                display: none;
+    position:fixed;
+    top: 0%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width:40%;
+    overflow: hidden;
             }
-
-        }
-        .scroll-container {
+            .scroll-container {
     display: flex;
     flex-direction: column;
     max-height: 100%; /* Limita la altura máxima del contenedor para permitir el scroll */
     overflow-y: auto;
     padding-right: 10px;
 }
-
-.card-body {
-    flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
-}
-
-.fixed-buttons {
+#espaciao
+    {
+        display: none;
+    }
+    .fixed-buttons {
     position: sticky;
     bottom: 0;
     background-color: white; /* Asegura que los botones se destaquen */
     padding: 10px 0;
 }
+#espaciado2
+    {
+        display: none;
+    }
+
+        }
+        #form-persona
+        {
+            display: none;
+            position: absolute;
+    top: 80%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+        }
+        
+        
+        @media screen and (max-width: 949px) {
+    .desplegable {
+        display: none;
+    }
+    #contenedor-fluido {
+        margin: 0;
+    }
+    #info1 {
+        display: none;
+        position: fixed;
+        top: 15%;
+        height: 70%;
+        margin-left: -1%;
+        margin-right: -1%;
+        width: 100%;
+        overflow: hidden;
+    }
+    .scroll-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 45%; /* Limita la altura máxima del contenedor para permitir el scroll */
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
+    margin-right: 0%;
+    margin-left: 0%;
+}
+#espaciado2
+    {
+        display: block;
+    }
+    #espaciao
+    {
+        display: block;
+    }
+        #persona
+        {
+            width: 70%;
+        }
+}
+
+
+.card-body {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+}
+
 
 
 </style>
@@ -416,7 +458,7 @@ margin-bottom: 1%;
             </a>
           </li>
         </ul>
-        <div class="header-right">
+        <div class="header-right" style="z-index: 10;">
           <div class="btn-group">
           <?php
             if (isset($_SESSION["usuario"])) {
@@ -447,6 +489,9 @@ margin-bottom: 1%;
     
 </div>
 
+<div id="espaciao">
+    <br><br><br><br><br><br><br><br><br><br>
+</div>
 <!--
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -537,14 +582,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona" style="display: none;
-            position: absolute;
-    top: 80%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 130%;
-    width:150%;
-    padding-left:25%;">
+            <form id="form-persona">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
@@ -601,57 +639,15 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
       </div>
       </div>
                 </div>
+                <div id="espaciado2">
+                    <br><br><br><br><br><br><br><br><br><br><br><br>
+                </div>
                 
             </form>    
 
 
-<div class="fixed-footer desplegable">
-    <div class="toggle-button">
-        Ver resumen (1) <span id="arrow">▲</span>
-    </div>
-    <div id="content" class="hidden-content">
-    <div id="info1" class="container" style="
-         margin-left: 5%;
-    margin-top: 1%;
-    height: 100%;
-    width: 100%;">
-        <div class="card-body" style="
-        top: 100%;
-    height: 100%;
-    width: 100%;">
-            <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
-            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-            </button>
-            <br><br>
-            <hr class="mb-4">
-            <div id="room-summary">
-                <!-- Resumen breve de habitaciones -->
-            </div>
-            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-            <br><br>
-            <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
-                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
-                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
-            </div>
-        </div>
-</div>
-    </div>
-</div>
-
-<div id="info1" class="container" style="
-display: none;
-    position:fixed;
-    top: 0%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 70%;
-    width:40%;
-    overflow: hidden;
-">
-    <div class="scroll-container">
+<div id="info1" class="container rounded-5" style="padding: 30px;">
+    <div class="scroll-container rounded-5">
         <div class="card card-custom">
             <div class="card-body">
                 <h5 class="card-title custom1">Resumen de la Reserva</h5>
