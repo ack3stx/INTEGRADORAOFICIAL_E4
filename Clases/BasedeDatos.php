@@ -125,6 +125,7 @@ class Database
 
                             $_SESSION['huesped'] = $huesped['HUESPED'];
 
+                            header("Location:../index.php");
                             
                           }
                           else {
@@ -142,7 +143,7 @@ class Database
                             header("Location:../Views/Panel_Admin.php");
                         break;
                     }
-                    $_SESSION["rol"]=$reg->nombre;
+                    $_SESSION["rol"]=$reg->NOMBRE;
                 }
             }
             else{
