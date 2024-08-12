@@ -125,12 +125,13 @@ class Database
 
                             $_SESSION['huesped'] = $huesped['HUESPED'];
 
-                            header("Location:../index.php");
+                            header("Location:../Views/form_persona.php");
                             
                           }
                           else {
                             header("Location:../Views/form_persona.php");
                       }
+                      header("Location:../Views/form_persona.php");
 
 
 
