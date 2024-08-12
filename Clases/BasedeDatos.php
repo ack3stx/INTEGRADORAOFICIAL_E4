@@ -105,7 +105,7 @@ class Database
 
                             $id_usuario = $resultado['ID'];
 
-                            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE USUARIO = :usuario";
+                            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE PERSONA.USUARIO = :usuario";
                            $stmt = $this->PDOLocal->prepare($sql);
                            $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
                            $stmt->execute();
