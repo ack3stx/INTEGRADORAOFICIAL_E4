@@ -1,7 +1,11 @@
 <?php
 
 session_start();
+
+echo $_SESSION['huesped'];
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

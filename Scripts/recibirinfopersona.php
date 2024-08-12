@@ -6,7 +6,7 @@ session_start();
 extract($_POST);
 
     $huesped = $_SESSION['huesped'];
-    echo $huesped;
+    
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     
