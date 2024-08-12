@@ -101,7 +101,7 @@ class Database
                             $stmt->execute();
                             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                            $_SESSION['id_usuario'] = $resultado['ID'];
+                            $_SESSION['id_usuario'] = $resultado['ID']; 
 
                             $id_usuario = $resultado['ID'];
 
@@ -123,7 +123,7 @@ class Database
                               $stmt->execute();
                               $huesped= $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                            $_SESSION['huesped'] = $huesped;
+                            $_SESSION['huesped'] = $huesped['HUESPED'];
 
                             header("Location:../index.php");
                             

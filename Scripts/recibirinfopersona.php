@@ -3,17 +3,15 @@
 include '../Clases/BasedeDatos.php';
 
 session_start();
-
+extract($_POST);
 
     $huesped = $_SESSION['huesped'];
-
-
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
     
     if ( isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
-        extract($_POST);
-        
+       
+
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
