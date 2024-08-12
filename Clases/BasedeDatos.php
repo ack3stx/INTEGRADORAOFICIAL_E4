@@ -110,6 +110,7 @@ class Database
                            $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
                            $stmt->execute();
                           $row = $stmt->fetch(PDO::FETCH_ASSOC);
+                          $_SESSION["count"]=$row['count'];
 
                            if ($row['count'] > 0) {
 

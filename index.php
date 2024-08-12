@@ -148,7 +148,7 @@ else {
           <div class="carousel-caption">
               <h4>Ven y conocenos</h4>
               <?php
-              $usuario=$_SESSION["id_usuario"];
+              $usuario=$_SESSION["count"];
               echo $usuario;
               ?>
               <p>Somos tu mejor opción para tu estancia</p>
