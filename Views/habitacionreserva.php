@@ -767,6 +767,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 if( roomdoble > habitacionesDoble - 1){
 
     alert('Sobre pasaste el limite de habitaciones dobles');
+    roomdoble -= 1;
     document.getElementById('doble').disabled = true;
 
 }
@@ -776,6 +777,7 @@ else if( roomdoble < habitacionesDoble){
 if( roomKing > habitacionesKingSize - 1){
 
     alert('Sobre pasaste el limite de habitaciones KingSize');
+    roomKing -= 1;
     document.getElementById('king').disabled = true;
 }
 else if( roomKing < habitacionesKingSize ){
@@ -785,6 +787,7 @@ else if( roomKing < habitacionesKingSize ){
 
 if( roomSencilla > habitacionesSencilla - 1 ){
     alert('Sobre pasaste el limite de habitaciones Sencilla');
+    roomSencilla -= 1;
     document.getElementById('sencilla').disabled = true;
 }
 else if( roomSencilla < habitacionesSencilla ){
