@@ -340,6 +340,25 @@ margin-bottom: 1%;
             }
 
         }
+        .scroll-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* Limita la altura máxima del contenedor para permitir el scroll */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.card-body {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+}
+
+.fixed-buttons {
+    position: sticky;
+    bottom: 0;
+    background-color: white; /* Asegura que los botones se destaquen */
+    padding: 10px 0;
+}
+
 
 </style>
 <body>
@@ -591,7 +610,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         Ver resumen (1) <span id="arrow">▲</span>
     </div>
     <div id="content" class="hidden-content">
-        <div id="info1" class="container" style="
+    <div id="info1" class="container" style="
          margin-left: 5%;
     margin-top: 1%;
     height: 100%;
@@ -623,34 +642,43 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </div>
 
 <div id="info1" class="container" style="
-    position: fixed;
-    top: 15%;
+display: none;
+    position:fixed;
+    top: 0%;
     left: 30%;
     transform: translate(-50%, -50%);
-    height: 114%;
-    width:40%;">
-    <div class="card card-custom">
-        <div class="card-body">
-            <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
-            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-            </button>
-            <br><br>
-            <hr class="mb-4">
-            <div id="room-summary">
-                <!-- Resumen breve de habitaciones -->
+    height: 70%;
+    width:40%;
+    overflow: hidden;
+">
+    <div class="scroll-container">
+        <div class="card card-custom">
+            <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+                <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+                </button>
+                <br><br>
+                <hr class="mb-4">
+                <div id="room-summary">
+                    <!-- Resumen breve de habitaciones -->
+                </div>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             </div>
-            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-            <br><br>
-            <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
-                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
-                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+            <!-- Fija los botones al fondo del contenedor -->
+            <div class="fixed-buttons">
+                <div class="d-grid gap-6 col-10 mx-auto">
+                    <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
+                    <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                    <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+
 
 
 <!---->
@@ -726,6 +754,17 @@ function scrollToContent() {
     content.scrollIntoView({ behavior: 'smooth' });
 }
 
+</script>
+
+<script>
+    // Seleccionar el párrafo que se va a mover
+    const para = document.getElementById('para');
+
+    // Seleccionar el segundo contenedor
+    const container2 = document.getElementById('container2');
+
+    // Mover el párrafo al final del segundo contenedor
+    container2.appendChild(para);
 </script>
 
 

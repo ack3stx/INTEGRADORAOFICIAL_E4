@@ -128,6 +128,8 @@ if ($_SESSION["rol"] == "usuario") {
             $genero = $_POST['GENERO'] ?? '';
             $numero_de_telefono = $_POST['NUMERO_DE_TELEFONO'] ?? '';
 
+            
+
             if (strlen($numero_de_telefono) < 10) {
                 $errores[] = "El numero de telefono debe contener al menos 10 digitos.";
             }
@@ -272,6 +274,7 @@ if ($_SESSION["rol"] == "usuario") {
     </style>
 </head>
 <body>
+
 
 <header>
 <div class="row">

@@ -286,6 +286,7 @@ if(isset($_SESSION["usuario"])){
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var screenWidth = window.innerWidth;
@@ -301,7 +302,7 @@ if(isset($_SESSION["usuario"])){
 
                 if (fechaInicio.toDateString() === fechaFin.toDateString()) {
                     
-                    alert("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
+                    swal("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
                     instance.clear();
                 } else {
                     
@@ -352,7 +353,7 @@ if(isset($_SESSION["usuario"])){
 
  if(fechaInicio === "" && fechaFin === ""){
  
-    alert("INGRESA LAS FECHAS")
+    swal("Ingresa las fechas");
     // window.location.href='Calendario.php';
      
  }
