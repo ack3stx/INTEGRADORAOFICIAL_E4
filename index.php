@@ -1,6 +1,59 @@
 <?php
 session_start();
+if(isset($_SESSION["rol"])){
+    $rol=$_SESSION["rol"];
+    switch ($rol) {
+        case 'usuario':
+           
+            $consulta = "SELECT USUARIOS.ID_USUARIO as ID FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
+            $stmt = $this->PDOLocal->prepare($consulta);
+            $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
+            $stmt->execute();
+            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
+            $_SESSION['id_usuario'] = $resultado['ID']; 
+
+            $id_usuario = $resultado['ID'];
+
+            $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE USUARIO = :usuario";
+           $stmt = $this->PDOLocal->prepare($sql);
+           $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
+           $stmt->execute();
+          $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+           if ($row['count'] > 0) {
+
+            $huesped= "SELECT HUESPED.ID_HUESPED AS HUESPED
+                    FROM PERSONA INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+                    INNER JOIN HUESPED ON PERSONA.ID_PERSONA = HUESPED.PERSONA_HUESPED
+                    WHERE USUARIOS.ID_USUARIO= :id;  ";
+
+              $stmt = $this->PDOLocal->prepare($huesped);
+              $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
+              $stmt->execute();
+              $huesped= $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $_SESSION['huesped'] = $huesped['HUESPED'];
+
+            header("Location:../index.php");
+            
+          }
+          else {
+            header("Location:../Views/form_persona.php");
+      }
+
+
+
+           
+        break;
+        case 'recepcionista':
+            header("Location:../Views/Panel_Recepcionista.php");
+        break;
+        case 'administrador':
+            header("Location:../Views/Panel_Admin.php");
+        break;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
