@@ -1338,7 +1338,7 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
       const botonKing = document.getElementById('king');
       const botonSencilla = document.getElementById('sencilla');
 
-      if( roomdoble === habitacionesDoble){
+      if( roomdoble >= habitacionesDoble){
 
       alert('Sobre pasaste el limite de habitaciones dobles');
       //botondoble.disabled = true;
@@ -1349,7 +1349,7 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
       //botondoble.disabled = false;
 
     }
-    if( roomKing === habitacionesKingSize ){
+    if( roomKing >= habitacionesKingSize ){
 
     alert('Sobre pasaste el limite de habitaciones King Size');
    // botonKing.disabled = true;
@@ -1359,7 +1359,7 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 
     //botonKing.disabled = false;
    }
-   if( roomSencilla === habitacionesSencilla ){
+   if( roomSencilla >= habitacionesSencilla ){
     alert('Sobre pasaste el limite de habitaciones sencillas');
     //botonSencilla.disabled = true;
    }
