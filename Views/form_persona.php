@@ -56,33 +56,76 @@
             <form id="form-persona" action="../Scripts/info_persona.php" method="post" style="margin: 0 auto; width: 80%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="return sololetras(event);"    ><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required ><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required maxLength="30"  onkeypress="return sololetras(event);"  ><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required ><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required  maxLength="30" onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required maxLength=100; ><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required ><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad"  required maxLength="50" onkeypress="return sololetras(event);"  ><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required ><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required maxLength="5"  onkeypress="return solonumeros(event);" ><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required ><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Genero:</label>
                 <select class="form-control me-2" id="genero" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
+                <input class="form-control me-2" type="tel" id="telefono" name="telefono" maxLength="10" required  oninput="validartelefono(this)"  ><br>
                 <button type="submit" class="btn" style="background-color: rgba(214, 13, 13, 0.5);">Continuar</button>
             </form>
         </div>    
-        
+    <script>
+           function sololetras (e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        especiales = [8,13];
+        tecla_especial = false
+        for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)== -1 && !tecla_especial){
+            alert("Solo letras");
+            return false;
+        }
+    }
+
+    function solonumeros (e) {
+        if(window.event){
+            keynum = evt.keyCode;
+        }
+        else {
+            keynum = evt.which;
+        }
+
+        if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 0){
+            return true;
+        }
+        else{
+            alert("Solo numeros");
+            return false;
+        }
+
+    }
+    
+
+function validartelefono(input){
+    input.value = input.value.replace(/\D/g, '');
+    
+};
+    </script>    
 </body>
 </html>

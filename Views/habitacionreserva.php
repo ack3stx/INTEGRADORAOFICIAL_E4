@@ -325,31 +325,7 @@ else {
         
       </div>
 </form>
-<script>
-function actualizarLocalStorage(datos) {
-        localStorage.setItem('persona', JSON.stringify(datos.persona));
-        
-    }
 
-    function cargarDatosFormulario() {
-    if (localStorage.getItem('persona')) {
-        const datosPersona = JSON.parse(localStorage.getItem('persona'));
-        document.getElementById('nombre').value = datosPersona.nombre || '';
-        document.getElementById('ap_paterno').value = datosPersona.ap_paterno || '';
-        document.getElementById('ap_materno').value = datosPersona.ap_materno || '';
-        document.getElementById('f_nac').value = datosPersona.f_nac || '';
-        document.getElementById('direccion').value = datosPersona.direccion || '';
-        document.getElementById('ciudad').value = datosPersona.ciudad || '';
-        document.getElementById('estado').value = datosPersona.estado || '';
-        document.getElementById('cd_postal').value = datosPersona.cd_postal || '';
-        document.getElementById('pais').value = datosPersona.pais || '';
-        document.getElementById('genero').value = datosPersona.genero || '';
-        document.getElementById('telefono').value = datosPersona.telefono || '';
-        
-        
-    }
-    }
-</script>
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
@@ -1395,7 +1371,7 @@ function actualizarResumen(tipo) {
         }
 
         actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(tipo);
+        desabilitarbotonañadir();
     };
 
     div.appendChild(boton);
@@ -1414,8 +1390,9 @@ function actualizarResumen(tipo) {
     resumenContenido.appendChild(div);
     document.getElementById('info1').style.display = 'block'; 
 
-    actualizarEstadoBotonAñadir();
-    desabilitarbotonañadir();
+   actualizarEstadoBotonAñadir();
+   desabilitarbotonañadir();
+    
 
 
 }
@@ -1483,25 +1460,29 @@ function toggleBilling() {
 
         function desabilitarbotonañadir (){
 
+            var doble = document.getElementById('doble');
+            var king = document.getElementById('king');
+            var sencilla = document.getElementById('sencilla');
+
             if( roomdoble === habitacionesDoble){
 
-                document.getElementById('doble').disabled = true;
+                doble.disabled = true;
 
             }
             else if( roomdoble === 0){
-                document.getElementById('doble').disabled = false;
+                doble.disabled = false;
             }
             if( roomKing === habitacionesKingSize ){
-                document.getElementById('king').disabled = true;
+                king.disabled = true;
             }
             else if( roomKing === 0){
-                document.getElementById('king').disabled = false;
+                king.disabled = false;
             }
             if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
+                sencilla.disabled = true;
             }
             else if( roomSencilla === 0){
-                document.getElementById('sencilla').disabled = false;
+                sencilla.disabled = false;
             }
         }
 
