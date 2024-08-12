@@ -1417,7 +1417,7 @@ function vaciarResumen() {
 }
 
 
-/*function actualizarEstadoBotonAñadir() {
+function actualizarEstadoBotonAñadir() {
     const addButtonDoble = document.getElementById('doble');
     const addButtonKing = document.getElementById('king');
     const addButtonSencilla = document.getElementById('sencilla');
@@ -1433,7 +1433,7 @@ function vaciarResumen() {
         addButtonKing.disabled = false;
         addButtonSencilla.disabled = false;
     }
-} */
+} 
 
 
 
