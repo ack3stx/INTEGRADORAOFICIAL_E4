@@ -56,7 +56,7 @@
             <form id="form-persona" action="../Scripts/info_persona.php" method="post" style="margin: 0 auto; width: 80%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="returnsololetras(event);"    ><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="return sololetras(event);"    ><br>
                 <label for="staffName">Apellido Paterno:</label>
                 <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required maxLength="30"  onkeypress="return sololetras(event);"  ><br>
                 <label for="staffName">Apellido Materno:</label>
