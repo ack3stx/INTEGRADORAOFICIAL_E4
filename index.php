@@ -1,6 +1,16 @@
 <?php
 session_start();
-
+if(isset($_SESSION["rol"])){
+    $rol=$_SESSION["rol"];
+    switch ($rol) {
+        case 'recepcionista':
+            header("Location:Views/Panel_Recepcionista.php");
+        break;
+        case 'administrador':
+            header("Location:Views/Panel_Admin.php");
+        break;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -137,6 +147,10 @@ else {
           <img src="Imagenes/EXHOTEL2.png" class="d-block w-100" alt="...">
           <div class="carousel-caption">
               <h4>Ven y conocenos</h4>
+              <?php
+              $usuario=$_SESSION["huesped"];
+              echo $usuario;
+              ?>
               <p>Somos tu mejor opción para tu estancia</p>
               <p>en la comarca lagunera</p>
           </div>
