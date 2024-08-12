@@ -67,7 +67,7 @@ class Database
         try
         {
             $pase = false;
-            $query = "select nombre_usuario,password from USUARIOS where nombre_usuario='$usuario'";
+            $query = "SELECT NOMBRE_USUARIO,PASSWORD FROM USUARIOS WHERE NOMBRE_USUARIO='$usuario'";
             $resultado=$this->PDOLocal->query($query);
             while($renglon = $resultado->fetch(PDO::FETCH_ASSOC))
             {
@@ -82,11 +82,11 @@ class Database
                 session_start();
                 $_SESSION["usuario"]= $usuario;
                 
-                $consulta = "select ROLES.nombre
-                from ROLES
-                inner join ROL_USUARIO on ROLES.id_rol=ROL_USUARIO.rol
-                inner join USUARIOS on USUARIOS.id_usuario=ROL_USUARIO.usuario
-                where USUARIOS.nombre_usuario='$usuario'";
+                $consulta = "SELECT ROLES.NOMBRE
+                FROM ROLES
+                INNER JOIN ROL_USUARIO ON ROLES.ID_ROL=ROL_USUARIO.ROL
+                INNER JOIN USUARIOS on USUARIOS.ID_USUARIO=ROL_USUARIO.USUARIO
+                WHERE USUARIOS.NOMBRE_USUARIO='$usuario'";
                 $resultado=$this->PDOLocal->query($consulta);
                 $fila = $resultado->fetchAll(PDO::FETCH_OBJ);
 
