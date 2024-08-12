@@ -752,6 +752,163 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
+    
+    function mostrar() {
+            document.getElementById('info1').style.display = 'block';
+            document.getElementById('room-summary').style.display = 'block'; 
+
+            
+    }
+
+    function desabilitarbotonañadir (){
+
+//lert(habitacionesSencilla);
+
+if( roomdoble > habitacionesDoble - 1){
+
+    alert('Sobre pasaste el limite de habitaciones dobles');
+    document.getElementById('doble').disabled = true;
+
+}
+else if( roomdoble < habitacionesDoble){
+    document.getElementById('doble').disabled = false;
+}
+if( roomKing > habitacionesKingSize - 1){
+
+    alert('Sobre pasaste el limite de habitaciones KingSize');
+    document.getElementById('king').disabled = true;
+}
+else if( roomKing < habitacionesKingSize ){
+
+    document.getElementById('king').disabled = false;
+}
+
+if( roomSencilla > habitacionesSencilla - 1 ){
+    alert('Sobre pasaste el limite de habitaciones Sencilla');
+    document.getElementById('sencilla').disabled = true;
+}
+else if( roomSencilla < habitacionesSencilla ){
+    document.getElementById('sencilla').disabled = false;
+}
+}
+
+
+    function actualizarResumen(tipo) {
+    const resumenContenido = document.getElementById('room-summary');
+
+    const div = document.createElement('div');
+    div.className = 'resumen-item';
+    div.innerText = `Habitación: ${tipo}`;
+    const boton = document.createElement('button');
+    boton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+
+    boton.onclick = function() {
+        resumenContenido.removeChild(div);
+        roomCount -= 1;
+
+        const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
+        if (index > -1) {
+            const precioTotal = tiposSeleccionados[index].precioTotal;
+            acumulador -= precioTotal;
+            document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+            tiposSeleccionados.splice(index, 1);
+            localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+            localStorage.setItem('cantidad', acumulador);
+        }
+
+        if (tipo === 'Doble') {
+            roomdoble -= 1;
+        }
+        if (tipo === 'King Size') {
+            roomKing -= 1;
+        }
+        if (tipo === 'Sencilla') {
+            roomSencilla -= 1;
+        }
+
+        if (roomCount === 0) {
+            document.getElementById('info1').style.display = 'none'; 
+        }
+
+        //actualizarEstadoBotonAñadir();
+        desabilitarbotonañadir();
+    };
+
+    div.appendChild(boton);
+    roomCount += 1;
+
+    if (tipo === 'Doble') {
+        roomdoble += 1;
+    }
+    if (tipo === 'King Size') {
+        roomKing += 1;
+    }
+    if (tipo === 'Sencilla') {
+        roomSencilla += 1;
+    }
+
+    resumenContenido.appendChild(div);
+    document.getElementById('info1').style.display = 'block'; 
+
+   //actualizarEstadoBotonAñadir();
+   desabilitarbotonañadir();
+    
+
+
+}
+
+         // calcular la diferencia entre dos fechas
+         function calcularPrecio(tipo, precioPorNoche) {
+    const fechaInicio = localStorage.getItem('fechaInicio');
+    const fechaFinal = localStorage.getItem('fechaFin');
+
+    if (fechaInicio && fechaFinal) {
+        const fechaInicioDate = new Date(fechaInicio);
+        const fechaFinalDate = new Date(fechaFinal);
+       
+
+        const diferenciaDias = (fechaFinalDate - fechaInicioDate) / (1000 * (3600 * 24));
+
+        const precioTotal = diferenciaDias * precioPorNoche;
+        console.log(`El precio total para una habitación ${tipo} es ${precioTotal} MXN`);
+
+        acumulador += precioTotal;
+
+        price.innerText = `MXN ${acumulador}.00`;
+        noches.innerText = `${diferenciaDias} noches`;
+        fechas.innerText = `${fechaInicio} -> ${fechaFinal}`;
+        console.log(acumulador);
+
+        
+
+        localStorage.setItem('cantidad',acumulador);
+
+        const adultos = localStorage.getItem('selectedAdults');
+        const ninos = localStorage.getItem('selectedKids');
+       
+        
+
+        const detalleHabitacion = {
+            tipo: tipo,
+            adultos: adultos,
+            ninos: ninos,
+            precioTotal : precioTotal
+        };
+        
+        tiposSeleccionados.push(detalleHabitacion);
+        localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+
+        
+        actualizarResumen(tipo);
+        
+    } else {
+        console.error('Fechas no definidas en el localStorage.');
+    }
+}
+
+
+
+
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
             
@@ -1285,173 +1442,7 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 }); */
 
 
-        // calcular la diferencia entre dos fechas
-    function calcularPrecio(tipo, precioPorNoche) {
-    const fechaInicio = localStorage.getItem('fechaInicio');
-    const fechaFinal = localStorage.getItem('fechaFin');
-
-    if (fechaInicio && fechaFinal) {
-        const fechaInicioDate = new Date(fechaInicio);
-        const fechaFinalDate = new Date(fechaFinal);
-       
-
-        const diferenciaDias = (fechaFinalDate - fechaInicioDate) / (1000 * (3600 * 24));
-
-        const precioTotal = diferenciaDias * precioPorNoche;
-        console.log(`El precio total para una habitación ${tipo} es ${precioTotal} MXN`);
-
-        acumulador += precioTotal;
-
-        price.innerText = `MXN ${acumulador}.00`;
-        noches.innerText = `${diferenciaDias} noches`;
-        fechas.innerText = `${fechaInicio} -> ${fechaFinal}`;
-        console.log(acumulador);
-
-        
-
-        localStorage.setItem('cantidad',acumulador);
-
-        const adultos = localStorage.getItem('selectedAdults');
-        const ninos = localStorage.getItem('selectedKids');
-       
-        
-
-        const detalleHabitacion = {
-            tipo: tipo,
-            adultos: adultos,
-            ninos: ninos,
-            precioTotal : precioTotal
-        };
-        
-        tiposSeleccionados.push(detalleHabitacion);
-        localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
-
-        
-        actualizarResumen(tipo);
-        
-    } else {
-        console.error('Fechas no definidas en el localStorage.');
-    }
-}
-
-
-
-function desabilitarbotonañadir (contador1, contador2, contador3){
-
-//lert(habitacionesSencilla);
-
-if( roomdoble > habitacionesDoble - 1){
-
-    alert('Sobre pasaste el limite de habitaciones dobles');
-    document.getElementById('doble').disabled = true;
-
-}
-else if( roomdoble < habitacionesDoble){
-    document.getElementById('doble').disabled = false;
-}
-if( roomKing > habitacionesKingSize - 1){
-
-    alert('Sobre pasaste el limite de habitaciones KingSize');
-document.getElementById('king').disabled = true;
-}
-else if( roomKing < habitacionesKingSize ){
-
-    document.getElementById('king').disabled = false;
-}
-
-if( roomSencilla > habitacionesSencilla - 1 ){
-    alert('Sobre pasaste el limite de habitaciones Sencilla');
-    document.getElementById('sencilla').disabled = true;
-}
-else if( roomSencilla < habitacionesSencilla ){
-    document.getElementById('sencilla').disabled = false;
-}
-}
-
-
-function actualizarResumen(tipo) {
-    const resumenContenido = document.getElementById('room-summary');
-
-    const div = document.createElement('div');
-    div.className = 'resumen-item';
-    div.innerText = `Habitación: ${tipo}`;
-    const boton = document.createElement('button');
-    boton.innerHTML = '<i class="fas fa-trash-alt"></i>';
-
-    boton.onclick = function() {
-        resumenContenido.removeChild(div);
-        roomCount -= 1;
-
-        const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
-        if (index > -1) {
-            const precioTotal = tiposSeleccionados[index].precioTotal;
-            acumulador -= precioTotal;
-            document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
-            tiposSeleccionados.splice(index, 1);
-            localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
-            localStorage.setItem('cantidad', acumulador);
-        }
-
-        if (tipo === 'Doble') {
-            roomdoble -= 1;
-        }
-        if (tipo === 'King Size') {
-            roomKing -= 1;
-        }
-        if (tipo === 'Sencilla') {
-            roomSencilla -= 1;
-        }
-
-        if (roomCount === 0) {
-            document.getElementById('info1').style.display = 'none'; 
-        }
-
-        //actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
-    };
-
-    div.appendChild(boton);
-    roomCount += 1;
-
-    if (tipo === 'Doble') {
-        roomdoble += 1;
-    }
-    if (tipo === 'King Size') {
-        roomKing += 1;
-    }
-    if (tipo === 'Sencilla') {
-        roomSencilla += 1;
-    }
-
-    resumenContenido.appendChild(div);
-    document.getElementById('info1').style.display = 'block'; 
-
-   //actualizarEstadoBotonAñadir();
-   desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
-    
-
-
-}
-
-
-function vaciarResumen() {
-    const resumenContenido = document.getElementById('room-summary');
-    resumenContenido.innerHTML = ''; // Vacía el contenido del resumen
-    roomCount = 0;
-    roomdoble = 0;
-    roomKing = 0;
-    roomSencilla = 0;
-    acumulador = 0;
-    document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
-    tiposSeleccionados = [];
-    localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
-    localStorage.setItem('cantidad', acumulador);
-
-    document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
-
-    actualizarEstadoBotonAñadir();
-}
-
+   
 
 function actualizarEstadoBotonAñadir() {
     const addButtonDoble = document.getElementById('doble');
@@ -1473,6 +1464,31 @@ function actualizarEstadoBotonAñadir() {
 
 
 
+
+
+
+function vaciarResumen() {
+    const resumenContenido = document.getElementById('room-summary');
+    resumenContenido.innerHTML = ''; // Vacía el contenido del resumen
+    roomCount = 0;
+    roomdoble = 0;
+    roomKing = 0;
+    roomSencilla = 0;
+    acumulador = 0;
+    document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+    tiposSeleccionados = [];
+    localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+    localStorage.setItem('cantidad', acumulador);
+
+    document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
+
+    actualizarEstadoBotonAñadir();
+}
+
+
+
+
+
 document.getElementById('borrarCambios').onclick = vaciarResumen;
 
 
@@ -1487,12 +1503,6 @@ function toggleBilling() {
 
 
 
-        function mostrar() {
-            document.getElementById('info1').style.display = 'block';
-            document.getElementById('room-summary').style.display = 'block'; 
-
-            
-        }
 
 
        /* document.addEventListener('DOMContentLoaded', function() {
