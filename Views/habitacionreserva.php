@@ -1342,35 +1342,35 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
       const botonKing = document.getElementById('king');
       const botonSencilla = document.getElementById('sencilla');
 
-if( roomdoble > habitacionesDoble){
+      if( roomdoble >= habitacionesDoble){
 
-    alert('Sobre pasaste el limite de habitaciones dobles');
-    botondoble.disabled = true;
-    console.log('entro');
+      alert('Sobre pasaste el limite de habitaciones dobles');
+      botondoble.disabled = true;
+      console.log('entro');
 
-}
-else if( roomdoble < habitacionesDoble){
+    }
+   else if( roomdoble < habitacionesDoble){
     botondoble.disabled = false;
 
-}
-if( roomKing > habitacionesKingSize ){
+    }
+    if( roomKing >= habitacionesKingSize ){
 
-alert('Sobre pasaste el limite de habitaciones King Size');
-   botonKing.disabled = true;
-console.log('entro');
-}
-else if( roomKing < habitacionesKingSize ){
+    alert('Sobre pasaste el limite de habitaciones King Size');
+    botonKing.disabled = true;
+   console.log('entro');
+    }
+    else if( roomKing < habitacionesKingSize ){
 
     botonKing.disabled = false;
-}
-if( roomSencilla > habitacionesSencilla ){
+   }
+   if( roomSencilla >= habitacionesSencilla ){
     alert('Sobre pasaste el limite de habitaciones sencillas');
     botonSencilla.disabled = true;
-}
-else if( roomSencilla < habitacionesSencilla ){
+   }
+   else if( roomSencilla < habitacionesSencilla ){
     botonSencilla.disabled = false;
-}
-}
+   }
+   }
 
 function actualizarResumen(tipo) {
     const resumenContenido = document.getElementById('room-summary');
