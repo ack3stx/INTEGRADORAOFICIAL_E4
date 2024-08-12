@@ -1354,6 +1354,7 @@ document.getElementById('king').disabled = true;
 else if( roomKing < habitacionesKingSize ){
 
     document.getElementById('king').disabled = false;
+}
 
 if( roomSencilla > habitacionesSencilla - 1 ){
     document.getElementById('sencilla').disabled = true;
@@ -1361,7 +1362,7 @@ if( roomSencilla > habitacionesSencilla - 1 ){
 else if( roomSencilla < habitacionesSencilla ){
     document.getElementById('sencilla').disabled = false;
 }
-} 
+}
 
 
 function actualizarResumen(tipo) {
