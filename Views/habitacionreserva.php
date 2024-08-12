@@ -1461,34 +1461,36 @@ function toggleBilling() {
 
         function desabilitarbotonañadir (contador1, contador2, contador3){
 
-           console.log(contador1, contador2, contador3);
+            roomdoble = contador1;
+            roomKing = contador2;
+            roomSencilla = contador3;
             
-            if( contador1 === habitacionesDoble){
+            if( roomdoble === habitacionesDoble){
 
                 alert('Sobre pasaste el limite de habitaciones dobles');
                 document.getElementById('doble').disabled = true;
                 console.log('entro');
 
             }
-            else if( contador1 < habitacionesDoble){
+            else if( roomdoble < habitacionesDoble){
                 document.getElementById('doble').disabled = false;
 
             }
-           if( contador2 === habitacionesKingSize ){
+           if( roomKing === habitacionesKingSize ){
 
             alert('Sobre pasaste el limite de habitaciones King Size');
             document.getElementById('king').disabled = true;
             console.log('entro');
             }
-            else if( contador2 < habitacionesKingSize ){
+            else if( roomKing < habitacionesKingSize ){
 
                 document.getElementById('king').disabled = false;
             }
-            if( contador3 === habitacionesSencilla ){
+            if( roomSencilla === habitacionesSencilla ){
                 alert('Sobre pasaste el limite de habitaciones sencillas');
                 document.getElementById('sencilla').disabled = true;
             }
-            else if( contador3 < habitacionesSencilla ){
+            else if( roomSencilla < habitacionesSencilla ){
                 document.getElementById('sencilla').disabled = false;
             }
         } 
