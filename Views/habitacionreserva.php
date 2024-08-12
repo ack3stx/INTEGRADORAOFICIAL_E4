@@ -747,12 +747,15 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             }
             console.log(data);
         }
-        }).catch(error => { console.log(error)})
-    }
+    }).catch(error => { console.log(error)})
+}
 
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
-    if(document.getElementbyId('doble'))
+const doble = document.getElementById('doble');
+const king = document.getElementById('king');
+const sencilla = document.getElementById('sencilla');
+    if(doble)
     {
         console.log("existe")
         
@@ -761,7 +764,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         console.log("no existe")
     }
 
-    if(document.getElementbyId('king'))
+    if(king)
     {
         console.log("existe")
         
@@ -770,7 +773,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         console.log("no existe")
     }
 
-    if(document.getElementbyId('sencilla'))
+    if(sencilla)
     {
         console.log("existe")
         
@@ -792,9 +795,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 console.log(habitacionesSencilla)
 
-const doble = document.getElementById('doble');
-const king = document.getElementById('king');
-const sencilla = document.getElementById('sencilla');
 
 if( roomdoble > habitacionesDoble - 1){
 
