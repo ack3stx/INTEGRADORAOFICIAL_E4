@@ -213,6 +213,7 @@ else {
               Contamos con más de 15 años de experiencia dentro de nuestra hermosa ciudad <span class="highlight">Torreón Coahuila</span> atendiendo a nuestros huéspedes regionales e internacionales con la mejor calidad de servicios.
           </p>
           <a href="Views/nosotros.php" class="btn btn-custom">Conócenos</a>
+          <?php echo $_SESSION['huesped']; ?>
       </div>
       <div class="col-md-6">
           <div class="image-container">
