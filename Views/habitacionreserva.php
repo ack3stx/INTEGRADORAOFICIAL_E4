@@ -1336,7 +1336,7 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 
 function desabilitarbotonañadir (contador1, contador2, contador3){
 
-           
+alert(habitacionesDoble);
             
 if( roomdoble > habitacionesDoble - 1){
 
