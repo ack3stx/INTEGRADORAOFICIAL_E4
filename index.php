@@ -11,6 +11,14 @@ if(isset($_SESSION["rol"])){
         break;
     }
 }
+if(isset($_SESSION["huesped"]))
+{
+    
+}
+else
+{
+    header("Location:Views/form_persona.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
