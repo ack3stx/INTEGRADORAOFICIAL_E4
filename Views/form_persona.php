@@ -10,8 +10,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     extract($_POST);
 
     
-    if (isset($nombre, $ap_paterno, $ap_materno, $f_nac, $direccion, $ciudad, $estado, $cd_postal, $pais, $genero, $telefono)) {
-        $db->registro($nombre, $ap_paterno, $ap_materno, $f_nac, $direccion, $ciudad, $estado, $cd_postal, $pais, $genero, $telefono, $_SESSION['id_usuario']);
+    if (isset($nombre, $ap_paterno, $ap_materno, $f_nac, $direccion, $ciudad, $estado, $cd_postal, $pais, $genero, $telefono,$id_usuario)) {
+        $db->registro($nombre, $ap_paterno, $ap_materno, $f_nac, $direccion, $ciudad, $estado, $cd_postal, $pais, $genero, $telefono, $id_usuario);
 
         $huesped = "SELECT HUESPED.ID_HUESPED AS HUESPED
                         FROM PERSONA 
@@ -23,9 +23,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt->execute();
         $huespedes = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if (!empty($huesped_result)) {
+       
             $_SESSION['huesped'] = $huespedes['HUESPED']; 
-        }
+        
 
         header("Location:../index.php");
         exit();
