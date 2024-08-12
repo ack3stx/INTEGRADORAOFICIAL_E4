@@ -1340,7 +1340,7 @@ function desabilitarbotonañadir (contador1, contador2, contador3){
 
 //lert(habitacionesSencilla);
 
-if( roomdoble === habitacionesDoble){
+if( roomdoble > habitacionesDoble - 1){
 
     alert('Sobre pasaste el limite de habitaciones dobles');
     document.getElementById('doble').disabled = true;
@@ -1349,7 +1349,7 @@ if( roomdoble === habitacionesDoble){
 else if( roomdoble < habitacionesDoble){
     document.getElementById('doble').disabled = false;
 }
-if( roomKing === habitacionesKingSize){
+if( roomKing > habitacionesKingSize - 1){
 
     alert('Sobre pasaste el limite de habitaciones KingSize');
 document.getElementById('king').disabled = true;
