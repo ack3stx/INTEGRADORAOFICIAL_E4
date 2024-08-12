@@ -1,72 +1,17 @@
 <?php
 session_start();
-include '../Clases/BasedeDatos.php';
-
-$db = new Database();
-$db->conectarDB();
-
-if (isset($_SESSION["rol"])) {
-    $rol = $_SESSION["rol"];
+if(isset($_SESSION["rol"])){
+    $rol=$_SESSION["rol"];
     switch ($rol) {
-        case 'usuario':
-            // Obtención del ID de usuario
-            $usuario = $_SESSION["usuario"]; // Asegúrate de que $usuario esté definido
-            $consulta = "SELECT USUARIOS.ID_USUARIO as ID FROM USUARIOS WHERE USUARIOS.NOMBRE_USUARIO = :usuario";
-            $stmt = $db->consultin($consulta);
-            $stmt->bindParam(':usuario', $usuario, PDO::PARAM_STR);
-            $stmt->execute();
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-
-            if ($resultado) {
-                $_SESSION['id_usuario'] = $resultado['ID']; 
-                $id_usuario = $resultado['ID'];
-
-                // Verificación si existe en la tabla PERSONA
-                $sql = "SELECT COUNT(*) as count FROM PERSONA WHERE USUARIO = :usuario";
-                $stmt = $db->consultin($sql);
-                $stmt->bindParam(':usuario', $id_usuario, PDO::PARAM_INT);
-                $stmt->execute();
-                $row = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                if ($row['count'] > 0) {
-                    // Si existe, obtenemos el ID del huesped
-                    $huespedQuery = "SELECT HUESPED.ID_HUESPED AS HUESPED
-                                     FROM PERSONA 
-                                     INNER JOIN USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-                                     INNER JOIN HUESPED ON PERSONA.ID_PERSONA = HUESPED.PERSONA_HUESPED
-                                     WHERE USUARIOS.ID_USUARIO = :id";
-                    $stmt = $db->consultin($huespedQuery);
-                    $stmt->bindParam(':id', $id_usuario, PDO::PARAM_INT);
-                    $stmt->execute();
-                    $huesped = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                    if ($huesped) {
-                        $_SESSION['huesped'] = $huesped['HUESPED'];
-                        header("Location:../index.php");
-                    } else {
-                        // Manejo de error si no se encuentra el huesped
-                        echo "Error: No se encontró el ID del huesped.";
-                    }
-                } else {
-                    // Si no existe en PERSONA, redirige a formulario
-                    header("Location:../Views/form_persona.php");
-                }
-            } else {
-                // Manejo de error si no se encuentra el usuario
-                echo "Error: Usuario no encontrado.";
-            }
-            break;
-
         case 'recepcionista':
-            header("Location:../Views/Panel_Recepcionista.php");
-            break;
+            header("Location:Views/Panel_Recepcionista.php");
+        break;
         case 'administrador':
-            header("Location:../Views/Panel_Admin.php");
-            break;
+            header("Location:Views/Panel_Admin.php");
+        break;
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
