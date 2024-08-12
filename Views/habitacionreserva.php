@@ -1483,25 +1483,29 @@ function toggleBilling() {
 
         function desabilitarbotonañadir (){
 
+            var doble = document.getElementById('doble');
+            var king = document.getElementById('king');
+            var sencilla = document.getElementById('sencilla');
+
             if( roomdoble === habitacionesDoble){
 
-                document.getElementById('doble').disabled = true;
+                doble.disabled = true;
 
             }
             else if( roomdoble === 0){
-                document.getElementById('doble').disabled = false;
+                doble.disabled = false;
             }
             if( roomKing === habitacionesKingSize ){
-                document.getElementById('king').disabled = true;
+                king.disabled = true;
             }
             else if( roomKing === 0){
-                document.getElementById('king').disabled = false;
+                king.disabled = false;
             }
             if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
+                sencilla.disabled = true;
             }
             else if( roomSencilla === 0){
-                document.getElementById('sencilla').disabled = false;
+                sencilla.disabled = false;
             }
         }
 
