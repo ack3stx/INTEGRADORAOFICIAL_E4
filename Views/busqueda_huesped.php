@@ -129,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Verifica si el campo n_reservacion no está vacío y no excede los 10 caracteres (puedes ajustar este número según lo necesites)
     if (!empty($n_reservacion)) {
-        if (strlen($n_reservacion) > 500) {
+        if (strlen($n_reservacion) > 10) {
             echo "<p>El número de reservación es demasiado largo. Por favor, ingresa un número de reservación válido.</p>";
         } else {
             $cadena = "CALL info_huesped('$n_reservacion');";
