@@ -597,7 +597,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 <label for="staffName">Estado:</label>
                 <input class="form-control me-2" type="text" id="estado" name="estado" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required maxLength="5"  onkeypress="return solonumeros(event);" ><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required maxLength="5"   oninput="validartelefono(this)" ><br>
                 <label for="staffName">Pais:</label>
                 <input class="form-control me-2" type="text" id="pais" name="pais" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Genero:</label>
@@ -1753,7 +1753,7 @@ function validartelefono(input){
     document.getElementById('continuar').addEventListener('click', enviarformulario);
 }); 
 
-        
+     
     
 
 
