@@ -152,7 +152,7 @@ else {
       <div class="carousel-item active">
           <img src="Imagenes/EXHOTEL2.png" class="d-block w-100" alt="...">
           <div class="carousel-caption">
-              <h4>Ven y conocenos PRUEBA FRONTED</h4>
+              <h1>Ven y conocenos PRUEBA FRONTED</h1>
               <p>Somos tu mejor opción para tu estancia</p>
               <p>en la comarca lagunera</p>
           </div>
