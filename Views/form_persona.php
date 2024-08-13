@@ -67,7 +67,7 @@ if(isset($_SESSION["rol"])){
     <h2 class="text-center">POR FAVOR COMPLETA TU INFORMACION ANTES DE REALIZAR UNA RESERVA</h2>
     <br><br>
         <div class="container">
-            <form id="form-persona" action="../Scripts/info_persona.php" method="post"  onsubmit="return validarEdad()" style="margin: 0 auto; width: 80%;">
+            <form id="form-persona" action="../Scripts/info_persona.php" method="post"  style="margin: 0 auto; width: 80%;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="return sololetras(event);"    ><br>
@@ -141,23 +141,9 @@ function validartelefono(input){
     
 };
 
-function validarEdad() {
-    var fechaNacimiento = document.getElementById('f_nac').value;
-    var fechaNac = new Date(fechaNacimiento);
-    var fechaActual = new Date();
-    var diferencia = fechaActual.getFullYear() - fechaNac.getFullYear();
-    var m = fechaActual.getMonth() - fechaNac.getMonth();
 
-    if (m < 0 || (m === 0 && fechaActual.getDate() < fechaNac.getDate())) {
-        diferencia--;
-    }
 
-    if (diferencia < 18 ) {
-        alert("Ingresa una fecha de nacimiento válida");
-        return false; 
-    }
-    return true; 
-}
+
     </script>    
 </body>
 </html>

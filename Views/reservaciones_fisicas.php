@@ -580,7 +580,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona" style="display: none;">
+            <form id="form-persona"   style="display: none;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="return sololetras(event);"   ><br>
@@ -904,6 +904,7 @@ function scrollToContent() {
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
+            window.location.href = 'Calendariore.php';
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
@@ -1669,12 +1670,31 @@ function toggleBilling() {
         } else {
             campo.style.border = '';
         }
-    });
 
-   
+        // Validación específica para el campo de fecha de nacimiento
+        if (campo.type === 'date' && campo.id === 'f_nac') {
+            var fechaNacimiento = new Date(campo.value);
+            var hoy = new Date();
+            var fechaminima = new Date('1850-01-01');
+            
+            var fechaHace18Anios = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
+
+            if (fechaNacimiento > fechaHace18Anios || fechaNacimiento < fechaminima) {
+                campo.style.border = '2px solid red';
+                setTimeout(() => {
+                    campo.style.border = '';
+                }, 2000);
+                alert("La fecha de nacimiento debe indicar que tienes más de 18 años y ser posterior al 1 de enero de 1850.");
+                formValido = false;
+            } else {
+                campo.style.border = '';
+            }
+        }
+    });
 
     return formValido;
 }
+
 
 function enviarformulario(event) {
     event.preventDefault();
@@ -1753,8 +1773,6 @@ function validartelefono(input){
     document.getElementById('continuar').addEventListener('click', enviarformulario);
 }); 
 
-     
-    
 
 
       

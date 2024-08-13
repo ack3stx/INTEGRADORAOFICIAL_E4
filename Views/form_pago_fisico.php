@@ -62,19 +62,19 @@
         <h4 class="mb-3">Datos de Facturación</h4>
         <div class="mb-3">
             <label for="nombreFactura" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+            <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" maxlength="30"  onkeypress="return sololetras(event);"  >
         </div>
         <div class="mb-3">
             <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-            <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+            <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" maxlength="30"  onkeypress="return sololetras(event);"  >
         </div>
         <div class="mb-3">
             <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-            <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+            <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" maxlength="30"  onkeypress="return sololetras(event);"  >
         </div>
         <div class="mb-3">
             <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" >
         </div>
         <div class="mb-3">
             <label for="rfc" class="form-label">RFC</label>
@@ -157,6 +157,48 @@ function toggleBilling() {
     });
 }
 
+function sololetras (e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        especiales = [8,13];
+        tecla_especial = false
+        for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)== -1 && !tecla_especial){
+            alert("Solo letras");
+            return false;
+        }
+    }
+
+    function solonumeros (e) {
+        if(window.event){
+            keynum = evt.keyCode;
+        }
+        else {
+            keynum = evt.which;
+        }
+
+        if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 0){
+            return true;
+        }
+        else{
+            alert("Solo numeros");
+            return false;
+        }
+
+    }
+    
+
+function validartelefono(input){
+    input.value = input.value.replace(/\D/g, '');
+    
+};
     
 
     </script>
