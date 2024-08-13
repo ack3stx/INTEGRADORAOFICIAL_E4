@@ -26,14 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                       FROM USUARIOS
                       INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
                       INNER JOIN RECEPCIONISTA ON RECEPCIONISTA.PERSONA_RECEPCIONISTA = PERSONA.ID_PERSONA
-                      WHERE USUARIOS.NOMBRE_USUARIO = :recep";
+                      WHERE USUARIOS.NOMBRE_USUARIO = $recep";
 
-            $stmt = $data->prepare($consulta);
-            $stmt->bindParam(':recep', $recep, PDO::PARAM_STR);
-            $stmt->execute();
-            $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+                      $recepcion=$data->seleccionar($consulta);
 
-            $recepcionista=$resultado['id'];
+            $recepcionista=$recepcion[0]->ID;
 
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];

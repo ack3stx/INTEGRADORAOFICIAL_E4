@@ -81,7 +81,6 @@
             <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
         </div>
     </div>
-
     <button type="submit" id="submit-button">Enviar</button>
 </form>
       </div>
@@ -127,10 +126,8 @@
                     'metodo': document.getElementById('metodo').value
                 })
             }).then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                console.log('Response status:', response);
+                
                 return response.json();
             }).then((data) => {
                 console.log(data);
