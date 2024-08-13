@@ -22,7 +22,7 @@
         <h2>Gracias por tu preferencia</h2>
         <h3>Disfruta tu estancia en nuestro hotel</h3>
         <?php
- header("refresh:2;../Views/Panel_Recepcionista.php");
+ header("refresh:2;../index.php");
  ?>
     </div>
   </div>
