@@ -1338,12 +1338,12 @@ document.getElementById('porsilasdudas').addEventListener('click', function() {
 
 function actualizarResumen(tipo) {
     const resumenContenido = document.getElementById('room-summary');
-
+    
     const div = document.createElement('div');
     div.className = 'resumen-item';
     div.innerText = `Habitación: ${tipo}`;
     const boton = document.createElement('button');
-    boton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
 
     boton.onclick = function() {
         resumenContenido.removeChild(div);
@@ -1353,52 +1353,40 @@ function actualizarResumen(tipo) {
         if (index > -1) {
             const precioTotal = tiposSeleccionados[index].precioTotal;
             acumulador -= precioTotal;
-            document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+            price.innerText = `MXN ${acumulador}.00`;
             tiposSeleccionados.splice(index, 1);
             localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
             localStorage.setItem('cantidad', acumulador);
         }
 
-        if (tipo === 'Doble') {
+        // Disminuye el contador correspondiente y verifica si se debe habilitar el botón
+        if(tipo === 'Doble'){
             roomdoble -= 1;
-        }
-        if (tipo === 'King Size') {
+        } else if(tipo === 'King Size'){
             roomKing -= 1;
-        }
-        if (tipo === 'Sencilla') {
+        } else if(tipo === 'Sencilla'){
             roomSencilla -= 1;
         }
 
-        if (roomCount === 0) {
-            document.getElementById('info1').style.display = 'none'; 
-        }
-
-        actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
+        desabilitarbotonañadir(tipo);
     };
 
     div.appendChild(boton);
-    roomCount += 1;
+    resumenContenido.appendChild(div);
 
-    if (tipo === 'Doble') {
+    // Aumenta el contador correspondiente y verifica si se debe deshabilitar el botón
+    if(tipo === 'Doble'){
         roomdoble += 1;
-    }
-    if (tipo === 'King Size') {
+    } else if(tipo === 'King Size'){
         roomKing += 1;
-    }
-    if (tipo === 'Sencilla') {
+    } else if(tipo === 'Sencilla'){
         roomSencilla += 1;
     }
 
-    resumenContenido.appendChild(div);
-    document.getElementById('info1').style.display = 'block'; 
-
-   //actualizarEstadoBotonAñadir();
-   desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
-    
-
-
+    roomCount += 1;
+    desabilitarbotonañadir(tipo);
 }
+
 
 
 function vaciarResumen() {
@@ -1461,35 +1449,25 @@ function toggleBilling() {
             
         }
 
-        function desabilitarbotonañadir (contador1, contador2, contador3){
+        function desabilitarbotonañadir(buttonType) {
+    if (roomdoble >= habitacionesDoble) {
+        document.getElementById('doble').disabled = true;
+    } else if (roomdoble < habitacionesDoble) {
+        document.getElementById('doble').disabled = false;
+    }
 
-           
-            
-            if( roomdoble === habitacionesDoble){
+    if (roomKing >= habitacionesKingSize) {
+        document.getElementById('king').disabled = true;
+    } else if (roomKing < habitacionesKingSize) {
+        document.getElementById('king').disabled = false;
+    }
 
-                alert('Sobre pasaste el limite de habitaciones dobles');
-                document.getElementById('doble').disabled = true;
-
-            }
-            else if( roomdoble < habitacionesDoble){
-                document.getElementById('doble').disabled = false;
-            }
-           if( roomKing === habitacionesKingSize ){
-
-            document.getElementById('king').disabled = true;
-            }
-            else if( roomKing < habitacionesKingSize ){
-
-                document.getElementById('king').disabled = false;
-            }
-            if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
-            }
-            else if( roomSencilla < habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = false;
-            }
-        } 
-
+    if (roomSencilla >= habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = true;
+    } else if (roomSencilla < habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = false;
+    }
+}
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
 });
