@@ -103,11 +103,11 @@
         const fechafin = localStorage.getItem('fechaFin');
         
 
-        document.getElementById('payment-form').addEventListener('submit', function () {
+       /* document.getElementById('payment-form').addEventListener('submit', function () {
             // Aquí puedes realizar cualquier validación adicional si es necesario
             // Pero no prevengas el comportamiento predeterminado para que la redirección ocurra
             mandardatos(this);
-        });
+        }); */
 
         function mandardatos(form) {
             fetch('../Scripts/recibirinfopersona_fisica.php', {
@@ -156,6 +156,8 @@ function toggleBilling() {
         }
     });
 }
+
+document.addEventListener('DOMContentLoaded',mandardatos);
     
 
     </script>
