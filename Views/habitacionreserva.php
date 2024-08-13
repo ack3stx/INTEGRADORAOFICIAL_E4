@@ -1248,6 +1248,33 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             
             
+            if(document.getElementById('doble')) {
+                console.log('existe')
+                
+            }
+            else {
+                console.log('no existe')
+            }
+
+            if(document.getElementById('sencilla')) {
+                console.log('existe')
+                
+            }
+            else {
+                console.log('no existe')
+            }
+
+            if(document.getElementById('king')) {
+                console.log('existe')
+                
+            }
+            else {
+                console.log('no existe')
+            }
+
+
+
+
             function redireccionar() {
                 window.location.href = 'form_pago.php';
             }
@@ -1377,8 +1404,9 @@ function actualizarResumen(tipo) {
             document.getElementById('info1').style.display = 'none'; 
         }
         
-        //actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
+        actualizarEstadoBotonAñadir();
+        desabilitarbotonañadir();
+        
     };
     
     div.appendChild(boton);
@@ -1397,12 +1425,29 @@ function actualizarResumen(tipo) {
     resumenContenido.appendChild(div);
     document.getElementById('info1').style.display = 'block'; 
     
-    //actualizarEstadoBotonAñadir();
-    desabilitarbotonañadir(roomdoble, roomKing, roomSencilla);
+    actualizarEstadoBotonAñadir();
+    desabilitarbotonañadir();
+   
     
     
     
 }
+
+function desabilitarbotonañadir (){
+
+    if(roomdoble === habitacionesDoble){
+        alert('sobrepasaste las dobles')
+    }
+    if(roomKing === habitacionesKingSize){
+        alert('sobrepasaste las sencilla')
+    }
+    if(roomSencilla === habitacionesSencilla){
+        alert('sobrepasaste las king')
+
+    }
+}
+
+
 
 
 function vaciarResumen() {
@@ -1414,9 +1459,9 @@ function vaciarResumen() {
     roomSencilla = 0;
     acumulador = 0;
     document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
-    tiposSeleccionados = [];
-    localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
-    localStorage.setItem('cantidad', acumulador);
+   // tiposSeleccionados = [];
+   // localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+   // localStorage.setItem('cantidad', acumulador);
     
     document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
     
@@ -1465,35 +1510,7 @@ function mostrar() {
     
 }
 
-function desabilitarbotonañadir (contador1, contador2, contador3){
-    
-    
-    
-    if( roomdoble === habitacionesDoble){
-        
-        alert('Sobre pasaste el limite de habitaciones dobles');
-        document.getElementById('doble').disabled = true;
-        console.log('ola')
-        
-    }
-    else if( roomdoble < habitacionesDoble){
-        document.getElementById('doble').disabled = false;
-    }
-    if( roomKing === habitacionesKingSize ){
-        
-        document.getElementById('king').disabled = true;
-    }
-    else if( roomKing < habitacionesKingSize ){
-        
-        document.getElementById('king').disabled = false;
-    }
-            if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
-            }
-            else if( roomSencilla < habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = false;
-            }
-        } 
+
         
         /* document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('continuar').addEventListener('click', guardardatospersona);
@@ -1598,8 +1615,7 @@ function desabilitarbotonañadir (contador1, contador2, contador3){
                                                     
                                                     
                                                     
-                                                    
-                                                    </script>
+</script>
  
 </body>
 </html>
