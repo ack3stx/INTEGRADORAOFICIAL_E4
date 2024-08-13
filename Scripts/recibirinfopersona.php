@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
        
 
         $habitaciones = json_decode($_POST['habitaciones'], true);
-        $facturacion = json_decode($_POST['facturacion'], true);
+        //$facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
     
         $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
@@ -41,11 +41,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
 
         $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
 
-        if ($facturacion === null) {
-            echo "No se ha facturado";
-        } else {
-            $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
-        }
+       // if ($facturacion === null) {
+       //     echo "No se ha facturado";
+       // } else {
+          //  $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
+       // }
        
 
         
