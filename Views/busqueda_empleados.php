@@ -177,7 +177,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Listo</button>
+          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning">Listo</button>
           </form>
         </div>
       </div>
