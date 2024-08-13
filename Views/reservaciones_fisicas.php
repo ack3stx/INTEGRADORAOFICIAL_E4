@@ -459,7 +459,7 @@ margin-bottom: 1%;
             </a>
           </li>
         </ul>
-        <div class="header-right">
+        <div class="header-right" style="z-index: 10;">
           <div class="btn-group">
           <?php
             if (isset($_SESSION["usuario"])) {
