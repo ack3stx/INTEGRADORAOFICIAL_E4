@@ -90,7 +90,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $registrarPagoConsulta = "
             CALL REGISTRARPAGORESERVACION($numeroReservacion, '$metodoPago', $costoTotalHabitaciones)";
-        error_log("Consulta de registrar pago: $registrarPagoConsulta");
         $db->ejecuta($registrarPagoConsulta);
 
         if ($nombreFactura && $apellidoPaternoFactura && $apellidoMaternoFactura && $direccion && $rfc) {
