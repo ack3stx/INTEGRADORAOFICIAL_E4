@@ -175,10 +175,6 @@ margin-bottom: 1%;
 
   }
 
-  #info1{
-    display:none;
-  }
-
   #persona{
     width: 30%;
     height: 50%;
@@ -187,65 +183,181 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
-  .image-container img {
-    width: 100%; /* La imagen se ajusta al 100% del ancho del contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacios en blanco alrededor de la imagen */
-    max-width: 100%; /* Se asegura de que la imagen no exceda el tamaño del contenedor */
-}
-
-
-
-@media (max-width: 768px) {
-    .card-custom {
-        max-width: 100%; /* En pantallas más pequeñas, permite que la tarjeta use todo el ancho */
-    }
-}
-
-#contenedor-fluido {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.card-custom {
-  
+  /* Estilo existente */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
+    background-color: #2ecc71; /* Color del fondo del footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
 }
 
-#contenedor-principal {
-    position: relative; /* Necesario para permitir el movimiento relativo */
+.hidden-content {
+    display: none;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-height: 300px; /* Altura máxima del contenido desplegable */
+    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
 }
 
-@media (max-width: 810px) {
-    #contenedor-principal {
-        top: 50%; /* Mueve el contenedor hacia abajo un 50% */
-        transform: translateY(-50%); /* Ajusta la posición para centrado vertical */
-    }
+/* Botón para bajar el contenido */
+.scroll-button {
+    display: block;
+    width: 100%;
+    background-color: #3498db; /* Color del botón de scroll */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
+.scroll-button:hover {
+    background-color: #2980b9;
+}
 
+.toggle-button {
+    cursor: pointer;
+}
 
+.reserve-button {
+    background-color: #3498db; /* Color del botón de reserva */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
+.reserve-button:hover {
+    background-color: #2980b9;
+}
+#contenedor-fluido
+{
+    width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+}
+#dobid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #sencid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important; 
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #kingid
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #card-custom
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+@media screen and (min-width: 950px) {
+            .desplegable {
+                display: none;
+            }
+            #contenedor-fluido{
+                margin: 0;
+            }
+            #info1
+            {
+                display: none;
+                position:fixed;
+    top: 0%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width:40%;
+    overflow: hidden;
+            }
+            .scroll-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* Limita la altura máxima del contenedor para permitir el scroll */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+#form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
 
+        }
+        @media screen and (max-width: 949px) {
+            #info1
+            {
+                margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;
+            }
+            .card-body
+        {
+            top: 100%;
+    height: 100%;
+    width: 100%;
+        }
+        #form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
+#persona
+{
+    width: 73%;
+}
+}
+
+.card-body {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+}
 
 </style>
 <body>
-<!--BARRA DE NAVEGACION
-<header>
-    <div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
-      <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
-          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+<header style="height: 20%;">
+    <div class="row" style="height: 20%;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 " style="height: 20%;">
+      <div class="container-fluid" style="height: 20%;">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php" style="margin-top: -6%;">
+          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px; " class="rounded-circle rounded-1">
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-center col-lg-9 bg-light" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
               <a class="nav-link" href="../index.php"><label>INICIO</label></a>
@@ -311,7 +423,7 @@ else {
     </nav>
   </div>
     </header> 
-    BARRITA-->
+
     <section class="header-section">
         <div class="header-content">
             <p>HOTEL LAGUNA INN</p>
@@ -319,13 +431,6 @@ else {
         </div>
       
     </section>
-     <!-- BARRITA BLANCA-->
-      <form id="form" method="POST">
-      <div class="barra-blanca">
-        
-      </div>
-</form>
-
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
@@ -500,31 +605,39 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 -->
-    <div id="info1" class="container" style="display: none;
-    position: absolute;
-    top: 56%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 114%;
-    width:40%;">
-    <div class="card card-custom">
-        <div class="card-body">
-            <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
-            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-            </button>
-            <br><br>
-            <hr class="mb-4">
-            <div id="room-summary">
-                <!-- Resumen breve de habitaciones -->
+    
+<div class="fixed-footer desplegable">
+    <div class="toggle-button">
+        Ver resumen (1) <span id="arrow">▲</span>
+    </div>
+    <div id="content" class="hidden-content">
+        
+    </div>
+</div>
+
+<div id="info1" class="container">
+    <div class="scroll-container">
+        <div class="card card-custom">
+            <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+                <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+                </button>
+                <br><br>
+                <hr class="mb-4">
+                <div id="room-summary">
+                    <!-- Resumen breve de habitaciones -->
+                </div>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             </div>
-            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-            <br><br>
-            <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="redireccionar();">Reservar Ahora</button> <br>
-                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
-                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+            <!-- Fija los botones al fondo del contenedor -->
+            <div class="fixed-buttons">
+                <div class="d-grid gap-6 col-10 mx-auto">
+                    <button class="btn btn-success" type="button" id="porsilasdudas" onclick="redireccionar();">Reservar Ahora</button> <br>
+                    <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                    <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
@@ -581,11 +694,59 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </footer>-->
 
 
+<script>
+    document.querySelector('.toggle-button').addEventListener('click', function() {
+    const content = document.getElementById('content');
+    const arrow = document.getElementById('arrow');
+
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.textContent = "▼"; // Cambia la flecha hacia abajo
+    } else {
+        content.style.display = "none";
+        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
+    }
+});
+
+function scrollToContent() {
+    const content = document.getElementById('content');
+    content.scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
+
+<script>
+  // Función que mueve el elemento si la pantalla es menor a 950px
+  function moveElement() {
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    if (screenWidth < 950) {
+      // Seleccionar el párrafo que se va a mover
+      const info1 = document.getElementById('info1');
+
+      // Seleccionar el segundo contenedor
+      const content = document.getElementById('content');
+
+      // Mover el párrafo al final del segundo contenedor si aún no se ha movido
+      if (info1 && content && !content.contains(info1)) {
+        content.appendChild(info1);
+      }
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = moveElement;
+
+  // Ejecutar cuando se cambie el tamaño de la ventana
+  window.onresize = moveElement;
+</script>
+
+
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     
     <script>
     /*document.addEventListener('DOMContentLoaded', function() {
