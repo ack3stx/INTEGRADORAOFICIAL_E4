@@ -10,6 +10,11 @@ if(!$atributos['success']){
     exit();
 }
 
+if($_POST)
+{
+    header('Location: ../Views/Contacto.php?status=success');
+    exit();
+}
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;

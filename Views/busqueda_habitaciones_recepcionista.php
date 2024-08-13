@@ -101,9 +101,7 @@
   </nav>
   <br>
     <div class="container">
-      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
-        Agregar Nueva HABITACION
-      </button>
+
       <div id="alertContainer">
       <?php
       if (isset($_GET['success']) && $_GET['success'] == 1) {
