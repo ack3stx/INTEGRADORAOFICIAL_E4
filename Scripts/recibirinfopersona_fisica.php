@@ -38,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
 
-            
                 $id_usuario = 94;
 
                 $registro = $data->registro(
@@ -67,10 +66,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $tipo_habitacion = $habitacion['tipo'];
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
-                     $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+                     
 
                     
                    }
+
+                   $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
 
                 
 

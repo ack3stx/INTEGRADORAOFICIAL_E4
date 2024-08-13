@@ -922,6 +922,8 @@ function scrollToContent() {
         }).catch(error => { console.log(error)})
     }
 
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
             
@@ -1670,20 +1672,6 @@ function toggleBilling() {
     });
 
    
-    if (document.getElementById('facturar').checked) {
-        var camposFacturacion = document.querySelectorAll('#billingForm input');
-        camposFacturacion.forEach(function(campo) {
-            if (campo.value === '') {
-                campo.style.border = '2px solid red';
-                setTimeout(() => {
-                    campo.style.border = '';
-                }, 2000);
-                formValido = false;
-            } else {
-                campo.style.border = '';
-            }
-        });
-    }
 
     return formValido;
 }
@@ -1693,6 +1681,7 @@ function enviarformulario(event) {
     var formularioValido = validarformulario('form-persona');
 
     if (formularioValido) {
+
         const persona = {
             nombre: document.getElementById('nombre').value,
             ap_paterno: document.getElementById('ap_paterno').value,
@@ -1709,17 +1698,7 @@ function enviarformulario(event) {
 
         localStorage.setItem('persona', JSON.stringify(persona));
 
-        if (document.getElementById('facturar').checked) {
-            const facturacion = {
-                nombre: document.getElementById('nombreFactura').value,
-                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
-                ap_materno: document.getElementById('apellidoMaternoFactura').value,
-                direccion: document.getElementById('direccion').value,
-                rfc: document.getElementById('rfc').value
-            };
-
-            localStorage.setItem('facturacion', JSON.stringify(facturacion));
-        }
+      
 
         alert('Datos guardados exitosamente');
         window.location.href = 'form_pago_fisico.php';
@@ -1731,7 +1710,7 @@ function enviarformulario(event) {
 }); 
 
         
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+    
 
 
       

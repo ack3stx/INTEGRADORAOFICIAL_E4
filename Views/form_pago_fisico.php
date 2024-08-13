@@ -98,12 +98,10 @@
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
-        const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
-        const ninos = localStorage.getItem('selectedKids');
-        const adultos = localStorage.getItem('selectedAdults');
+        
 
         document.getElementById('payment-form').addEventListener('submit', function () {
             // Aquí puedes realizar cualquier validación adicional si es necesario
@@ -117,21 +115,18 @@
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                     'habitaciones': JSON.stringify(habitaciones),
-                    'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
-                    'ninos': ninos,
-                    'adultos': adultos,
                     'metodo': document.getElementById('metodo').value
                 })
             }).then(response => {
                 console.log('Response status:', response);
-                
                 return response.json();
             }).then((data) => {
                 console.log(data);
-                setTimeout(() => {
+                alert('datos enviados')
+               setTimeout(() => {
                     window.location.href = "../index.php";
                 }, 2000); // Redirigir después de 2 segundos
             });
