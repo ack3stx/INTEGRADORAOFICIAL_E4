@@ -141,23 +141,7 @@ function validartelefono(input){
     
 };
 
-function validarEdad() {
-    var fechaNacimiento = document.getElementById('f_nac').value;
-    var fechaNac = new Date(fechaNacimiento);
-    var fechaActual = new Date();
-    var diferencia = fechaActual.getFullYear() - fechaNac.getFullYear();
-    var m = fechaActual.getMonth() - fechaNac.getMonth();
 
-    if (m < 0 || (m === 0 && fechaActual.getDate() < fechaNac.getDate())) {
-        diferencia--;
-    }
-
-    if (diferencia < 18 ) {
-        alert("Ingresa una fecha de nacimiento válida");
-        return false; 
-    }
-    return true; 
-}
     </script>    
 </body>
 </html>

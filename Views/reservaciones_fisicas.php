@@ -904,6 +904,7 @@ function scrollToContent() {
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
+            window.location.href = 'Calendariore.php';
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
