@@ -89,14 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         $registrarPagoConsulta = "
-            CALL REGISTRARPAGORESERVACION($numeroReservacion, '$metodoPago', $costoTotalHabitaciones)";
-        error_log("Consulta de registrar pago: $registrarPagoConsulta");
+            CALL REGISTRAR_PAGO_RESERVACION($numeroReservacion, '$metodoPago', $costoTotalHabitaciones)";
         $db->ejecuta($registrarPagoConsulta);
 
         if ($nombreFactura && $apellidoPaternoFactura && $apellidoMaternoFactura && $direccion && $rfc) {
             $registrarFacturacionConsulta = "
                 CALL REGISTRO_FACTURACION('$nombreFactura', '$apellidoPaternoFactura', '$apellidoMaternoFactura', '$rfc', '$direccion')";
-            error_log("Consulta de registrar facturación: $registrarFacturacionConsulta");
             $db->ejecuta($registrarFacturacionConsulta);
         }
 
