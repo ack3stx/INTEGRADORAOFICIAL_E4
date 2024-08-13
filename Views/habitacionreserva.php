@@ -1247,31 +1247,6 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             }  
             
             
-            
-            if(document.getElementById('doble')) {
-                console.log('existe')
-                
-            }
-            else {
-                console.log('no existe')
-            }
-
-            if(document.getElementById('sencilla')) {
-                console.log('existe')
-                
-            }
-            else {
-                console.log('no existe')
-            }
-
-            if(document.getElementById('king')) {
-                console.log('existe')
-                
-            }
-            else {
-                console.log('no existe')
-            }
-
 
 
 
@@ -1281,39 +1256,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             
             
             
-            /*function mostrarformulario(buttonType) {
-                var reservarboton = document.getElementById('porsilasdudas');
-                var continuar = document.getElementById('continuar');
-                
-                if (buttonType === 'reservarboton') {
-                    
-                document.getElementById('form-persona').style.display = 'block';
-                document.getElementById('contenedor-fluido').style.display = 'none';
-                document.getElementById('dobid').style.display = 'none';
-                document.getElementById('kingid').style.display = 'none';
-                document.getElementById('sencid').style.display = 'none';
-                reservarboton.classList.add('hidden');
-                continuar.classList.remove('hidden');
-                } else {
-                    
-                
-                reservarboton.classList.remove('hidden');
-                continuar.classList.add('hidden');
-                }
-                } */
-               
-               
-               /*function realizarReserva() {
-                // Aquí puedes añadir cualquier lógica o redirección necesaria
-                console.log("Datos de reserva ya están almacenados. Procesando reserva...");
-                window.location.href = 'form_pago.php'; // Cambia esto por la ruta adecuada
-                // O simplemente invoca aquí a cualquier función que ya tengas definida para manejar la reserva
-                }
-                
-                document.getElementById('porsilasdudas').addEventListener('click', function() {
-                    mostrarformulario('reservarboton');
-                    }); */
-                    
+           
                     
                     // calcular la diferencia entre dos fechas
 
@@ -1405,7 +1348,7 @@ function actualizarResumen(tipo) {
         }
         
         actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir(roomdoble,roomKing,roomSencilla);
+        
         
     };
     
@@ -1426,26 +1369,11 @@ function actualizarResumen(tipo) {
     document.getElementById('info1').style.display = 'block'; 
     
     actualizarEstadoBotonAñadir();
-    desabilitarbotonañadir(roomdoble,roomKing,roomSencilla);
-   
     
-    
-    
+
 }
 
-function desabilitarbotonañadir (roomdoble,roomKing,roomSencilla){
 
-    if(roomdoble === habitacionesDoble){
-        alert('sobrepasaste las dobles')
-    }
-    if(roomKing === habitacionesKingSize){
-        alert('sobrepasaste las sencilla')
-    }
-    if(roomSencilla === habitacionesSencilla){
-        alert('sobrepasaste las king')
-
-    }
-}
 
 
 
@@ -1459,9 +1387,7 @@ function vaciarResumen() {
     roomSencilla = 0;
     acumulador = 0;
     document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
-   // tiposSeleccionados = [];
-   // localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
-   // localStorage.setItem('cantidad', acumulador);
+   
     
     document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
     
@@ -1485,6 +1411,15 @@ function actualizarEstadoBotonAñadir() {
         addButtonKing.disabled = false;
         addButtonSencilla.disabled = false;
     }
+    if(roomdoble === habitacionesDoble){
+        addButtonDoble.disabled = true;
+    }
+    if(roomKing === habitacionesKingSize){
+        addButtonKing.disabled = true;
+    }
+    if(roomSencilla === habitacionesSencilla){
+        addButtonSencilla.disabled = true;
+    }
 } 
 
 
@@ -1493,12 +1428,6 @@ document.getElementById('borrarCambios').onclick = vaciarResumen;
 
 
 
-
-function toggleBilling() {
-    var checkbox = document.getElementById("facturar");
-    var billingForm = document.getElementById("billingForm");
-    billingForm.style.display = checkbox.checked ? "block" : "none";
-}
 
 
 
@@ -1512,108 +1441,7 @@ function mostrar() {
 
 
         
-        /* document.addEventListener('DOMContentLoaded', function() {
-            document.getElementById('continuar').addEventListener('click', guardardatospersona);
-            });
-
-            
-            
-            //guardar datos de persona
-            function guardardatospersona(){
-                event.preventDefault();
-                
-                const persona = {
-                    nombre: document.getElementById('nombre').value,
-                    ap_paterno: document.getElementById('ap_paterno').value,
-                    ap_materno: document.getElementById('ap_materno').value,
-                    f_nac: document.getElementById('f_nac').value,
-                    direccion: document.getElementById('direccion').value,
-                    ciudad: document.getElementById('ciudad').value,
-                    estado: document.getElementById('estado').value,
-                    cd_postal: document.getElementById('cd_postal').value,
-                    pais: document.getElementById('pais').value,
-                    genero: document.getElementById('genero').value,
-                    telefono: document.getElementById('telefono').value,
-                    }
-                    
-                    localStorage.setItem('persona',JSON.stringify(persona));
-                    
-                    alert('Datos guardados exitosamente');
-                    window.location.href = 'form_pago.php';
-                    }
-                    */
-                   
-                   /*              FORMULARIO DE PERSONA                                                                                                       
-                   
-                   function validarformulario(idFormulario) {
-                    var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
-                    var formValido = true;
-                    
-                    campos.forEach(function(campo) {
-                        if (campo.value === '') {
-                            campo.style.border = '2px solid red';
-                            setTimeout(() => {
-                                campo.style.border = '';
-                                }, 2000);
-                                formValido = false;
-                                } else {
-                                    campo.style.border = '';
-                            }
-                            });
-                            
-                            
-                            if (document.getElementById('facturar').checked) {
-                                var camposFacturacion = document.querySelectorAll('#billingForm input');
-                                camposFacturacion.forEach(function(campo) {
-                                    if (campo.value === '') {
-                                        campo.style.border = '2px solid red';
-                                        setTimeout(() => {
-                                            campo.style.border = '';
-                                            }, 2000);
-                                            formValido = false;
-                                            } else {
-                                                campo.style.border = '';
-                                        }
-                                        });
-                                        }
-                                        
-                                        return formValido;
-                                        }
-                                        
-                                        function enviarformulario(event) {
-                                            event.preventDefault();
-                                            var formularioValido = validarformulario('form-persona');
-                                            
-                                            if (formularioValido) {
-                                                
-                                            
-                                            if (document.getElementById('facturar').checked) {
-                                                const facturacion = {
-                                                    nombre: document.getElementById('nombreFactura').value,
-                                                    ap_paterno: document.getElementById('apellidoPaternoFactura').value,
-                                                    ap_materno: document.getElementById('apellidoMaternoFactura').value,
-                                                    direccion: document.getElementById('direccion').value,
-                                                    rfc: document.getElementById('rfc').value
-                                                    };
-                                                    
-                                                    localStorage.setItem('facturacion', JSON.stringify(facturacion));
-                                                    }
-                                                    
-                                                    alert("Datos guardados exitosamente");
-                                                    window.location.href = 'form_pago.php';
-                                                    }
-                                                    }
-                                                    
-                                                    
-                                                    
-                                                    document.getElementById('continuar').addEventListener('click',enviarformulario); */
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
-                                                    
+       
                                                     
 </script>
  
