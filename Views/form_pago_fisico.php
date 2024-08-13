@@ -157,7 +157,6 @@ function toggleBilling() {
     });
 }
 
-document.addEventListener('DOMContentLoaded',mandardatos);
     
 
     </script>
