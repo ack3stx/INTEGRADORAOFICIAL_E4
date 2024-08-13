@@ -1,15 +1,13 @@
 <?php
-
 session_start();
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Credit Card Form</title>
     <style>
         body {
@@ -99,37 +97,57 @@ session_start();
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
+
+            <div class="form-check mb-3 mt-4">
+                <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+                <label class="form-check-label" for="facturar">Desea Facturar</label>
+            </div>
+
+            <div id="billingForm" style="display: none;">
+                <h4 class="mb-3">Datos de Facturación</h4>
+                <div class="mb-3">
+                    <label for="nombreFactura" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+                </div>
+                <div class="mb-3">
+                    <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+                    <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+                </div>
+                <div class="mb-3">
+                    <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+                    <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+                </div>
+                <div class="mb-3">
+                    <label for="direccion" class="form-label">Dirección</label>
+                    <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+                </div>
+                <div class="mb-3">
+                    <label for="rfc" class="form-label">RFC</label>
+                    <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+                </div>
+            </div>
             <button type="submit" id="submit-button" disabled>Enviar</button>
         </form>
     </div>
 
     <script>
-       
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
         const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
-        
-        
 
-        const submitButton = document.getElementById('submit-button');
-
-     
-
-        function enableSubmitButton() {
+        document.getElementById('card-form').addEventListener('submit', function (e) {
+            e.preventDefault();
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
-            const cardName = document.getElementById('card-name').value;
-            const expiryDate = document.getElementById('expiry-date').value;
-            const cvv = document.getElementById('cvv').value;
-
-            if (cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3) {
-                submitButton.disabled = false;
-                
+            if (!luhnCheck(cardNumber)) {
+                alert('Número de tarjeta inválido.');
             } else {
-                submitButton.disabled = true;
+                mandardatos().then(() => {
+                    this.submit(); // Envía el formulario después de completar la función mandardatos
+                });
             }
-        }
+        });
 
         document.getElementById('card-number').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -160,13 +178,11 @@ session_start();
 
             this.value = cardNumber.replace(/(\d{4})(?=\d)/g, '$1 ');
 
-            // Validación del algoritmo de Luhn
-            if (cardNumber.length >= 13) {
-                if (!luhnCheck(cardNumber)) {
-                    cardType.textContent += ' (Invalid)';
-                }
+            if (cardNumber.length >= 13 && luhnCheck(cardNumber)) {
+                document.getElementById('submit-button').disabled = false;
+            } else {
+                document.getElementById('submit-button').disabled = true;
             }
-            enableSubmitButton();
         });
 
         document.getElementById('card-name').addEventListener('input', function () {
@@ -188,16 +204,14 @@ session_start();
             enableSubmitButton();
         });
 
-        document.getElementById('card-form').addEventListener('submit', function (e) {
-            e.preventDefault();
+        function enableSubmitButton() {
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
-            if (!luhnCheck(cardNumber)) {
-                
-                alert('Número de tarjeta inválido.');
-            } else {
-                mandardatos();
-            }
-        });
+            const cardName = document.getElementById('card-name').value;
+            const expiryDate = document.getElementById('expiry-date').value;
+            const cvv = document.getElementById('cvv').value;
+
+            document.getElementById('submit-button').disabled = !(cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3);
+        }
 
         function luhnCheck(cardNumber) {
             let sum = 0;
@@ -215,31 +229,44 @@ session_start();
         }
 
         function mandardatos() {
-            fetch('../Scripts/recibirinfopersona.php', {
+            return fetch('../Scripts/recibirinfopersona.php', {
+                method: 'POST',
                 body: new URLSearchParams({
-                    
                     'habitaciones': JSON.stringify(habitaciones),
                     'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
-                    'fechafin': fechafin,
-                    
-                }),
-                method: 'POST'
+                    'fechafin': fechafin
+                })
             }).then(response => {
-                console.log('response:',response)
-                
+                console.log('Response status:', response.status);
+                return response.json();
             }).then((data) => {
                 console.log(data);
-                alert('Datos enviados')
-                window.location.href = "../index.php";
+                alert('Datos enviados');
             }).catch((error) => {
-                console.log(error);
-               
+                console.error('Error:', error);
             });
         }
 
-        
+        function toggleBilling() {
+            const checkbox = document.getElementById('facturar');
+            const billingForm = document.getElementById('billingForm');
+            
+            const inputIds = ['nombreFactura', 'apellidoPaternoFactura', 'apellidoMaternoFactura', 'direccion', 'rfc'];
+            
+            if (checkbox.checked) {
+                billingForm.style.display = 'block';
+                inputIds.forEach(inputId => {
+                    document.getElementById(inputId).setAttribute('required', 'required');
+                });
+            } else {
+                billingForm.style.display = 'none';
+                inputIds.forEach(inputId => {
+                    document.getElementById(inputId).removeAttribute('required');
+                });
+            }
+        }
     </script>
 </body>
 </html>
