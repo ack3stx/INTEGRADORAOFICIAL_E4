@@ -3,10 +3,11 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['metodo'])) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
         $cantidad = $_POST['cantidad'];
+        $metodo = $_POST['metodo'];
         
 
         $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
@@ -71,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     
                    }
 
-                   $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
+                   $detalle_pago = $data->detalle_pago($metodo, $cantidad);
 
                 
 
