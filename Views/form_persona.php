@@ -94,7 +94,7 @@ if(isset($_SESSION["rol"])){
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="tel" id="telefono" name="telefono" maxLength="10" required  oninput="validartelefono(this)"  ><br>
-                <button type="submit" class="btn" id="continuar" style="background-color: rgba(214, 13, 13, 0.5);">Continuar</button>
+                <button type="submit" class="btn" style="background-color: rgba(214, 13, 13, 0.5);">Continuar</button>
             </form>
         </div>    
     <script>
