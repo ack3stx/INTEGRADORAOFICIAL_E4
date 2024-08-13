@@ -350,7 +350,7 @@ margin-bottom: 1%;
     <div class="row" style="height: 20%;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 " style="height: 20%;">
       <div class="container-fluid" style="height: 20%;">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php" style="margin-top: -6%;">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php" style="margin-top: -8%;">
           <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px; " class="rounded-circle rounded-1">
         </a>
         

@@ -7,8 +7,8 @@
     <title>Facturacion</title>
 </head>
 <body>
-<form style="width: 100%; height: 50%; display: flex; justify-content: center; align-items: center;" id="facturacion" action="../Scripts/redireccionar2.php" method="post">
-         <h4 class="mb-3">Datos de Facturación</h4><br><br>
+<form style="width: 50%; height: 100%; justify-content: center; align-items: center; margin:auto;" id="facturacion" action="../Scripts/redireccionar2.php" method="post">
+         <h4 class="mb-3 text-center">Datos de Facturación</h4><br><br>
         <div class="mb-3">
           <label for="nombreFactura" class="form-label">Nombre</label><br><br>
           <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required><br><br>
