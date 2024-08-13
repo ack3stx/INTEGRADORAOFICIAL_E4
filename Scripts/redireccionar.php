@@ -10,6 +10,10 @@ WHERE ID_DETALLE_PAGO = (SELECT MAX(ID_DETALLE_PAGO) FROM DETALLE_PAGO);";
 
     $db->ejecuta($consulta);
 
+    if ($nombreFactura && $apellidoPaternoFactura && $apellidoMaternoFactura && $direccion && $rfc) {
+        $db->facturacion($nombreFactura,$apellidoPaternoFactura,$apellidoMaternoFactura,$rfc,$direccion);
+    }
+
     header('Location: ../Views/check2.php');
 
 ?>

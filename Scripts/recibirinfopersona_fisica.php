@@ -3,10 +3,9 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['facturacion']) ) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin'])) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
-        $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
         
 
@@ -69,12 +68,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
                      $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
-                     if($facturacion === null){
-                        echo "No se ha facturado";
-                       }
-                       else{
-                         $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
-                       }
 
                     
                    }
