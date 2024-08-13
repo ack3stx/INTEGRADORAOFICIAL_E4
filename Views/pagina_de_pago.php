@@ -96,7 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($nombreFactura && $apellidoPaternoFactura && $apellidoMaternoFactura && $direccion && $rfc) {
             $registrarFacturacionConsulta = "
                 CALL REGISTRO_FACTURACION('$nombreFactura', '$apellidoPaternoFactura', '$apellidoMaternoFactura', '$rfc', '$direccion')";
-            error_log("Consulta de registrar facturación: $registrarFacturacionConsulta");
             $db->ejecuta($registrarFacturacionConsulta);
         }
 
