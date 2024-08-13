@@ -1400,7 +1400,7 @@ cardFooter.className = 'card-footer-custom';
             addButton.type = 'button';
             addButton.className = 'btn btn-danger custom-btn';
             addButton.id = 'sencilla';
-            
+            2
             addButton.onclick = function() {
                 mostrar();
                 calcularPrecio('Sencilla',precio);
@@ -1592,7 +1592,7 @@ function vaciarResumen() {
 }
 
 
-/*function actualizarEstadoBotonAñadir() {
+function actualizarEstadoBotonAñadir() {
     const addButtonDoble = document.getElementById('doble');
     const addButtonKing = document.getElementById('king');
     const addButtonSencilla = document.getElementById('sencilla');
@@ -1608,7 +1608,7 @@ function vaciarResumen() {
         addButtonKing.disabled = false;
         addButtonSencilla.disabled = false;
     }
-} */
+} 
 
 
 
