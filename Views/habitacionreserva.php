@@ -1405,7 +1405,7 @@ function actualizarResumen(tipo) {
         }
         
         actualizarEstadoBotonAñadir();
-        desabilitarbotonañadir();
+        desabilitarbotonañadir(roomdoble,roomKing,roomSencilla);
         
     };
     
@@ -1426,14 +1426,14 @@ function actualizarResumen(tipo) {
     document.getElementById('info1').style.display = 'block'; 
     
     actualizarEstadoBotonAñadir();
-    desabilitarbotonañadir();
+    desabilitarbotonañadir(roomdoble,roomKing,roomSencilla);
    
     
     
     
 }
 
-function desabilitarbotonañadir (){
+function desabilitarbotonañadir (roomdoble,roomKing,roomSencilla){
 
     if(roomdoble === habitacionesDoble){
         alert('sobrepasaste las dobles')
