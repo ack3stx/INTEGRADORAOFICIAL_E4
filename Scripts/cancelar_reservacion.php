@@ -5,7 +5,7 @@ $db->conectarDB();
 extract($_POST);
 
 if (isset($id_reservacion)) {
-    $cancelacion = "UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`RESERVACION` SET `ESTADO_RESERVACION` = 'cancelada' WHERE `ID_RESERVACION` = $id_reservacion";
+    $cancelacion = "UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`RESERVACION` SET `ESTADO_RESERVACION` = 'cancelada' WHERE `ID_RESERVACION` = $ID_RESERVACION";
     $db->ejecuta($cancelacion);
 }
 
