@@ -352,6 +352,17 @@ margin-bottom: 1%;
     overflow-y: auto;
     padding-right: 10px;
 }
+#form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
 
         }
         @media screen and (max-width: 949px) {
@@ -368,6 +379,21 @@ margin-bottom: 1%;
     height: 100%;
     width: 100%;
         }
+        #form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
+#persona
+{
+    width: 73%;
+}
 }
 
 .card-body {
@@ -554,14 +580,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona" style="display: none;
-            position: absolute;
-    top: 80%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 130%;
-    width:150%;
-    padding-left:25%;">
+            <form id="form-persona" style="display: none;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
@@ -588,38 +607,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
-                <div class="form-check mb-3 mt-4">
-        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
-        <label class="form-check-label" for="facturar">Desea Facturar</label>
-      </div>
-
-      <div id="billingForm" style="display: none;">
-        <h4 class="mb-3">Datos de Facturación</h4>
-        <div class="mb-3">
-          <label for="nombreFactura" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
-        </div>
-        <div class="mb-3">
-          <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" required>
-        </div>
-        <div class="mb-3">
-          <label for="rfc" class="form-label">RFC</label>
-          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
-        </div>
-      </div>
-      </div>
-                </div>
-                
-            </form>    
+                <br><br>
+            </div>
+            </form>
 
 
 <div class="fixed-footer desplegable">
@@ -1609,11 +1599,7 @@ function actualizarEstadoBotonAñadir() {
 document.getElementById('borrarCambios').onclick = vaciarResumen;
 
 
-function toggleBilling() {
-      var checkbox = document.getElementById("facturar");
-      var billingForm = document.getElementById("billingForm");
-      billingForm.style.display = checkbox.checked ? "block" : "none";
-    }
+
 
 
 
@@ -1695,21 +1681,7 @@ function toggleBilling() {
         }
     });
 
-   
-    if (document.getElementById('facturar').checked) {
-        var camposFacturacion = document.querySelectorAll('#billingForm input');
-        camposFacturacion.forEach(function(campo) {
-            if (campo.value === '') {
-                campo.style.border = '2px solid red';
-                setTimeout(() => {
-                    campo.style.border = '';
-                }, 2000);
-                formValido = false;
-            } else {
-                campo.style.border = '';
-            }
-        });
-    }
+
 
     return formValido;
 }
@@ -1735,17 +1707,6 @@ function enviarformulario(event) {
 
         localStorage.setItem('persona', JSON.stringify(persona));
 
-        if (document.getElementById('facturar').checked) {
-            const facturacion = {
-                nombre: document.getElementById('nombreFactura').value,
-                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
-                ap_materno: document.getElementById('apellidoMaternoFactura').value,
-                direccion: document.getElementById('direccion').value,
-                rfc: document.getElementById('rfc').value
-            };
-
-            localStorage.setItem('facturacion', JSON.stringify(facturacion));
-        }
 
         alert('Datos guardados exitosamente');
         window.location.href = 'form_pago_fisico.php';

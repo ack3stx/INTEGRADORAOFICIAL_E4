@@ -40,19 +40,50 @@
         button:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head>
 <body>
     <div class="container" id="holiwis">
-        <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
-            <h3 class="text-center">Método de Pago</h3><br>
-            <select class="form-select" name="metodo" id="metodo" required>
-                <option value="tarjeta">Tarjeta</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="transferencia">Transferencia</option>
-            </select> <br>
-            <button type="submit" id="submit-button">Enviar</button>
-        </form>
+    <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
+    <h3 class="text-center">Método de Pago</h3><br>
+    <select class="form-select" name="metodo" id="metodo" required>
+        <option value="tarjeta">Tarjeta</option>
+        <option value="efectivo">Efectivo</option>
+        <option value="transferencia">Transferencia</option>
+    </select> <br>
+    
+    <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+    </div>
+
+    <div id="billingForm" style="display: none;">
+        <h4 class="mb-3">Datos de Facturación</h4>
+        <div class="mb-3">
+            <label for="nombreFactura" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo">
+        </div>
+        <div class="mb-3">
+            <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+            <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno">
+        </div>
+        <div class="mb-3">
+            <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+            <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno">
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País">
+        </div>
+        <div class="mb-3">
+            <label for="rfc" class="form-label">RFC</label>
+            <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+        </div>
+    </div>
+    <button type="submit" id="submit-button">Enviar</button>
+</form>
+      </div>
     </div>
 
     <div class="confirmation" id="eso" style="display: none;">
@@ -95,10 +126,8 @@
                     'metodo': document.getElementById('metodo').value
                 })
             }).then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                console.log('Response status:', response);
+                
                 return response.json();
             }).then((data) => {
                 console.log(data);
@@ -107,6 +136,33 @@
                 }, 2000); // Redirigir después de 2 segundos
             });
         }
+
+function toggleBilling() {
+    const checkbox = document.getElementById('facturar');
+    const billingForm = document.getElementById('billingForm');
+    
+    // IDs de los inputs en el formulario de facturación
+    const inputIds = ['nombreFactura', 'apellidoPaternoFactura', 'apellidoMaternoFactura', 'direccion', 'rfc'];
+    
+    // Mostrar u ocultar el formulario de facturación
+    if (checkbox.checked) {
+        billingForm.style.display = 'block';
+    } else {
+        billingForm.style.display = 'none';
+    }
+
+    // Hacer required o no los campos
+    inputIds.forEach(function(inputId) {
+        const inputElement = document.getElementById(inputId);
+        if (checkbox.checked) {
+            inputElement.setAttribute('required', 'required');
+        } else {
+            inputElement.removeAttribute('required');
+        }
+    });
+}
+    
+
     </script>
 </body>
 </html>
