@@ -40,19 +40,50 @@
         button:hover {
             background-color: #0056b3;
         }
+
     </style>
 </head>
 <body>
     <div class="container" id="holiwis">
-        <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
-            <h3 class="text-center">Método de Pago</h3><br>
-            <select class="form-select" name="metodo" id="metodo" required>
-                <option value="tarjeta">Tarjeta</option>
-                <option value="efectivo">Efectivo</option>
-                <option value="transferencia">Transferencia</option>
-            </select> <br>
-            <button type="submit" id="submit-button">Enviar</button>
-        </form>
+    <form id="payment-form" action="../Scripts/redireccionar.php" method="post">
+    <h3 class="text-center">Método de Pago</h3><br>
+    <select class="form-select" name="metodo" id="metodo" required>
+        <option value="tarjeta">Tarjeta</option>
+        <option value="efectivo">Efectivo</option>
+        <option value="transferencia">Transferencia</option>
+    </select> <br>
+    
+    <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+    </div>
+
+    <div id="billingForm" style="display: none;">
+        <h4 class="mb-3">Datos de Facturación</h4>
+        <div class="mb-3">
+            <label for="nombreFactura" class="form-label">Nombre</label>
+            <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" maxlength="30"  onkeypress="return sololetras(event);"  >
+        </div>
+        <div class="mb-3">
+            <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
+            <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" maxlength="30"  onkeypress="return sololetras(event);"  >
+        </div>
+        <div class="mb-3">
+            <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
+            <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" maxlength="30"  onkeypress="return sololetras(event);"  >
+        </div>
+        <div class="mb-3">
+            <label for="direccion" class="form-label">Dirección</label>
+            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" >
+        </div>
+        <div class="mb-3">
+            <label for="rfc" class="form-label">RFC</label>
+            <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+        </div>
+    </div>
+    <button type="submit" id="submit-button">Enviar</button>
+</form>
+      </div>
     </div>
 
     <div class="confirmation" id="eso" style="display: none;">
@@ -67,14 +98,12 @@
     <script>
         const persona = JSON.parse(localStorage.getItem('persona'));
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
-        const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
-        const ninos = localStorage.getItem('selectedKids');
-        const adultos = localStorage.getItem('selectedAdults');
+        
 
-        document.getElementById('payment-form').addEventListener('submit', function () {
+       document.getElementById('payment-form').addEventListener('submit', function () {
             // Aquí puedes realizar cualquier validación adicional si es necesario
             // Pero no prevengas el comportamiento predeterminado para que la redirección ocurra
             mandardatos(this);
@@ -86,27 +115,92 @@
                 body: new URLSearchParams({
                     'persona': JSON.stringify(persona),
                     'habitaciones': JSON.stringify(habitaciones),
-                    'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
-                    'ninos': ninos,
-                    'adultos': adultos,
                     'metodo': document.getElementById('metodo').value
                 })
             }).then(response => {
-                console.log('Response status:', response.status);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
+                console.log('Response status:', response);
                 return response.json();
             }).then((data) => {
                 console.log(data);
-                setTimeout(() => {
+                alert('datos enviados')
+               setTimeout(() => {
                     window.location.href = "../index.php";
                 }, 2000); // Redirigir después de 2 segundos
             });
         }
+
+function toggleBilling() {
+    const checkbox = document.getElementById('facturar');
+    const billingForm = document.getElementById('billingForm');
+    
+    // IDs de los inputs en el formulario de facturación
+    const inputIds = ['nombreFactura', 'apellidoPaternoFactura', 'apellidoMaternoFactura', 'direccion', 'rfc'];
+    
+    // Mostrar u ocultar el formulario de facturación
+    if (checkbox.checked) {
+        billingForm.style.display = 'block';
+    } else {
+        billingForm.style.display = 'none';
+    }
+
+    // Hacer required o no los campos
+    inputIds.forEach(function(inputId) {
+        const inputElement = document.getElementById(inputId);
+        if (checkbox.checked) {
+            inputElement.setAttribute('required', 'required');
+        } else {
+            inputElement.removeAttribute('required');
+        }
+    });
+}
+
+function sololetras (e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        especiales = [8,13];
+        tecla_especial = false
+        for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)== -1 && !tecla_especial){
+            alert("Solo letras");
+            return false;
+        }
+    }
+
+    function solonumeros (e) {
+        if(window.event){
+            keynum = evt.keyCode;
+        }
+        else {
+            keynum = evt.which;
+        }
+
+        if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 0){
+            return true;
+        }
+        else{
+            alert("Solo numeros");
+            return false;
+        }
+
+    }
+    
+
+function validartelefono(input){
+    input.value = input.value.replace(/\D/g, '');
+    
+};
+    
+
     </script>
 </body>
 </html>

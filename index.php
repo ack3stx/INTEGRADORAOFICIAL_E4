@@ -1,15 +1,10 @@
 <?php
 session_start();
-if(isset($_SESSION["rol"])){
-    $rol=$_SESSION["rol"];
-    switch ($rol) {
-        case 'recepcionista':
-            header("Location:Views/Panel_Recepcionista.php");
-        break;
-        case 'administrador':
-            header("Location:Views/Panel_Admin.php");
-        break;
-    }
+if(isset($_SESSION["usuario"])){
+    if(!isset($_SESSION["huesped"]))
+{
+    header("Location:Views/form_persona.php");
+}
 }
 ?>
 <!DOCTYPE html>
@@ -213,6 +208,7 @@ else {
               Contamos con más de 15 años de experiencia dentro de nuestra hermosa ciudad <span class="highlight">Torreón Coahuila</span> atendiendo a nuestros huéspedes regionales e internacionales con la mejor calidad de servicios.
           </p>
           <a href="Views/nosotros.php" class="btn btn-custom">Conócenos</a>
+         
       </div>
       <div class="col-md-6">
           <div class="image-container">

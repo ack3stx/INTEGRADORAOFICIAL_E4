@@ -8,6 +8,7 @@
 </head>
 <body>
     <?php
+    
     $ip = $_SERVER['REMOTE_ADDR'];
     $capchat = $_POST['g-recaptcha-response'];
     $secretkey = "6LccmR0qAAAAAA0xfHs9zDOwVUDtzPU-6Y7_5yi4";
@@ -17,6 +18,7 @@
         header('Location: ../Views/Login.php?status=failed_capchat');
         exit();
     }
+        
         include '../Clases/BasedeDatos.php';
         $db=new Database();
         $db->conectarDB();

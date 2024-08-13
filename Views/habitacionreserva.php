@@ -175,10 +175,6 @@ margin-bottom: 1%;
 
   }
 
-  #info1{
-    display:none;
-  }
-
   #persona{
     width: 30%;
     height: 50%;
@@ -187,65 +183,181 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
-  .image-container img {
-    width: 100%; /* La imagen se ajusta al 100% del ancho del contenedor */
-    height: auto; /* Mantiene la proporción de la imagen */
-    display: block; /* Elimina espacios en blanco alrededor de la imagen */
-    max-width: 100%; /* Se asegura de que la imagen no exceda el tamaño del contenedor */
-}
-
-
-
-@media (max-width: 768px) {
-    .card-custom {
-        max-width: 100%; /* En pantallas más pequeñas, permite que la tarjeta use todo el ancho */
-    }
-}
-
-#contenedor-fluido {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
-
-.card-custom {
-  
+  /* Estilo existente */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
     width: 100%;
-    max-width: 600px;
-    margin-bottom: 20px;
+    background-color: #2ecc71; /* Color del fondo del footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
 }
 
-#contenedor-principal {
-    position: relative; /* Necesario para permitir el movimiento relativo */
+.hidden-content {
+    display: none;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-height: 300px; /* Altura máxima del contenido desplegable */
+    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
 }
 
-@media (max-width: 810px) {
-    #contenedor-principal {
-        top: 50%; /* Mueve el contenedor hacia abajo un 50% */
-        transform: translateY(-50%); /* Ajusta la posición para centrado vertical */
-    }
+/* Botón para bajar el contenido */
+.scroll-button {
+    display: block;
+    width: 100%;
+    background-color: #3498db; /* Color del botón de scroll */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
 }
 
+.scroll-button:hover {
+    background-color: #2980b9;
+}
 
+.toggle-button {
+    cursor: pointer;
+}
 
+.reserve-button {
+    background-color: #3498db; /* Color del botón de reserva */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
 
+.reserve-button:hover {
+    background-color: #2980b9;
+}
+#contenedor-fluido
+{
+    width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+}
+#dobid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #sencid
+            {
+                width: 100vw !important; 
+    margin-left: 0 !important; 
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #kingid
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+            #card-custom
+            {
+                width: 100vw !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding: 20px;
+            }
+@media screen and (min-width: 950px) {
+            .desplegable {
+                display: none;
+            }
+            #contenedor-fluido{
+                margin: 0;
+            }
+            #info1
+            {
+                display: none;
+                position:fixed;
+    top: 0%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 70%;
+    width:40%;
+    overflow: hidden;
+            }
+            .scroll-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 100%; /* Limita la altura máxima del contenedor para permitir el scroll */
+    overflow-y: auto;
+    padding-right: 10px;
+}
+#form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
 
+        }
+        @media screen and (max-width: 949px) {
+            #info1
+            {
+                margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;
+            }
+            .card-body
+        {
+            top: 100%;
+    height: 100%;
+    width: 100%;
+        }
+        #form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
+#persona
+{
+    width: 73%;
+}
+}
+
+.card-body {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
+}
 
 </style>
 <body>
-<!--BARRA DE NAVEGACION
-<header>
-    <div class="row">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 ">
-      <div class="container-fluid">
-        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php">
-          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px;" class="rounded-circle rounded-1">
+<header style="height: 20%;">
+    <div class="row" style="height: 20%;">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 " style="height: 20%;">
+      <div class="container-fluid" style="height: 20%;">
+        <a class="navbar-brand p-2 w-25 h-50 d-inline-block col-lg-3" href="../index.php" style="margin-top: -8%;">
+          <img src="../Imagenes/LOGOHLI.png" alt="Logo" style="width: 220px; height: 80px; " class="rounded-circle rounded-1">
         </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse justify-content-center col-lg-9" id="navbarNav">
+        <div class="collapse navbar-collapse justify-content-center col-lg-9 bg-light" id="navbarNav">
           <ul class="navbar-nav text-center">
             <li class="nav-item">
               <a class="nav-link" href="../index.php"><label>INICIO</label></a>
@@ -270,48 +382,69 @@ margin-bottom: 1%;
 
 if(isset($_SESSION["usuario"])){
 
-  echo '<div class="dropdown">
-                <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <span class="material-symbols-outlined ">
-                        account_circle
-
-                    </span>
-                </button>
-                <ul class="dropdown-menu glass">
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined lia">
-                                person
-                            </span> Gestionar cuenta </a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                travel_explore
-                            </span>Historial de Reservación</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                add_comment
-                            </span>Comentarios</a></li>
-                    <li><a class="dropdown-item" href="#"><span class="material-symbols-outlined">
-                                favorite
-                            </span>Favoritos</a></li>
-                    <li><a class="dropdown-item" href="../Php/Cerrar_Sesion.php"><span class="material-symbols-outlined">
-                                logout
-                            </span>Cerrar sesión</a></li>
-                </ul>
-            </div>';
-
-
-}
-else {
-  echo '   <li class="nav-item">
-              <a class="nav-link" href="Views/Login.php"><label>INICIAR SESION</label></a>
-            </li>';
-}
-
-?>
+    echo ' 
+           <div class="dropdown">
+                  <button class="btn dropdown-toggle olap" type="button" data-bs-toggle="dropdown" aria-expanded="false" id="btnusr">
+                      <span class="material-symbols-outlined ">
+                          account_circle
+                      </span>
+                  </button>
+                  <ul class="dropdown-menu glass">
+                      <li>
+                        <a class="dropdown-item" href="panelusuario.php">
+                            <span class="material-symbols-outlined lia">manage_accounts</span>
+                            Gestionar cuenta
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="ver_datos_personales.php">
+                            <span class="material-symbols-outlined lia">person</span>
+                            Datos Personales
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="datospersonales.php">
+                            <span class="material-symbols-outlined lia">edit</span>
+                            Modificar mis Datos
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="historialreservaciones.php">
+                            <span class="material-symbols-outlined">travel_explore</span>
+                            Historial de Reservación
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="../Scripts/Cerrar_Sesion.php">
+                            <span class="material-symbols-outlined">logout</span>
+                            Cerrar Sesión
+                        </a>
+                    </li>
+                      <?php
+                      
+                      
+                      ?>
+                      
+                  </ul>
+                  
+                  
+              </div>';
+  
+  }
+  else {
+    echo '   <li class="nav-item">
+                <a class="nav-link" href="Login.php"><label>INICIAR SESION</label></a>
+              </li>';
+  }
+  
+  ?>
           </ul>
         </div>
       </div>
     </nav>
   </div>
     </header> 
-    BARRITA-->
+
     <section class="header-section">
         <div class="header-content">
             <p>HOTEL LAGUNA INN</p>
@@ -319,14 +452,6 @@ else {
         </div>
       
     </section>
-     <!-- BARRITA BLANCA-->
-      <form id="form" method="POST">
-      <div class="barra-blanca">
-        
-      </div>
-</form>
-
-
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
@@ -422,7 +547,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
             </div>
         </div>
     </div> -->
-<!--FORMULARIO PERSONA-->
+<!--FORMULARIO PERSONA
             <form id="form-persona" style="display: none;
             position: absolute;
     top: 80%;
@@ -430,7 +555,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
     transform: translate(-50%, -50%);
     height: 130%;
     width:150%;
-    padding-left:25%;">
+    padding-left:25%;" action="../Scripts/recibirinfopersona.php" method="post">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
                 <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
@@ -457,13 +582,19 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 </select><br>
                 <label for="staffName">Telefono:</label>
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
+
+                <input type="submit" value="Continuar" class="text">
+
+              </form>
                 <div class="form-check mb-3 mt-4">
         <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
         <label class="form-check-label" for="facturar">Desea Facturar</label>
       </div>
 
+
       <div id="billingForm" style="display: none;">
-        <h4 class="mb-3">Datos de Facturación</h4>
+       <form>
+         <h4 class="mb-3">Datos de Facturación</h4>
         <div class="mb-3">
           <label for="nombreFactura" class="form-label">Nombre</label>
           <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
@@ -486,7 +617,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
       </div>
       </div>
-                </div>
+                </div> 
                 
             </form>    
 
@@ -494,32 +625,40 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 
 
-<!---->
-    <div id="info1" class="container" style="display: none;
-    position: absolute;
-    top: 56%;
-    left: 30%;
-    transform: translate(-50%, -50%);
-    height: 114%;
-    width:40%;">
-    <div class="card card-custom">
-        <div class="card-body">
-            <h5 class="card-title custom1">Resumen de la Reserva</h5>
-            <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6> <!--ESPACIO PARA MOSTRAR LAS FECHAS-->
-            <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
-                <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
-            </button>
-            <br><br>
-            <hr class="mb-4">
-            <div id="room-summary">
-                <!-- Resumen breve de habitaciones -->
+-->
+    
+<div class="fixed-footer desplegable">
+    <div class="toggle-button">
+        Ver resumen (1) <span id="arrow">▲</span>
+    </div>
+    <div id="content" class="hidden-content">
+        
+    </div>
+</div>
+
+<div id="info1" class="container">
+    <div class="scroll-container">
+        <div class="card card-custom">
+            <div class="card-body">
+                <h5 class="card-title custom1">Resumen de la Reserva</h5>
+                <h6  id="fechas" class="card-subtitle custom2 mb-2 text-muted">12 jul -> 13 jul</h6>
+                <button type="button" id="noches" class="btn btn-secondary" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Top popover">
+                    <i class="fa-solid fa-moon">&nbsp;&nbsp;&nbsp;&nbsp;1 noche</i>
+                </button>
+                <br><br>
+                <hr class="mb-4">
+                <div id="room-summary">
+                    <!-- Resumen breve de habitaciones -->
+                </div>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
             </div>
-            <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
-            <br><br>
-            <div class="d-grid gap-6 col-10 mx-auto">
-                <button class="btn btn-success" type="button" id="porsilasdudas" onclick="mostrarformulario('reservarboton');">Reservar Ahora</button> <br>
-                <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
-                <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+            <!-- Fija los botones al fondo del contenedor -->
+            <div class="fixed-buttons">
+                <div class="d-grid gap-6 col-10 mx-auto">
+                    <button class="btn btn-success" type="button" id="porsilasdudas" onclick="redireccionar();">Reservar Ahora</button> <br>
+                    <button class="btn btn-success hidden" type="button" id="continuar" onclick="mostrarformulario('continuar');">Continuar</button>
+                    <button class="btn btn-danger" type="button" id="borrarCambios">Borrar Cambios</button>
+                </div>
             </div>
         </div>
     </div>
@@ -576,11 +715,59 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </footer>-->
 
 
+<script>
+    document.querySelector('.toggle-button').addEventListener('click', function() {
+    const content = document.getElementById('content');
+    const arrow = document.getElementById('arrow');
+
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.textContent = "▼"; // Cambia la flecha hacia abajo
+    } else {
+        content.style.display = "none";
+        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
+    }
+});
+
+function scrollToContent() {
+    const content = document.getElementById('content');
+    content.scrollIntoView({ behavior: 'smooth' });
+}
+
+</script>
+
+<script>
+  // Función que mueve el elemento si la pantalla es menor a 950px
+  function moveElement() {
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    if (screenWidth < 950) {
+      // Seleccionar el párrafo que se va a mover
+      const info1 = document.getElementById('info1');
+
+      // Seleccionar el segundo contenedor
+      const content = document.getElementById('content');
+
+      // Mover el párrafo al final del segundo contenedor si aún no se ha movido
+      if (info1 && content && !content.contains(info1)) {
+        content.appendChild(info1);
+      }
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = moveElement;
+
+  // Ejecutar cuando se cambie el tamaño de la ventana
+  window.onresize = moveElement;
+</script>
+
+
 
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     
     <script>
     /*document.addEventListener('DOMContentLoaded', function() {
@@ -727,6 +914,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
+            window.location.href = "Calendario.php";
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
@@ -744,6 +932,9 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         }
         }).catch(error => { console.log(error)})
     }
+
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+
 
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
@@ -1209,6 +1400,7 @@ cardFooter.className = 'card-footer-custom';
             addButton.type = 'button';
             addButton.className = 'btn btn-danger custom-btn';
             addButton.id = 'sencilla';
+            2
             addButton.onclick = function() {
                 mostrar();
                 calcularPrecio('Sencilla',precio);
@@ -1238,10 +1430,13 @@ cardFooter.className = 'card-footer-custom';
         
         
   
+        function redireccionar() {
+            window.location.href = 'form_pago.php';
+        }
 
 
-  //mostramos el formulario de persona
-    function mostrarformulario(buttonType) {
+ 
+ /*function mostrarformulario(buttonType) {
             var reservarboton = document.getElementById('porsilasdudas');
             var continuar = document.getElementById('continuar');
 
@@ -1260,7 +1455,19 @@ cardFooter.className = 'card-footer-custom';
                 reservarboton.classList.remove('hidden');
                 continuar.classList.add('hidden');
             }
-        }
+        } */
+
+
+/*function realizarReserva() {
+    // Aquí puedes añadir cualquier lógica o redirección necesaria
+    console.log("Datos de reserva ya están almacenados. Procesando reserva...");
+    window.location.href = 'form_pago.php'; // Cambia esto por la ruta adecuada
+    // O simplemente invoca aquí a cualquier función que ya tengas definida para manejar la reserva
+}
+
+document.getElementById('porsilasdudas').addEventListener('click', function() {
+    mostrarformulario('reservarboton');
+}); */
 
 
         // calcular la diferencia entre dos fechas
@@ -1315,12 +1522,12 @@ cardFooter.className = 'card-footer-custom';
 
 function actualizarResumen(tipo) {
     const resumenContenido = document.getElementById('room-summary');
-
+    
     const div = document.createElement('div');
     div.className = 'resumen-item';
     div.innerText = `Habitación: ${tipo}`;
     const boton = document.createElement('button');
-    boton.innerHTML = '<i class="fas fa-trash-alt"></i>';
+    boton.innerHTML= '<i class="fas fa-trash-alt"></i>';
 
     boton.onclick = function() {
         resumenContenido.removeChild(div);
@@ -1330,51 +1537,40 @@ function actualizarResumen(tipo) {
         if (index > -1) {
             const precioTotal = tiposSeleccionados[index].precioTotal;
             acumulador -= precioTotal;
-            document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+            price.innerText = `MXN ${acumulador}.00`;
             tiposSeleccionados.splice(index, 1);
             localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
             localStorage.setItem('cantidad', acumulador);
         }
 
-        if (tipo === 'Doble') {
+        // Disminuye el contador correspondiente y verifica si se debe habilitar el botón
+        if(tipo === 'Doble'){
             roomdoble -= 1;
-        }
-        if (tipo === 'King Size') {
+        } else if(tipo === 'King Size'){
             roomKing -= 1;
-        }
-        if (tipo === 'Sencilla') {
+        } else if(tipo === 'Sencilla'){
             roomSencilla -= 1;
         }
 
-        if (roomCount === 0) {
-            document.getElementById('info1').style.display = 'none'; 
-        }
-
-        actualizarEstadoBotonAñadir();
         desabilitarbotonañadir(tipo);
     };
 
     div.appendChild(boton);
-    roomCount += 1;
+    resumenContenido.appendChild(div);
 
-    if (tipo === 'Doble') {
+    // Aumenta el contador correspondiente y verifica si se debe deshabilitar el botón
+    if(tipo === 'Doble'){
         roomdoble += 1;
-    }
-    if (tipo === 'King Size') {
+    } else if(tipo === 'King Size'){
         roomKing += 1;
-    }
-    if (tipo === 'Sencilla') {
+    } else if(tipo === 'Sencilla'){
         roomSencilla += 1;
     }
 
-    resumenContenido.appendChild(div);
-    document.getElementById('info1').style.display = 'block'; 
-
-    actualizarEstadoBotonAñadir();
+    roomCount += 1;
     desabilitarbotonañadir(tipo);
-
-
 }
+
 
 
 function vaciarResumen() {
@@ -1412,7 +1608,7 @@ function actualizarEstadoBotonAñadir() {
         addButtonKing.disabled = false;
         addButtonSencilla.disabled = false;
     }
-}
+} 
 
 
 
@@ -1437,29 +1633,25 @@ function toggleBilling() {
             
         }
 
-        function desabilitarbotonañadir (buttonType){
-            if(  roomdoble === habitacionesDoble){
+        function desabilitarbotonañadir(buttonType) {
+    if (roomdoble >= habitacionesDoble) {
+        document.getElementById('doble').disabled = true;
+    } else if (roomdoble < habitacionesDoble) {
+        document.getElementById('doble').disabled = false;
+    }
 
-                document.getElementById('doble').disabled = true;
+    if (roomKing >= habitacionesKingSize) {
+        document.getElementById('king').disabled = true;
+    } else if (roomKing < habitacionesKingSize) {
+        document.getElementById('king').disabled = false;
+    }
 
-            }
-            else if( roomdoble === 0){
-                document.getElementById('doble').disabled = false;
-            }
-            if( roomKing === habitacionesKingSize ){
-                document.getElementById('king').disabled = true;
-            }
-            else if( roomKing === 0){
-                document.getElementById('king').disabled = false;
-            }
-            if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
-            }
-            else if( roomSencilla === 0){
-                document.getElementById('sencilla').disabled = false;
-            }
-        }
-
+    if (roomSencilla >= habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = true;
+    } else if (roomSencilla < habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = false;
+    }
+}
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
 });
@@ -1490,6 +1682,8 @@ function toggleBilling() {
             window.location.href = 'form_pago.php';
         }
         */
+
+        /*              FORMULARIO DE PERSONA                                                                                                       
 
         function validarformulario(idFormulario) {
     var campos = document.querySelectorAll('#' + idFormulario + ' input, #' + idFormulario + ' select');
@@ -1531,21 +1725,7 @@ function enviarformulario(event) {
     var formularioValido = validarformulario('form-persona');
 
     if (formularioValido) {
-        const persona = {
-            nombre: document.getElementById('nombre').value,
-            ap_paterno: document.getElementById('ap_paterno').value,
-            ap_materno: document.getElementById('ap_materno').value,
-            f_nac: document.getElementById('f_nac').value,
-            direccion: document.getElementById('direccion').value,
-            ciudad: document.getElementById('ciudad').value,
-            estado: document.getElementById('estado').value,
-            cd_postal: document.getElementById('cd_postal').value,
-            pais: document.getElementById('pais').value,
-            genero: document.getElementById('genero').value,
-            telefono: document.getElementById('telefono').value,
-        };
-
-        localStorage.setItem('persona', JSON.stringify(persona));
+        
 
         if (document.getElementById('facturar').checked) {
             const facturacion = {
@@ -1564,13 +1744,14 @@ function enviarformulario(event) {
     }
 }
 
-        document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('continuar').addEventListener('click', enviarformulario);
-}); 
+ 
+
+document.getElementById('continuar').addEventListener('click',enviarformulario); */
+
+
 
         
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
-
+    
 
       
  

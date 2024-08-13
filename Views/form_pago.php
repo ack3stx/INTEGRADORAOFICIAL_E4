@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,14 +99,19 @@
                 <label for="cvv">CVV</label>
                 <input type="text" id="cvv" maxlength="4" placeholder="123" required>
             </div>
+            <div class="form-check mb-3 mt-4">
+        <input type="checkbox" class="form-check-input" id="facturar" >
+        <label class="form-check-label" for="facturar">Desea Facturar</label>
+      </div>
+
             <button type="submit" id="submit-button" disabled>Enviar</button>
         </form>
     </div>
 
     <script>
-        const persona = JSON.parse(localStorage.getItem('persona'));
+       
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
-        const facturacion = JSON.parse(localStorage.getItem('facturacion'));
+        //const facturacion = JSON.parse(localStorage.getItem('facturacion'));
         const cantidad = localStorage.getItem('cantidad');
         const fechainicio = localStorage.getItem('fechaInicio');
         const fechafin = localStorage.getItem('fechaFin');
@@ -107,6 +119,8 @@
         
 
         const submitButton = document.getElementById('submit-button');
+
+     
 
         function enableSubmitButton() {
             const cardNumber = document.getElementById('card-number').value.replace(/\s+/g, '');
@@ -116,6 +130,7 @@
 
             if (cardNumber.length >= 13 && luhnCheck(cardNumber) && cardName.length > 0 && expiryDate.length === 5 && cvv.length >= 3) {
                 submitButton.disabled = false;
+                
             } else {
                 submitButton.disabled = true;
             }
@@ -204,12 +219,41 @@
             return sum % 10 === 0;
         }
 
+        function toggleBilling() {
+    const checkbox = document.getElementById('facturar');
+    const billingForm = document.getElementById('billingForm');
+    
+    
+    const inputIds = ['nombreFactura', 'apellidoPaternoFactura', 'apellidoMaternoFactura', 'direccion', 'rfc'];
+    
+    
+    if (checkbox.checked) {
+        billingForm.style.display = 'block';
+    } else {
+        billingForm.style.display = 'none';
+    }
+
+    
+    inputIds.forEach(function(inputId) {
+        const inputElement = document.getElementById(inputId);
+        if (checkbox.checked) {
+            inputElement.setAttribute('required', 'required');
+        } else {
+            inputElement.removeAttribute('required');
+        }
+    });
+}
         function mandardatos() {
+
+            const checkbox = document.getElementById('facturar');
+            
+            const redirectUrl = checkbox.checked ? "../Views/formfacturacion.php" : "../index.php";
+
             fetch('../Scripts/recibirinfopersona.php', {
                 body: new URLSearchParams({
-                    'persona': JSON.stringify(persona),
+                    
                     'habitaciones': JSON.stringify(habitaciones),
-                    'facturacion': JSON.stringify(facturacion),
+                    //'facturacion': JSON.stringify(facturacion),
                     'cantidad': cantidad,
                     'fechainicio': fechainicio,
                     'fechafin': fechafin,
@@ -218,15 +262,18 @@
                 method: 'POST'
             }).then(response => {
                 console.log('response:',response)
+                
             }).then((data) => {
                 console.log(data);
                 alert('Datos enviados')
-                window.location.href = "../index.php";
+                window.location.href = redirectUrl;
             }).catch((error) => {
                 console.log(error);
                
             });
         }
+
+        
     </script>
 </body>
 </html>

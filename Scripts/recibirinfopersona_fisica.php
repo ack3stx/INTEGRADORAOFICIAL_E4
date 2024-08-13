@@ -3,11 +3,11 @@ include '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['facturacion']) ) {
+    if (isset($_POST['persona']) && isset($_POST['habitaciones']) && isset($_POST['cantidad']) && isset($_POST['fechainicio']) && isset($_POST['fechafin']) && isset($_POST['metodo'])) {
         $persona = json_decode($_POST['persona'], true);
         $habitaciones = json_decode($_POST['habitaciones'], true);
-        $facturacion = json_decode($_POST['facturacion'], true);
         $cantidad = $_POST['cantidad'];
+        $metodo = $_POST['metodo'];
         
 
         $fechainicio = $_POST['fechainicio'] . " 15:00:00"; 
@@ -34,12 +34,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $stmt->execute();
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $recepcionista=$resultado['id'];
+            $recepcionista=$resultado['ID'];
 
         if (isset($_SESSION["usuario"])) {
             $usuario = $_SESSION["usuario"];
 
-            
                 $id_usuario = 94;
 
                 $registro = $data->registro(
@@ -68,16 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                    $tipo_habitacion = $habitacion['tipo'];
     
                      $detalle = $data->detalle_reservacion($fechainicio, $fechafin, $titular, $ninos, $adultos, $tipo_habitacion);
-                     $detalle_pago = $data->detalle_pago('tarjeta', $cantidad);
-                     if($facturacion === null){
-                        echo "No se ha facturado";
-                       }
-                       else{
-                         $data->facturacion($facturacion['nombre'], $facturacion['ap_paterno'], $facturacion['ap_materno'], $facturacion['rfc'], $facturacion['direccion']);
-                       }
+                     
 
                     
                    }
+
+                   $detalle_pago = $data->detalle_pago($metodo, $cantidad);
 
                 
 

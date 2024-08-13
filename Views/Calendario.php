@@ -292,7 +292,7 @@ if(isset($_SESSION["usuario"])){
             var screenWidth = window.innerWidth;
             var flatpickrConfig = {
                 mode: "range",
-                minDate: "today",
+                minDate: new Date().fp_incr(1),
                 dateFormat: "Y-m-d", 
                 inline: true,
                 onChange: function(selectedDates, dateStr, instance) {

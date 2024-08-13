@@ -239,6 +239,39 @@ margin-bottom: 1%;
     display: inline-block;
   }
 
+/* Estilo existente */
+.fixed-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #2ecc71; /* Color del fondo del footer */
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000; /* Asegura que el footer esté siempre por encima de otros elementos */
+}
+
+.hidden-content {
+    display: none;
+    background-color: white;
+    color: black;
+    padding: 10px;
+    max-height: 300px; /* Altura máxima del contenido desplegable */
+    overflow-y: auto; /* Habilita el scroll si el contenido excede la altura máxima */
+}
+
+/* Botón para bajar el contenido */
+.scroll-button {
+    display: block;
+    width: 100%;
+    background-color: #3498db; /* Color del botón de scroll */
+    color: white;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
 .scroll-button:hover {
     background-color: #2980b9;
 }
@@ -294,12 +327,6 @@ margin-bottom: 1%;
     margin-right: 0 !important;
     padding: 20px;
             }
-            #info1
-            {
-                background-image: url(https://static.vecteezy.com/system/resources/previews/000/696/200/non_2x/elegant-pattern-background-vector.jpg);
-                background-repeat: no-repeat;
-                background-size: 100% 100%;
-            }
 @media screen and (min-width: 950px) {
             .desplegable {
                 display: none;
@@ -310,7 +337,7 @@ margin-bottom: 1%;
             #info1
             {
                 display: none;
-    position:fixed;
+                position:fixed;
     top: 0%;
     left: 30%;
     transform: translate(-50%, -50%);
@@ -325,80 +352,54 @@ margin-bottom: 1%;
     overflow-y: auto;
     padding-right: 10px;
 }
-#espaciao
-    {
-        display: none;
-    }
-    .fixed-buttons {
-    position: sticky;
-    bottom: 0;
-    background-color: white; /* Asegura que los botones se destaquen */
-    padding: 10px 0;
-}
-#espaciado2
-    {
-        display: none;
-    }
-
-        }
-        #form-persona
-        {
-            display: none;
+#form-persona
+{
+    display: none;
             position: absolute;
-    top: 80%;
+    top: 75%;
     left: 30%;
     transform: translate(-50%, -50%);
     height: 130%;
     width:150%;
     padding-left:25%;
-        }
-        
-        
-        @media screen and (max-width: 949px) {
-    .desplegable {
-        display: none;
-    }
-    #contenedor-fluido {
-        margin: 0;
-    }
-    #info1 {
-        display: none;
-        position: fixed;
-        top: 15%;
-        height: 70%;
-        margin-left: -1%;
-        margin-right: -1%;
-        width: 100%;
-        overflow: hidden;
-    }
-    .scroll-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 45%; /* Limita la altura máxima del contenedor para permitir el scroll */
-    overflow-y: auto;
-    padding-right: 10px;
-    width: 100%;
-    margin-right: 0%;
-    margin-left: 0%;
-}
-#espaciado2
-    {
-        display: block;
-    }
-    #espaciao
-    {
-        display: block;
-    }
-        #persona
-        {
-            width: 70%;
-        }
 }
 
+        }
+        @media screen and (max-width: 949px) {
+            #info1
+            {
+                margin-left: 5%;
+    margin-top: 1%;
+    height: 100%;
+    width: 100%;
+            }
+            .card-body
+        {
+            top: 100%;
+    height: 100%;
+    width: 100%;
+        }
+        #form-persona
+{
+    display: none;
+            position: absolute;
+    top: 75%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+    height: 130%;
+    width:150%;
+    padding-left:25%;
+}
+#persona
+{
+    width: 73%;
+}
+}
 
 .card-body {
     flex: 1; /* Permite que el contenido principal ocupe el espacio disponible */
 }
+
 
 
 
@@ -489,9 +490,6 @@ margin-bottom: 1%;
     
 </div>
 
-<div id="espaciao">
-    <br><br><br><br><br><br><br><br><br><br>
-</div>
 <!--
 <div class="modal fade" id="scrollableModal" tabindex="-1" aria-labelledby="scrollableModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
@@ -582,72 +580,49 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
         </div>
     </div> -->
 <!--FORMULARIO PERSONA-->
-            <form id="form-persona">
+            <form id="form-persona"   style="display: none;">
                 <div id="persona">
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="nombre" name="nombre" required ><br>
+                <input class="form-control me-2" type="text" id="nombre" name="nombre" required  maxlength="30"  onkeypress="return sololetras(event);"   ><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required ><br>
+                <input class="form-control me-2" type="text" id="ap_paterno" name="ap_paterno" required maxLength="30"  onkeypress="return sololetras(event);"  ><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required ><br>
+                <input class="form-control me-2" type="text" id="ap_materno" name="ap_materno" required maxLength="30" onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="direccion" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="direccion" name="direccion" required maxLength=100;><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required ><br>
+                <input class="form-control me-2" type="text" id="ciudad" name="ciudad" required maxLength="50" onkeypress="return sololetras(event);"  ><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="estado" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="estado" name="estado" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required ><br>
+                <input class="form-control me-2" type="text" id="cd_postal" name="cd_postal" required maxLength="5"   oninput="validartelefono(this)" ><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="pais" name="pais" required ><br>
+                <input class="form-control me-2" type="text" id="pais" name="pais" required maxLength="50"  onkeypress="return sololetras(event);" ><br>
                 <label for="staffName">Genero:</label>
                 <select class="form-control me-2" id="genero" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
-                <div class="form-check mb-3 mt-4">
-        <input type="checkbox" class="form-check-input" id="facturar" onclick="toggleBilling()">
-        <label class="form-check-label" for="facturar">Desea Facturar</label>
-      </div>
-
-      <div id="billingForm" style="display: none;">
-        <h4 class="mb-3">Datos de Facturación</h4>
-        <div class="mb-3">
-          <label for="nombreFactura" class="form-label">Nombre</label>
-          <input type="text" class="form-control" id="nombreFactura" name="nombreFactura" placeholder="Nombre completo" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoPaternoFactura" class="form-label">Apellido Paterno</label>
-          <input type="text" class="form-control" id="apellidoPaternoFactura" name="apellidoPaternoFactura" placeholder="Apellido Paterno" required>
-        </div>
-        <div class="mb-3">
-          <label for="apellidoMaternoFactura" class="form-label">Apellido Materno</label>
-          <input type="text" class="form-control" id="apellidoMaternoFactura" name="apellidoMaternoFactura" placeholder="Apellido Materno" required>
-        </div>
-        <div class="mb-3">
-          <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" required>
-        </div>
-        <div class="mb-3">
-          <label for="rfc" class="form-label">RFC</label>
-          <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" required>
-        </div>
-      </div>
-      </div>
-                </div>
-                <div id="espaciado2">
-                    <br><br><br><br><br><br><br><br><br><br><br><br>
-                </div>
-                
+                <input class="form-control me-2" type="text" id="telefono" name="telefono" required maxLength="10" required  oninput="validartelefono(this)"   ><br>
+                <br><br>
+            </div>
             </form>    
 
 
-<div id="info1" class="container rounded-5" style="padding: 30px;">
-    <div class="scroll-container rounded-5">
+<div class="fixed-footer desplegable">
+    <div class="toggle-button">
+        Ver resumen (1) <span id="arrow">▲</span>
+    </div>
+    <div id="content" class="hidden-content">
+        
+    </div>
+</div>
+
+<div id="info1" class="container">
+    <div class="scroll-container">
         <div class="card card-custom">
             <div class="card-body">
                 <h5 class="card-title custom1">Resumen de la Reserva</h5>
@@ -753,16 +728,29 @@ function scrollToContent() {
 </script>
 
 <script>
-    // Seleccionar el párrafo que se va a mover
-    const para = document.getElementById('para');
+  // Función que mueve el elemento si la pantalla es menor a 950px
+  function moveElement() {
+    const screenWidth = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth;
+    if (screenWidth < 950) {
+      // Seleccionar el párrafo que se va a mover
+      const info1 = document.getElementById('info1');
 
-    // Seleccionar el segundo contenedor
-    const container2 = document.getElementById('container2');
+      // Seleccionar el segundo contenedor
+      const content = document.getElementById('content');
 
-    // Mover el párrafo al final del segundo contenedor
-    container2.appendChild(para);
+      // Mover el párrafo al final del segundo contenedor si aún no se ha movido
+      if (info1 && content && !content.contains(info1)) {
+        content.appendChild(info1);
+      }
+    }
+  }
+
+  // Ejecutar al cargar la página
+  window.onload = moveElement;
+
+  // Ejecutar cuando se cambie el tamaño de la ventana
+  window.onresize = moveElement;
 </script>
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
@@ -916,6 +904,7 @@ function scrollToContent() {
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
             alert("No hay habitaciones disponibles");
+            window.location.href = 'Calendariore.php';
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
@@ -933,6 +922,8 @@ function scrollToContent() {
         }
         }).catch(error => { console.log(error)})
     }
+
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
     function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
 
@@ -1514,7 +1505,6 @@ function actualizarResumen(tipo) {
     boton.onclick = function() {
         resumenContenido.removeChild(div);
         roomCount -= 1;
-        console.log(roomCount);
 
         const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
         if (index > -1) {
@@ -1526,47 +1516,77 @@ function actualizarResumen(tipo) {
             localStorage.setItem('cantidad', acumulador);
         }
 
+        // Disminuye el contador correspondiente y verifica si se debe habilitar el botón
         if(tipo === 'Doble'){
-        roomdoble -= 1;
-        console.log(roomdoble);
+            roomdoble -= 1;
+        } else if(tipo === 'King Size'){
+            roomKing -= 1;
+        } else if(tipo === 'Sencilla'){
+            roomSencilla -= 1;
+        }
 
-    }
-     if(tipo === 'King Size'){
-        roomKing -= 1;
-        console.log(roomKing);
-    } 
-    if(tipo === 'Sencilla'){
-        roomSencilla -= 1;
-        console.log(roomSencilla);
-    }
-
-    desabilitarbotonañadir(tipo);
+        desabilitarbotonañadir(tipo);
     };
 
-    
     div.appendChild(boton);
-
-    roomCount += 1;
-
-    if(tipo === 'Doble'){
-        roomdoble += 1;
-        console.log(roomdoble);
-    }
-    if(tipo === 'King Size'){
-        roomKing += 1;
-        console.log(roomKing);
-    }
-     if(tipo === 'Sencilla'){
-        roomSencilla += 1;
-        console.log(roomSencilla);
-    }
-    console.log(roomCount);
-
-    
     resumenContenido.appendChild(div);
 
+    // Aumenta el contador correspondiente y verifica si se debe deshabilitar el botón
+    if(tipo === 'Doble'){
+        roomdoble += 1;
+    } else if(tipo === 'King Size'){
+        roomKing += 1;
+    } else if(tipo === 'Sencilla'){
+        roomSencilla += 1;
+    }
+
+    roomCount += 1;
     desabilitarbotonañadir(tipo);
 }
+
+
+
+function vaciarResumen() {
+    const resumenContenido = document.getElementById('room-summary');
+    resumenContenido.innerHTML = ''; // Vacía el contenido del resumen
+    roomCount = 0;
+    roomdoble = 0;
+    roomKing = 0;
+    roomSencilla = 0;
+    acumulador = 0;
+    document.getElementById('total-price').innerText = `MXN ${acumulador}.00`;
+    tiposSeleccionados = [];
+    localStorage.setItem('tiposSeleccionados', JSON.stringify(tiposSeleccionados));
+    localStorage.setItem('cantidad', acumulador);
+
+    document.getElementById('info1').style.display = 'none'; // Oculta la card del resumen
+
+    actualizarEstadoBotonAñadir();
+}
+
+
+function actualizarEstadoBotonAñadir() {
+    const addButtonDoble = document.getElementById('doble');
+    const addButtonKing = document.getElementById('king');
+    const addButtonSencilla = document.getElementById('sencilla');
+
+
+    // con este comparador, lo que hago es que cuando se añaden, o se quieran habitaciones, el boton de añadir actualiza su estaod, para ya no pdoer agrefar o seguir ageregando gagagagagagagagga
+    if (roomCount === 0) {
+        addButtonDoble.disabled = false;
+        addButtonKing.disabled = false;
+        addButtonSencilla.disabled = false;
+    } else if (roomCount !=  0) { 
+        addButtonDoble.disabled = false;
+        addButtonKing.disabled = false;
+        addButtonSencilla.disabled = false;
+    }
+}
+
+
+
+document.getElementById('borrarCambios').onclick = vaciarResumen;
+
 
 function toggleBilling() {
       var checkbox = document.getElementById("facturar");
@@ -1584,28 +1604,26 @@ function toggleBilling() {
             
         }
 
-        function desabilitarbotonañadir (buttonType){
-            if(  roomdoble === habitacionesDoble){
+        function desabilitarbotonañadir(buttonType) {
+    if (roomdoble >= habitacionesDoble) {
+        document.getElementById('doble').disabled = true;
+    } else if (roomdoble < habitacionesDoble) {
+        document.getElementById('doble').disabled = false;
+    }
 
-                document.getElementById('doble').disabled = true;
+    if (roomKing >= habitacionesKingSize) {
+        document.getElementById('king').disabled = true;
+    } else if (roomKing < habitacionesKingSize) {
+        document.getElementById('king').disabled = false;
+    }
 
-            }
-            else if( roomdoble === 0){
-                document.getElementById('doble').disabled = false;
-            }
-            if( roomKing === habitacionesKingSize ){
-                document.getElementById('king').disabled = true;
-            }
-            else if( roomKing === 0){
-                document.getElementById('king').disabled = false;
-            }
-            if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
-            }
-            else if( roomSencilla === 0){
-                document.getElementById('sencilla').disabled = false;
-            }
-        }
+    if (roomSencilla >= habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = true;
+    } else if (roomSencilla < habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = false;
+    }
+}
+
 
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
@@ -1652,32 +1670,38 @@ function toggleBilling() {
         } else {
             campo.style.border = '';
         }
-    });
 
-   
-    if (document.getElementById('facturar').checked) {
-        var camposFacturacion = document.querySelectorAll('#billingForm input');
-        camposFacturacion.forEach(function(campo) {
-            if (campo.value === '') {
+        // Validación específica para el campo de fecha de nacimiento
+        if (campo.type === 'date' && campo.id === 'f_nac') {
+            var fechaNacimiento = new Date(campo.value);
+            var hoy = new Date();
+            var fechaminima = new Date('1850-01-01');
+            
+            var fechaHace18Anios = new Date(hoy.getFullYear() - 18, hoy.getMonth(), hoy.getDate());
+
+            if (fechaNacimiento > fechaHace18Anios || fechaNacimiento < fechaminima) {
                 campo.style.border = '2px solid red';
                 setTimeout(() => {
                     campo.style.border = '';
                 }, 2000);
+                alert("La fecha de nacimiento debe indicar que tienes más de 18 años y ser posterior al 1 de enero de 1850.");
                 formValido = false;
             } else {
                 campo.style.border = '';
             }
-        });
-    }
+        }
+    });
 
     return formValido;
 }
+
 
 function enviarformulario(event) {
     event.preventDefault();
     var formularioValido = validarformulario('form-persona');
 
     if (formularioValido) {
+
         const persona = {
             nombre: document.getElementById('nombre').value,
             ap_paterno: document.getElementById('ap_paterno').value,
@@ -1694,29 +1718,61 @@ function enviarformulario(event) {
 
         localStorage.setItem('persona', JSON.stringify(persona));
 
-        if (document.getElementById('facturar').checked) {
-            const facturacion = {
-                nombre: document.getElementById('nombreFactura').value,
-                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
-                ap_materno: document.getElementById('apellidoMaternoFactura').value,
-                direccion: document.getElementById('direccion').value,
-                rfc: document.getElementById('rfc').value
-            };
-
-            localStorage.setItem('facturacion', JSON.stringify(facturacion));
-        }
+      
 
         alert('Datos guardados exitosamente');
         window.location.href = 'form_pago_fisico.php';
     }
 }
 
+
+function sololetras (e) {
+        key = e.keyCode || e.which;
+        tecla = String.fromCharCode(key).toString();
+        letras = " abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        especiales = [8,13];
+        tecla_especial = false
+        for(var i in especiales){
+            if(key == especiales[i]){
+                tecla_especial = true;
+                break;
+            }
+        }
+        if(letras.indexOf(tecla)== -1 && !tecla_especial){
+            
+            return false;
+        }
+    }
+
+    function solonumeros (e) {
+        if(window.event){
+            keynum = evt.keyCode;
+        }
+        else {
+            keynum = evt.which;
+        }
+
+        if((keynum > 47 && keynum < 58) || keynum == 8 || keynum == 13 || keynum == 0){
+            return true;
+        }
+        else{
+            alert("Solo numeros");
+            return false;
+        }
+
+    }
+    
+
+function validartelefono(input){
+    input.value = input.value.replace(/\D/g, '');
+    
+};
+
         document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', enviarformulario);
 }); 
 
-        
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
 
       
