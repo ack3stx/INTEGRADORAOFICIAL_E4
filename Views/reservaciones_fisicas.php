@@ -609,7 +609,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 <input class="form-control me-2" type="text" id="telefono" name="telefono" required ><br>
                 <br><br>
             </div>
-            </form>
+            </form>    
 
 
 <div class="fixed-footer desplegable">
@@ -1502,7 +1502,6 @@ function actualizarResumen(tipo) {
     boton.onclick = function() {
         resumenContenido.removeChild(div);
         roomCount -= 1;
-        console.log(roomCount);
 
         const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
         if (index > -1) {
@@ -1514,47 +1513,34 @@ function actualizarResumen(tipo) {
             localStorage.setItem('cantidad', acumulador);
         }
 
+        // Disminuye el contador correspondiente y verifica si se debe habilitar el botón
         if(tipo === 'Doble'){
-        roomdoble -= 1;
-        console.log(roomdoble);
+            roomdoble -= 1;
+        } else if(tipo === 'King Size'){
+            roomKing -= 1;
+        } else if(tipo === 'Sencilla'){
+            roomSencilla -= 1;
+        }
 
-    }
-     if(tipo === 'King Size'){
-        roomKing -= 1;
-        console.log(roomKing);
-    } 
-    if(tipo === 'Sencilla'){
-        roomSencilla -= 1;
-        console.log(roomSencilla);
-    }
-
-    desabilitarbotonañadir(tipo);
+        desabilitarbotonañadir(tipo);
     };
 
-    
     div.appendChild(boton);
-
-    roomCount += 1;
-
-    if(tipo === 'Doble'){
-        roomdoble += 1;
-        console.log(roomdoble);
-    }
-    if(tipo === 'King Size'){
-        roomKing += 1;
-        console.log(roomKing);
-    }
-     if(tipo === 'Sencilla'){
-        roomSencilla += 1;
-        console.log(roomSencilla);
-    }
-    console.log(roomCount);
-
-    
     resumenContenido.appendChild(div);
 
+    // Aumenta el contador correspondiente y verifica si se debe deshabilitar el botón
+    if(tipo === 'Doble'){
+        roomdoble += 1;
+    } else if(tipo === 'King Size'){
+        roomKing += 1;
+    } else if(tipo === 'Sencilla'){
+        roomSencilla += 1;
+    }
+
+    roomCount += 1;
     desabilitarbotonañadir(tipo);
 }
+
 
 
 function vaciarResumen() {
@@ -1599,7 +1585,11 @@ function actualizarEstadoBotonAñadir() {
 document.getElementById('borrarCambios').onclick = vaciarResumen;
 
 
-
+function toggleBilling() {
+      var checkbox = document.getElementById("facturar");
+      var billingForm = document.getElementById("billingForm");
+      billingForm.style.display = checkbox.checked ? "block" : "none";
+    }
 
 
 
@@ -1611,28 +1601,26 @@ document.getElementById('borrarCambios').onclick = vaciarResumen;
             
         }
 
-        function desabilitarbotonañadir (buttonType){
-            if(  roomdoble === habitacionesDoble){
+        function desabilitarbotonañadir(buttonType) {
+    if (roomdoble >= habitacionesDoble) {
+        document.getElementById('doble').disabled = true;
+    } else if (roomdoble < habitacionesDoble) {
+        document.getElementById('doble').disabled = false;
+    }
 
-                document.getElementById('doble').disabled = true;
+    if (roomKing >= habitacionesKingSize) {
+        document.getElementById('king').disabled = true;
+    } else if (roomKing < habitacionesKingSize) {
+        document.getElementById('king').disabled = false;
+    }
 
-            }
-            else if( roomdoble === 0){
-                document.getElementById('doble').disabled = false;
-            }
-            if( roomKing === habitacionesKingSize ){
-                document.getElementById('king').disabled = true;
-            }
-            else if( roomKing === 0){
-                document.getElementById('king').disabled = false;
-            }
-            if( roomSencilla === habitacionesSencilla ){
-                document.getElementById('sencilla').disabled = true;
-            }
-            else if( roomSencilla === 0){
-                document.getElementById('sencilla').disabled = false;
-            }
-        }
+    if (roomSencilla >= habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = true;
+    } else if (roomSencilla < habitacionesSencilla) {
+        document.getElementById('sencilla').disabled = false;
+    }
+}
+
 
        /* document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('continuar').addEventListener('click', guardardatospersona);
@@ -1681,7 +1669,21 @@ document.getElementById('borrarCambios').onclick = vaciarResumen;
         }
     });
 
-
+   
+    if (document.getElementById('facturar').checked) {
+        var camposFacturacion = document.querySelectorAll('#billingForm input');
+        camposFacturacion.forEach(function(campo) {
+            if (campo.value === '') {
+                campo.style.border = '2px solid red';
+                setTimeout(() => {
+                    campo.style.border = '';
+                }, 2000);
+                formValido = false;
+            } else {
+                campo.style.border = '';
+            }
+        });
+    }
 
     return formValido;
 }
@@ -1707,6 +1709,17 @@ function enviarformulario(event) {
 
         localStorage.setItem('persona', JSON.stringify(persona));
 
+        if (document.getElementById('facturar').checked) {
+            const facturacion = {
+                nombre: document.getElementById('nombreFactura').value,
+                ap_paterno: document.getElementById('apellidoPaternoFactura').value,
+                ap_materno: document.getElementById('apellidoMaternoFactura').value,
+                direccion: document.getElementById('direccion').value,
+                rfc: document.getElementById('rfc').value
+            };
+
+            localStorage.setItem('facturacion', JSON.stringify(facturacion));
+        }
 
         alert('Datos guardados exitosamente');
         window.location.href = 'form_pago_fisico.php';
