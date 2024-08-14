@@ -80,29 +80,7 @@ if ($_SESSION["rol"] == "usuario") {
                         }
                     }
 
-                    if (empty($errores)) {
-                        // con esto actualizamos el nombre de usuario
-                        if (!empty($nombre_user)) {
-                            $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
-                            $db->ejecuta($consulta);
-                            $nombre_usuario_actualizado = true;
-                        }
-
-                        // con esto actualizamos el correo
-                        if (!empty($correo_act)) {
-                            $consulta = "UPDATE USUARIOS SET CORREO = '$correo_act' WHERE ID_USUARIO = $id";
-                            $db->ejecuta($consulta);
-                            $correo_actualizado = true;
-                        }
-
-                        $db->desconectarBD();
-
-                        if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
-                            session_destroy();
-                            header('Location: Login.php');
-                            exit();
-                        }
-                    } else {
+                   else {
                         $_SESSION['mensaje'] = implode("<br>", $errores);
                         header('Location: datospersonales.php');
                         exit();
