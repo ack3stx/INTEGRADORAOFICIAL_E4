@@ -203,7 +203,9 @@
         <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
       <div class='modal-body'>
-        <h4>Seguro que deseas cancelar esta reservacion?</h4>
+        <h4>Mencione El Problema Con la habitacion</h4>
+        <label></label>
+        <input type='text'></input>
       </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelar_reservacion.php'>
