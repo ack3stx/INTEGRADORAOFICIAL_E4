@@ -104,6 +104,7 @@
   </nav>
     <br>
     <div class="container">
+      <div class="d-flex">
       <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
         Agregar Nueva Habitacion
       </button>
@@ -116,11 +117,11 @@
       </div>';
       }
       ?>
+      <br>
       <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
        Registrar Inconveniente Habitacion
       </button>
-    </div>
-
+      </div>
       <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
