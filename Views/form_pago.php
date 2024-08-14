@@ -278,12 +278,14 @@ session_start();
             }).then((data) => {
                // console.log(data);
                 Toastify({
-                text: "This is a toast",
-                 className: "info",
-                style: {
-                background: "linear-gradient(to right, #00b09b, #96c93d)",
-                
-                   }
+                text: "Reservacion realizada con exito",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
                  }).showToast();
                  
                  setTimeout(function() {
