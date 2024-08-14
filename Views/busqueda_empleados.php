@@ -385,12 +385,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     validateInputs();
 });
-</script>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const f_nac = document.getElementById('f_nac');
+const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
     const submitButton = document.getElementById('submitButton');
 
@@ -462,6 +459,6 @@ document.addEventListener("DOMContentLoaded", function() {
     // Escuchar cambios en los campos de fecha
     f_nac.addEventListener('input', validateDates);
     f_cont.addEventListener('input', validateDates);
-});
-
 </script>
+
+
