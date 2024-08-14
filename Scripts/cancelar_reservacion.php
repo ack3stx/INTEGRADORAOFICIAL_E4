@@ -6,7 +6,12 @@ extract($_POST);
 
 if (isset($ID_RESERVACION)) {
     $cancelacion = "UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`RESERVACION` SET `ESTADO_RESERVACION` = 'incoveniente' WHERE `ID_RESERVACION` = $ID_RESERVACION";
-    $db->ejecuta($cancelacion);
+    try {
+        $db->ejecuta($cancelacion);
+    } catch (Exception $e) {
+        echo "Error al ejecutar la consulta: " . $e->getMessage();
+        exit;
+    }
 }
 
 $db->desconectarBD();
