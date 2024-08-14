@@ -202,13 +202,11 @@
       <div class='modal-header'>
         <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
-      <div class='modal-body'>
-        <h4>Mencione El Problema Con la habitacion</h4>
-        <label></label>
-        <input type='text'></input>
-      </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelar_reservacion.php'>
+            <h4>Mencione El Problema Con la habitacion</h4>
+            <label for='problema'>Problema:</label>
+            <input type='text' id='problema' name='problema'>
           <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
