@@ -338,7 +338,7 @@ document.addEventListener("DOMContentLoaded", function() {
     const submitButton = document.querySelector('button[type="submit"]');
 
     function validateInputs() {
-        let allValid = true;
+        
 
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
@@ -347,7 +347,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan letras y espacios
                 if (!/^[a-zA-Z\s]+$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    allValid = false;
+                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
@@ -355,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan números
                 if (!/^\d*$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    allValid = false;
+                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
@@ -363,14 +363,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan alfanuméricos
                 if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    allValid = false;
+                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
             }
         });
 
-        submitButton.disabled = !allValid;
+        submitButton.disabled = true;
     }
 
     inputs.forEach(input => {
@@ -387,35 +387,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Limpiar cualquier carácter que no sea alfanumérico
                 e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
             }
-
-            // Limitar la longitud del campo de teléfono a 10 números
-            if (fieldName === 'telefono' || fieldName === 'num2') {
-                if (e.target.value.length > 10) {
-                    e.target.value = e.target.value.slice(0, 10);
-                }
-            }
-
-            // Limitar la longitud del campo de Código Postal a 5 números
-            if (fieldName === 'cd_postal') {
-                if (e.target.value.length > 5) {
-                    e.target.value = e.target.value.slice(0, 5);
-                }
-            }
-
-            // Limitar la longitud del campo de NSS a 11 números
-            if (fieldName === 'nss') {
-                if (e.target.value.length > 11) {
-                    e.target.value = e.target.value.slice(0, 11);
-                }
-            }
-
-            // Limitar la longitud del campo de CURP a 18 caracteres alfanuméricos
-            if (fieldName === 'curp') {
-                if (e.target.value.length > 18) {
-                    e.target.value = e.target.value.slice(0, 18);
-                }
-            }
-
             validateInputs();
         });
     });
