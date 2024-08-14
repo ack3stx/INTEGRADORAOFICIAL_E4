@@ -129,15 +129,6 @@
               <i class="fas fa-users"></i>Extender
             </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="notificaciones_recepcionista.php">
-              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
-                  <span class="visually-hidden"></span>
-                </span>
-              </button>
-            </a>
-          </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
@@ -173,10 +164,6 @@
         </div>
     <?php endif; ?>
     <form method="post">
-        <div class="mb-3">
-            <label for="usuario_confirar" class="form-label">Nuevo Nombre De Usuario</label>
-            <input type="text" class="form-control" id="usuario_confirar" name="nombre_user">
-        </div>
         <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nuevo Email</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="correo_act">
