@@ -116,7 +116,7 @@
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION  CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
@@ -145,6 +145,7 @@
           echo "<table class='table table-hover table-bordered table-danger'>";
           echo "<thead class='table-dark'>";
           echo "<tr>";
+          echo "<th>Folio Reservacion</th>";
           echo "<th>Nombre</th>";
           echo "<th>Teléfono</th>";
           echo "<th>Fecha Reservación</th>";
@@ -158,6 +159,7 @@
 
           foreach ($tabla as $reg) {
             echo "<tr>";
+            echo "<td>{$reg->ID_RESERVACION}</td>";
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
             echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
             echo "<td>{$reg->FECHA_}</td>";
