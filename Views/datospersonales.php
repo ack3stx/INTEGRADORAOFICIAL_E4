@@ -765,29 +765,8 @@ if ($_SESSION["rol"] == "usuario") {
             }
         });
 
-        function limpiarCamposUsuario() {
-            nombreUsuario.value = '';
-            correo.value = '';
-            passwordActual.value = '';
-            passwordNueva.value = '';
-            passwordNuevaConfirm.value = '';
-
-            nombreUsuario.classList.remove('is-valid', 'is-invalid');
-            correo.classList.remove('is-valid', 'is-invalid');
-            passwordActual.classList.remove('is-valid', 'is-invalid');
-            passwordNueva.classList.remove('is-valid', 'is-invalid');
-            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
-        }
-
-        formUsuario.querySelector('#btnCancelarNombreUsuario').addEventListener('click', limpiarCamposUsuario);
-
-        function mostrarErrorYDesplazarse(form, input) {
-            const inputContainer = input.closest('.section').querySelector('div.hidden');
-            inputContainer.classList.remove('hidden');
-            const offset = inputContainer.getBoundingClientRect().top + window.scrollY - 100;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-            input.focus();
-        }
+   
+  
 
         formUsuario.addEventListener('submit', function (event) {
             let valid = validarContraseñas();
