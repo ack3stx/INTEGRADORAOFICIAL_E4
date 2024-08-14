@@ -110,16 +110,13 @@
   <?php 
     extract($_POST);
 
-    // Verifica si el formulario ha sido enviado
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      // Si no se proporcionan datos, muestra el formulario vacío
       if(empty($numero) && empty($fecha1) && empty($fecha2)) {
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
-        // Realiza la consulta dependiendo si el número está vacío o no
         if (empty($numero)) {
-          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INCIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
@@ -128,7 +125,7 @@
           WHERE RESERVACION.FECHA_ BETWEEN '$fecha1' AND '$fecha2'
           GROUP BY NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         } else {
-          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          $consulta = "SELECT DISTINCT CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INCIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
@@ -140,7 +137,6 @@
 
         $tabla = $conexion->seleccionar($consulta);
 
-        // Verifica si se encontraron resultados
         if (empty($tabla)) {
           echo "<p>No se encontraron reservaciones.</p>";
         } else {
@@ -151,6 +147,8 @@
           echo "<th>Nombre</th>";
           echo "<th>Teléfono</th>";
           echo "<th>Fecha Reservación</th>";
+          echo "<th>Fecha Incio</th>";
+          echo "<th>Fecha Fin</th>";
           echo "<th>Estado Reservación</th>";
           echo "<th>Cantidad Habitaciones</th>";
           echo "</tr>";
@@ -162,6 +160,8 @@
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
             echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
             echo "<td>{$reg->FECHA_}</td>";
+            echo "<td>{$reg->FECHA_INICIO}</td>";
+            echo "<td>{$reg->FECHA_FIN}</td>";
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "</tr>";

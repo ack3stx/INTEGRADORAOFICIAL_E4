@@ -222,7 +222,7 @@ else {
         <div class="card-body text-start">
             <h5 class="card-title">Reservación Folio: <?php echo $folio_reserva; ?></h5>
                 Nombre: <?php echo $reservacion['NOMBRE_COMPLETO']; ?><br>
-                Estado: <?php echo $reservacion['ESTADO']; ?><br>
+                Estado De La Reservacion: <?php echo $reservacion['ESTADO']; ?><br>
                 Fecha de reservación: <?php echo $reservacion['FECHA_RESERVACION']; ?><br>
                 Favor de realizar el check-in despues de las: : <?php echo $reservacion['FECHA_INICIO']; ?><br>
                 Favor de realizar el check-out antes de las: : <?php echo $reservacion['FECHA_FIN']; ?><br>
