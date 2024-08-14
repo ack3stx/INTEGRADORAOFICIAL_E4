@@ -329,25 +329,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <script>
 document.addEventListener("DOMContentLoaded", function() {
     const exemptInputs = ['correo', 'contra', 'direccion', 'usuario'];
-    const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais'];
+    const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
     const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
-    const alphanumericInputs = ['curp', 'afore'];
+    const alphanumericInputs = ['curp'];
 
     const inputs = document.querySelectorAll('input[type="text"]');
     const telefonoInput = document.querySelector('input[name="telefono"]');
-    const submitButton = document.querySelector('button[type="submit"]');
 
     function validateInputs() {
-        
-
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
 
             if (alphaInputs.includes(fieldName)) {
-                // Validación para campos que solo aceptan letras y espacios
-                if (!/^[a-zA-Z\s]+$/.test(input.value)) {
+                // Validación para campos que aceptan letras, espacios y acentos
+                if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
@@ -355,7 +351,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan números
                 if (!/^\d*$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
@@ -363,14 +358,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan alfanuméricos
                 if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    submitButton.disabled = false;
                 } else {
                     input.style.borderColor = '';
                 }
             }
         });
-
-        submitButton.disabled = true;
     }
 
     inputs.forEach(input => {
@@ -378,8 +370,8 @@ document.addEventListener("DOMContentLoaded", function() {
             const fieldName = e.target.getAttribute('name');
 
             if (alphaInputs.includes(fieldName)) {
-                // Limpiar cualquier carácter que no sea letra o espacio
-                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+                // Limpiar cualquier carácter que no sea letra, espacio o acento
+                e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
             } else if (numericInputs.includes(fieldName)) {
                 // Limpiar cualquier carácter que no sea número
                 e.target.value = e.target.value.replace(/[^0-9]/g, '');
@@ -392,30 +384,5 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     validateInputs();
-
-    function validarCURP(curpInput) {
-    const curp = curpInput.value.toUpperCase();
-    const curpPattern = /^[A-Z]{4}\d{6}[HM]{1}[A-Z]{5}[A-Z\d]{2}$/;
-
-    if (!curpPattern.test(curp)) {
-      curpInput.setCustomValidity("La CURP ingresada no es válida. Verifica que tenga el formato correcto.");
-    } else {
-      curpInput.setCustomValidity("");
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function() {
-    const curpInput = document.querySelector("input[name='curp']");
-    curpInput.addEventListener("input", function() {
-      validarCURP(curpInput);
-    });
-  });
-
-
 });
-
-
-
-
-
 </script>
