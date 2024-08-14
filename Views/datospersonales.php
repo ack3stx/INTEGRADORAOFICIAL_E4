@@ -10,11 +10,13 @@ if ($_SESSION["rol"] == "usuario") {
         $actualizar_persona = false;
 
         if (isset($_POST['tipo_formulario']) && $_POST['tipo_formulario'] === 'usuario') {
-            
+            $correo_act = $_POST['correo'] ?? '';
+            $nombre_user = $_POST['nombre_usuario'] ?? '';
             $contraseña_actual = $_POST['password_actual'] ?? '';
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
+            
 
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
