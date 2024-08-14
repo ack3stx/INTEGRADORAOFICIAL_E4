@@ -328,53 +328,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const exemptInputs = ['correo', 'contra', 'direccion', 'cd_postal', 'telefono', 'nss', 'afore', 'num2', 'curp', 'usuario'];
+    const exemptInputs = ['correo', 'contra', 'direccion', 'usuario'];
+    const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais'];
+    const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
+    const alphanumericInputs = ['curp', 'afore'];
 
     const inputs = document.querySelectorAll('input[type="text"]');
     const telefonoInput = document.querySelector('input[name="telefono"]');
     const submitButton = document.querySelector('button[type="submit"]');
 
     function validateInputs() {
-        const alphaPattern = /^[a-zA-Z\s]+$/;
         let allValid = true;
 
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
-            if (!exemptInputs.includes(fieldName)) {
-                if (!alphaPattern.test(input.value)) {
+
+            if (alphaInputs.includes(fieldName)) {
+                // Validación para campos que solo aceptan letras y espacios
+                if (!/^[a-zA-Z\s]+$/.test(input.value)) {
                     input.style.borderColor = 'red';
-                    allValid = true;
+                    allValid = false;
                 } else {
                     input.style.borderColor = '';
+                }
+            } else if (numericInputs.includes(fieldName)) {
+                // Validación para campos que solo aceptan números
+                if (!/^\d*$/.test(input.value)) {
+                    input.style.borderColor = 'red';
                     allValid = false;
+                } else {
+                    input.style.borderColor = '';
+                }
+            } else if (alphanumericInputs.includes(fieldName)) {
+                // Validación para campos que solo aceptan alfanuméricos
+                if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
+                    input.style.borderColor = 'red';
+                    allValid = false;
+                } else {
+                    input.style.borderColor = '';
                 }
             }
         });
 
-        // Validación específica para el campo de teléfono
-        if (telefonoInput.value.length > 10 || !/^\d*$/.test(telefonoInput.value)) {
-            telefonoInput.style.borderColor = 'red';
-            allValid = true;
-        } else {
-            telefonoInput.style.borderColor = '';
-        }
-
-        submitButton.disabled = false;
+        submitButton.disabled = !allValid;
     }
 
     inputs.forEach(input => {
         input.addEventListener('input', function(e) {
             const fieldName = e.target.getAttribute('name');
-            if (!exemptInputs.includes(fieldName)) {
-                if (!/^[a-zA-Z\s]*$/.test(e.target.value)) {
-                    e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
-                }
+
+            if (alphaInputs.includes(fieldName)) {
+                // Limpiar cualquier carácter que no sea letra o espacio
+                e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+            } else if (numericInputs.includes(fieldName)) {
+                // Limpiar cualquier carácter que no sea número
+                e.target.value = e.target.value.replace(/[^0-9]/g, '');
+            } else if (alphanumericInputs.includes(fieldName)) {
+                // Limpiar cualquier carácter que no sea alfanumérico
+                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
             }
 
             // Limitar la longitud del campo de teléfono a 10 números
-            if (fieldName === 'telefono') {
+            if (fieldName === 'telefono' || fieldName === 'num2') {
                 if (e.target.value.length > 10) {
                     e.target.value = e.target.value.slice(0, 10);
+                }
+            }
+
+            // Limitar la longitud del campo de Código Postal a 5 números
+            if (fieldName === 'cd_postal') {
+                if (e.target.value.length > 5) {
+                    e.target.value = e.target.value.slice(0, 5);
+                }
+            }
+
+            // Limitar la longitud del campo de NSS a 11 números
+            if (fieldName === 'nss') {
+                if (e.target.value.length > 11) {
+                    e.target.value = e.target.value.slice(0, 11);
+                }
+            }
+
+            // Limitar la longitud del campo de CURP a 18 caracteres alfanuméricos
+            if (fieldName === 'curp') {
+                if (e.target.value.length > 18) {
+                    e.target.value = e.target.value.slice(0, 18);
                 }
             }
 
@@ -382,9 +420,8 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    validateInputs(); 
+    validateInputs();
 
-    
     function validarCURP(curpInput) {
     const curp = curpInput.value.toUpperCase();
     const curpPattern = /^[A-Z]{4}\d{6}[HM]{1}[A-Z]{5}[A-Z\d]{2}$/;
