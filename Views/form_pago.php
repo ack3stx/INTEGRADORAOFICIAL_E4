@@ -10,6 +10,8 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <title>Credit Card Form</title>
     <style>
         body {
@@ -80,6 +82,12 @@ session_start();
     </style>
 </head>
 <body>
+
+<div class="notifications">
+   
+
+</div>
+
     <div class="container">
         <form id="card-form" action="../Scripts/redireccionar.php" method="post">
             <div class="input-group">
@@ -108,6 +116,7 @@ session_start();
         </form>
     </div>
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
        
         const habitaciones = JSON.parse(localStorage.getItem('tiposSeleccionados'));
@@ -243,6 +252,9 @@ session_start();
         }
     });
 }
+
+
+
         function mandardatos() {
 
             const checkbox = document.getElementById('facturar');
@@ -264,14 +276,29 @@ session_start();
                 console.log('response:',response)
                 
             }).then((data) => {
-                console.log(data);
-                alert('Datos enviados')
-                window.location.href = redirectUrl;
+               // console.log(data);
+                Toastify({
+                text: "Reservacion realizada con exito",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
+                 }).showToast();
+                 
+                 setTimeout(function() {
+                 window.location.href = redirectUrl;
+                   }, 2000);
+                
             }).catch((error) => {
                 console.log(error);
                
             });
         }
+
+        
 
         
     </script>
