@@ -391,7 +391,22 @@ if ($_SESSION["rol"] == "usuario") {
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
     <input type="hidden" name="tipo_formulario" value="usuario">
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            
+        </div>
+    </div>
+
     
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            
+        </div>
+    </div>
+
+    <hr class="mb-4">
+
     <div class="section">
         <div class="d-flex justify-content-between align-items-center">
             <div>
