@@ -29,7 +29,55 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
-          <!-- Navegación aquí -->
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_reserva.php">
+              <i class="fas fa-book"></i> Reservaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="vista_reservas_fisicas_admin.php">
+              <i class="fas fa-book"></i> Reservas Fisicas
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_habitaciones.php">
+              <i class="fas fa-bed"></i> Habitaciones
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_huesped.php">
+              <i class="fas fa-users"></i> Huesped
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_empleados.php">
+              <i class="fas fa-user"></i> Personal
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reportes_hotel.php">
+              <i class="fas fa-hotel"></i> Hotel
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="busqueda_facturacion.php">
+              <i class="fas fa-file-alt"></i> Facturacion
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="costos.php">
+              <i class="fas fa-dollar-sign"></i> Costos
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notificaciones.php">
+              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden"></span>
+                </span>
+              </button>
+            </a>
+          </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
@@ -144,7 +192,7 @@
 <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
   Registrar Inconsistencia
 </button>
-
+<br>
 <!-- Modal -->
 <div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
   <div class='modal-dialog'>
@@ -174,6 +222,9 @@
   ?>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <?php
   } else {
 ?>
