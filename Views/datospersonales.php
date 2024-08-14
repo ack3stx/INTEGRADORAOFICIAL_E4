@@ -390,6 +390,22 @@ if ($_SESSION["rol"] == "usuario") {
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
+    <input type="hidden" name="tipo_formulario" value="usuario">
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+    
+        </div>
+    </div>
+
+    <hr class="mb-4">
+
+    <div class="section">
+        <div class="d-flex justify-content-between align-items-center">
+            
+        </div>
+    </div>
+
+    
 
     <div class="section">
         <div class="d-flex justify-content-between align-items-center">
@@ -629,6 +645,7 @@ if ($_SESSION["rol"] == "usuario") {
         const formUsuario = document.getElementById('formUsuario');
         const formPersona = document.getElementById('formPersona');
 
+        
         const passwordActual = formUsuario.querySelector('#passwordActual');
         const passwordNueva = formUsuario.querySelector('#passwordNueva');
         const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
@@ -762,6 +779,22 @@ if ($_SESSION["rol"] == "usuario") {
             }
         });
 
+        function limpiarCamposUsuario() {
+            nombreUsuario.value = '';
+            correo.value = '';
+            passwordActual.value = '';
+            passwordNueva.value = '';
+            passwordNuevaConfirm.value = '';
+
+            nombreUsuario.classList.remove('is-valid', 'is-invalid');
+            correo.classList.remove('is-valid', 'is-invalid');
+            passwordActual.classList.remove('is-valid', 'is-invalid');
+            passwordNueva.classList.remove('is-valid', 'is-invalid');
+            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
+        }
+
+        formUsuario.querySelector('#btnCancelarNombreUsuario').addEventListener('click', limpiarCamposUsuario);
+
         function mostrarErrorYDesplazarse(form, input) {
             const inputContainer = input.closest('.section').querySelector('div.hidden');
             inputContainer.classList.remove('hidden');
@@ -850,25 +883,23 @@ if ($_SESSION["rol"] == "usuario") {
                 document.getElementById(formId).classList.remove('hidden');
                 document.getElementById(buttonId).classList.add('hidden');
                 disableButtons.forEach(btn => {
-                    document.getElementById(btn).classList.add('hidden');
+                    document.getElementById(btn).disabled = true;
                 });
                 disableFormButtons(disableFormId, true);
             });
-        };
 
-        const cancelSection = (cancelBtnId, buttonId, formId, disableButtons, disableFormId) => {
-            document.getElementById(cancelBtnId).addEventListener('click', () => {
+            document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
                 document.getElementById(formId).classList.add('hidden');
                 document.getElementById(buttonId).classList.remove('hidden');
                 disableButtons.forEach(btn => {
-                    document.getElementById(btn).classList.remove('hidden');
+                    document.getElementById(btn).disabled = false;
                 });
                 disableFormButtons(disableFormId, false);
             });
         };
 
-       // Secciones para editar y cancelar
-       toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
+        // Secciones para editar y cancelar
+        toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
         toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
         toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
@@ -886,7 +917,6 @@ if ($_SESSION["rol"] == "usuario") {
         toggleSection('btnEditarNumeroDeTelefono', 'formNumeroDeTelefono', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero'], 'formUsuario');
     });
 </script>
-
 
 
 
