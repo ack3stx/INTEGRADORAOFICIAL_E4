@@ -408,7 +408,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarNombre" class="btn btn-danger">Editar</button>
         </div>
         <div id="formNombre" class="hidden">
-            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control mb-2 <?= empty($usuario[0]->NOMBRE) ? 'is-invalid' : '' ?>" placeholder="Nombre" value="<?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?>">
+            <input type="text" id="NOMBRE" maxlength="30" name="NOMBRE" class="form-control mb-2 <?= empty($usuario[0]->NOMBRE) ? 'is-invalid' : '' ?>" placeholder="Nombre" value="<?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarNombre" class="btn btn-danger">Cancelar</button>
@@ -425,7 +425,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarApellidoPaterno" class="btn btn-danger">Editar</button>
         </div>
         <div id="formApellidoPaterno" class="hidden">
-            <input type="text" id="APELLIDO_PATERNO" name="APELLIDO_PATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_PATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Paterno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?>">
+            <input type="text" id="APELLIDO_PATERNO" maxlength="30" name="APELLIDO_PATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_PATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Paterno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarApellidoPaterno" class="btn btn-danger">Cancelar</button>
@@ -442,7 +442,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarApellidoMaterno" class="btn btn-danger">Editar</button>
         </div>
         <div id="formApellidoMaterno" class="hidden">
-            <input type="text" id="APELLIDO_MATERNO" name="APELLIDO_MATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_MATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Materno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?>">
+            <input type="text" id="APELLIDO_MATERNO" maxlength="30" name="APELLIDO_MATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_MATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Materno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarApellidoMaterno" class="btn btn-danger">Cancelar</button>
@@ -476,7 +476,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarDireccion" class="btn btn-danger">Editar</button>
         </div>
         <div id="formDireccion" class="hidden">
-            <input type="text" id="DIRECCION" name="DIRECCION" class="form-control mb-2 <?= empty($usuario[0]->DIRECCION) ? 'is-invalid' : '' ?>" placeholder="Dirección" value="<?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?>">
+            <input type="text" id="DIRECCION" maxlength="100"name="DIRECCION" class="form-control mb-2 <?= empty($usuario[0]->DIRECCION) ? 'is-invalid' : '' ?>" placeholder="Dirección" value="<?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarDireccion" class="btn btn-danger">Cancelar</button>
@@ -493,7 +493,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarCiudad" class="btn btn-danger">Editar</button>
         </div>
         <div id="formCiudad" class="hidden">
-            <input type="text" id="CIUDAD" name="CIUDAD" class="form-control mb-2 <?= empty($usuario[0]->CIUDAD) ? 'is-invalid' : '' ?>" placeholder="Ciudad" value="<?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?>">
+            <input type="text" id="CIUDAD" name="CIUDAD" maxlength="50" class="form-control mb-2 <?= empty($usuario[0]->CIUDAD) ? 'is-invalid' : '' ?>" placeholder="Ciudad" value="<?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarCiudad" class="btn btn-danger">Cancelar</button>
@@ -510,7 +510,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarEstado" class="btn btn-danger">Editar</button>
         </div>
         <div id="formEstado" class="hidden">
-            <input type="text" id="ESTADO" name="ESTADO" class="form-control mb-2 <?= empty($usuario[0]->ESTADO) ? 'is-invalid' : '' ?>" placeholder="Estado" value="<?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?>">
+            <input type="text" id="ESTADO" name="ESTADO" maxlength="50" class="form-control mb-2 <?= empty($usuario[0]->ESTADO) ? 'is-invalid' : '' ?>" placeholder="Estado" value="<?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarEstado" class="btn btn-danger">Cancelar</button>
@@ -527,7 +527,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarCodigoPostal" class="btn btn-danger">Editar</button>
         </div>
         <div id="formCodigoPostal" class="hidden">
-            <input type="text" id="CODIGO_POSTAL" name="CODIGO_POSTAL" class="form-control mb-2 <?= empty($usuario[0]->CODIGO_POSTAL) ? 'is-invalid' : '' ?>" placeholder="Código Postal" value="<?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?>">
+            <input type="text" id="CODIGO_POSTAL" maxlength="5" name="CODIGO_POSTAL" class="form-control mb-2 <?= empty($usuario[0]->CODIGO_POSTAL) ? 'is-invalid' : '' ?>" placeholder="Código Postal" value="<?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarCodigoPostal" class="btn btn-danger">Cancelar</button>
@@ -544,7 +544,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarPais" class="btn btn-danger">Editar</button>
         </div>
         <div id="formPais" class="hidden">
-            <input type="text" id="PAIS" name="PAIS" class="form-control mb-2 <?= empty($usuario[0]->PAIS) ? 'is-invalid' : '' ?>" placeholder="País" value="<?= htmlspecialchars($usuario[0]->PAIS ?? '') ?>">
+            <input type="text" id="PAIS" name="PAIS"  maxlength="50"class="form-control mb-2 <?= empty($usuario[0]->PAIS) ? 'is-invalid' : '' ?>" placeholder="País" value="<?= htmlspecialchars($usuario[0]->PAIS ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarPais" class="btn btn-danger">Cancelar</button>
