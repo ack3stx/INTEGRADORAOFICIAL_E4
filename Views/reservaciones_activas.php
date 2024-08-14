@@ -173,7 +173,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
         JOIN HABITACION ON HABITACION.ID_HABITACION = DETALLE_RESERVACION.HABITACION
         JOIN T_HABITACION ON T_HABITACION.ID_TIPO_HABITACION = HABITACION.TIPO_HABITACION
-        WHERE RESERVACION.ESTADO_RESERVACION = 'activa';";
+        WHERE RESERVACION.ESTADO_RESERVACION = 'activa';
+        ORDER BY DESC";
 
     $tabla = $db->seleccionar($consulta);
     ?>
@@ -235,14 +236,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="notificaciones_recepcionista.php">
-                            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-                                <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
-                                    <span class="visually-hidden"></span>
-                                </span>
-                            </button>
-                        </a>
-                    </li>
+            <a class="nav-link" href="Incidencias.php">
+              <i class="fas fa-users"></i>incidencias
+            </a>
+          </li>
                 </ul>
                 <div class="header-right">
                     <div class="btn-group">

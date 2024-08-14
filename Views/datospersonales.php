@@ -16,17 +16,7 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            if (strlen($nombre_user) > 10) {
-                $errores[] = "El nombre de usuario no debe tener más de 10 caracteres.";
-            }
-
-            if (!filter_var($correo_act, FILTER_VALIDATE_EMAIL)) {
-                $errores[] = "El correo debe ser válido y contener '@'.";
-            }
-
-            if (strlen($nombre_user) === 0) {
-                $errores[] = "Nombre de usuario no valido.";
-            }
+            // Eliminadas las validaciones del nombre de usuario y del correo electrónico
 
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
@@ -37,19 +27,6 @@ if ($_SESSION["rol"] == "usuario") {
                 }
                 if (empty($contraseña_actual)) {
                     $errores[] = "Debe ingresar la contraseña actual.";
-                }
-            }
-
-            // Validar si el nombre de usuario ya existe en la base de datos
-            if (!empty($nombre_user)) {
-                $db = new Database();
-                $db->conectarDB();
-
-                $consulta_nombre = "SELECT COUNT(*) AS count FROM USUARIOS WHERE NOMBRE_USUARIO = '$nombre_user' AND NOMBRE_USUARIO != '" . $_SESSION['usuario'] . "'";
-                $resultado_nombre = $db->seleccionar($consulta_nombre);
-
-                if ($resultado_nombre[0]->count > 0) {
-                    $errores[] = "Este nombre de usuario ya existe.";
                 }
             }
 
@@ -81,14 +58,13 @@ if ($_SESSION["rol"] == "usuario") {
                     }
 
                     if (empty($errores)) {
-                        // con esto actualizamos el nombre de usuario
+                        // El código de actualización de nombre de usuario y correo se mantiene, pero sin validaciones
                         if (!empty($nombre_user)) {
                             $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
                             $nombre_usuario_actualizado = true;
                         }
 
-                        // con esto actualizamos el correo
                         if (!empty($correo_act)) {
                             $consulta = "UPDATE USUARIOS SET CORREO = '$correo_act' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
@@ -390,7 +366,8 @@ if ($_SESSION["rol"] == "usuario") {
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
-
+    <input type="hidden" name="tipo_formulario" value="usuario">
+    
 
     <div class="section">
         <div class="d-flex justify-content-between align-items-center">
@@ -431,7 +408,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarNombre" class="btn btn-danger">Editar</button>
         </div>
         <div id="formNombre" class="hidden">
-            <input type="text" id="NOMBRE" name="NOMBRE" class="form-control mb-2 <?= empty($usuario[0]->NOMBRE) ? 'is-invalid' : '' ?>" placeholder="Nombre" value="<?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?>">
+            <input type="text" id="NOMBRE" maxlength="30" name="NOMBRE" class="form-control mb-2 <?= empty($usuario[0]->NOMBRE) ? 'is-invalid' : '' ?>" placeholder="Nombre" value="<?= htmlspecialchars($usuario[0]->NOMBRE ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarNombre" class="btn btn-danger">Cancelar</button>
@@ -448,7 +425,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarApellidoPaterno" class="btn btn-danger">Editar</button>
         </div>
         <div id="formApellidoPaterno" class="hidden">
-            <input type="text" id="APELLIDO_PATERNO" name="APELLIDO_PATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_PATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Paterno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?>">
+            <input type="text" id="APELLIDO_PATERNO" maxlength="30" name="APELLIDO_PATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_PATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Paterno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_PATERNO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarApellidoPaterno" class="btn btn-danger">Cancelar</button>
@@ -465,7 +442,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarApellidoMaterno" class="btn btn-danger">Editar</button>
         </div>
         <div id="formApellidoMaterno" class="hidden">
-            <input type="text" id="APELLIDO_MATERNO" name="APELLIDO_MATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_MATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Materno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?>">
+            <input type="text" id="APELLIDO_MATERNO" maxlength="30" name="APELLIDO_MATERNO" class="form-control mb-2 <?= empty($usuario[0]->APELLIDO_MATERNO) ? 'is-invalid' : '' ?>" placeholder="Apellido Materno" value="<?= htmlspecialchars($usuario[0]->APELLIDO_MATERNO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarApellidoMaterno" class="btn btn-danger">Cancelar</button>
@@ -499,7 +476,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarDireccion" class="btn btn-danger">Editar</button>
         </div>
         <div id="formDireccion" class="hidden">
-            <input type="text" id="DIRECCION" name="DIRECCION" class="form-control mb-2 <?= empty($usuario[0]->DIRECCION) ? 'is-invalid' : '' ?>" placeholder="Dirección" value="<?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?>">
+            <input type="text" id="DIRECCION" maxlength="100"name="DIRECCION" class="form-control mb-2 <?= empty($usuario[0]->DIRECCION) ? 'is-invalid' : '' ?>" placeholder="Dirección" value="<?= htmlspecialchars($usuario[0]->DIRECCION ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarDireccion" class="btn btn-danger">Cancelar</button>
@@ -516,7 +493,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarCiudad" class="btn btn-danger">Editar</button>
         </div>
         <div id="formCiudad" class="hidden">
-            <input type="text" id="CIUDAD" name="CIUDAD" class="form-control mb-2 <?= empty($usuario[0]->CIUDAD) ? 'is-invalid' : '' ?>" placeholder="Ciudad" value="<?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?>">
+            <input type="text" id="CIUDAD" name="CIUDAD" maxlength="50" class="form-control mb-2 <?= empty($usuario[0]->CIUDAD) ? 'is-invalid' : '' ?>" placeholder="Ciudad" value="<?= htmlspecialchars($usuario[0]->CIUDAD ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarCiudad" class="btn btn-danger">Cancelar</button>
@@ -533,7 +510,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarEstado" class="btn btn-danger">Editar</button>
         </div>
         <div id="formEstado" class="hidden">
-            <input type="text" id="ESTADO" name="ESTADO" class="form-control mb-2 <?= empty($usuario[0]->ESTADO) ? 'is-invalid' : '' ?>" placeholder="Estado" value="<?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?>">
+            <input type="text" id="ESTADO" name="ESTADO" maxlength="50" class="form-control mb-2 <?= empty($usuario[0]->ESTADO) ? 'is-invalid' : '' ?>" placeholder="Estado" value="<?= htmlspecialchars($usuario[0]->ESTADO ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarEstado" class="btn btn-danger">Cancelar</button>
@@ -550,7 +527,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarCodigoPostal" class="btn btn-danger">Editar</button>
         </div>
         <div id="formCodigoPostal" class="hidden">
-            <input type="text" id="CODIGO_POSTAL" name="CODIGO_POSTAL" class="form-control mb-2 <?= empty($usuario[0]->CODIGO_POSTAL) ? 'is-invalid' : '' ?>" placeholder="Código Postal" value="<?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?>">
+            <input type="text" id="CODIGO_POSTAL" maxlength="5" name="CODIGO_POSTAL" class="form-control mb-2 <?= empty($usuario[0]->CODIGO_POSTAL) ? 'is-invalid' : '' ?>" placeholder="Código Postal" value="<?= htmlspecialchars($usuario[0]->CODIGO_POSTAL ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarCodigoPostal" class="btn btn-danger">Cancelar</button>
@@ -567,7 +544,7 @@ if ($_SESSION["rol"] == "usuario") {
             <button type="button" id="btnEditarPais" class="btn btn-danger">Editar</button>
         </div>
         <div id="formPais" class="hidden">
-            <input type="text" id="PAIS" name="PAIS" class="form-control mb-2 <?= empty($usuario[0]->PAIS) ? 'is-invalid' : '' ?>" placeholder="País" value="<?= htmlspecialchars($usuario[0]->PAIS ?? '') ?>">
+            <input type="text" id="PAIS" name="PAIS"  maxlength="50"class="form-control mb-2 <?= empty($usuario[0]->PAIS) ? 'is-invalid' : '' ?>" placeholder="País" value="<?= htmlspecialchars($usuario[0]->PAIS ?? '') ?>">
             <div class="invalid-feedback"></div>
             <div class="valid-feedback"></div>
             <button type="button" id="btnCancelarPais" class="btn btn-danger">Cancelar</button>
@@ -630,7 +607,7 @@ if ($_SESSION["rol"] == "usuario") {
         const formUsuario = document.getElementById('formUsuario');
         const formPersona = document.getElementById('formPersona');
 
-
+        
         const passwordActual = formUsuario.querySelector('#passwordActual');
         const passwordNueva = formUsuario.querySelector('#passwordNueva');
         const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
@@ -763,15 +740,7 @@ if ($_SESSION["rol"] == "usuario") {
                 btnGuardarCambios.disabled = false;
             }
         });
-
-        function mostrarErrorYDesplazarse(form, input) {
-            const inputContainer = input.closest('.section').querySelector('div.hidden');
-            inputContainer.classList.remove('hidden');
-            const offset = inputContainer.getBoundingClientRect().top + window.scrollY - 100;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-            input.focus();
-        }
-
+        
         formUsuario.addEventListener('submit', function (event) {
             let valid = validarContraseñas();
             if (!valid) {
@@ -869,8 +838,8 @@ if ($_SESSION["rol"] == "usuario") {
 
         // Secciones para editar y cancelar
         
-        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
         
+        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
         // Secciones para los campos de persona
         toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');

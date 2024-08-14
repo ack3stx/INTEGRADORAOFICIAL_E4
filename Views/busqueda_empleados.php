@@ -132,48 +132,48 @@
             <form id="personalForm" class="toggle-form" onsubmit="addData(event, 'personal')" action="../Scripts/Registra_Usuario_Recepcionista.php" method="post">
             <h5>CREACION DE USUARIO</h5><br>
                 <label for="staffEmail">Nombre de Usuario:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="usuario" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="usuario" required  maxlength="30"><br>
                 <label for="staffEmail">Email:</label>
-                <input class="form-control me-2" type="email" id="staffEmail" name="correo" required><br>
+                <input class="form-control me-2" type="email" id="staffEmail" name="correo" required maxlength="40"><br>
                 <label for="staffEmail">Contraseña:</label>
-                <input class="form-control me-2" type="password" id="staffEmail" name="contra" required><br>
+                <input class="form-control me-2" type="password" id="staffEmail" name="contra" required maxlength="30"><br>
                 <h5>INFORMACION</h5>
                 <label for="staffName">Nombre:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="nombre" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="nombre" required maxlength="30"><br>
                 <label for="staffName">Apellido Paterno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_paterno" required maxlength="30"><br>
                 <label for="staffName">Apellido Materno:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required maxlength="30"><br>
                 <label for="staffName">Fecha Nacimiento:</label>
                 <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
                 <label for="staffName">Direccion:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="direccion" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="direccion" required maxlength="100"><br>
                 <label for="staffName">Ciudad:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="ciudad" required maxlength="50"><br>
                 <label for="staffName">Estado:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="estado" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="estado" required maxlength="50"><br>
                 <label for="staffName">Codigo Postal:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="cd_postal" required maxlength="5"><br>
                 <label for="staffName">Pais:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="pais" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="pais" required maxlength="50"><br>
                 <label for="staffName">Genero:</label>
                 <select class="form-control me-2" id="roomStatus" name="genero" required>
                   <option class="form-control me-2" value="H">Hombre</option>
                   <option class="form-control me-2" value="M">Mujer</option>
                 </select><br>
                 <label for="staffName">Telefono:</label>
-                <input class="form-control me-2" type="text" id="staffName" name="telefono" required><br>
+                <input class="form-control me-2" type="text" id="staffName" name="telefono" required maxlength="10"><br>
               <h5>INFORMACION PERSONAL</h5><br>
                 <label for="staffEmail">Curp:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="curp" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="curp" required maxlength="18" oninput="validarCURP(this)"><br>
                 <label for="staffEmail">Fecha Contratacion:</label>
                 <input class="form-control me-2" type="date" id="staffEmail" name="f_cont" required><br>
                 <label for="staffEmail">Nss:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="nss" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="nss" required maxlength="11"><br>
                 <label for="staffEmail">Afore:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="afore" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="afore" required maxlength="30"><br>
                 <label for="staffEmail">Numero Emergencia:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="num2" required><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="num2" required maxlength="10"><br>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
@@ -383,6 +383,27 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     validateInputs(); 
+
+    
+    function validarCURP(curpInput) {
+    const curp = curpInput.value.toUpperCase();
+    const curpPattern = /^[A-Z]{4}\d{6}[HM]{1}[A-Z]{5}[A-Z\d]{2}$/;
+
+    if (!curpPattern.test(curp)) {
+      curpInput.setCustomValidity("La CURP ingresada no es válida. Verifica que tenga el formato correcto.");
+    } else {
+      curpInput.setCustomValidity("");
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function() {
+    const curpInput = document.querySelector("input[name='curp']");
+    curpInput.addEventListener("input", function() {
+      validarCURP(curpInput);
+    });
+  });
+
+
 });
 
 

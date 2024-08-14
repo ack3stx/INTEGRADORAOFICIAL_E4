@@ -67,12 +67,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="notificaciones_recepcionista.php">
-              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-success border border-light rounded-circle">
-                  <span class="visually-hidden"></span>
-                </span>
-              </button>
+            <a class="nav-link" href="Incidencias.php">
+              <i class="fas fa-users"></i>incidencias
             </a>
           </li>
         </ul>
@@ -137,7 +133,6 @@
           </div>
         </div>
       </div>
-      <BR>
       <br>
       <h4 class="color-hotel">Busqueda</h4>
       <form class="d-flex" role="search" method="post">
@@ -160,10 +155,10 @@
       extract($_POST);
       if ($_POST) {
         $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
-T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
-FROM HABITACION
-INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
+        T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
+        FROM HABITACION
+        INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+        WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
 
         $tabla = $conexion->seleccionar($consulta);
 
