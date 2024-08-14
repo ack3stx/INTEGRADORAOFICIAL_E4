@@ -665,8 +665,7 @@ if ($_SESSION["rol"] == "usuario") {
         const formUsuario = document.getElementById('formUsuario');
         const formPersona = document.getElementById('formPersona');
 
-        const nombreUsuario = formUsuario.querySelector('#nombreUsuario');
-        const correo = formUsuario.querySelector('#correo');
+        
         const passwordActual = formUsuario.querySelector('#passwordActual');
         const passwordNueva = formUsuario.querySelector('#passwordNueva');
         const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
