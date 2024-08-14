@@ -116,6 +116,9 @@
       </div>';
       }
       ?>
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
+       Registrar Inconveniente Habitacion
+      </button>
     </div>
 
       <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -136,8 +139,6 @@
               <button class="btn btn-outline-danger" type="submit">Agregar</button>
               <input type="hidden" name="form_submitted" value="1">
             </form>
-            <button class="btn btn-outline-danger mb-3" type="submit">Registrar Habitacion En Mantenimiento</button>
-            <input type="hidden" name="form_submitted" value="habitacion">
             </div>
 
           </div>
