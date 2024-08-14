@@ -67,8 +67,8 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="reservaciones_activas.php">
-              <i class="fas fa-users"></i>Cancelaciones
+            <a class="nav-link" href="Incidencias.php">
+              <i class="fas fa-users"></i>incidencias
             </a>
           </li>
         </ul>
