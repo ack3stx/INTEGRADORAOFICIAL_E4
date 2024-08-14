@@ -224,8 +224,8 @@ else {
                 Nombre: <?php echo $reservacion['NOMBRE_COMPLETO']; ?><br>
                 Estado: <?php echo $reservacion['ESTADO']; ?><br>
                 Fecha de reservación: <?php echo $reservacion['FECHA_RESERVACION']; ?><br>
-                Fecha Inicio: <?php echo $reservacion['FECHA_INICIO']; ?><br>
-                Fecha Fin: <?php echo $reservacion['FECHA_FIN']; ?><br>
+                Favor de realizar el check-in despues de las: : <?php echo $reservacion['FECHA_INICIO']; ?><br>
+                Favor de realizar el check-out antes de las: : <?php echo $reservacion['FECHA_FIN']; ?><br>
                 <?php foreach ($reservacion['TIPOS_HABITACION'] as $tipo) { ?>
                     Tipo de Habitación: <?php echo $tipo['TIPO_HABITACION']; ?> <br>
                     Cantidad de Habitaciones: <?php echo $tipo['CANTIDAD_HABITACIONES']; ?> 
