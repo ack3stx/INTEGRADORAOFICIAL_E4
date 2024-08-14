@@ -16,6 +16,8 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
+            // Eliminadas las validaciones del nombre de usuario y del correo electrónico
+
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
                     $errores[] = "La nueva contraseña debe tener al menos 6 caracteres.";
@@ -27,7 +29,6 @@ if ($_SESSION["rol"] == "usuario") {
                     $errores[] = "Debe ingresar la contraseña actual.";
                 }
             }
-
 
             if (empty($errores)) {
                 $db = new Database();
@@ -56,6 +57,32 @@ if ($_SESSION["rol"] == "usuario") {
                         }
                     }
 
+                    if (empty($errores)) {
+                        // El código de actualización de nombre de usuario y correo se mantiene, pero sin validaciones
+                        if (!empty($nombre_user)) {
+                            $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
+                            $db->ejecuta($consulta);
+                            $nombre_usuario_actualizado = true;
+                        }
+
+                        if (!empty($correo_act)) {
+                            $consulta = "UPDATE USUARIOS SET CORREO = '$correo_act' WHERE ID_USUARIO = $id";
+                            $db->ejecuta($consulta);
+                            $correo_actualizado = true;
+                        }
+
+                        $db->desconectarBD();
+
+                        if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
+                            session_destroy();
+                            header('Location: Login.php');
+                            exit();
+                        }
+                    } else {
+                        $_SESSION['mensaje'] = implode("<br>", $errores);
+                        header('Location: datospersonales.php');
+                        exit();
+                    }
                 }
             } else {
                 $_SESSION['mensaje'] = implode("<br>", $errores);
@@ -713,10 +740,7 @@ if ($_SESSION["rol"] == "usuario") {
                 btnGuardarCambios.disabled = false;
             }
         });
-
-   
-  
-
+        
         formUsuario.addEventListener('submit', function (event) {
             let valid = validarContraseñas();
             if (!valid) {
