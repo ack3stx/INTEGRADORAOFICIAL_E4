@@ -16,17 +16,7 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            if (strlen($nombre_user) > 10) {
-                $errores[] = "El nombre de usuario no debe tener más de 10 caracteres.";
-            }
-
-            if (!filter_var($correo_act, FILTER_VALIDATE_EMAIL)) {
-                $errores[] = "El correo debe ser válido y contener '@'.";
-            }
-
-            if (strlen($nombre_user) === 0) {
-                $errores[] = "Nombre de usuario no valido.";
-            }
+            // Eliminadas las validaciones del nombre de usuario y del correo electrónico
 
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
@@ -37,19 +27,6 @@ if ($_SESSION["rol"] == "usuario") {
                 }
                 if (empty($contraseña_actual)) {
                     $errores[] = "Debe ingresar la contraseña actual.";
-                }
-            }
-
-            // Validar si el nombre de usuario ya existe en la base de datos
-            if (!empty($nombre_user)) {
-                $db = new Database();
-                $db->conectarDB();
-
-                $consulta_nombre = "SELECT COUNT(*) AS count FROM USUARIOS WHERE NOMBRE_USUARIO = '$nombre_user' AND NOMBRE_USUARIO != '" . $_SESSION['usuario'] . "'";
-                $resultado_nombre = $db->seleccionar($consulta_nombre);
-
-                if ($resultado_nombre[0]->count > 0) {
-                    $errores[] = "Este nombre de usuario ya existe.";
                 }
             }
 
@@ -80,7 +57,28 @@ if ($_SESSION["rol"] == "usuario") {
                         }
                     }
 
-                   else {
+                    if (empty($errores)) {
+                        // El código de actualización de nombre de usuario y correo se mantiene, pero sin validaciones
+                        if (!empty($nombre_user)) {
+                            $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
+                            $db->ejecuta($consulta);
+                            $nombre_usuario_actualizado = true;
+                        }
+
+                        if (!empty($correo_act)) {
+                            $consulta = "UPDATE USUARIOS SET CORREO = '$correo_act' WHERE ID_USUARIO = $id";
+                            $db->ejecuta($consulta);
+                            $correo_actualizado = true;
+                        }
+
+                        $db->desconectarBD();
+
+                        if ($nombre_usuario_actualizado || $correo_actualizado || $contraseña_actualizada) {
+                            session_destroy();
+                            header('Location: Login.php');
+                            exit();
+                        }
+                    } else {
                         $_SESSION['mensaje'] = implode("<br>", $errores);
                         header('Location: datospersonales.php');
                         exit();
@@ -742,10 +740,7 @@ if ($_SESSION["rol"] == "usuario") {
                 btnGuardarCambios.disabled = false;
             }
         });
-
-   
-  
-
+        
         formUsuario.addEventListener('submit', function (event) {
             let valid = validarContraseñas();
             if (!valid) {
