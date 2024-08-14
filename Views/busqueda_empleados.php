@@ -177,7 +177,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-dark text text-light btn btn-outline-warning" data-bs-dismiss="modal">Cerrar</button>
-          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning">Agregar</button>
+          <button type="submit" class="btn btn-dark text text-light btn btn-outline-warning" id="submitButton">Agregar</button>
           </form>
         </div>
       </div>
@@ -384,5 +384,32 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     validateInputs();
+});
+</script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const f_nac = document.getElementById('f_nac');
+    const f_cont = document.getElementById('f_cont');
+    const submitButton = document.getElementById('submitButton');
+
+    function validateDates() {
+        const nacValid = f_nac.checkValidity();
+        const contValid = f_cont.checkValidity();
+
+        if (nacValid && contValid) {
+            submitButton.disabled = false;
+        } else {
+            submitButton.disabled = true;
+        }
+    }
+
+    // Verificar al cargar la página
+    validateDates();
+
+    // Escuchar cambios en los campos de fecha
+    f_nac.addEventListener('input', validateDates);
+    f_cont.addEventListener('input', validateDates);
 });
 </script>
