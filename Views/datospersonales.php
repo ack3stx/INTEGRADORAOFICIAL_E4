@@ -10,23 +10,11 @@ if ($_SESSION["rol"] == "usuario") {
         $actualizar_persona = false;
 
         if (isset($_POST['tipo_formulario']) && $_POST['tipo_formulario'] === 'usuario') {
-            $correo_act = $_POST['correo'] ?? '';
-            $nombre_user = $_POST['nombre_usuario'] ?? '';
+            
             $contraseña_actual = $_POST['password_actual'] ?? '';
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            if (strlen($nombre_user) > 10) {
-                $errores[] = "El nombre de usuario no debe tener más de 10 caracteres.";
-            }
-
-            if (!filter_var($correo_act, FILTER_VALIDATE_EMAIL)) {
-                $errores[] = "El correo debe ser válido y contener '@'.";
-            }
-
-            if (strlen($nombre_user) === 0) {
-                $errores[] = "Nombre de usuario no valido.";
-            }
 
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
@@ -40,18 +28,6 @@ if ($_SESSION["rol"] == "usuario") {
                 }
             }
 
-            // Validar si el nombre de usuario ya existe en la base de datos
-            if (!empty($nombre_user)) {
-                $db = new Database();
-                $db->conectarDB();
-
-                $consulta_nombre = "SELECT COUNT(*) AS count FROM USUARIOS WHERE NOMBRE_USUARIO = '$nombre_user' AND NOMBRE_USUARIO != '" . $_SESSION['usuario'] . "'";
-                $resultado_nombre = $db->seleccionar($consulta_nombre);
-
-                if ($resultado_nombre[0]->count > 0) {
-                    $errores[] = "Este nombre de usuario ya existe.";
-                }
-            }
 
             if (empty($errores)) {
                 $db = new Database();
