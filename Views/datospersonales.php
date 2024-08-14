@@ -16,8 +16,6 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            
-
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
                     $errores[] = "La nueva contraseña debe tener al menos 6 caracteres.";
@@ -58,11 +56,6 @@ if ($_SESSION["rol"] == "usuario") {
                         }
                     }
 
-                   else {
-                        $_SESSION['mensaje'] = implode("<br>", $errores);
-                        header('Location: datospersonales.php');
-                        exit();
-                    }
                 }
             } else {
                 $_SESSION['mensaje'] = implode("<br>", $errores);
