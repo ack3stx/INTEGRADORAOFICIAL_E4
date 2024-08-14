@@ -156,9 +156,12 @@ else {
     $usuario = $_SESSION["usuario"];
 
     $consulta = "SELECT
+
         RESERVACION.ID_RESERVACION AS FOLIO_RESERVA,
         RESERVACION.ESTADO_RESERVACION AS ESTADO,
         RESERVACION.FECHA_ AS FECHA_RESERVACION,
+        DETALLE_RESERVACION.FECHA_INICIO AS FECHA_INICIO,
+        DETALLE_RESERVACION.FECHA_FIN AS FECHA_FIN,
         CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_COMPLETO,
         T_HABITACION.NOMBRE AS TIPO_HABITACION,
         COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
@@ -196,6 +199,8 @@ else {
                 'NOMBRE_COMPLETO' => $value->NOMBRE_COMPLETO,
                 'ESTADO' => $value->ESTADO,
                 'FECHA_RESERVACION' => $value->FECHA_RESERVACION,
+                'FECHA_INICIO' => $value->FECHA_INICIO,
+                'FECHA_FIN' => $value->FECHA_FIN,
                 'TIPOS_HABITACION' => [],
                 'COSTO_TOTAL' => 0
             ];
@@ -219,15 +224,18 @@ else {
                 Nombre: <?php echo $reservacion['NOMBRE_COMPLETO']; ?><br>
                 Estado: <?php echo $reservacion['ESTADO']; ?><br>
                 Fecha de reservación: <?php echo $reservacion['FECHA_RESERVACION']; ?><br>
+                Favor de realizar el check-in despues de las: : <?php echo $reservacion['FECHA_INICIO']; ?><br>
+                Favor de realizar el check-out antes de las: : <?php echo $reservacion['FECHA_FIN']; ?><br>
                 <?php foreach ($reservacion['TIPOS_HABITACION'] as $tipo) { ?>
                     Tipo de Habitación: <?php echo $tipo['TIPO_HABITACION']; ?> <br>
-                    Cantidad de Habitaciones: <?php echo $tipo['CANTIDAD_HABITACIONES']; ?> <br>
+                    Cantidad de Habitaciones: <?php echo $tipo['CANTIDAD_HABITACIONES']; ?> 
+                    <br>
                 <?php } ?>
                 Costo Total: <?php echo $reservacion['COSTO_TOTAL']; ?><br><br>
             <?php if ($reservacion['ESTADO'] == 'proceso'): ?>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-reservacion-id="<?php echo $folio_reserva; ?>">
-                    Cancelar Reservación
-                </button>
+                Rembolsar Cancelacion
+            </button>
             <?php endif; ?>
         </div>
     </div>
