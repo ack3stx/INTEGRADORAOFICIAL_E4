@@ -384,30 +384,71 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     validateInputs();
-});
-</script>
 
-
-<script>
-document.addEventListener("DOMContentLoaded", function() {
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
     const submitButton = document.getElementById('submitButton');
 
+    function calculateAge(birthday) {
+        const today = new Date();
+        const birthDate = new Date(birthday);
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+
+        return age;
+    }
+
     function validateDates() {
-        const nacValid = f_nac.checkValidity();
-        const contValid = f_cont.checkValidity();
+        const nacDate = f_nac.value;
+        const contDate = f_cont.value;
+        const today = new Date().toISOString().split('T')[0];
+        let valid = true;
 
-        if (nacValid && contValid) {
-            submitButton.disabled = false;
-        } 
+        if (nacDate) {
+            const age = calculateAge(nacDate);
 
-        else if (contValid <= nacValid) {
-          submitButton.disabled = false;
+            // Validación para menores de 18 años
+            if (age < 18) {
+                f_nac.style.borderColor = 'red';
+                valid = false;
+            } else {
+                f_nac.style.borderColor = '';
+            }
+
+            // Validación para fecha mínima
+            const minDate = f_nac.getAttribute('min');
+            if (new Date(nacDate) < new Date(minDate)) {
+                f_nac.style.borderColor = 'red';
+                valid = false;
+            }
         }
-        else {
-            submitButton.disabled = true;
+
+        if (contDate) {
+            // Validación para no seleccionar fecha futura
+            if (new Date(contDate) > new Date(today)) {
+                f_cont.style.borderColor = 'red';
+                valid = false;
+            } else {
+                f_cont.style.borderColor = '';
+            }
+
+            // Validación de contratación respecto a la edad mínima
+            if (nacDate && calculateAge(nacDate) >= 18) {
+                const allowedMinContDate = new Date(nacDate);
+                allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
+
+                if (new Date(contDate) < allowedMinContDate) {
+                    f_cont.style.borderColor = 'red';
+                    valid = false;
+                }
+            }
         }
+
+        submitButton.disabled = !valid;
     }
 
     // Verificar al cargar la página
@@ -417,4 +458,9 @@ document.addEventListener("DOMContentLoaded", function() {
     f_nac.addEventListener('input', validateDates);
     f_cont.addEventListener('input', validateDates);
 });
+
+
+
 </script>
+
+
