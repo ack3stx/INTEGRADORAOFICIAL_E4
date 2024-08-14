@@ -390,7 +390,8 @@ if ($_SESSION["rol"] == "usuario") {
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
-
+    <input type="hidden" name="tipo_formulario" value="usuario">
+    
 
     <div class="section">
         <div class="d-flex justify-content-between align-items-center">
@@ -630,7 +631,7 @@ if ($_SESSION["rol"] == "usuario") {
         const formUsuario = document.getElementById('formUsuario');
         const formPersona = document.getElementById('formPersona');
 
-
+        
         const passwordActual = formUsuario.querySelector('#passwordActual');
         const passwordNueva = formUsuario.querySelector('#passwordNueva');
         const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
@@ -764,6 +765,22 @@ if ($_SESSION["rol"] == "usuario") {
             }
         });
 
+        function limpiarCamposUsuario() {
+            nombreUsuario.value = '';
+            correo.value = '';
+            passwordActual.value = '';
+            passwordNueva.value = '';
+            passwordNuevaConfirm.value = '';
+
+            nombreUsuario.classList.remove('is-valid', 'is-invalid');
+            correo.classList.remove('is-valid', 'is-invalid');
+            passwordActual.classList.remove('is-valid', 'is-invalid');
+            passwordNueva.classList.remove('is-valid', 'is-invalid');
+            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
+        }
+
+        formUsuario.querySelector('#btnCancelarNombreUsuario').addEventListener('click', limpiarCamposUsuario);
+
         function mostrarErrorYDesplazarse(form, input) {
             const inputContainer = input.closest('.section').querySelector('div.hidden');
             inputContainer.classList.remove('hidden');
@@ -869,8 +886,8 @@ if ($_SESSION["rol"] == "usuario") {
 
         // Secciones para editar y cancelar
         
-        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
         
+        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
         // Secciones para los campos de persona
         toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
