@@ -867,15 +867,23 @@ if ($_SESSION["rol"] == "usuario") {
             });
         };
 
-        // Ocultar y mostrar las secciones correspondientes al perfil de usuario y los detalles de la persona
-        toggleSection('editarPerfilUsuario', 'formUsuario', ['editarPerfilPersona', 'btnEditarDireccion'], 'formPersona');
-        cancelSection('cancelarEdicionUsuario', 'editarPerfilUsuario', 'formUsuario', ['editarPerfilPersona', 'btnEditarDireccion'], 'formPersona');
+       // Secciones para editar y cancelar
+       toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
+        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
-        toggleSection('editarPerfilPersona', 'formPersona', ['editarPerfilUsuario', 'btnEditarDireccion'], 'formUsuario');
-        cancelSection('cancelarEdicionPersona', 'editarPerfilPersona', 'formPersona', ['editarPerfilUsuario', 'btnEditarDireccion'], 'formUsuario');
-
-        toggleSection('btnEditarDireccion', 'formDireccion', ['editarPerfilUsuario', 'editarPerfilPersona'], 'formUsuario');
-        cancelSection('cancelarEdicionDireccion', 'btnEditarDireccion', 'formDireccion', ['editarPerfilUsuario', 'editarPerfilPersona'], 'formUsuario');
+        // Secciones para los campos de persona
+        toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarApellidoPaterno', 'formApellidoPaterno', ['btnEditarNombre', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarApellidoMaterno', 'formApellidoMaterno', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarFechaNacimiento', 'formFechaNacimiento', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarDireccion', 'formDireccion', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarCiudad', 'formCiudad', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarEstado', 'formEstado', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarCodigoPostal', 'formCodigoPostal', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarPais', 'formPais', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarGenero', 'formGenero', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarNumeroDeTelefono'], 'formUsuario');
+        toggleSection('btnEditarNumeroDeTelefono', 'formNumeroDeTelefono', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero'], 'formUsuario');
     });
 </script>
 
