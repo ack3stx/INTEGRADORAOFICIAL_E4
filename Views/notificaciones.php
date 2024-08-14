@@ -192,7 +192,7 @@
       }
       echo "<!-- Button trigger modal -->
 <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
-  Cancelar
+  Registrar Inconsistencia
 </button>
 
 <!-- Modal -->
