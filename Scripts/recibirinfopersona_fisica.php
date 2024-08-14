@@ -36,8 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $recepcionista=$resultado['ID'];
 
-        if (isset($_SESSION["usuario"])) {
-            $usuario = $_SESSION["usuario"];
+        if (isset($recepcionista)) {
+            
 
                 $id_usuario = 94;
 
@@ -56,6 +56,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $id_usuario
                 );
  
+
+                
                 
                 
                     $reservacion = $data->reservacion($recepcionista, $fecha, $estado_reservacion);
