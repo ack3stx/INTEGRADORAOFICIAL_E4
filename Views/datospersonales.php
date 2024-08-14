@@ -390,69 +390,36 @@ if ($_SESSION["rol"] == "usuario") {
             <p class="text-danger">No se encontraron datos del usuario.</p>
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
-    <input type="hidden" name="tipo_formulario" value="usuario">
-    <div class="section">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <p class="section-title">Nombre de usuario</p>
-                <p id="nombreUsuarioTexto"><?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?></p>
+            <input type="hidden" name="tipo_formulario" value="usuario">
+
+            <hr class="mb-4">
+
+            <div class="section">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <p class="section-title">Contraseña</p>
+                        <p id="passwordTexto">******</p>
+                    </div>
+                    <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
+                </div>
+                <div id="formPassword" class="hidden">
+                    <input type="password" id="passwordActual" name="password_actual" class="form-control mb-2" placeholder="Contraseña actual">
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+                    <input type="password" id="passwordNueva" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+                    <input type="password" id="passwordNuevaConfirm" name="password_nueva_confirm" class="form-control mb-2" placeholder="Confirmar nueva contraseña">
+                    <div class="invalid-feedback"></div>
+                    <div class="valid-feedback"></div>
+                    <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
+                </div>
             </div>
-            <button type="button" id="btnEditarNombreUsuario" class="btn btn-danger">Editar</button>
-        </div>
-        <div id="formNombreUsuario" class="hidden">
-            <input type="text" id="nombreUsuario" name="nombre_usuario" class="form-control mb-2" placeholder="Nombre de usuario" value="<?= htmlspecialchars($usuario[0]->NOMBRE_USUARIO) ?>">
-            <div class="invalid-feedback"></div>
-            <div class="valid-feedback"></div>
-            <button type="button" id="btnCancelarNombreUsuario" class="btn btn-danger">Cancelar</button>
-        </div>
-    </div>
 
-    <hr class="mb-4">
-
-    <div class="section">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <p class="section-title">Dirección de email</p>
-                <p id="emailTexto"><?= htmlspecialchars($usuario[0]->CORREO) ?></p>
+            <div class="d-flex justify-content-end mt-4">
+                <button type="submit" id="btnGuardarUsuario" class="btn btn-danger">Guardar cambios</button>
             </div>
-            <button type="button" id="btnEditarEmail" class="btn btn-danger">Editar</button>
-        </div>
-        <div id="formEmail" class="hidden">
-            <input type="email" id="correo" name="correo" class="form-control mb-2" placeholder="Correo electrónico" value="<?= htmlspecialchars($usuario[0]->CORREO) ?>">
-            <div class="invalid-feedback"></div>
-            <div class="valid-feedback"></div>
-            <button type="button" id="btnCancelarEmail" class="btn btn-danger">Cancelar</button>
-        </div>
-    </div>
-
-    <hr class="mb-4">
-
-    <div class="section">
-        <div class="d-flex justify-content-between align-items-center">
-            <div>
-                <p class="section-title">Contraseña</p>
-                <p id="passwordTexto">******</p>
-            </div>
-            <button type="button" id="btnEditarPassword" class="btn btn-danger">Editar</button>
-        </div>
-        <div id="formPassword" class="hidden">
-            <input type="password" id="passwordActual" name="password_actual" class="form-control mb-2" placeholder="Contraseña actual">
-            <div class="invalid-feedback"></div>
-            <div class="valid-feedback"></div>
-            <input type="password" id="passwordNueva" name="password_nueva" class="form-control mb-2" placeholder="Nueva contraseña">
-            <div class="invalid-feedback"></div>
-            <div class="valid-feedback"></div>
-            <input type="password" id="passwordNuevaConfirm" name="password_nueva_confirm" class="form-control mb-2" placeholder="Confirmar nueva contraseña">
-            <div class="invalid-feedback"></div>
-            <div class="valid-feedback"></div>
-            <button type="button" id="btnCancelarPassword" class="btn btn-danger">Cancelar</button>
-        </div>
-    </div>
-
-    <div class="d-flex justify-content-end mt-4">
-        <button type="submit" id="btnGuardarUsuario" class="btn btn-danger">Guardar cambios</button>
-    </div>
-</form>
+        </form>
 
 <form id="formPersona" action="datospersonales.php" method="post">
     <input type="hidden" name="tipo_formulario" value="persona">
