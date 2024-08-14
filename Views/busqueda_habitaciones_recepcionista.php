@@ -66,6 +66,11 @@
               <i class="fas fa-users"></i> Extender
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="reservaciones_activas.php">
+              <i class="fas fa-users"></i>Cancelaciones
+            </a>
+          </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
