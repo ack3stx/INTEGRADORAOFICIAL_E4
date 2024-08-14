@@ -145,7 +145,7 @@
                 <label for="staffName">Apellido Materno:</label>
                 <input class="form-control me-2" type="text" id="staffName" name="ap_materno" required maxlength="30"><br>
                 <label for="staffName">Fecha Nacimiento:</label>
-                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required><br>
+                <input class="form-control me-2" type="date" id="f_nac" name="f_nac" required min="1950-01-01" max="<?= date('Y-m-d', strtotime('-18 years')) ?>"><br>
                 <label for="staffName">Direccion:</label>
                 <input class="form-control me-2" type="text" id="staffName" name="direccion" required maxlength="100"><br>
                 <label for="staffName">Ciudad:</label>
@@ -165,9 +165,9 @@
                 <input class="form-control me-2" type="text" id="staffName" name="telefono" required maxlength="10"><br>
               <h5>INFORMACION PERSONAL</h5><br>
                 <label for="staffEmail">Curp:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="curp" required maxlength="18" oninput="validarCURP(this)"><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="curp" required maxlength="18"><br>
                 <label for="staffEmail">Fecha Contratacion:</label>
-                <input class="form-control me-2" type="date" id="staffEmail" name="f_cont" required><br>
+                <input class="form-control me-2" type="date" id="f_cont" name="f_cont" required max="<?= date('Y-m-d') ?>"><br>
                 <label for="staffEmail">Nss:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="nss" required maxlength="11"><br>
                 <label for="staffEmail">Afore:</label>
