@@ -391,9 +391,6 @@ if ($_SESSION["rol"] == "usuario") {
         <?php else: ?>
             <form id="formUsuario" action="datospersonales.php" method="post">
 
-
-    <hr class="mb-4">
-
     <div class="section">
         <div class="d-flex justify-content-between align-items-center">
             <div>
@@ -632,7 +629,6 @@ if ($_SESSION["rol"] == "usuario") {
         const formUsuario = document.getElementById('formUsuario');
         const formPersona = document.getElementById('formPersona');
 
-        
         const passwordActual = formUsuario.querySelector('#passwordActual');
         const passwordNueva = formUsuario.querySelector('#passwordNueva');
         const passwordNuevaConfirm = formUsuario.querySelector('#passwordNuevaConfirm');
@@ -766,22 +762,6 @@ if ($_SESSION["rol"] == "usuario") {
             }
         });
 
-        function limpiarCamposUsuario() {
-            nombreUsuario.value = '';
-            correo.value = '';
-            passwordActual.value = '';
-            passwordNueva.value = '';
-            passwordNuevaConfirm.value = '';
-
-            nombreUsuario.classList.remove('is-valid', 'is-invalid');
-            correo.classList.remove('is-valid', 'is-invalid');
-            passwordActual.classList.remove('is-valid', 'is-invalid');
-            passwordNueva.classList.remove('is-valid', 'is-invalid');
-            passwordNuevaConfirm.classList.remove('is-valid', 'is-invalid');
-        }
-
-        formUsuario.querySelector('#btnCancelarNombreUsuario').addEventListener('click', limpiarCamposUsuario);
-
         function mostrarErrorYDesplazarse(form, input) {
             const inputContainer = input.closest('.section').querySelector('div.hidden');
             inputContainer.classList.remove('hidden');
@@ -870,40 +850,35 @@ if ($_SESSION["rol"] == "usuario") {
                 document.getElementById(formId).classList.remove('hidden');
                 document.getElementById(buttonId).classList.add('hidden');
                 disableButtons.forEach(btn => {
-                    document.getElementById(btn).disabled = true;
+                    document.getElementById(btn).classList.add('hidden');
                 });
                 disableFormButtons(disableFormId, true);
             });
+        };
 
-            document.getElementById('btnCancelar' + formId.replace('form', '')).addEventListener('click', () => {
+        const cancelSection = (cancelBtnId, buttonId, formId, disableButtons, disableFormId) => {
+            document.getElementById(cancelBtnId).addEventListener('click', () => {
                 document.getElementById(formId).classList.add('hidden');
                 document.getElementById(buttonId).classList.remove('hidden');
                 disableButtons.forEach(btn => {
-                    document.getElementById(btn).disabled = false;
+                    document.getElementById(btn).classList.remove('hidden');
                 });
                 disableFormButtons(disableFormId, false);
             });
         };
 
-        // Secciones para editar y cancelar
-        toggleSection('btnEditarNombreUsuario', 'formNombreUsuario', ['btnEditarEmail', 'btnEditarPassword'], 'formPersona');
-        toggleSection('btnEditarEmail', 'formEmail', ['btnEditarNombreUsuario', 'btnEditarPassword'], 'formPersona');
-        toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
+        // Ocultar y mostrar las secciones correspondientes al perfil de usuario y los detalles de la persona
+        toggleSection('editarPerfilUsuario', 'formUsuario', ['editarPerfilPersona', 'btnEditarDireccion'], 'formPersona');
+        cancelSection('cancelarEdicionUsuario', 'editarPerfilUsuario', 'formUsuario', ['editarPerfilPersona', 'btnEditarDireccion'], 'formPersona');
 
-        // Secciones para los campos de persona
-        toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarApellidoPaterno', 'formApellidoPaterno', ['btnEditarNombre', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarApellidoMaterno', 'formApellidoMaterno', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarFechaNacimiento', 'formFechaNacimiento', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarDireccion', 'formDireccion', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarCiudad', 'formCiudad', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarEstado', 'formEstado', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarCodigoPostal', 'formCodigoPostal', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarPais', 'formPais', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarGenero', 'formGenero', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarNumeroDeTelefono'], 'formUsuario');
-        toggleSection('btnEditarNumeroDeTelefono', 'formNumeroDeTelefono', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero'], 'formUsuario');
+        toggleSection('editarPerfilPersona', 'formPersona', ['editarPerfilUsuario', 'btnEditarDireccion'], 'formUsuario');
+        cancelSection('cancelarEdicionPersona', 'editarPerfilPersona', 'formPersona', ['editarPerfilUsuario', 'btnEditarDireccion'], 'formUsuario');
+
+        toggleSection('btnEditarDireccion', 'formDireccion', ['editarPerfilUsuario', 'editarPerfilPersona'], 'formUsuario');
+        cancelSection('cancelarEdicionDireccion', 'btnEditarDireccion', 'formDireccion', ['editarPerfilUsuario', 'editarPerfilPersona'], 'formUsuario');
     });
 </script>
+
 
 
 
