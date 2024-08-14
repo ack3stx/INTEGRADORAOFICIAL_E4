@@ -180,6 +180,7 @@
         <label>RFC: {$facturacion->RFC}</label><br>
         <label>Dirección: {$facturacion->DIRECCION}</label><br>
       </div>
+      
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
       </div>
@@ -205,6 +206,7 @@
             <h4>Mencione El Problema Con la habitacion</h4>
             <label for='problema'>Problema:</label>
             <input type='text' id='problema' name='problema'>
+            <br>
           <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
