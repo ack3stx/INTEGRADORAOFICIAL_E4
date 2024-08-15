@@ -923,7 +923,7 @@ function scrollToContent() {
             else{
                 crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
             }
-            
+
             if (habitacionesSencilla > 0) {
                 crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,true);
             }
@@ -1485,8 +1485,7 @@ function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponib
             }
         }
 
-
-        // calcular la diferencia entre dos fechas
+ // calcular la diferencia entre dos fechas
     function calcularPrecio(tipo, precioPorNoche) {
     const fechaInicio = localStorage.getItem('fechaInicio');
     const fechaFinal = localStorage.getItem('fechaFin');
@@ -1520,7 +1519,7 @@ function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponib
         const detalleHabitacion = {
             tipo: tipo,
             adultos: adultos,
-            niños: ninos,
+            ninos: ninos,
             precioTotal : precioTotal
         };
         
