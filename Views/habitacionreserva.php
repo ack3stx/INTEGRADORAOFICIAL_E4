@@ -19,7 +19,7 @@ session_start();
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
         <title>Laguna Inn</title>
         <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
 </head>
@@ -715,7 +715,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
   </div>
 </footer>-->
 
-
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0"></script>
 <script>
     document.querySelector('.toggle-button').addEventListener('click', function() {
     const content = document.getElementById('content');
@@ -769,7 +769,7 @@ function scrollToContent() {
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  
     
     <script>
     /*document.addEventListener('DOMContentLoaded', function() {
@@ -928,8 +928,7 @@ function scrollToContent() {
                  color: "#fff", 
                  borderRadius: "8px", 
                  padding: "10px",
-                 gravity: "bottom", // Cambia la posición a "bottom"
-                 position: "right",
+                 
                  }
                  }).showToast();
                  
