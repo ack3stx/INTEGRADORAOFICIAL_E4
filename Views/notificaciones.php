@@ -132,7 +132,7 @@
                 <th class='text-white'>Folio</th>
                 <th class='text-white'>Fecha</th>
                 <th class='text-white'>Nombre</th>
-                <th class='text-white'>Telefono</th>
+                <th class='text-white'>Teléfono</th>
                 <th class='text-white'>Correo</th>
                 <th class='text-white'>Monto Total</th>
                 <th class='text-white'>Método de Pago</th>
@@ -171,7 +171,7 @@
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturacion</h1>
+        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
       </div>
       <div class='modal-body'>
         <label>Nombre: {$facturacion->NOMBRE}</label><br>
@@ -201,13 +201,16 @@
       <div class='modal-header'>
         <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
+      <div class='modal-body'>
+        <h4>Mencione El Problema Con la Habitación</h4>
+        <label for='problema'>Problema:</label>
+        <input type='text' id='problema' name='problema' required>
+        <br>
+      </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelar_reservacion.php'>
-            <h4>Mencione El Problema Con la habitacion</h4>
-            <label for='problema'>Problema:</label>
-            <input type='text' id='problema' name='problema'>
-            <br>
           <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
+          <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
         </form>
@@ -227,6 +230,21 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Script para capturar el valor del input y pasarlo al input hidden al enviar el formulario
+    document.querySelectorAll('[id^=staticBackdrop1]').forEach(function(modal) {
+      modal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const modalId = button.getAttribute('data-bs-target').replace('#staticBackdrop1', '');
+        const input = document.querySelector(`#staticBackdrop1${modalId} #problema`);
+        const hiddenInput = document.querySelector(`#hiddenProblema${modalId}`);
+
+        hiddenInput.value = input.value;
+      });
+    });
+  </script>
+
 <?php
   } else {
 ?>
@@ -265,9 +283,9 @@
     <div class="error-container">
       <i class="fas fa-times-circle error-icon"></i>
       <div class="error-code">404</div>
-      <div class="error-message">Pagina no Encontrada</div>
+      <div class="error-message">Página no Encontrada</div>
       <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+      <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
     </div>
   </div>
 </body>
