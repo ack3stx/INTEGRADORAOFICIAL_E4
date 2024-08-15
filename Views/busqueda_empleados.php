@@ -451,6 +451,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (new Date(contDate) < allowedMinContDate) {
                     f_cont.style.borderColor = 'red';
                     valid = false;
+                    submitButton.disabled = false;
                 }
             }
         }
