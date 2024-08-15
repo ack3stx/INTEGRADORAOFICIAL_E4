@@ -1600,7 +1600,21 @@ function toggleBilling() {
         function mostrar() {
             document.getElementById('info1').style.display = 'block';
             document.getElementById('room-summary').style.display = 'block'; 
+            
+    const content = document.getElementById('content');
+    const arrow = document.getElementById('arrow');
 
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.textContent = "▼"; // Cambia la flecha hacia abajo
+    } else {
+        content.style.display = "none";
+        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
+    }};
+
+function scrollToContent() {
+    const content = document.getElementById('content');
+    content.scrollIntoView({ behavior: 'smooth' });
             
         }
 
