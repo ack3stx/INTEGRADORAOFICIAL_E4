@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const datesValid = validateDates();
 
         // Deshabilitar el botón de enviar si alguna validación falla
-        submitButton.disabled = !(inputsValid && datesValid);
+        submitButton.disabled = true;
     }
 
     // Verificar al cargar la página
