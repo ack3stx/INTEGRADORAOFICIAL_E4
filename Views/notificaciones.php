@@ -103,7 +103,8 @@
     </div>
   </nav>
   <div class="container mt-5">
-    <h2 class="mb-4">Reservaciones en Proceso</h2>
+  <h2 class="mb-4 text-danger">Reservaciones en Proceso</h2>
+  <p class="text-danger">En Este Apartado Se mostrarán las Reservaciones que se han realizado.</p>
   </div>
   <br>
   <?php
