@@ -385,6 +385,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
     validateInputs();
 
+    function validarcurp() {
+      if (alphanumericInputs.value.length < 18) {
+        submitButton.disabled = false;
+      }
+       
+    }
+
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
     const submitButton = document.getElementById('submitButton');
@@ -416,7 +423,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 f_nac.style.borderColor = 'red';
                 valid = false;
             } else {
-                f_nac.style.borderColor = '';
+                f_nac.style.borderColor = 'green';
             }
 
             // Validación para fecha mínima
@@ -433,7 +440,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 f_cont.style.borderColor = 'red';
                 valid = false;
             } else {
-                f_cont.style.borderColor = '';
+                f_cont.style.borderColor = 'green';
             }
 
             // Validación de contratación respecto a la edad mínima
