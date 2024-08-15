@@ -155,10 +155,10 @@
                 <td>";
       if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
           $consultona = "SELECT DATOS_FACTURACION.NOMBRE, DATOS_FACTURACION.APELLIDO_PATERNO, DATOS_FACTURACION.APELLIDO_MATERNO, DATOS_FACTURACION.RFC, DATOS_FACTURACION.DIRECCION,
-                         DETALLE_PAGO.MONTO_TOTAL,DETALLE_PAGO,METODO_PAGO
-                         FROM DETALLE_PAGO
-                         JOIN DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
-                         WHERE DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}";
+       DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO
+        FROM DETALLE_PAGO
+        JOIN DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+        WHERE DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}";
           $datos_facturacion = $db->seleccionar($consultona);
 
           if (!empty($datos_facturacion)) {
