@@ -1701,9 +1701,6 @@ function toggleBilling() {
     if (content.style.display === "none" || content.style.display === "") {
         content.style.display = "block";
         arrow.textContent = "▼"; // Cambia la flecha hacia abajo
-    } else {
-        content.style.display = "none";
-        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
     }
             
         }
