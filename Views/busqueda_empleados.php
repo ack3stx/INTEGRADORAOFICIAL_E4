@@ -167,7 +167,7 @@
                 <label for="staffEmail">Curp:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="curp" required maxlength="18"><br>
                 <label for="staffEmail">Fecha Contratacion:</label>
-                <input class="form-control me-2" type="date" id="f_cont" name="f_cont" required min="<?= date('Y-m-d', strtotime('18 years')) ?>" max="<?= date('Y-m-d', strtotime('-18 years')) ?>"><br>
+                <input class="form-control me-2" type="date" id="f_cont" name="f_cont" required max="<?= date('Y-m-d', strtotime('-18 years')) ?>"><br>
                 <label for="staffEmail">Nss:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="nss" required maxlength="11"><br>
                 <label for="staffEmail">Afore:</label>
@@ -332,11 +332,17 @@ document.addEventListener("DOMContentLoaded", function() {
     const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
     const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
     const alphanumericInputs = ['curp'];
-
-    const inputs = document.querySelectorAll('input[type="text"]');
+    
+    const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
     const telefonoInput = document.querySelector('input[name="telefono"]');
+    const num2Input = document.querySelector('input[name="num2"]');
+    const submitButton = document.getElementById('submitButton');
+    const f_nac = document.getElementById('f_nac');
+    const f_cont = document.getElementById('f_cont');
 
     function validateInputs() {
+        let allValid = true;
+
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
 
@@ -344,13 +350,15 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que aceptan letras, espacios y acentos
                 if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(input.value)) {
                     input.style.borderColor = 'red';
+                    allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
             } else if (numericInputs.includes(fieldName)) {
                 // Validación para campos que solo aceptan números
-                if (!/^\d*$/.test(input.value)) {
+                if (!/^\d*$/.test(input.value) || input.value.length < 10) {
                     input.style.borderColor = 'red';
+                    allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
@@ -358,51 +366,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Validación para campos que solo aceptan alfanuméricos
                 if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
                     input.style.borderColor = 'red';
+                    allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
+            } else if (!input.value.trim()) {
+                // Validación de campos vacíos
+                input.style.borderColor = 'red';
+                allValid = false;
+            } else {
+                input.style.borderColor = '';
             }
         });
+
+        return allValid;
     }
-
-    inputs.forEach(input => {
-        input.addEventListener('input', function(e) {
-            const fieldName = e.target.getAttribute('name');
-
-            if (alphaInputs.includes(fieldName)) {
-                // Limpiar cualquier carácter que no sea letra, espacio o acento
-                e.target.value = e.target.value.replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ\s]/g, '');
-            } else if (numericInputs.includes(fieldName)) {
-                // Limpiar cualquier carácter que no sea número
-                e.target.value = e.target.value.replace(/[^0-9]/g, '');
-            } else if (alphanumericInputs.includes(fieldName)) {
-                // Limpiar cualquier carácter que no sea alfanumérico
-                e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
-            }
-            validateInputs();
-        });
-    });
-
-    validateInputs();
-    const telefono =document.getElementById('telefono');
-    const telefono2 =document.getElementById('num2');
-
-    function validarcurp() {
-      if (alphanumericInputs.value.length < 18 || alphanumericInputs.value.length === ' ') {
-        submitButton.disabled = false;
-      }
-      if (exemptInputs.value.length === ' ' || alphaInputs.value.length === ' ' || numericInputs.value.length === ' ') {
-        submitButton.disabled = false;
-      }
-
-      if (telefono.value.length < 10 || telefono.value.length === ' ' || telefono2.value.length === ' ' || telefono2.value.length < 10){
-        submitButton.disabled = false;
-      }
-    }
-
-    const f_nac = document.getElementById('f_nac');
-    const f_cont = document.getElementById('f_cont');
-    const submitButton = document.getElementById('submitButton');
 
     function calculateAge(birthday) {
         const today = new Date();
@@ -459,24 +437,32 @@ document.addEventListener("DOMContentLoaded", function() {
                 if (new Date(contDate) < allowedMinContDate) {
                     f_cont.style.borderColor = 'red';
                     valid = false;
-                    submitButton.disabled = false;
                 }
             }
         }
 
-        submitButton.disabled = !valid;
+        return valid;
+    }
+
+    function validateForm() {
+        const inputsValid = validateInputs();
+        const datesValid = validateDates();
+
+        // Deshabilitar el botón de enviar si alguna validación falla
+        submitButton.disabled = !(inputsValid && datesValid);
     }
 
     // Verificar al cargar la página
-    validateDates();
+    validateForm();
 
-    // Escuchar cambios en los campos de fecha
-    f_nac.addEventListener('input', validateDates);
-    f_cont.addEventListener('input', validateDates);
+    // Escuchar cambios en los campos de texto y fecha
+    inputs.forEach(input => {
+        input.addEventListener('input', validateForm);
+    });
+
+    f_nac.addEventListener('input', validateForm);
+    f_cont.addEventListener('input', validateForm);
 });
-
-
-
 </script>
 
 
