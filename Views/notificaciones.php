@@ -165,7 +165,6 @@ SELECT
     DETALLE_PAGO.METODO_PAGO,
     RESERVACION.ID_RESERVACION AS FOLIO,
     RESERVACION.FECHA_,
-    CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED,
     PERSONA.NUMERO_DE_TELEFONO,
     USUARIOS.CORREO,
     T_HABITACION.NOMBRE AS TIPO_HABITACION,
@@ -227,14 +226,22 @@ GROUP BY
         <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
       </div>
       <div class='modal-body'>
-        <label>Nombre: {$facturacion->NOMBRE}</label><br>
-        <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
-        <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
-        <label>RFC: {$facturacion->RFC}</label><br>
-        <label>Dirección: {$facturacion->DIRECCION}</label><br>
-        <label>Monto Total: {$facturacion->MONTO_TOTAL}</br>
-        <label>Metodo De Pago: {$facturacion->METODO_PAGO}</br>
-      </div>
+    <label>Nombre: {$facturacion->NOMBRE_HUESPED}</label><br>
+    <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
+    <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
+    <label>RFC: {$facturacion->RFC}</label><br>
+    <label>Dirección: {$facturacion->DIRECCION}</label><br>
+    <label>Correo: {$facturacion->CORREO}</label><br>
+    <label>Teléfono: {$facturacion->NUMERO_DE_TELEFONO}</label><br>
+    <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
+    <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
+    <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
+    <label>Precio Total de la Reservación: {$facturacion->PRECIO_TOTAL_RESERVACION}</label><br>
+    <label>Monto Total: {$facturacion->MONTO_TOTAL}</label><br>
+    <label>Método De Pago: {$facturacion->METODO_PAGO}</label><br>
+</div>
+
+
       
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
