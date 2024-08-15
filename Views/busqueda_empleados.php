@@ -167,7 +167,7 @@
                 <label for="staffEmail">Curp:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="curp" required maxlength="18"><br>
                 <label for="staffEmail">Fecha Contratacion:</label>
-                <input class="form-control me-2" type="date" id="f_cont" name="f_cont" required max="<?= date('Y-m-d', strtotime('-18 years')) ?>"><br>
+                <input class="form-control me-2" type="date" id="f_cont" name="f_cont" required><br>
                 <label for="staffEmail">Nss:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="nss" required maxlength="11"><br>
                 <label for="staffEmail">Afore:</label>
