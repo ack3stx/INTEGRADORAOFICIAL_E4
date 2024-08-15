@@ -248,7 +248,35 @@
         }
       }
       
-      echo "</tr>";
+      echo "<!-- Button trigger modal -->
+      <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
+        Registrar Inconsistencia
+      </button>
+      <br>
+      <!-- Modal -->
+      <div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
+        <div class='modal-dialog'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
+            </div>
+            <div class='modal-body'>
+              <h4>Mencione El Problema Con la Habitación</h4>
+              <label for='problema'>Problema:</label>
+              <input type='text' id='problema' name='problema' required>
+              <br>
+            </div>
+            <div class='modal-footer'>
+              <form method='post' action='../Scripts/cancelar_reservacion.php'>
+                <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
+                <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                <button type='submit' class='btn btn-danger'>Aceptar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>";
   }
 
   echo "</tbody></table></div>";
