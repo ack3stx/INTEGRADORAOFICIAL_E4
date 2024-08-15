@@ -922,15 +922,17 @@ function scrollToContent() {
                 
                     console.log("Mostrando notificación Toastify");
                     Toastify({
-                text: "No hay habitaciones disponibles para las fechas seleccionadas",
+                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
                  //className: "info",
-                 style: {
-                 background: "rgba(214, 13, 13, 0.5)", 
+                     style: {
+                    background: "rgba(214, 13, 13, 0.5)", 
                  color: "#fff", 
                  borderRadius: "8px", 
                  padding: "10px",
                  
-                 }
+                 },
+                 gravity: "bottom",
+                 position: "right"
                  }).showToast();
                  
                  setTimeout(function() {
