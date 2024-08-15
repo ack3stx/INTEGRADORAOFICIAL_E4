@@ -128,7 +128,7 @@
                 alert('datos enviados')
                setTimeout(() => {
                     window.location.href = "../index.php";
-                }, 2000); // Redirigir después de 2 segundos
+                }, 2000); // Redirigir después de 2 segundos 
             });
         }
 
@@ -200,6 +200,7 @@ function validartelefono(input){
     
 };
     
+document.addEventListener('DOMContentLoaded',mandardatos);
 
     </script>
 </body>
