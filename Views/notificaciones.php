@@ -243,9 +243,6 @@
       }
 
       echo "<!-- Button trigger modal -->
-      <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
-        Registrar Inconsistencia
-      </button>
       <br>
       <!-- Modal -->
       <div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
