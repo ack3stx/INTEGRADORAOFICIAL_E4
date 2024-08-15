@@ -8,7 +8,7 @@ $problema = $_POST['problema'];
 
 if (isset($ID_RESERVACION)) {
     $cancelacion = "UPDATE `INTEGRADORA_ROL_USUARIOSv2`.`RESERVACION` 
-                    SET `ESTADO_RESERVACION` = 'incoveniente' 
+                    SET `ESTADO_RESERVACION` = 'inconsistencia' 
                     WHERE `ID_RESERVACION` = $ID_RESERVACION";
     
         
