@@ -1695,6 +1695,16 @@ function toggleBilling() {
             document.getElementById('info1').style.display = 'block';
             document.getElementById('room-summary').style.display = 'block'; 
 
+            const content = document.getElementById('content');
+    const arrow = document.getElementById('arrow');
+
+    if (content.style.display === "none" || content.style.display === "") {
+        content.style.display = "block";
+        arrow.textContent = "▼"; // Cambia la flecha hacia abajo
+    } else {
+        content.style.display = "none";
+        arrow.textContent = "▲"; // Cambia la flecha hacia arriba
+    }
             
         }
 
