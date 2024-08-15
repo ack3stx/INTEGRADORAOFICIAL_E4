@@ -868,10 +868,8 @@ function scrollToContent() {
         }
         }).catch(error => { console.log(error)})
     }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(obtenerHabitaciones, 500);  // Agrega un pequeño retraso de 500ms
-});
+
+    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
     function bloqueartarjeta(card){
         const texto = document.createElement('h5');
