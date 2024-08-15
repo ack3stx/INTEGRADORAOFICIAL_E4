@@ -334,8 +334,6 @@ document.addEventListener("DOMContentLoaded", function() {
     const alphanumericInputs = ['curp'];
     
     const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
-    const telefonoInput = document.querySelector('input[name="telefono"]');
-    const num2Input = document.querySelector('input[name="num2"]');
     const submitButton = document.getElementById('submitButton');
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
@@ -345,10 +343,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
+            const inputValue = input.value.trim();  // Eliminar espacios en blanco
 
             if (alphaInputs.includes(fieldName)) {
                 // Validación para campos que aceptan letras, espacios y acentos
-                if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(input.value)) {
+                if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
@@ -356,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else if (numericInputs.includes(fieldName)) {
                 // Validación para campos que solo aceptan números
-                if (!/^\d*$/.test(input.value) || input.value.length < 10) {
+                if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
@@ -364,13 +363,13 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else if (alphanumericInputs.includes(fieldName)) {
                 // Validación para campos que solo aceptan alfanuméricos
-                if (!/^[a-zA-Z0-9]*$/.test(input.value)) {
+                if (!/^[a-zA-Z0-9]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
-            } else if (!input.value.trim()) {
+            } else if (inputValue === '') {
                 // Validación de campos vacíos
                 input.style.borderColor = 'red';
                 allValid = false;
@@ -464,5 +463,6 @@ document.addEventListener("DOMContentLoaded", function() {
     f_cont.addEventListener('input', validateForm);
 });
 </script>
+
 
 
