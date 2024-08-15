@@ -220,7 +220,7 @@
                 <label>Apellido Paterno: {$datos_facturacion[0]->APELLIDO_PATERNO}</label><br>
                 <label>Apellido Materno: {$datos_facturacion[0]->APELLIDO_MATERNO}</label><br>
                 <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
-                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br>";
+                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br><br>";
             foreach ($datos_facturacion as $facturacion) {
                 echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
                 <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
