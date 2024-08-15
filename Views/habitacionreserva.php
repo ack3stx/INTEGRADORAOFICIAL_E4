@@ -347,6 +347,7 @@ margin-bottom: 1%;
 
 </style>
 <body>
+    <!--
 <header style="height: 20%;">
     <div class="row" style="height: 20%;">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top mb-4 " style="height: 20%;">
@@ -444,7 +445,7 @@ if(isset($_SESSION["usuario"])){
       </div>
     </nav>
   </div>
-    </header> 
+    </header>  
 
     <section class="header-section">
         <div class="header-content">
@@ -452,7 +453,7 @@ if(isset($_SESSION["usuario"])){
             <h1>RESERVACIONES</h1>
         </div>
       
-    </section>
+    </section> -->
 
 
 <div class="d-flex justify-content-start flex-wrap position-relative w-50 p-0" id="contenedor-fluido">
