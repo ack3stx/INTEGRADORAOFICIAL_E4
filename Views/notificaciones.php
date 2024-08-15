@@ -225,7 +225,7 @@ GROUP BY
         <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
       </div>
       <div class='modal-body'>
-    <label>Nombre: {$facturacion->NOMBRE_HUESPED}</label><br>
+    <label>Nombre: {$facturacion->NOMBRE}</label><br>
     <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
     <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
     <label>RFC: {$facturacion->RFC}</label><br>
