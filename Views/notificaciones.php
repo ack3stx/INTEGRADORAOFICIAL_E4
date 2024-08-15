@@ -220,21 +220,15 @@
                 <label>Apellido Paterno: {$datos_facturacion[0]->APELLIDO_PATERNO}</label><br>
                 <label>Apellido Materno: {$datos_facturacion[0]->APELLIDO_MATERNO}</label><br>
                 <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
-                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br>
-                <label>Correo: {$datos_facturacion[0]->CORREO}</label><br>
-                <label>Teléfono: {$datos_facturacion[0]->NUMERO_DE_TELEFONO}</label><br>";
-
-            // Mostrar los detalles de cada tipo de habitación
+                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br>";
             foreach ($datos_facturacion as $facturacion) {
                 echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
                 <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
                 <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
 
-                // Sumar al total de la reservación
                 $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
             }
 
-            // Mostrar el total de la reservación
             echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
                 <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
                 </div>
