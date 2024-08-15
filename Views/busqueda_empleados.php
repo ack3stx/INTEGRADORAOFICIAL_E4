@@ -443,7 +443,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputsValid = validateInputs();
         const datesValid = validateDates();
 
-        const isFormValid = inputsValid && datesValid;
+        const isFormValid = inputsValid;
         console.log(`Formulario válido: ${isFormValid}`); // Para depuración
 
         // Habilitar o deshabilitar el botón de enviar basado en las validaciones
