@@ -225,7 +225,7 @@ GROUP BY
         <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
       </div>
       <div class='modal-body'>
-    <label>Nombre: {$facturacion->NOMBRE_HUESPED}</label><br>
+    <label>Nombre: {$facturacion->NOMBRE}</label><br>
     <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
     <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
     <label>RFC: {$facturacion->RFC}</label><br>
@@ -236,8 +236,8 @@ GROUP BY
     <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
     <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
     <label>Precio Total de la Reservación: {$facturacion->PRECIO_TOTAL_RESERVACION}</label><br>
-    <label>Monto Total: {$facturacion->MONTO_TOTAL}</label><br>
     <label>Método De Pago: {$facturacion->METODO_PAGO}</label><br>
+    <label>Monto Total De La Reservacion: {$facturacion->MONTO_TOTAL}</label><br>
 </div>
 
 
