@@ -448,7 +448,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const datesValid = validateDates();
 
         // Habilitar o deshabilitar el botón de enviar basado en las validaciones
-        submitButton.disabled = !(inputsValid && datesValid);
+        submitButton.disabled = true
     }
 
     // Verificar al cargar la página
