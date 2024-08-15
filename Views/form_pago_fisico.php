@@ -126,9 +126,9 @@
             }).then((data) => {
                 console.log(data);
                 alert('datos enviados')
-              /* setTimeout(() => {
+               setTimeout(() => {
                     window.location.href = "../index.php";
-                }, 2000); // Redirigir después de 2 segundos */
+                }, 2000); // Redirigir después de 2 segundos 
             });
         }
 
