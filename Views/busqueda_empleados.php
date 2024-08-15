@@ -384,12 +384,20 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     validateInputs();
+    const telefono =document.getElementById('telefono');
+    const telefono2 =document.getElementById('num2');
 
     function validarcurp() {
-      if (alphanumericInputs.value.length < 18) {
+      if (alphanumericInputs.value.length < 18 || alphanumericInputs.value.length === ' ') {
         submitButton.disabled = false;
       }
-       
+      if (exemptInputs.value.length === ' ' || alphaInputs.value.length === ' ' || numericInputs.value.length === ' ') {
+        submitButton.disabled = false;
+      }
+
+      if (telefono.value.length < 10 || telefono.value.length === ' ' || telefono2.value.length === ' ' || telefono2.value.length < 10){
+        submitButton.disabled = false;
+      }
     }
 
     const f_nac = document.getElementById('f_nac');
