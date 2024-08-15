@@ -238,8 +238,7 @@ GROUP BY
     <label>Teléfono: {$facturacion->NUMERO_DE_TELEFONO}</label><br>
     <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
     <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-    <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
-    <label>Precio Total de la Reservación: {$facturacion->PRECIO_TOTAL_RESERVACION}</label><br>
+    <label>Precio Indivudual de la habitacion por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
     <label>Método De Pago: {$facturacion->METODO_PAGO}</label><br>
     <label>Monto Total De La Reservacion: {$facturacion->MONTO_TOTAL}</label><br>
 </div>
