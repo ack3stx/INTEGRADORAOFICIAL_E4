@@ -157,91 +157,7 @@
                 <td>{$reg->METODO_PAGO}</td>
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
-      
-      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
-        $consultona = "
-        SELECT 
-            DATOS_FACTURACION.NOMBRE,
-            DATOS_FACTURACION.APELLIDO_PATERNO,
-            DATOS_FACTURACION.APELLIDO_MATERNO,
-            DATOS_FACTURACION.RFC,
-            DATOS_FACTURACION.DIRECCION,
-            DETALLE_PAGO.MONTO_TOTAL,
-            DETALLE_PAGO.METODO_PAGO,
-            T_HABITACION.NOMBRE AS TIPO_HABITACION,
-            COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
-            T_HABITACION.PRECIO AS PRECIO_UNITARIO,
-            (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
-        FROM 
-            DETALLE_PAGO
-        JOIN 
-            DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
-        JOIN 
-            RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-        JOIN 
-            PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-        JOIN 
-            USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-        JOIN 
-            DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-        JOIN 
-            T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-        WHERE 
-            DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
-        GROUP BY 
-            T_HABITACION.NOMBRE
-        ";
-        
-        $datos_facturacion = $db->seleccionar($consultona);
 
-        if (!empty($datos_facturacion)) {
-            // Variable para calcular el total de la reservación
-            $precio_total_reservacion = 0;
-
-            // Inicia el modal
-            echo "<!-- Button trigger modal -->
-            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->ID_DETALLE_PAGO}'>
-                Factura
-            </button>
-            
-            <!-- Modal -->
-            <div class='modal fade' id='staticBackdrop{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
-            <div class='modal-dialog'>
-                <div class='modal-content'>
-                <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
-                </div>
-                <div class='modal-body'>
-                <label>Nombre: {$datos_facturacion[0]->NOMBRE}</label><br>
-                <label>Apellido Paterno: {$datos_facturacion[0]->APELLIDO_PATERNO}</label><br>
-                <label>Apellido Materno: {$datos_facturacion[0]->APELLIDO_MATERNO}</label><br>
-                <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
-                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br><br>";
-            foreach ($datos_facturacion as $facturacion) {
-                echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
-                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
-
-                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
-            }
-
-            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
-                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
-                </div>
-            
-                <div class='modal-footer'>
-                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                </div>
-                </div>
-            </div>
-            </div>";
-        }
-      }
-      
       echo "<!-- Button trigger modal -->
       <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
         Registrar Inconsistencia
@@ -256,16 +172,14 @@
             </div>
             <div class='modal-body'>
               <h4>Mencione El Problema Con la Habitación</h4>
-              <label for='problema'>Problema:</label>
-              <input type='text' id='problema' name='problema' required>
-              <br>
+              <form method='post' action='registrar_inconsistencia.php'>
+                <label for='problema{$reg->FOLIO}'>Problema:</label>
+                <input type='text' id='problema{$reg->FOLIO}' name='problema' required>
+                <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
             </div>
             <div class='modal-footer'>
-              <form method='post' action='../Scripts/cancelar_reservacion.php'>
-                <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
-                <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
-                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-                <button type='submit' class='btn btn-danger'>Aceptar</button>
+              <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+              <button type='submit' class='btn btn-danger'>Aceptar</button>
               </form>
             </div>
           </div>
@@ -332,12 +246,12 @@
 </head>
 <body class="bg-dark">
   <div class="container flex-center">
-    <div class="error-container">
-      <i class="fas fa-times-circle error-icon"></i>
-      <div class="error-code">404</div>
-      <div class="error-message">Página no Encontrada</div>
+    <div class='error-container'>
+      <i class='fas fa-times-circle error-icon'></i>
+      <div class='error-code'>404</div>
+      <div class='error-message'>Página no Encontrada</div>
       <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-      <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
+      <a href='../index.php' class='btn btn-primary mt-4'>Página Principal</a>
     </div>
   </div>
 </body>
