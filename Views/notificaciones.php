@@ -148,8 +148,8 @@
       echo "<tr>
                 <td>{$reg->FOLIO}</td>
                 <td>{$reg->FECHA_}</td>
-                <td>{$reg->FECHA_INICIO}></td>
-                <td>{$reg->FECHA_FIN}></td>
+                <td>{$reg->FECHA_INICIO}</td>
+                <td>{$reg->FECHA_FIN}</td>
                 <td>{$reg->NOMBRE}</td>
                 <td>{$reg->NUMERO_DE_TELEFONO}</td>
                 <td>{$reg->CORREO}</td>
