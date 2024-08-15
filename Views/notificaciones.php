@@ -107,7 +107,7 @@
   </div>
   <br>
   <?php
-  $cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_, CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
+  $cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
   FROM USUARIOS
   INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
   INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
@@ -131,6 +131,8 @@
             <tr>
                 <th class='text-white'>Folio</th>
                 <th class='text-white'>Fecha</th>
+                <th class='text-white'>Fecha Inicio</th>
+                <th class='text-white'>Fecha Fin</th>
                 <th class='text-white'>Nombre</th>
                 <th class='text-white'>Teléfono</th>
                 <th class='text-white'>Correo</th>
@@ -146,6 +148,8 @@
       echo "<tr>
                 <td>{$reg->FOLIO}</td>
                 <td>{$reg->FECHA_}</td>
+                <td>{$reg->FECHA_INICIO}></td>
+                <td>{$reg->FECHA_FIN}></td>
                 <td>{$reg->NOMBRE}</td>
                 <td>{$reg->NUMERO_DE_TELEFONO}</td>
                 <td>{$reg->CORREO}</td>
