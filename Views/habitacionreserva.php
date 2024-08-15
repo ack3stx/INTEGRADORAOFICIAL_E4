@@ -837,9 +837,9 @@ function scrollToContent() {
                  position: "right"
                  }).showToast();
                  
-                 setTimeout(function() {
+                 /*setTimeout(function() {
                  window.location.href = "../Views/Calendario.php";
-                   }, 4000);
+                   }, 4000); */
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
