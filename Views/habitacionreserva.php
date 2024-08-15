@@ -929,6 +929,7 @@ function scrollToContent() {
                  color: "#fff", 
                  borderRadius: "8px", 
                  padding: "10px",
+                 zIndex: 9999,
                  
                  },
                  gravity: "bottom",
