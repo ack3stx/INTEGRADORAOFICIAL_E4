@@ -200,7 +200,7 @@ function validartelefono(input){
     
 };
     
-document.addEventListener('DOMContentLoaded',mandardatos);
+
 
     </script>
 </body>
