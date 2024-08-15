@@ -328,6 +328,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
+    const exemptInputs = ['correo', 'contra', 'direccion', 'usuario'];
     const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
     const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
     const alphanumericInputs = ['curp'];
@@ -354,7 +355,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             } else if (numericInputs.includes(fieldName)) {
                 // Validación para campos que solo aceptan números
-                if (!/^\d+$/.test(inputValue) || inputValue.length < 10) {
+                if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
@@ -446,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputsValid = validateInputs();
         const datesValid = validateDates();
 
-        // Habilitar el botón de enviar solo si todas las validaciones pasan
+        // Habilitar o deshabilitar el botón de enviar basado en las validaciones
         submitButton.disabled = !(inputsValid && datesValid);
     }
 
