@@ -12,13 +12,10 @@ session_start();
     <link rel="stylesheet" href="../Estilos/reservavista.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
         <title>Laguna Inn</title>
         <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
@@ -716,7 +713,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
   </div>
 </footer>-->
 
-
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0"></script>
 <script>
     document.querySelector('.toggle-button').addEventListener('click', function() {
     const content = document.getElementById('content');
@@ -766,106 +763,10 @@ function scrollToContent() {
 
 
 
-<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
-  
-    
-    <script>
-    /*document.addEventListener('DOMContentLoaded', function() {
-      var today = new Date();
-
-      var startDate = localStorage.getItem('fechaInicio');
-  var endDate = localStorage.getItem('fechaFin');
-
- 
-
-       var startDatePicker = flatpickr("#startDate", {
-        dateFormat: "Y-m-d",
-        minDate: today,
-        locale: {
-          firstDayOfWeek: 1,
-          weekdays: {
-            shorthand: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-          },
-          months: {
-            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-          }
-        },
-        enable: [
-          function(date) {
-           
-            return (date.getFullYear() === 2024) || 
-                   (date.getFullYear() === 2025 && date.getMonth() === 0);
-          }
-        ],
-        onChange: function(selectedDates, dateStr, instance) {
-          if (selectedDates.length > 0) {
-            
-            var minEndDate = new Date(selectedDates[0]);
-            minEndDate.setDate(minEndDate.getDate() + 1); 
-            endDatePicker.set('minDate', minEndDate);
-            localStorage.setItem('fechaInicio', selectedDates[0].toISOString().slice(0, 10));
-            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
-            
-                
-               
-            
-          }
-        }
-      });
-
-        var endDatePicker = flatpickr("#endDate", {
-        dateFormat: "Y-m-d",
-        minDate: today,
-        locale: {
-          firstDayOfWeek: 1,
-          weekdays: {
-            shorthand: ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab'],
-            longhand: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
-          },
-          months: {
-            shorthand: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-            longhand: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
-          }
-        },
-        enable: [
-          function(date) {
-           
-            return (date.getFullYear() === 2024) || 
-                   (date.getFullYear() === 2025 && date.getMonth() === 0);
-          }
-        ],
-        onChange: function(selectedDates, dateStr, instance) {
-          if (selectedDates.length > 0) {
-           
-            startDatePicker.set('maxDate', selectedDates[0]);
-            localStorage.setItem('fechaFin', selectedDates[0].toISOString().slice(0, 10));
-            document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
-                
-            
-          }
-        }
-      });
-
-       
-    if (startDate) {
-        startDatePicker.setDate(startDate);}
-
-    if (endDate) {
-        endDatePicker.setDate(endDate);}
-
-    });
-
-   */
-
-  </script>
-
-
-<script>
+  <script>
     var habitacionesDoble = 0;
      var habitacionesKingSize = 0;
                 var habitacionesSencilla = 0;
