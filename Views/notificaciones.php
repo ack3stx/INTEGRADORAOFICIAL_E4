@@ -103,7 +103,8 @@
     </div>
   </nav>
   <div class="container mt-5">
-    <h2 class="mb-4">Reservaciones en Proceso</h2>
+  <h2 class="mb-4 text-danger">Reservaciones en Proceso</h2>
+  <p class="text-danger">En Este Apartado Se mostrarán las Reservaciones que se han realizado.</p>
   </div>
   <br>
   <?php
@@ -243,9 +244,6 @@
       }
 
       echo "<!-- Button trigger modal -->
-      <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
-        Registrar Inconsistencia
-      </button>
       <br>
       <!-- Modal -->
       <div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
