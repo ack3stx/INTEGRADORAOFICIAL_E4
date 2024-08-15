@@ -328,7 +328,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const exemptInputs = ['correo', 'contra', 'direccion', 'usuario'];
     const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
     const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
     const alphanumericInputs = ['curp'];
@@ -345,38 +344,32 @@ document.addEventListener("DOMContentLoaded", function() {
             const fieldName = input.getAttribute('name');
             const inputValue = input.value.trim();  // Eliminar espacios en blanco
 
-            console.log(`Validando campo: ${fieldName} con valor: ${inputValue}`); // Para depuración
-
             if (alphaInputs.includes(fieldName)) {
-                if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
+                if (inputValue && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
             } else if (numericInputs.includes(fieldName)) {
-                if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
+                if (inputValue && (!/^\d+$/.test(inputValue) || inputValue.length < 5)) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
             } else if (alphanumericInputs.includes(fieldName)) {
-                if (!/^[a-zA-Z0-9]+$/.test(inputValue)) {
+                if (inputValue && !/^[a-zA-Z0-9]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
                 } else {
                     input.style.borderColor = '';
                 }
-            } else if (inputValue === '') {
-                input.style.borderColor = 'red';
-                allValid = false;
             } else {
                 input.style.borderColor = '';
             }
         });
 
-        console.log(`Inputs válidos: ${allValid}`); // Para depuración
         return allValid;
     }
 
@@ -435,7 +428,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
-        console.log(`Fechas válidas: ${valid}`); // Para depuración
         return valid;
     }
 
@@ -443,11 +435,9 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputsValid = validateInputs();
         const datesValid = validateDates();
 
-        const isFormValid = inputsValid && datesValid;
-        console.log(`Formulario válido: ${isFormValid}`); // Para depuración
-
-        // Habilitar o deshabilitar el botón de enviar basado en las validaciones
-        submitButton.disabled = !isFormValid;
+        // Habilitar el botón de enviar si las validaciones específicas son correctas,
+        // independientemente de si algún campo está vacío.
+        submitButton.disabled = !(inputsValid && datesValid);
     }
 
     validateForm();
@@ -460,6 +450,7 @@ document.addEventListener("DOMContentLoaded", function() {
     f_cont.addEventListener('input', validateForm);
 });
 </script>
+
 
 
 
