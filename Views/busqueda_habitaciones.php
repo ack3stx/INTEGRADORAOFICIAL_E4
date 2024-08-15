@@ -70,30 +70,26 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="notificaciones.php">
-            <button type="button" class="btn btn-danger position-relative fas fa-envelope">
-  <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
-    <span class="visually-hidden"></span>
-  </span>
-</button>
+              <button type="button" class="btn btn-danger position-relative fas fa-envelope">
+                <span class="position-absolute top-1 start-75 translate-middle p-1 bg-success border border-light rounded-circle">
+                  <span class="visually-hidden"></span>
+                </span>
+              </button>
             </a>
           </li>
         </ul>
         <div class="header-right">
           <div class="btn-group">
           <?php
-  if (isset($_SESSION["usuario"])) 
-  {
-    echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
-              ".$_SESSION["usuario"]."
-            </button>";
-  }
-  ?>
+            if (isset($_SESSION["usuario"])) {
+              echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
+                        ".$_SESSION["usuario"]."
+                      </button>";
+            }
+          ?>
             <ul class="dropdown-menu dropdown-menu-right">
               <li><a class="dropdown-item" href="cambiar_datos_cuenta_admin.php">Cuenta</a></li>
-  
-              <li>
-                <hr class="dropdown-divider">
-              </li>
+              <li><hr class="dropdown-divider"></li>
               <li><a class="dropdown-item text-danger" href="../Scripts/Cerrar_Sesion.php">Cerrar Sesión</a></li>
             </ul>
           </div>
@@ -102,74 +98,172 @@
       </div>
     </div>
   </nav>
-    <br>
-    <div class="container">
-      <div class="d-flex">
-        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
-          Registrar Inconveniente Habitacion
-        </button>
-      </div>
 
-      <!-- Modal para Registrar Inconveniente Habitacion -->
-      <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Habitaciones</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <?php
-              // Consulta para obtener las habitaciones
-              $consulta = "SELECT HABITACION.ID_HABITACION, HABITACION.NUM_HABITACION, T_HABITACION.NOMBRE AS TIPO_HABITACION, HABITACION.ESTADO_HABITACION
-                          FROM HABITACION
-                          JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION";
-              $habitaciones = $conexion->seleccionar($consulta);
+  <br>
+  <div class="container">
+    <div class="d-flex mb-3">
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalAgregarHabitacion">
+        Agregar Nueva Habitacion
+      </button>
+    </div>
 
-              // Mostrar los resultados en una tabla
-              echo "<div class='table-responsive'>";
-              echo "<table class='table table-hover table-bordered'>";
-              echo "<thead class='table-dark'>
-                      <tr>
-                          <th>Num Habitación</th>
-                          <th>Tipo de Habitación</th>
-                          <th>Estado Actual</th>
-                          <th>Nuevo Estado</th>
-                          <th>Acción</th>
-                      </tr>
-                    </thead>";
-              echo "<tbody>";
-
-              foreach ($habitaciones as $habitacion) {
-                echo "<tr>";
-                echo "<td>{$habitacion->NUM_HABITACION}</td>";
-                echo "<td>{$habitacion->TIPO_HABITACION}</td>";
-                echo "<td>{$habitacion->ESTADO_HABITACION}</td>";
-                echo "<td>
-                        <form method='post' action='../Scripts/cambiar_estado_habitacion.php'>
-                          <select name='nuevo_estado' class='form-control'>
-                            <option value='disponible' " . ($habitacion->ESTADO_HABITACION == 'disponible' ? 'selected' : '') . ">Disponible</option>
-                            <option value='mantenimiento' " . ($habitacion->ESTADO_HABITACION == 'mantenimiento' ? 'selected' : '') . ">Mantenimiento</option>
-                          </select>
-                          <input type='hidden' name='ID_HABITACION' value='{$habitacion->ID_HABITACION}'>
-                      </td>";
-                echo "<td><button type='submit' class='btn btn-primary'>Actualizar Estado</button></form></td>";
-                echo "</tr>";
-              }
-
-              echo "</tbody>";
-              echo "</table>";
-              echo "</div>";
-              ?>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
+    <div class="modal fade" id="modalAgregarHabitacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalAgregarHabitacionLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalAgregarHabitacionLabel">Agregar Nueva Habitacion</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="../Scripts/agregar_habitacion.php" method="post">
+              <div class="mb-3">
+                <label for="numero_habitacion" class="form-label">Número de Habitación</label>
+                <input type="number" class="form-control" id="numero_habitacion" name="numero_habitacion" required>
+              </div>
+              <div class="mb-3">
+                <label for="piso" class="form-label">Piso</label>
+                <input type="number" class="form-control" id="piso" name="piso" required>
+              </div>
+              <div class="mb-3">
+                <label for="tipo_habitacion" class="form-label">Tipo de Habitación</label>
+                <select class="form-control" id="tipo_habitacion" name="tipo_habitacion" required>
+                  <option value="1">Sencilla</option>
+                  <option value="2">Doble</option>
+                  <option value="3">King Size</option>
+                </select>
+              </div>
+              <button type="submit" class="btn btn-danger">Agregar</button>
+            </form>
           </div>
         </div>
       </div>
     </div>
+
+    <div class="d-flex mb-3">
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
+        Registrar Inconveniente Habitacion
+      </button>
+    </div>
+
+    <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalhabitacionesLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="modalhabitacionesLabel">Habitaciones</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <?php
+            $consulta = "SELECT HABITACION.ID_HABITACION, HABITACION.NUM_HABITACION, T_HABITACION.NOMBRE AS TIPO_HABITACION, HABITACION.ESTADO_HABITACION
+                        FROM HABITACION
+                        JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION";
+            $habitaciones = $conexion->seleccionar($consulta);
+
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-hover table-bordered'>";
+            echo "<thead class='table-dark'>
+                    <tr>
+                        <th>Num Habitación</th>
+                        <th>Tipo de Habitación</th>
+                        <th>Estado Actual</th>
+                        <th>Nuevo Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                  </thead>";
+            echo "<tbody>";
+
+            foreach ($habitaciones as $habitacion) {
+              echo "<tr>";
+              echo "<td>{$habitacion->NUM_HABITACION}</td>";
+              echo "<td>{$habitacion->TIPO_HABITACION}</td>";
+              echo "<td>{$habitacion->ESTADO_HABITACION}</td>";
+              echo "<td>
+                      <form method='post' action='cambiar_estado_habitacion.php'>
+                        <select name='nuevo_estado' class='form-control'>
+                          <option value='disponible' " . ($habitacion->ESTADO_HABITACION == 'disponible' ? 'selected' : '') . ">Disponible</option>
+                          <option value='mantenimiento' " . ($habitacion->ESTADO_HABITACION == 'mantenimiento' ? 'selected' : '') . ">Mantenimiento</option>
+                        </select>
+                        <input type='hidden' name='ID_HABITACION' value='{$habitacion->ID_HABITACION}'>
+                    </td>";
+              echo "<td><button type='submit' class='btn btn-primary'>Actualizar Estado</button></form></td>";
+              echo "</tr>";
+            }
+
+            echo "</tbody>";
+            echo "</table>";
+            echo "</div>";
+            ?>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <h4 class="color-hotel">Busqueda</h4>
+    <form class="d-flex" role="search" method="post">
+      <label class="color-hotel">Tipo:</label>&nbsp;
+      <select class="form-control me-2" name="tipo">
+        <option value="Sencilla">Sencilla</option>
+        <option value="Doble">Doble</option>
+        <option value="King size">King size</option>
+      </select>&nbsp;
+      <label class="color-hotel">Estado:</label>&nbsp;
+      <select name="estado" class="form-control me-2">
+        <option value="ocupada">Ocupada</option>
+        <option value="mantenimiento">Mantenimiento</option>
+        <option value="disponible">Disponible</option>
+      </select>&nbsp;
+      <button class="btn btn-outline-danger" type="submit">Buscar</button>
+    </form>
+
+    <?php
+    extract($_POST);
+    if ($_POST) {
+      $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
+      T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
+      FROM HABITACION
+      INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+      WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
+
+      $tabla = $conexion->seleccionar($consulta);
+
+      echo "
+          <div class='table-responsive'>
+      <table class='table table-hover table-bordered table-danger'>
+          <thead class='table-dark'>
+              <tr>
+                  <th text-white>Num Habitacion</th>
+                  <th text-white>Piso</th>
+                  <th text-white>Estado</th>
+                  <th text-white>Tipo</th>
+                  <th text-white>Descripcion</th>
+                  <th text-white>Costo</th>
+                  <th text-white>Cant Max Adultos</th>
+                  <th text-white>Cant Max Niños</th>
+                  </tr>
+              </thead>
+              <tbody>
+          ";
+      foreach ($tabla as $reg) {
+        echo "<tr>";
+        echo "<td> $reg->NUM_HABITACION </td>";
+        echo "<td> $reg->PISO </td>";
+        echo "<td> $reg->ESTADO_HABITACION </td>";
+        echo "<td> $reg->NOMBRE </td>";
+        echo "<td> $reg->DESCRIPCION </td>";
+        echo "<td> $reg->PRECIO </td>";
+        echo "<td> $reg->CANTIDAD_MAX_ADULTOS </td>";
+        echo "<td> $reg->CANTIDAD_MAX_NINOS </td>";
+        echo "</tr>";
+      }
+      echo "</tbody>";
+      echo "</table>
+          </div>";
+    }
+    ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -208,7 +302,7 @@
     }
     .error-message {
       font-size: 24px;
-    } 
+    }
   </style>
 </head>
 <body class="bg-dark">
