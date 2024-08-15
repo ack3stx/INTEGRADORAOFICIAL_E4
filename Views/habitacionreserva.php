@@ -821,7 +821,7 @@ function scrollToContent() {
                     crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
                     crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
                 
-                    console.log("Mostrando notificación Toastify");
+                    console.log("Mostrando notificación Toastify"); 
                     Toastify({
                     text: "No hay habitaciones disponibles para las fechas seleccionadas",
                  //className: "info",
@@ -839,7 +839,7 @@ function scrollToContent() {
                  
                  setTimeout(function() {
                  window.location.href = "../Views/Calendario.php";
-                   }, 4000);
+                   }, 4000); 
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
@@ -868,8 +868,10 @@ function scrollToContent() {
         }
         }).catch(error => { console.log(error)})
     }
-
-    document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+    
+    document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(obtenerHabitaciones, 500);  // Agrega un pequeño retraso de 500ms
+});
 
     function bloqueartarjeta(card){
         const texto = document.createElement('h5');

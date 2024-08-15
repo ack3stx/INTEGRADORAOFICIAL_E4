@@ -107,7 +107,7 @@
   </div>
   <br>
   <?php
-  $cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
+  $cadena = "SELECT RESERVACION.ID_RESERVACION AS FOLIO, RESERVACION.FECHA_, DETALLE_RESERVACION.FECHA_INICIO, DETALLE_RESERVACION.FECHA_FIN, CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE, PERSONA.NUMERO_DE_TELEFONO, USUARIOS.CORREO, DETALLE_PAGO.MONTO_TOTAL, DETALLE_PAGO.METODO_PAGO, DETALLE_PAGO.ID_DETALLE_PAGO, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD
   FROM USUARIOS
   INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
   INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
@@ -157,132 +157,126 @@
                 <td>{$reg->METODO_PAGO}</td>
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
+      
       if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
         $consultona = "
-SELECT 
-    DATOS_FACTURACION.NOMBRE,
-    DATOS_FACTURACION.APELLIDO_PATERNO,
-    DATOS_FACTURACION.APELLIDO_MATERNO,
-    DATOS_FACTURACION.RFC,
-    DATOS_FACTURACION.DIRECCION,
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.METODO_PAGO,
-    RESERVACION.ID_RESERVACION AS FOLIO,
-    RESERVACION.FECHA_,
-    PERSONA.NUMERO_DE_TELEFONO,
-    USUARIOS.CORREO,
-    T_HABITACION.NOMBRE AS TIPO_HABITACION,
-    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
-    (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO,
-    SUM(T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) OVER (PARTITION BY RESERVACION.ID_RESERVACION) AS PRECIO_TOTAL_RESERVACION
-FROM 
-    DETALLE_PAGO
-JOIN 
-    DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
-JOIN 
-    RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-JOIN 
-    HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-JOIN 
-    PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-JOIN 
-    USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-JOIN 
-    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-JOIN 
-    HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-JOIN 
-    T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-WHERE 
-    DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
-GROUP BY 
-    RESERVACION.ID_RESERVACION, 
-    RESERVACION.FECHA_, 
-    PERSONA.NUMERO_DE_TELEFONO, 
-    USUARIOS.CORREO, 
-    DATOS_FACTURACION.NOMBRE, 
-    DATOS_FACTURACION.APELLIDO_PATERNO, 
-    DATOS_FACTURACION.APELLIDO_MATERNO, 
-    DATOS_FACTURACION.RFC, 
-    DATOS_FACTURACION.DIRECCION, 
-    DETALLE_PAGO.MONTO_TOTAL, 
-    DETALLE_PAGO.METODO_PAGO,
-    T_HABITACION.NOMBRE, 
-    T_HABITACION.PRECIO
-";
+        SELECT 
+            DATOS_FACTURACION.NOMBRE,
+            DATOS_FACTURACION.APELLIDO_PATERNO,
+            DATOS_FACTURACION.APELLIDO_MATERNO,
+            DATOS_FACTURACION.RFC,
+            DATOS_FACTURACION.DIRECCION,
+            DETALLE_PAGO.MONTO_TOTAL,
+            DETALLE_PAGO.METODO_PAGO,
+            T_HABITACION.NOMBRE AS TIPO_HABITACION,
+            COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+            T_HABITACION.PRECIO AS PRECIO_UNITARIO,
+            (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+        FROM 
+            DETALLE_PAGO
+        JOIN 
+            DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+        JOIN 
+            RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN 
+            HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+        JOIN 
+            PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        JOIN 
+            USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+        JOIN 
+            DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN 
+            HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+        JOIN 
+            T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+        WHERE 
+            DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+        GROUP BY 
+            T_HABITACION.NOMBRE
+        ";
+        
+        $datos_facturacion = $db->seleccionar($consultona);
 
-      
-          $datos_facturacion = $db->seleccionar($consultona);
+        if (!empty($datos_facturacion)) {
+            // Variable para calcular el total de la reservación
+            $precio_total_reservacion = 0;
 
-          if (!empty($datos_facturacion)) {
-              $facturacion = $datos_facturacion[0];
-              echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->ID_DETALLE_PAGO}'>
-  Factura
-</button>
+            // Inicia el modal
+            echo "<!-- Button trigger modal -->
+            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBackdrop{$reg->ID_DETALLE_PAGO}'>
+                Factura
+            </button>
+            
+            <!-- Modal -->
+            <div class='modal fade' id='staticBackdrop{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                <div class='modal-header'>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
+                </div>
+                <div class='modal-body'>
+                <label>Nombre: {$datos_facturacion[0]->NOMBRE}</label><br>
+                <label>Apellido Paterno: {$datos_facturacion[0]->APELLIDO_PATERNO}</label><br>
+                <label>Apellido Materno: {$datos_facturacion[0]->APELLIDO_MATERNO}</label><br>
+                <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
+                <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br>
+                <label>Correo: {$datos_facturacion[0]->CORREO}</label><br>
+                <label>Teléfono: {$datos_facturacion[0]->NUMERO_DE_TELEFONO}</label><br>";
 
-<!-- Modal -->
-<div class='modal fade' id='staticBackdrop{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
-  <div class='modal-dialog'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
-      </div>
-      <div class='modal-body'>
-    <label>Nombre: {$facturacion->NOMBRE}</label><br>
-    <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
-    <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
-    <label>RFC: {$facturacion->RFC}</label><br>
-    <label>Dirección: {$facturacion->DIRECCION}</label><br>
-    <label>Correo: {$facturacion->CORREO}</label><br>
-    <label>Teléfono: {$facturacion->NUMERO_DE_TELEFONO}</label><br>
-    <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
-    <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-    <label>Precio Indivudual de la habitacion por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
-    <label>Método De Pago: {$facturacion->METODO_PAGO}</label><br>
-    <label>Monto Total De La Reservacion: {$facturacion->MONTO_TOTAL}</label><br>
-</div>
+            // Mostrar los detalles de cada tipo de habitación
+            foreach ($datos_facturacion as $facturacion) {
+                echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
+                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
+                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
 
+                // Sumar al total de la reservación
+                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
+            }
 
-      
-      <div class='modal-footer'>
-        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-      </div>
-    </div>
-  </div>
-</div>";
-          }
+            // Mostrar el total de la reservación
+            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
+                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
+                </div>
+            
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div>";
+        }
       }
+      
       echo "<!-- Button trigger modal -->
-<button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
-  Registrar Inconsistencia
-</button>
-<br>
-<!-- Modal -->
-<div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
-  <div class='modal-dialog'>
-    <div class='modal-content'>
-      <div class='modal-header'>
-        <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
-      </div>
-      <div class='modal-body'>
-        <h4>Mencione El Problema Con la Habitación</h4>
-        <label for='problema'>Problema:</label>
-        <input type='text' id='problema' name='problema' required>
-        <br>
-      </div>
-      <div class='modal-footer'>
-        <form method='post' action='../Scripts/cancelar_reservacion.php'>
-          <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
-          <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
-          <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
-          <button type='submit' class='btn btn-danger'>Aceptar</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-                </tr>";
+      <button type='button' class='btn btn-danger' data-bs-toggle='modal' data-bs-target='#staticBackdrop1{$reg->FOLIO}'>
+        Registrar Inconsistencia
+      </button>
+      <br>
+      <!-- Modal -->
+      <div class='modal fade' id='staticBackdrop1{$reg->FOLIO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->FOLIO}' aria-hidden='true'>
+        <div class='modal-dialog'>
+          <div class='modal-content'>
+            <div class='modal-header'>
+              <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
+            </div>
+            <div class='modal-body'>
+              <h4>Mencione El Problema Con la Habitación</h4>
+              <label for='problema'>Problema:</label>
+              <input type='text' id='problema' name='problema' required>
+              <br>
+            </div>
+            <div class='modal-footer'>
+              <form method='post' action='../Scripts/cancelar_reservacion.php'>
+                <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
+                <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
+                <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                <button type='submit' class='btn btn-danger'>Aceptar</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>";
   }
 
   echo "</tbody></table></div>";
