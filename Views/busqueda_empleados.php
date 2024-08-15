@@ -447,7 +447,7 @@ document.addEventListener("DOMContentLoaded", function() {
         console.log(`Formulario válido: ${isFormValid}`); // Para depuración
 
         // Habilitar o deshabilitar el botón de enviar basado en las validaciones
-        submitButton.disabled = !isFormValid;
+        submitButton.disabled = true;
     }
 
     validateForm();
