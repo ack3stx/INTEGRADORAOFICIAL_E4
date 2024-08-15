@@ -614,7 +614,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 
 <div class="fixed-footer desplegable">
     <div class="toggle-button">
-        Ver resumen (1) <span id="arrow">▲</span>
+        Ver resumen <span id="arrow">▲</span>
     </div>
     <div id="content" class="hidden-content">
         
