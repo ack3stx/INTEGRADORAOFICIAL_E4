@@ -345,8 +345,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const fieldName = input.getAttribute('name');
             const inputValue = input.value.trim();  // Eliminar espacios en blanco
 
+            console.log(`Validando campo: ${fieldName} con valor: ${inputValue}`); // Para depuración
+
             if (alphaInputs.includes(fieldName)) {
-                // Validación para campos que aceptan letras, espacios y acentos
                 if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
@@ -354,7 +355,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     input.style.borderColor = '';
                 }
             } else if (numericInputs.includes(fieldName)) {
-                // Validación para campos que solo aceptan números
                 if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
                     input.style.borderColor = 'red';
                     allValid = false;
@@ -362,7 +362,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     input.style.borderColor = '';
                 }
             } else if (alphanumericInputs.includes(fieldName)) {
-                // Validación para campos que solo aceptan alfanuméricos
                 if (!/^[a-zA-Z0-9]+$/.test(inputValue)) {
                     input.style.borderColor = 'red';
                     allValid = false;
@@ -370,7 +369,6 @@ document.addEventListener("DOMContentLoaded", function() {
                     input.style.borderColor = '';
                 }
             } else if (inputValue === '') {
-                // Validación de campos vacíos
                 input.style.borderColor = 'red';
                 allValid = false;
             } else {
@@ -378,6 +376,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
+        console.log(`Inputs válidos: ${allValid}`); // Para depuración
         return allValid;
     }
 
@@ -403,7 +402,6 @@ document.addEventListener("DOMContentLoaded", function() {
         if (nacDate) {
             const age = calculateAge(nacDate);
 
-            // Validación para menores de 18 años
             if (age < 18) {
                 f_nac.style.borderColor = 'red';
                 valid = false;
@@ -411,7 +409,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 f_nac.style.borderColor = 'green';
             }
 
-            // Validación para fecha mínima
             const minDate = f_nac.getAttribute('min');
             if (new Date(nacDate) < new Date(minDate)) {
                 f_nac.style.borderColor = 'red';
@@ -420,7 +417,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         if (contDate) {
-            // Validación para no seleccionar fecha futura
             if (new Date(contDate) > new Date(today)) {
                 f_cont.style.borderColor = 'red';
                 valid = false;
@@ -428,7 +424,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 f_cont.style.borderColor = 'green';
             }
 
-            // Validación de contratación respecto a la edad mínima
             if (nacDate && calculateAge(nacDate) >= 18) {
                 const allowedMinContDate = new Date(nacDate);
                 allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
@@ -440,6 +435,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         }
 
+        console.log(`Fechas válidas: ${valid}`); // Para depuración
         return valid;
     }
 
@@ -447,14 +443,15 @@ document.addEventListener("DOMContentLoaded", function() {
         const inputsValid = validateInputs();
         const datesValid = validateDates();
 
-        // Deshabilitar el botón de enviar si alguna validación falla
-        submitButton.disabled = !(inputsValid && datesValid);
+        const isFormValid = inputsValid && datesValid;
+        console.log(`Formulario válido: ${isFormValid}`); // Para depuración
+
+        // Habilitar o deshabilitar el botón de enviar basado en las validaciones
+        submitButton.disabled = !isFormValid;
     }
 
-    // Verificar al cargar la página
     validateForm();
 
-    // Escuchar cambios en los campos de texto y fecha
     inputs.forEach(input => {
         input.addEventListener('input', validateForm);
     });
@@ -463,6 +460,7 @@ document.addEventListener("DOMContentLoaded", function() {
     f_cont.addEventListener('input', validateForm);
 });
 </script>
+
 
 
 
