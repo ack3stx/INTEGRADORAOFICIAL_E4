@@ -11,7 +11,7 @@ $consulta = "UPDATE HABITACION SET ESTADO_HABITACION = '$nuevo_estado' WHERE ID_
 
 try {
     $conexion->ejecuta($consulta);
-    header("Location: ../Views/habitaciones.php?success=1");
+    header("Location: ../Views/busqueda_habitaciones.php?success=1");
 } catch (Exception $e) {
     echo "Error al actualizar el estado: " . $e->getMessage();
     exit;

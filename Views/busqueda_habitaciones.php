@@ -147,7 +147,7 @@
                 echo "<td>{$habitacion->TIPO_HABITACION}</td>";
                 echo "<td>{$habitacion->ESTADO_HABITACION}</td>";
                 echo "<td>
-                        <form method='post' action='cambiar_estado_habitacion.php'>
+                        <form method='post' action='../Scripts/cambiar_estado_habitacion.php'>
                           <select name='nuevo_estado' class='form-control'>
                             <option value='disponible' " . ($habitacion->ESTADO_HABITACION == 'disponible' ? 'selected' : '') . ">Disponible</option>
                             <option value='mantenimiento' " . ($habitacion->ESTADO_HABITACION == 'mantenimiento' ? 'selected' : '') . ">Mantenimiento</option>
@@ -208,7 +208,7 @@
     }
     .error-message {
       font-size: 24px;
-    }
+    } 
   </style>
 </head>
 <body class="bg-dark">
