@@ -132,7 +132,7 @@
                 <th class='text-white'>Folio</th>
                 <th class='text-white'>Fecha</th>
                 <th class='text-white'>Nombre</th>
-                <th class='text-white'>Telefono</th>
+                <th class='text-white'>Teléfono</th>
                 <th class='text-white'>Correo</th>
                 <th class='text-white'>Monto Total</th>
                 <th class='text-white'>Método de Pago</th>
@@ -154,9 +154,60 @@
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
       if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
-          $consultona = "SELECT NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, RFC, DIRECCION
-                         FROM DATOS_FACTURACION
-                         WHERE DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}";
+        $consultona = "
+SELECT 
+    DATOS_FACTURACION.NOMBRE,
+    DATOS_FACTURACION.APELLIDO_PATERNO,
+    DATOS_FACTURACION.APELLIDO_MATERNO,
+    DATOS_FACTURACION.RFC,
+    DATOS_FACTURACION.DIRECCION,
+    DETALLE_PAGO.MONTO_TOTAL,
+    DETALLE_PAGO.METODO_PAGO,
+    RESERVACION.ID_RESERVACION AS FOLIO,
+    RESERVACION.FECHA_,
+    PERSONA.NUMERO_DE_TELEFONO,
+    USUARIOS.CORREO,
+    T_HABITACION.NOMBRE AS TIPO_HABITACION,
+    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+    (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO,
+    SUM(T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) OVER (PARTITION BY RESERVACION.ID_RESERVACION) AS PRECIO_TOTAL_RESERVACION
+FROM 
+    DETALLE_PAGO
+JOIN 
+    DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+JOIN 
+    RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+    HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+JOIN 
+    PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+JOIN 
+    USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+JOIN 
+    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+    HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+JOIN 
+    T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+WHERE 
+    DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+GROUP BY 
+    RESERVACION.ID_RESERVACION, 
+    RESERVACION.FECHA_, 
+    PERSONA.NUMERO_DE_TELEFONO, 
+    USUARIOS.CORREO, 
+    DATOS_FACTURACION.NOMBRE, 
+    DATOS_FACTURACION.APELLIDO_PATERNO, 
+    DATOS_FACTURACION.APELLIDO_MATERNO, 
+    DATOS_FACTURACION.RFC, 
+    DATOS_FACTURACION.DIRECCION, 
+    DETALLE_PAGO.MONTO_TOTAL, 
+    DETALLE_PAGO.METODO_PAGO,
+    T_HABITACION.NOMBRE, 
+    T_HABITACION.PRECIO
+";
+
+      
           $datos_facturacion = $db->seleccionar($consultona);
 
           if (!empty($datos_facturacion)) {
@@ -171,15 +222,26 @@
   <div class='modal-dialog'>
     <div class='modal-content'>
       <div class='modal-header'>
-        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturacion</h1>
+        <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
       </div>
       <div class='modal-body'>
-        <label>Nombre: {$facturacion->NOMBRE}</label><br>
-        <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
-        <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
-        <label>RFC: {$facturacion->RFC}</label><br>
-        <label>Dirección: {$facturacion->DIRECCION}</label><br>
-      </div>
+    <label>Nombre: {$facturacion->NOMBRE_HUESPED}</label><br>
+    <label>Apellido Paterno: {$facturacion->APELLIDO_PATERNO}</label><br>
+    <label>Apellido Materno: {$facturacion->APELLIDO_MATERNO}</label><br>
+    <label>RFC: {$facturacion->RFC}</label><br>
+    <label>Dirección: {$facturacion->DIRECCION}</label><br>
+    <label>Correo: {$facturacion->CORREO}</label><br>
+    <label>Teléfono: {$facturacion->NUMERO_DE_TELEFONO}</label><br>
+    <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
+    <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
+    <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br>
+    <label>Precio Total de la Reservación: {$facturacion->PRECIO_TOTAL_RESERVACION}</label><br>
+    <label>Monto Total: {$facturacion->MONTO_TOTAL}</label><br>
+    <label>Método De Pago: {$facturacion->METODO_PAGO}</label><br>
+</div>
+
+
+      
       <div class='modal-footer'>
         <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
       </div>
@@ -200,12 +262,16 @@
       <div class='modal-header'>
         <h1 class='modal-title fs-5 fas fa-exclamation-triangle' id='staticBackdropLabel{$reg->FOLIO}'>&nbsp;ALERTA</h1>
       </div>
+      <div class='modal-body'>
+        <h4>Mencione El Problema Con la Habitación</h4>
+        <label for='problema'>Problema:</label>
+        <input type='text' id='problema' name='problema' required>
+        <br>
+      </div>
       <div class='modal-footer'>
         <form method='post' action='../Scripts/cancelar_reservacion.php'>
-            <h4>Mencione El Problema Con la habitacion</h4>
-            <label for='problema'>Problema:</label>
-            <input type='text' id='problema' name='problema'>
           <input type='hidden' name='ID_RESERVACION' value='{$reg->FOLIO}'>
+          <input type='hidden' name='problema' id='hiddenProblema{$reg->FOLIO}'>
           <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
           <button type='submit' class='btn btn-danger'>Aceptar</button>
         </form>
@@ -225,6 +291,21 @@
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <script>
+    // Script para capturar el valor del input y pasarlo al input hidden al enviar el formulario
+    document.querySelectorAll('[id^=staticBackdrop1]').forEach(function(modal) {
+      modal.addEventListener('show.bs.modal', function(event) {
+        const button = event.relatedTarget;
+        const modalId = button.getAttribute('data-bs-target').replace('#staticBackdrop1', '');
+        const input = document.querySelector(`#staticBackdrop1${modalId} #problema`);
+        const hiddenInput = document.querySelector(`#hiddenProblema${modalId}`);
+
+        hiddenInput.value = input.value;
+      });
+    });
+  </script>
+
 <?php
   } else {
 ?>
@@ -263,9 +344,9 @@
     <div class="error-container">
       <i class="fas fa-times-circle error-icon"></i>
       <div class="error-code">404</div>
-      <div class="error-message">Pagina no Encontrada</div>
+      <div class="error-message">Página no Encontrada</div>
       <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+      <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
     </div>
   </div>
 </body>
