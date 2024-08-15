@@ -927,7 +927,9 @@ function scrollToContent() {
                  background: "rgba(214, 13, 13, 0.5)", 
                  color: "#fff", 
                  borderRadius: "8px", 
-                 padding: "10px"
+                 padding: "10px",
+                 gravity: "bottom", // Cambia la posición a "bottom"
+                 position: "right",
                  }
                  }).showToast();
                  
