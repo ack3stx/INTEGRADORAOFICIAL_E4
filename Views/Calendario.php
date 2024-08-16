@@ -236,7 +236,7 @@ if(isset($_SESSION["usuario"])){
             <form id="formsfechas" action="habitacionreserva.php" method="POST">
             <input type="hidden" id="fechaInicio">
             <input type="hidden" id="fechaFin">
-            <button class="btn btn-custom mt-4" type="button" onclick="ingresar();" id="comprobar">Comprobar</button>
+            <button class="btn btn-custom mt-4" type="button" id="comprobar">Comprobar</button>
 </form>
         </div>
        
@@ -339,8 +339,7 @@ if(isset($_SESSION["usuario"])){
 
         });
 
-        function ingresar () { 
-            
+        
             <?php 
                 if(isset($_SESSION["usuario"])):
                 
@@ -369,9 +368,11 @@ if(isset($_SESSION["usuario"])){
 }});
 
 <?php else: ?>
-    window.location.href = 'Login.php';
+    $('#comprobar').click(function() {
+                 window.location.href = "Login.php";
+                   }); 
     <?php endif; ?>
-}
+
     
 
         

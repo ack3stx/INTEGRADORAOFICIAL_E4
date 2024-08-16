@@ -274,10 +274,12 @@ session_start();
                 method: 'POST'
             }).then(response => {
                 console.log('response:',response)
+              
                 
             }).then((data) => {
                // console.log(data);
-                Toastify({
+             
+               Toastify({
                 text: "Reservacion realizada con exito",
                  //className: "info",
                  style: {
@@ -290,7 +292,7 @@ session_start();
                  
                  setTimeout(function() {
                  window.location.href = redirectUrl;
-                   }, 2000);
+                   }, 2000); 
                 
             }).catch((error) => {
                 console.log(error);
@@ -299,7 +301,7 @@ session_start();
         }
 
         
-
+       
         
     </script>
 </body>

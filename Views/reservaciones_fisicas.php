@@ -73,6 +73,7 @@ include '../Clases/BasedeDatos.php';
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
         <link rel="stylesheet" href="../Estilos/reservafisica.css">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
         <title>Laguna Inn</title>
@@ -705,7 +706,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </footer>-->
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0"></script>
 <script>
     document.querySelector('.toggle-button').addEventListener('click', function() {
     const content = document.getElementById('content');
@@ -903,20 +904,51 @@ function scrollToContent() {
                  Sprecio = parseFloat(data.precioS[0].precio);
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
-            alert("No hay habitaciones disponibles");
-            window.location.href = 'Calendariore.php';
+                    crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
+                    crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
+                    crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
+
+                    Toastify({
+                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
+                 //className: "info",
+                     style: {
+                    background: "#ffff", 
+                 color: "black", 
+                 borderRadius: "8px", 
+                 padding: "10px",
+                 zIndex: 9999,
+                 
+                 },
+                 gravity: "top",
+                 position: "right"
+                 }).showToast();
+                 
+                 setTimeout(function() {
+                 window.location.href = "../Views/Calendariore.php";
+                   }, 4000); 
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,true);
             }
+            else{
+                crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
+            }
+
             if (habitacionesKingSize > 0) {
                 
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio);
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,true);
             }
+            else{
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
+            }
+            
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,true);
+            }
+            else {
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
             }
             console.log(data);
         }
@@ -925,7 +957,26 @@ function scrollToContent() {
 
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
 
-    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio)  {
+    function bloqueartarjeta(card){
+        const texto = document.createElement('h5');
+       texto.className = 'card-title';
+       texto.innerText = 'No hay habitaciones disponibles';
+       card.appendChild(texto);
+
+        card.classList.add('disabled');
+       card.style.opacity = '0.5';
+       const addButton = card.querySelector('.btn');
+    addButton.disabled = true;
+
+    /*const cardText = card.querySelector('.card-text');
+    cardText.style.display = 'none';
+    const priceInfo = card.querySelector('.price-info');
+    priceInfo.style.display = 'none'; */
+
+   
+    }
+
+    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio,disponible)  {
 
             
 const container = document.getElementById('contenedor-fluido');
@@ -1088,10 +1139,14 @@ cardFooter.className = 'card-footer-custom';
     
     cardContainer.appendChild(card);
     container.appendChild(cardContainer);
+
+    if(!disponible){
+    bloqueartarjeta(card);
+    }
 }
 
 
-function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio)  {
+function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio,disponible)  {
     
     const container = document.getElementById('contenedor-fluido');
     
@@ -1252,9 +1307,13 @@ function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio)  {
     
     cardContainer.appendChild(card);
     container.appendChild(cardContainer);
+
+    if(!disponible){
+    bloqueartarjeta(card);
+    }
 }
 
-function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
+function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponible)  {
     
     const container = document.getElementById('contenedor-fluido');
     
@@ -1414,6 +1473,10 @@ function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
     
     cardContainer.appendChild(card);
     container.appendChild(cardContainer); 
+
+    if(!disponible){
+    bloqueartarjeta(card);
+    }
 }  
         
         
@@ -1477,7 +1540,7 @@ function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio)  {
         const detalleHabitacion = {
             tipo: tipo,
             adultos: adultos,
-            niños: ninos,
+            ninos: ninos,
             precioTotal : precioTotal
         };
         
@@ -1731,8 +1794,24 @@ function enviarformulario(event) {
 
       
 
-        alert('Datos guardados exitosamente');
-        window.location.href = 'form_pago_fisico.php';
+        Toastify({
+                    text: "Datos guardados exitosamente",
+                 //className: "info",
+                     style: {
+                    background: "#ffff", 
+                 color: "black", 
+                 borderRadius: "8px", 
+                 padding: "10px",
+                 zIndex: 9999,
+                 
+                 },
+                 gravity: "top",
+                 position: "right"
+                 }).showToast();
+                 
+                 setTimeout(function() {
+                 window.location.href = "../Views/form_pago_fisico.php";
+                   }, 2000); 
     }
 }
 

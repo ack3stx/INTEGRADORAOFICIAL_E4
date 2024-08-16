@@ -4,11 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laguna Inn</title>
-    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+  <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionista.css">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaf.css">
 </head>
 <body>
 <?php
@@ -105,7 +105,7 @@
     <br>
     <div class="container">
       <div class="d-flex">
-      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalAgregarHabitacion">
         Agregar Nueva Habitacion
       </button>
       <div id="alertContainer">
@@ -118,22 +118,23 @@
       }
       ?>
       <br>
-      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalhabitaciones">
+      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalInconvenienteHabitacion">
        Registrar Inconveniente Habitacion
       </button>
       </div>
       </div>
-      <div class="modal fade" id="modalhabitaciones" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      
+      <div class="modal fade" id="modalAgregarHabitacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="modalAgregarHabitacionLabel" aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Agregar Nueva Habitacion</h1>
+              <h1 class="modal-title fs-5" id="modalAgregarHabitacionLabel">Agregar Nueva Habitacion</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
             <form action="../Scripts/agregar_habitaciones.php" method="post" id="habitacionesForm" class="toggle-form">
-              <select class="form-control me-2" id="roomStatus" name="roomStatus" required>
+              <select class="form-control me-2" id="roomType" name="roomType" required>
                 <option class="form-control me-2" value="1">Doble</option>
                 <option class="form-control me-2" value="2">King Size</option>
                 <option class="form-control me-2" value="3">Sencilla</option>
@@ -142,86 +143,140 @@
               <input type="hidden" name="form_submitted" value="1">
             </form>
             </div>
-
           </div>
         </div>
       </div>
-      <BR>
-      <br>
-      <h4 class="color-hotel">Busqueda</h4>
-      <form class="d-flex" role="search" method="post">
-        <label class="color-hotel">Tipo:</label>&nbsp;
-        <select class="form-control me-2" name="tipo">
-          <option value="Sencilla">Sencilla</option>
-          <option value="Doble">Doble</option>
-          <option value="King size">King size</option>
-        </select>&nbsp;
-        <label class="color-hotel">Estado:</label>&nbsp;
-        <select name="estado">
-          <option value="ocupada">Ocupada</option>
-          <option value="mantenimiento">Mantenimiento</option>
-          <option value="disponible">Disponible</option>
-        </select>&nbsp;
-        <button class="btn btn-outline-danger" type="submit">Buscar</button>
-      </form>
-      <?php
-      extract($_POST);
-      if ($_POST) {
-        $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
-T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
-FROM HABITACION
-INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
 
-        $tabla = $conexion->seleccionar($consulta);
+      <div class="modal fade" id="modalInconvenienteHabitacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalInconvenienteHabitacionLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modalInconvenienteHabitacionLabel">Habitaciones</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <?php
+              $consulta = "SELECT HABITACION.ID_HABITACION, HABITACION.NUM_HABITACION, T_HABITACION.NOMBRE AS TIPO_HABITACION, HABITACION.ESTADO_HABITACION
+                          FROM HABITACION
+                          JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION";
+              $habitaciones = $conexion->seleccionar($consulta);
 
-        echo "
-            <div class='table-responsive'>
-        <table class='table table-hover table-bordered table-danger'>
-            <thead class='table-dark'>
-                <tr>
-                    <th text-white>Num Habitacion</th>
-                    <th text-white>Piso</th>
-                    <th text-white>Estado</th>
-                    <th text-white>Tipo</th>
-                    <th text-white>Descripcion</th>
-                    <th text-white>Costo</th>
-                    <th text-white>Cant Max Adultos</th>
-                    <th text-white>Cant Max Niños</th>
-                    </tr>
-                </thead>
-                <tbody>
-            ";
-        foreach ($tabla as $reg) {
-          echo "<tr>";
-          echo "<td> $reg->NUM_HABITACION </td>";
-          echo "<td> $reg->PISO </td>";
-          echo "<td> $reg->ESTADO_HABITACION </td>";
-          echo "<td> $reg->NOMBRE </td>";
-          echo "<td> $reg->DESCRIPCION </td>";
-          echo "<td> $reg->PRECIO </td>";
-          echo "<td> $reg->CANTIDAD_MAX_ADULTOS </td>";
-          echo "<td> $reg->CANTIDAD_MAX_NINOS </td>";
-          echo "</tr>";
-        }
-        echo "</tbody>";
-        echo "</table>
-            </div>";
-        $conexion->desconectarBD();
+              echo "<div class='table-responsive'>";
+              echo "<table class='table table-hover table-bordered'>";
+              echo "<thead class='table-dark'>
+                      <tr>
+                          <th>Num Habitación</th>
+                          <th>Tipo de Habitación</th>
+                          <th>Estado Actual</th>
+                          <th>Nuevo Estado</th>
+                          <th>Acción</th>
+                      </tr>
+                    </thead>";
+              echo "<tbody>";
 
+              foreach ($habitaciones as $habitacion) {
+                echo "<tr>";
+                echo "<td>{$habitacion->NUM_HABITACION}</td>";
+                echo "<td>{$habitacion->TIPO_HABITACION}</td>";
+                echo "<td>{$habitacion->ESTADO_HABITACION}</td>";
+                echo "<td>
+                      <form method='post' action='../Scripts/cambiar_estado_habitacion.php'>
+                          <select name='nuevo_estado' class='form-control'>
+                            <option value='disponible'" . ($habitacion->ESTADO_HABITACION == 'disponible' ? 'selected' : '') . ">Disponible</option>
+                            <option value='mantenimiento'" . ($habitacion->ESTADO_HABITACION == 'mantenimiento' ? 'selected' : '') . ">Mantenimiento</option>
+                          </select>
+                          <input type='hidden' name='ID_HABITACION' value='{$habitacion->ID_HABITACION}'>
+                      </td>";
+                echo "<td><button type='submit' class='btn btn-primary'>Actualizar Estado</button></form></td>";
+                echo "</tr>";
+              }
+
+              echo "</tbody>";
+              echo "</table>";
+              echo "</div>";
+              ?>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <br>
+    <h4 class="color-hotel">Busqueda</h4>
+    <form class="d-flex" role="search" method="post">
+      <label class="color-hotel">Tipo:</label>&nbsp;
+      <select class="form-control me-2" name="tipo">
+        <option value="Sencilla">Sencilla</option>
+        <option value="Doble">Doble</option>
+        <option value="King size">King size</option>
+      </select>&nbsp;
+      <label class="color-hotel">Estado:</label>&nbsp;
+      <select name="estado" class="form-control me-2">
+        <option value="ocupada">Ocupada</option>
+        <option value="mantenimiento">Mantenimiento</option>
+        <option value="disponible">Disponible</option>
+      </select>&nbsp;
+      <button class="btn btn-outline-danger" type="submit">Buscar</button>
+    </form>
+
+    <?php
+    extract($_POST);
+    if ($_POST) {
+      $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
+      T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
+      FROM HABITACION
+      INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+      WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
+
+      $tabla = $conexion->seleccionar($consulta);
+
+      echo "
+          <div class='table-responsive'>
+      <table class='table table-hover table-bordered table-danger'>
+          <thead class='table-dark'>
+              <tr>
+                  <th text-white>Num Habitacion</th>
+                  <th text-white>Piso</th>
+                  <th text-white>Estado</th>
+                  <th text-white>Tipo</th>
+                  <th text-white>Descripcion</th>
+                  <th text-white>Costo</th>
+                  <th text-white>Cant Max Adultos</th>
+                  <th text-white>Cant Max Niños</th>
+                  </tr>
+              </thead>
+              <tbody>
+          ";
+      foreach ($tabla as $reg) {
+        echo "<tr>";
+        echo "<td> $reg->NUM_HABITACION </td>";
+        echo "<td> $reg->PISO </td>";
+        echo "<td> $reg->ESTADO_HABITACION </td>";
+        echo "<td> $reg->NOMBRE </td>";
+        echo "<td> $reg->DESCRIPCION </td>";
+        echo "<td> $reg->PRECIO </td>";
+        echo "<td> $reg->CANTIDAD_MAX_ADULTOS </td>";
+        echo "<td> $reg->CANTIDAD_MAX_NINOS </td>";
+        echo "</tr>";
       }
-      ?>
+      echo "</tbody>";
+      echo "</table>
+          </div>";
+    }
+    ?>
 
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-      <?php
-    $conexion->desconectarBD();
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<?php
+  $conexion->desconectarBD();
   } else {
-  ?>
+?>
 <head>
   <style>
     body, html {
