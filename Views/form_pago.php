@@ -301,7 +301,7 @@ session_start();
         }
 
         
-        document.addEventListener('DOMContentLoaded',mandardatos);
+       
         
     </script>
 </body>
