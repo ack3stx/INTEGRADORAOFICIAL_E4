@@ -395,54 +395,65 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function validateDates() {
-        const nacDate = f_nac.value;
-        const contDate = f_cont.value;
-        const today = new Date().toISOString().split('T')[0];
+    const nacDate = f_nac.value;
+    const contDate = f_cont.value;
+    const today = new Date().toISOString().split('T')[0];
+    const currentYear = new Date().getFullYear();
 
-        if (nacDate) {
-            const age = calculateAge(nacDate);
+    // Validar la fecha de nacimiento
+    if (nacDate) {
+        const birthYear = new Date(nacDate).getFullYear();
+        const age = calculateAge(nacDate);
 
-            if (age < 18) {
-                f_nac.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
-            } else {
-                f_nac.style.borderColor = 'green';
-                
-            }
-
-            const minDate = f_nac.getAttribute('min');
-            if (new Date(nacDate) < new Date(minDate)) {
-                f_nac.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima
-            } else {
-                f_nac.style.borderColor = 'green';
-                
-            }
+        if (birthYear > currentYear) {
+            f_nac.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si el año es futuro
+        } else if (age < 18) {
+            f_nac.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
+        } else {
+            f_nac.style.borderColor = 'green';
         }
 
-        if (contDate) {
-            if (new Date(contDate) > new Date(today)) {
+        const minDate = f_nac.getAttribute('min');
+        if (new Date(nacDate) < new Date(minDate)) {
+            f_nac.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima
+        } else if (birthYear <= currentYear && age >= 18) {
+            f_nac.style.borderColor = 'green';
+            submitButton.disabled = false;  // Habilitar si la fecha es válida
+        }
+    }
+
+    // Validar la fecha de contratación
+    if (contDate) {
+        const contYear = new Date(contDate).getFullYear();
+
+        if (contYear > currentYear) {
+            f_cont.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si el año es futuro
+        } else if (new Date(contDate) > new Date(today)) {
+            f_cont.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es futura
+        } else {
+            f_cont.style.borderColor = 'green';
+        }
+
+        if (nacDate && calculateAge(nacDate) >= 18) {
+            const allowedMinContDate = new Date(nacDate);
+            allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
+
+            if (new Date(contDate) < allowedMinContDate) {
                 f_cont.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es futura
-            } else {
+                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad
+            } else if (contYear <= currentYear && new Date(contDate) >= allowedMinContDate) {
                 f_cont.style.borderColor = 'green';
-                
-            }
-
-            if (nacDate && calculateAge(nacDate) >= 18) {
-                const allowedMinContDate = new Date(nacDate);
-                allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
-
-                if (new Date(contDate) < allowedMinContDate) {
-                    f_cont.style.borderColor = 'red';
-                    submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad
-                } else {
-                    f_cont.style.borderColor = 'green';
-                    submitButton.disabled = false;  // Habilitar si la fecha de contratación es válida
-                }
+                submitButton.disabled = false;  // Habilitar si la fecha de contratación es válida
             }
         }
     }
+}
+
 
     validateInputs();
     validateDates();
