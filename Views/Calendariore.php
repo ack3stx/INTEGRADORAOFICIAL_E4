@@ -195,7 +195,7 @@ session_start();
             <form id="formsfechas" action="habitacionreserva.php" method="POST">
             <input type="hidden" id="fechaInicio">
             <input type="hidden" id="fechaFin">
-            <button class="btn btn-custom mt-4" type="button" onclick="ingresar();" id="comprobar">Comprobar</button>
+            <button class="btn btn-custom mt-4" type="button"  id="comprobar">Comprobar</button>
 </form>
         </div>
        
@@ -249,6 +249,7 @@ session_start();
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var screenWidth = window.innerWidth;
@@ -264,7 +265,7 @@ session_start();
 
                 if (fechaInicio.toDateString() === fechaFin.toDateString()) {
                     
-                    alert("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
+                  swal("La fecha de fin no puede ser el mismo día que la fecha de inicio. Por favor, selecciona un rango válido.");
                     instance.clear();
                 } else {
                     
@@ -301,7 +302,7 @@ session_start();
 
         });
 
-        function ingresar () { 
+        
             
             <?php 
                 if(isset($_SESSION["usuario"])):
@@ -315,7 +316,7 @@ session_start();
 
  if(fechaInicio === "" && fechaFin === ""){
  
-    alert("INGRESA LAS FECHAS")
+  swal("Ingresa las fechas");
     // window.location.href='Calendario.php';
      
  }
@@ -331,9 +332,11 @@ session_start();
 }});
 
 <?php else: ?>
+  $('#comprobar').click(function() {
     window.location.href = 'Login.php';
+  });
     <?php endif; ?>
-}
+
     
 
         
