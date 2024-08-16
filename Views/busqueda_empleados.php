@@ -386,73 +386,89 @@ document.addEventListener("DOMContentLoaded", function() {
     const contDate = f_cont.value;
     const today = new Date().toISOString().split('T')[0];
     const currentYear = new Date().getFullYear();
-    const minYear = 1950;
 
-    // Helper function to validate and adjust dates
-    function adjustInvalidDate(dateStr) {
-        let date = new Date(dateStr);
+    function isValidDate(dateString) {
+        const date = new Date(dateString);
+        return date instanceof Date && !isNaN(date);
+    }
+
+    function adjustInvalidDate(dateString) {
+        const date = new Date(dateString);
+        const month = date.getMonth() + 1;
         const day = date.getDate();
-        const month = date.getMonth();
-        const year = date.getFullYear();
 
-        // Handle February (02) and leap years
-        if (month === 1) { // February is month 1 (0-indexed)
-            if (day > 28) {
-                date.setMonth(2); // Move to March
-                date.setDate(1); // Set to the 1st of March
-            }
+        if (month === 2 && day > 28) {
+            // Si es un día inválido en febrero, mover a marzo
+            date.setMonth(2);
+            date.setDate(day - 28);
+        } else if (day > new Date(date.getFullYear(), month, 0).getDate()) {
+            // Si el día es mayor que los días del mes, ajustar al siguiente mes
+            date.setMonth(date.getMonth() + 1);
+            date.setDate(day - new Date(date.getFullYear(), month, 0).getDate());
         }
-
-        // Handle dates greater than today
-        if (date > new Date(today)) {
-            submitButton.disabled = false;
-        }
-
         return date.toISOString().split('T')[0];
     }
 
     // Validar la fecha de nacimiento
     if (nacDate) {
-        const birthYear = new Date(nacDate).getFullYear();
-        const age = calculateAge(nacDate);
+        let adjustedNacDate = nacDate;
 
-        // Ajustar si la fecha es inválida en el mes
-        const adjustedNacDate = adjustInvalidDate(nacDate);
-        f_nac.value = adjustedNacDate;
+        // Si la fecha no es válida, ajustarla
+        if (!isValidDate(nacDate)) {
+            adjustedNacDate = adjustInvalidDate(nacDate);
+            f_nac.value = adjustedNacDate;
+        }
 
-        if (birthYear < minYear || birthYear > currentYear || age < 18) {
+        const birthYear = new Date(adjustedNacDate).getFullYear();
+        const age = calculateAge(adjustedNacDate);
+
+        if (birthYear > currentYear) {
             f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si la fecha es inválida
+            submitButton.disabled = true;  // Deshabilitar si el año es futuro
+        } else if (age < 18) {
+            f_nac.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
         } else {
             f_nac.style.borderColor = 'green';
-            submitButton.disabled = false;
+        }
+
+        const minDate = f_nac.getAttribute('min');
+        if (new Date(adjustedNacDate) < new Date(minDate) || birthYear < 1950) {
+            f_nac.style.borderColor = 'red';
+            submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima o anterior a 1950
+        } else if (birthYear <= currentYear && age >= 18) {
+            f_nac.style.borderColor = 'green';
+            submitButton.disabled = false;  // Habilitar si la fecha es válida
         }
     }
 
     // Validar la fecha de contratación
     if (contDate) {
-        const contYear = new Date(contDate).getFullYear();
+        let adjustedContDate = contDate;
 
-        // Ajustar si la fecha es inválida en el mes
-        const adjustedContDate = adjustInvalidDate(contDate);
-        f_cont.value = adjustedContDate;
+        // Si la fecha no es válida, ajustarla
+        if (!isValidDate(contDate)) {
+            adjustedContDate = adjustInvalidDate(contDate);
+            f_cont.value = adjustedContDate;
+        }
 
-        if (contYear < minYear || contYear > currentYear || new Date(contDate) > new Date(today)) {
+        const contYear = new Date(adjustedContDate).getFullYear();
+
+        if (contYear > currentYear || new Date(adjustedContDate) > new Date(today)) {
             f_cont.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si la fecha es inválida
+            submitButton.disabled = true;  // Deshabilitar si el año es futuro o la fecha de contratación es futura
         } else {
             f_cont.style.borderColor = 'green';
-            submitButton.disabled = false;
         }
 
         if (nacDate && calculateAge(nacDate) >= 18) {
             const allowedMinContDate = new Date(nacDate);
             allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
 
-            if (new Date(contDate) < allowedMinContDate) {
+            if (new Date(adjustedContDate) < allowedMinContDate || contYear < 1950) {
                 f_cont.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad
-            } else if (contYear <= currentYear && new Date(contDate) >= allowedMinContDate) {
+                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad o es anterior a 1950
+            } else if (contYear <= currentYear && new Date(adjustedContDate) >= allowedMinContDate) {
                 f_cont.style.borderColor = 'green';
                 submitButton.disabled = false;  // Habilitar si la fecha de contratación es válida
             }
@@ -460,7 +476,17 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 }
 
+function calculateAge(birthDate) {
+    const birth = new Date(birthDate);
+    const today = new Date();
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
 
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+        age--;
+    }
+    return age;
+}
 
     validateInputs();
     validateDates();
