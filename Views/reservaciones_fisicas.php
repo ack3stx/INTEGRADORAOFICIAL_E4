@@ -73,6 +73,7 @@ include '../Clases/BasedeDatos.php';
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons&display=block" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
         <link rel="stylesheet" href="../Estilos/reservafisica.css">
         <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
         <title>Laguna Inn</title>
@@ -705,7 +706,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
 </footer>-->
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0"></script>
 <script>
     document.querySelector('.toggle-button').addEventListener('click', function() {
     const content = document.getElementById('content');
@@ -1774,8 +1775,24 @@ function enviarformulario(event) {
 
       
 
-        alert('Datos guardados exitosamente');
-        window.location.href = 'form_pago_fisico.php';
+        Toastify({
+                    text: "Datos guardados exitosamente",
+                 //className: "info",
+                     style: {
+                    background: "#ffff", 
+                 color: "black", 
+                 borderRadius: "8px", 
+                 padding: "10px",
+                 zIndex: 9999,
+                 
+                 },
+                 gravity: "top",
+                 position: "right"
+                 }).showToast();
+                 
+                 setTimeout(function() {
+                 window.location.href = "../Views/form_pago_fisico.php";
+                   }, 2000); 
     }
 }
 
