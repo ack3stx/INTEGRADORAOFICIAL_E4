@@ -331,46 +331,54 @@ document.addEventListener("DOMContentLoaded", function() {
     const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
     const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
     const alphanumericInputs = ['curp'];
-    
+
     const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
     const submitButton = document.getElementById('submitButton');
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
 
     function validateInputs() {
-        let allValid = true;
-
         inputs.forEach(input => {
             const fieldName = input.getAttribute('name');
-            const inputValue = input.value.trim();  // Eliminar espacios en blanco
+            const inputValue = input.value.trim();
 
-            if (alphaInputs.includes(fieldName)) {
-                if (inputValue && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
-            } else if (numericInputs.includes(fieldName)) {
-                if (inputValue && (!/^\d+$/.test(inputValue) || inputValue.length < 5)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
-            } else if (alphanumericInputs.includes(fieldName)) {
-                if (inputValue && !/^[a-zA-Z0-9]+$/.test(inputValue)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
+            if (!inputValue) { // Verifica si el campo está vacío
+                input.style.borderColor = 'red';
+                submitButton.disabled = true;  // Deshabilitar si el campo está vacío
             } else {
                 input.style.borderColor = '';
-            }
-        });
 
-        return allValid;
+                if (alphaInputs.includes(fieldName)) {
+                    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
+                        input.style.borderColor = 'red';
+                        
+                    } else {
+                        input.style.borderColor = 'green';
+                        
+                    }
+                } else if (numericInputs.includes(fieldName)) {
+                    if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
+                        input.style.borderColor = 'red';
+                        submitButton.disabled = true;  // Deshabilitar si no es válido
+                    } else {
+                        input.style.borderColor = 'green';
+                        
+                    }
+                } else if (alphanumericInputs.includes(fieldName)) {
+                    if (!/^[a-zA-Z0-9]+$/.test(inputValue)) {
+                        input.style.borderColor = 'red';
+                        submitButton.disabled = true;  // Deshabilitar si no es válido
+                    } else {
+                        input.style.borderColor = 'green';
+                        
+                    }
+                } else {
+                    input.style.borderColor = 'green';
+                    submitButton.disabled = false;  // Habilitar si no requiere validación específica
+                }
+            }
+            
+        });
     }
 
     function calculateAge(birthday) {
@@ -390,31 +398,35 @@ document.addEventListener("DOMContentLoaded", function() {
         const nacDate = f_nac.value;
         const contDate = f_cont.value;
         const today = new Date().toISOString().split('T')[0];
-        let valid = true;
 
         if (nacDate) {
             const age = calculateAge(nacDate);
 
             if (age < 18) {
                 f_nac.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
             } else {
                 f_nac.style.borderColor = 'green';
+                
             }
 
             const minDate = f_nac.getAttribute('min');
             if (new Date(nacDate) < new Date(minDate)) {
                 f_nac.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima
+            } else {
+                f_nac.style.borderColor = 'green';
+                
             }
         }
 
         if (contDate) {
             if (new Date(contDate) > new Date(today)) {
                 f_cont.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es futura
             } else {
                 f_cont.style.borderColor = 'green';
+                
             }
 
             if (nacDate && calculateAge(nacDate) >= 18) {
@@ -423,35 +435,27 @@ document.addEventListener("DOMContentLoaded", function() {
 
                 if (new Date(contDate) < allowedMinContDate) {
                     f_cont.style.borderColor = 'red';
-                    valid = false;
+                    submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad
+                } else {
+                    f_cont.style.borderColor = 'green';
+                    submitButton.disabled = false;  // Habilitar si la fecha de contratación es válida
                 }
             }
         }
-
-        return valid;
     }
 
-    function validateForm() {
-        const inputsValid = validateInputs();
-        const datesValid = validateDates();
-
-        // Habilitar el botón de enviar si las validaciones específicas son correctas,
-        // independientemente de si algún campo está vacío.
-        submitButton.disabled = !(inputsValid && datesValid);
-    }
-
-    validateForm();
+    validateInputs();
+    validateDates();
 
     inputs.forEach(input => {
-        input.addEventListener('input', validateForm);
+        input.addEventListener('input', () => {
+            validateInputs();
+            validateDates();
+        });
     });
 
-    f_nac.addEventListener('input', validateForm);
-    f_cont.addEventListener('input', validateForm);
+    f_nac.addEventListener('input', validateDates);
+    f_cont.addEventListener('input', validateDates);
 });
+
 </script>
-
-
-
-
-
