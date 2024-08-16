@@ -381,47 +381,51 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    function calculateAge(birthday) {
-        const today = new Date();
-        const birthDate = new Date(birthday);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
-        }
-
-        return age;
-    }
-
     function validateDates() {
     const nacDate = f_nac.value;
     const contDate = f_cont.value;
     const today = new Date().toISOString().split('T')[0];
     const currentYear = new Date().getFullYear();
+    const minYear = 1950;
+
+    // Helper function to validate and adjust dates
+    function adjustInvalidDate(dateStr) {
+        let date = new Date(dateStr);
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear();
+
+        // Handle February (02) and leap years
+        if (month === 1) { // February is month 1 (0-indexed)
+            if (day > 28) {
+                date.setMonth(2); // Move to March
+                date.setDate(1); // Set to the 1st of March
+            }
+        }
+
+        // Handle dates greater than today
+        if (date > new Date(today)) {
+            submitButton.disabled = false;
+        }
+
+        return date.toISOString().split('T')[0];
+    }
 
     // Validar la fecha de nacimiento
     if (nacDate) {
         const birthYear = new Date(nacDate).getFullYear();
         const age = calculateAge(nacDate);
 
-        if (birthYear > currentYear) {
+        // Ajustar si la fecha es inválida en el mes
+        const adjustedNacDate = adjustInvalidDate(nacDate);
+        f_nac.value = adjustedNacDate;
+
+        if (birthYear < minYear || birthYear > currentYear || age < 18) {
             f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si el año es futuro
-        } else if (age < 18) {
-            f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
+            submitButton.disabled = true;  // Deshabilitar si la fecha es inválida
         } else {
             f_nac.style.borderColor = 'green';
-        }
-
-        const minDate = f_nac.getAttribute('min');
-        if (new Date(nacDate) < new Date(minDate)) {
-            f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima
-        } else if (birthYear <= currentYear && age >= 18) {
-            f_nac.style.borderColor = 'green';
-            submitButton.disabled = false;  // Habilitar si la fecha es válida
+            submitButton.disabled = false;
         }
     }
 
@@ -429,14 +433,16 @@ document.addEventListener("DOMContentLoaded", function() {
     if (contDate) {
         const contYear = new Date(contDate).getFullYear();
 
-        if (contYear > currentYear) {
+        // Ajustar si la fecha es inválida en el mes
+        const adjustedContDate = adjustInvalidDate(contDate);
+        f_cont.value = adjustedContDate;
+
+        if (contYear < minYear || contYear > currentYear || new Date(contDate) > new Date(today)) {
             f_cont.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si el año es futuro
-        } else if (new Date(contDate) > new Date(today)) {
-            f_cont.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es futura
+            submitButton.disabled = true;  // Deshabilitar si la fecha es inválida
         } else {
             f_cont.style.borderColor = 'green';
+            submitButton.disabled = false;
         }
 
         if (nacDate && calculateAge(nacDate) >= 18) {
@@ -453,6 +459,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 }
+
 
 
     validateInputs();
