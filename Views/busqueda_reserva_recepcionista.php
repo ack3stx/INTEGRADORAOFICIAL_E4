@@ -117,13 +117,13 @@
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-          $whereClause = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
+          $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
                 AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
 
 if ($cancelada == "todos") {
-    $whereClause .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
 } elseif ($cancelada == "cancelada") {
-    $whereClause .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
 }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION , 
@@ -139,16 +139,16 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
           INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
           INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
-          $whereClause
+          $where
           GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
 
         } else {
-          $whereClause = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
+          $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
 
 if ($cancelada == "todos") {
-    $whereClause .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
 } elseif ($cancelada == "cancelada") {
-    $whereClause .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
 }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, 
@@ -164,7 +164,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
           INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
           INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-          $whereClause
+          $where
           GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         }
 
