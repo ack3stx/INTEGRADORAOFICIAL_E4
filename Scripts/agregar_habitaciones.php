@@ -3,8 +3,9 @@ require_once '../Clases/BasedeDatos.php';
 session_start();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['form_submitted'])) {
-    $tipoHabitacion = $_POST['roomStatus'];
-    
+
+    $tipoHabitacion = $_POST['roomType'];
+
     echo "Tipo de habitación: " . $tipoHabitacion;
     
     $db = new Database();

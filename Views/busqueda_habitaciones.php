@@ -104,25 +104,38 @@
   </nav>
     <br>
     <div class="container">
-      <div class="d-flex">
-      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalAgregarHabitacion">
-        Agregar Nueva Habitacion
-      </button>
-      <div id="alertContainer">
-      <?php
-      if (isset($_GET['success']) && $_GET['success'] == 1) {
-        echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
-        Habitación agregada correctamente.
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>';
-      }
-      ?>
-      <br>
-      <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalInconvenienteHabitacion">
-       Registrar Inconveniente Habitacion
-      </button>
-      </div>
-      </div>
+  <div class="d-flex justify-content-between">
+    <button type="button" class="btn btn-outline-danger me-2" data-bs-toggle="modal" data-bs-target="#modalAgregarHabitacion">
+      Agregar Nueva Habitación
+    </button>
+  
+    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalInconvenienteHabitacion">
+      Registrar Inconveniente Habitación
+    </button>
+  </div>
+  
+  <?php
+  if (isset($_GET['success']) && $_GET['success'] == 1) {
+    echo '<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    Habitación agregada correctamente.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+  echo "<script>
+  window.history.replaceState(null, null, window.location.pathname);
+</script>";
+  }
+  if (isset($_GET['success']) && $_GET['success'] == 2) {
+    echo '<div class="alert alert-success alert-dismissible fade show mt-3" role="alert">
+    Estado De La Habitacion Actualizado Exitosamente.
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>';
+  echo "<script>
+  window.history.replaceState(null, null, window.location.pathname);
+</script>";
+  }
+  ?>
+  
+</div>
       
       <div class="modal fade" id="modalAgregarHabitacion" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
         aria-labelledby="modalAgregarHabitacionLabel" aria-hidden="true">
@@ -134,14 +147,17 @@
             </div>
             <div class="modal-body">
             <form action="../Scripts/agregar_habitaciones.php" method="post" id="habitacionesForm" class="toggle-form">
-              <select class="form-control me-2" id="roomType" name="roomType" required>
-                <option class="form-control me-2" value="1">Doble</option>
-                <option class="form-control me-2" value="2">King Size</option>
-                <option class="form-control me-2" value="3">Sencilla</option>
-              </select><br>
-              <button class="btn btn-outline-danger" type="submit">Agregar</button>
-              <input type="hidden" name="form_submitted" value="1">
-            </form>
+    <select class="form-control me-2" id="roomType" name="roomType" required>
+        <option class="form-control me-2" value="1">Doble</option>
+        <option class="form-control me-2" value="2">King Size</option>
+        <option class="form-control me-2" value="3">Sencilla</option>
+    </select><br>
+    
+    <input type="hidden" name="form_submitted" value="1">
+    
+    <button class="btn btn-outline-danger" type="submit">Agregar</button>
+</form>
+
             </div>
           </div>
         </div>
