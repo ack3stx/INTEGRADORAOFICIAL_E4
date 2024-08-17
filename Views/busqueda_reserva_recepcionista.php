@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laguna Inn</title>
     <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
@@ -98,6 +99,10 @@
       <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
       <input class="form-control me-2 mb-2" type="date" name="fecha1">
       <input class="form-control me-2 mb-2" type="date" name="fecha2">
+      <select name="cancelada" class="form-select">
+        <option value="todos">Todos</option>
+        <option value="cancelada">Canceladas</option>
+      </select>
       <button class="btn btn-outline-danger mb-2" type="submit">Buscar</button>
     </form>
   </div>
@@ -112,24 +117,55 @@
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-          $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION , CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
+                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
+
+if ($cancelada == "todos") {
+    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
+} elseif ($cancelada == "cancelada") {
+    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
+}
+
+$consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION , 
+             CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
+             PERSONA.NUMERO_DE_TELEFONO, 
+             RESERVACION.FECHA_,
+             DETALLE_RESERVACION.FECHA_INICIO,
+             DETALLE_RESERVACION.FECHA_FIN, 
+             RESERVACION.ESTADO_RESERVACION, 
+             COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
           INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
           INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
-          WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-          AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'
+          $where
           GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
+
         } else {
-          $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_,DETALLE_RESERVACION.FECHA_INICIO,DETALLE_RESERVACION.FECHA_FIN, RESERVACION.ESTADO_RESERVACION, COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+          $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
+
+if ($cancelada == "todos") {
+    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
+} elseif ($cancelada == "cancelada") {
+    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
+}
+
+$consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, 
+             CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
+             PERSONA.NUMERO_DE_TELEFONO, 
+             RESERVACION.FECHA_,
+             DETALLE_RESERVACION.FECHA_INICIO,
+             DETALLE_RESERVACION.FECHA_FIN, 
+             RESERVACION.ESTADO_RESERVACION, 
+             COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
-          INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
-          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
-          INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
-          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
-          WHERE RESERVACION.ID_RESERVACION=$numero
-          GROUP BY  RESERVACION.ID_RESERVACION,NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
+          INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+          INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+          $where
+          GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         }
 
         $tabla = $conexion->seleccionar($consulta);

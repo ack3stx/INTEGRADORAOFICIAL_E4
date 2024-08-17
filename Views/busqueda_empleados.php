@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
 <body>
+
 <?php
   session_start();
   include '../Clases/BasedeDatos.php';
@@ -112,7 +113,15 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> <br>
+<?php
+
+
+if (isset($_SESSION['error_message'])) {
+    echo "<div class='alert alert-danger'>" . $_SESSION['error_message'] . "</div>";
+    unset($_SESSION['error_message']); 
+}
+?>
 
   <h2 class="color-hotel">Personal</h2>
                 <!-- Button trigger modal -->
@@ -328,91 +337,120 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
-    const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
-    const alphanumericInputs = ['curp'];
-    
-    const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
+    const requiredInputs = [
+        { name: 'nombre', minLength: 3 },
+        { name: 'ap_paterno', minLength: 4 },
+        { name: 'ap_materno', minLength: 4 },
+        { name: 'estado', minLength: 5 },
+        { name: 'ciudad', minLength: 10 },
+        { name: 'pais', minLength: 5 },
+        { name: 'afore', minLength: 8 },
+        { name: 'telefono', minLength: 10, maxLength: 10 },
+        { name: 'cd_postal', minLength: 5, maxLength: 5 },
+        { name: 'nss', minLength: 11, maxLength: 11 },
+        { name: 'num2', minLength: 10, maxLength: 10 },
+        { name: 'curp', minLength: 18, maxLength: 18 },
+        { name: 'usuario', minLength: 3, maxLength:30},
+        { name: 'correo', minLength: 3, maxLength:40},
+        { name: 'contra', minLength:10, maxLength:30}
+    ];
+
     const submitButton = document.getElementById('submitButton');
+    const inputs = document.querySelectorAll('input, select');
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
 
-    function validateInputs() {
+    function validateForm() {
         let allValid = true;
 
-        inputs.forEach(input => {
-            const fieldName = input.getAttribute('name');
-            const inputValue = input.value.trim();  // Eliminar espacios en blanco
+        requiredInputs.forEach(({ name, minLength, maxLength }) => {
+            const input = document.querySelector(`[name="${name}"]`);
+            const value = input.value.trim();
 
-            if (alphaInputs.includes(fieldName)) {
-                if (inputValue && !/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
-            } else if (numericInputs.includes(fieldName)) {
-                if (inputValue && (!/^\d+$/.test(inputValue) || inputValue.length < 5)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
-            } else if (alphanumericInputs.includes(fieldName)) {
-                if (inputValue && !/^[a-zA-Z0-9]+$/.test(inputValue)) {
-                    input.style.borderColor = 'red';
-                    allValid = false;
-                } else {
-                    input.style.borderColor = '';
-                }
+            if (value.length < minLength || (maxLength && value.length > maxLength)) {
+                input.style.borderColor = 'red';
+                allValid = false;
             } else {
-                input.style.borderColor = '';
+                input.style.borderColor = 'green';
             }
         });
 
-        return allValid;
-    }
-
-    function calculateAge(birthday) {
-        const today = new Date();
-        const birthDate = new Date(birthday);
-        let age = today.getFullYear() - birthDate.getFullYear();
-        const monthDiff = today.getMonth() - birthDate.getMonth();
-
-        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-            age--;
+        if (allValid) {
+            validateDates(); // Validar las fechas antes de habilitar el botón
+        } else {
+            submitButton.disabled = true;
         }
-
-        return age;
     }
 
     function validateDates() {
         const nacDate = f_nac.value;
         const contDate = f_cont.value;
         const today = new Date().toISOString().split('T')[0];
-        let valid = true;
+        const currentYear = new Date().getFullYear();
+
+        function isValidDate(dateString) {
+            const date = new Date(dateString);
+            return date instanceof Date && !isNaN(date);
+        }
+
+        function adjustInvalidDate(dateString) {
+            const date = new Date(dateString);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
+
+            if (month === 2 && day > 28) {
+                date.setMonth(2);
+                date.setDate(day - 28);
+            } else if (day > new Date(date.getFullYear(), month, 0).getDate()) {
+                date.setMonth(date.getMonth() + 1);
+                date.setDate(day - new Date(date.getFullYear(), month, 0).getDate());
+            }
+            return date.toISOString().split('T')[0];
+        }
 
         if (nacDate) {
-            const age = calculateAge(nacDate);
+            let adjustedNacDate = nacDate;
 
-            if (age < 18) {
+            if (!isValidDate(nacDate)) {
+                adjustedNacDate = adjustInvalidDate(nacDate);
+                f_nac.value = adjustedNacDate;
+            }
+
+            const birthYear = new Date(adjustedNacDate).getFullYear();
+            const age = calculateAge(adjustedNacDate);
+
+            if (birthYear > currentYear || age < 18) {
                 f_nac.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;
+                return;
             } else {
                 f_nac.style.borderColor = 'green';
             }
 
             const minDate = f_nac.getAttribute('min');
-            if (new Date(nacDate) < new Date(minDate)) {
+            if (new Date(adjustedNacDate) < new Date(minDate) || birthYear < 1950) {
                 f_nac.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;
+                return;
+            } else if (birthYear <= currentYear && age >= 18) {
+                f_nac.style.borderColor = 'green';
             }
         }
 
         if (contDate) {
-            if (new Date(contDate) > new Date(today)) {
+            let adjustedContDate = contDate;
+
+            if (!isValidDate(contDate)) {
+                adjustedContDate = adjustInvalidDate(contDate);
+                f_cont.value = adjustedContDate;
+            }
+
+            const contYear = new Date(adjustedContDate).getFullYear();
+
+            if (contYear > currentYear || new Date(adjustedContDate) > new Date(today)) {
                 f_cont.style.borderColor = 'red';
-                valid = false;
+                submitButton.disabled = true;
+                return;
             } else {
                 f_cont.style.borderColor = 'green';
             }
@@ -421,37 +459,84 @@ document.addEventListener("DOMContentLoaded", function() {
                 const allowedMinContDate = new Date(nacDate);
                 allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
 
-                if (new Date(contDate) < allowedMinContDate) {
+                if (new Date(adjustedContDate) < allowedMinContDate || contYear < 1950) {
                     f_cont.style.borderColor = 'red';
-                    valid = false;
+                    submitButton.disabled = true;
+                } else if (contYear <= currentYear && new Date(adjustedContDate) >= allowedMinContDate) {
+                    f_cont.style.borderColor = 'green';
+                    submitButton.disabled = false;
                 }
             }
         }
-
-        return valid;
     }
 
-    function validateForm() {
-        const inputsValid = validateInputs();
-        const datesValid = validateDates();
+    function calculateAge(birthDate) {
+        const birth = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
 
-        // Habilitar el botón de enviar si las validaciones específicas son correctas,
-        // independientemente de si algún campo está vacío.
-        submitButton.disabled = !(inputsValid && datesValid);
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age;
     }
-
-    validateForm();
 
     inputs.forEach(input => {
         input.addEventListener('input', validateForm);
     });
 
-    f_nac.addEventListener('input', validateForm);
-    f_cont.addEventListener('input', validateForm);
+    f_nac.addEventListener('input', validateDates);
+    f_cont.addEventListener('input', validateDates);
+
+    validateForm();
 });
+
+
 </script>
 
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const inputsConfig = [
+        { name: 'nombre', type: 'text' },
+        { name: 'ap_paterno', type: 'text' },
+        { name: 'ap_materno', type: 'text' },
+        { name: 'estado', type: 'text' },
+        { name: 'ciudad', type: 'text' },
+        { name: 'pais', type: 'text' },
+        { name: 'telefono', type: 'number' },
+        { name: 'num2', type: 'number' },
+        { name: 'afore', type: 'number' },
+        { name: 'nss', type: 'number' },
+        { name: 'cd_postal', type: 'number' },
+        { name: 'curp', type: 'alphanumeric' }
+    ];
 
+    function validateInput(value, type) {
+        const textPattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;  // Solo letras y espacios
+        const numberPattern = /^\d+$/;                    // Solo números
+        const alphanumericPattern = /^[A-Za-z0-9]+$/;     // Letras y números
 
+        if (type === 'text') {
+            return textPattern.test(value);
+        } else if (type === 'number') {
+            return numberPattern.test(value);
+        } else if (type === 'alphanumeric') {
+            return alphanumericPattern.test(value);
+        }
+        return false;
+    }
 
+    document.querySelectorAll('input').forEach(input => {
+        const config = inputsConfig.find(conf => conf.name === input.name);
+        if (config) {
+            input.addEventListener('input', function() {
+                if (!validateInput(this.value, config.type)) {
+                    this.value = this.value.slice(0, -1); // Elimina el último carácter no válido
+                }
+            });
+        }
+    });
+});
+</script>
 

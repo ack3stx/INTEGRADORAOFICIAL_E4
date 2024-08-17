@@ -16,7 +16,7 @@ if ($_SESSION["rol"] == "usuario") {
             $contraseña_nueva = $_POST['password_nueva'] ?? '';
             $contraseña_nueva_confirm = $_POST['password_nueva_confirm'] ?? '';
 
-            // Eliminadas las validaciones del nombre de usuario y del correo electrónico
+            
 
             if (!empty($contraseña_nueva) || !empty($contraseña_nueva_confirm)) {
                 if (strlen($contraseña_nueva) < 6) {
@@ -45,7 +45,7 @@ if ($_SESSION["rol"] == "usuario") {
                     $correo_actualizado = false;
                     $contraseña_actualizada = false;
 
-                    // con este actualizamos la contraseña
+                    
                     if (!empty($contraseña_nueva)) {
                         if (password_verify($contraseña_actual, $hash_contraseña_actual)) {
                             $hash_nueva_contraseña = password_hash($contraseña_nueva, PASSWORD_DEFAULT);
@@ -58,7 +58,7 @@ if ($_SESSION["rol"] == "usuario") {
                     }
 
                     if (empty($errores)) {
-                        // El código de actualización de nombre de usuario y correo se mantiene, pero sin validaciones
+                    
                         if (!empty($nombre_user)) {
                             $consulta = "UPDATE USUARIOS SET NOMBRE_USUARIO = '$nombre_user' WHERE ID_USUARIO = $id";
                             $db->ejecuta($consulta);
@@ -109,7 +109,7 @@ if ($_SESSION["rol"] == "usuario") {
             if (strlen($numero_de_telefono) < 10) {
                 $errores[] = "El numero de telefono debe contener al menos 10 digitos.";
             }
-             // Validar si el número de teléfono ya existe en la base de datos
+             
              if (!empty($numero_de_telefono)) {
                 $db = new Database();
                 $db->conectarDB();
@@ -133,7 +133,7 @@ if ($_SESSION["rol"] == "usuario") {
                 if (!empty($id_result)) {
                     $id = $id_result[0]->ID_USUARIO;
         
-                    // Selecciona el ID_PERSONA correspondiente al usuario
+                    
                     $consulta_persona = "SELECT ID_PERSONA FROM PERSONA WHERE USUARIO = $id";
                     $persona_result = $db->seleccionar($consulta_persona);
         
@@ -147,7 +147,7 @@ if ($_SESSION["rol"] == "usuario") {
                         $db->ejecuta($CONSULTA_UPDATE_PERSONA);
                         $_SESSION['mensaje'] = "Datos personales actualizados correctamente.";
                     } else {
-                        // Inserción de una nueva entrada en PERSONA
+                        
                         $CONSULTA_INSERT_PERSONA = "INSERT INTO PERSONA (NOMBRE, APELLIDO_PATERNO, APELLIDO_MATERNO, FECHA_DE_NACIMIENTO, DIRECCION, CIUDAD, ESTADO, CODIGO_POSTAL, PAIS, GENERO, NUMERO_DE_TELEFONO, USUARIO) 
                         VALUES ('$nombre', '$apellido_paterno', '$apellido_materno', '$fecha_de_nacimiento', '$direccion', '$ciudad', '$estado', '$codigo_postal', '$pais', '$genero', '$numero_de_telefono', $id)";
                         $db->ejecuta($CONSULTA_INSERT_PERSONA);
@@ -782,7 +782,7 @@ if ($_SESSION["rol"] == "usuario") {
             }
         });
 
-        // Validación de letras y números
+        
         const inputLettersOnly = ['NOMBRE', 'APELLIDO_PATERNO', 'APELLIDO_MATERNO', 'CIUDAD', 'PAIS', 'ESTADO'];
         const inputNumbersOnly = ['NUMERO_DE_TELEFONO'];
 
@@ -836,12 +836,12 @@ if ($_SESSION["rol"] == "usuario") {
             });
         };
 
-        // Secciones para editar y cancelar
+        
         
         
         toggleSection('btnEditarPassword', 'formPassword', ['btnEditarNombreUsuario', 'btnEditarEmail'], 'formPersona');
 
-        // Secciones para los campos de persona
+        
         toggleSection('btnEditarNombre', 'formNombre', ['btnEditarApellidoPaterno', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
         toggleSection('btnEditarApellidoPaterno', 'formApellidoPaterno', ['btnEditarNombre', 'btnEditarApellidoMaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
         toggleSection('btnEditarApellidoMaterno', 'formApellidoMaterno', ['btnEditarNombre', 'btnEditarApellidoPaterno', 'btnEditarFechaNacimiento', 'btnEditarDireccion', 'btnEditarCiudad', 'btnEditarEstado', 'btnEditarCodigoPostal', 'btnEditarPais', 'btnEditarGenero', 'btnEditarNumeroDeTelefono'], 'formUsuario');
