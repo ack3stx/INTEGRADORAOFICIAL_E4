@@ -21,6 +21,7 @@
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
 <body>
+
 <?php
   session_start();
   include '../Clases/BasedeDatos.php';
@@ -112,7 +113,15 @@
         </div>
       </div>
     </div>
-  </nav>
+  </nav> <br>
+<?php
+
+
+if (isset($_SESSION['error_message'])) {
+    echo "<div class='alert alert-danger'>" . $_SESSION['error_message'] . "</div>";
+    unset($_SESSION['error_message']); 
+}
+?>
 
   <h2 class="color-hotel">Personal</h2>
                 <!-- Button trigger modal -->
@@ -328,178 +337,160 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-    const alphaInputs = ['nombre', 'ap_paterno', 'ap_materno', 'estado', 'ciudad', 'pais', 'afore'];
-    const numericInputs = ['telefono', 'cd_postal', 'nss', 'num2'];
-    const alphanumericInputs = ['curp'];
+    const requiredInputs = [
+        { name: 'nombre', minLength: 3 },
+        { name: 'ap_paterno', minLength: 4 },
+        { name: 'ap_materno', minLength: 4 },
+        { name: 'estado', minLength: 4 },
+        { name: 'ciudad', minLength: 4 },
+        { name: 'pais', minLength: 4 },
+        { name: 'afore', minLength: 8 },
+        { name: 'telefono', minLength: 10, maxLength: 10 },
+        { name: 'cd_postal', minLength: 5, maxLength: 5 },
+        { name: 'nss', minLength: 11, maxLength: 11 },
+        { name: 'num2', minLength: 10, maxLength: 10 },
+        { name: 'curp', minLength: 18, maxLength: 18 },
+        { name: 'usuario', minLength: 3, maxLength:30},
+        { name: 'correo', minLength: 3, maxLength:40},
+        { name: 'contra', minLength:10, maxLength:30}
+    ];
 
-    const inputs = document.querySelectorAll('input[type="text"], input[type="date"]');
     const submitButton = document.getElementById('submitButton');
+    const inputs = document.querySelectorAll('input, select');
     const f_nac = document.getElementById('f_nac');
     const f_cont = document.getElementById('f_cont');
 
-    function validateInputs() {
-        inputs.forEach(input => {
-            const fieldName = input.getAttribute('name');
-            const inputValue = input.value.trim();
+    function validateForm() {
+        let allValid = true;
 
-            if (!inputValue) { // Verifica si el campo está vacío
+        requiredInputs.forEach(({ name, minLength, maxLength }) => {
+            const input = document.querySelector(`[name="${name}"]`);
+            const value = input.value.trim();
+
+            if (value.length < minLength || (maxLength && value.length > maxLength)) {
                 input.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si el campo está vacío
+                allValid = false;
             } else {
-                input.style.borderColor = '';
-
-                if (alphaInputs.includes(fieldName)) {
-                    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/.test(inputValue)) {
-                        input.style.borderColor = 'red';
-                        
-                    } else {
-                        input.style.borderColor = 'green';
-                        
-                    }
-                } else if (numericInputs.includes(fieldName)) {
-                    if (!/^\d+$/.test(inputValue) || inputValue.length < 5) {
-                        input.style.borderColor = 'red';
-                        submitButton.disabled = true;  // Deshabilitar si no es válido
-                    } else {
-                        input.style.borderColor = 'green';
-                        
-                    }
-                } else if (alphanumericInputs.includes(fieldName)) {
-                    if (!/^[a-zA-Z0-9]+$/.test(inputValue)) {
-                        input.style.borderColor = 'red';
-                        submitButton.disabled = true;  // Deshabilitar si no es válido
-                    } else {
-                        input.style.borderColor = 'green';
-                        
-                    }
-                } else {
-                    input.style.borderColor = 'green';
-                    submitButton.disabled = false;  // Habilitar si no requiere validación específica
-                }
+                input.style.borderColor = 'green';
             }
-            
         });
+
+        if (allValid) {
+            validateDates(); // Validar las fechas antes de habilitar el botón
+        } else {
+            submitButton.disabled = true;
+        }
     }
 
     function validateDates() {
-    const nacDate = f_nac.value;
-    const contDate = f_cont.value;
-    const today = new Date().toISOString().split('T')[0];
-    const currentYear = new Date().getFullYear();
+        const nacDate = f_nac.value;
+        const contDate = f_cont.value;
+        const today = new Date().toISOString().split('T')[0];
+        const currentYear = new Date().getFullYear();
 
-    function isValidDate(dateString) {
-        const date = new Date(dateString);
-        return date instanceof Date && !isNaN(date);
-    }
-
-    function adjustInvalidDate(dateString) {
-        const date = new Date(dateString);
-        const month = date.getMonth() + 1;
-        const day = date.getDate();
-
-        if (month === 2 && day > 28) {
-            // Si es un día inválido en febrero, mover a marzo
-            date.setMonth(2);
-            date.setDate(day - 28);
-        } else if (day > new Date(date.getFullYear(), month, 0).getDate()) {
-            // Si el día es mayor que los días del mes, ajustar al siguiente mes
-            date.setMonth(date.getMonth() + 1);
-            date.setDate(day - new Date(date.getFullYear(), month, 0).getDate());
-        }
-        return date.toISOString().split('T')[0];
-    }
-
-    // Validar la fecha de nacimiento
-    if (nacDate) {
-        let adjustedNacDate = nacDate;
-
-        // Si la fecha no es válida, ajustarla
-        if (!isValidDate(nacDate)) {
-            adjustedNacDate = adjustInvalidDate(nacDate);
-            f_nac.value = adjustedNacDate;
+        function isValidDate(dateString) {
+            const date = new Date(dateString);
+            return date instanceof Date && !isNaN(date);
         }
 
-        const birthYear = new Date(adjustedNacDate).getFullYear();
-        const age = calculateAge(adjustedNacDate);
+        function adjustInvalidDate(dateString) {
+            const date = new Date(dateString);
+            const month = date.getMonth() + 1;
+            const day = date.getDate();
 
-        if (birthYear > currentYear) {
-            f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si el año es futuro
-        } else if (age < 18) {
-            f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si es menor de 18 años
-        } else {
-            f_nac.style.borderColor = 'green';
+            if (month === 2 && day > 28) {
+                date.setMonth(2);
+                date.setDate(day - 28);
+            } else if (day > new Date(date.getFullYear(), month, 0).getDate()) {
+                date.setMonth(date.getMonth() + 1);
+                date.setDate(day - new Date(date.getFullYear(), month, 0).getDate());
+            }
+            return date.toISOString().split('T')[0];
         }
 
-        const minDate = f_nac.getAttribute('min');
-        if (new Date(adjustedNacDate) < new Date(minDate) || birthYear < 1950) {
-            f_nac.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si la fecha es menor que la mínima o anterior a 1950
-        } else if (birthYear <= currentYear && age >= 18) {
-            f_nac.style.borderColor = 'green';
-            submitButton.disabled = false;  // Habilitar si la fecha es válida
+        if (nacDate) {
+            let adjustedNacDate = nacDate;
+
+            if (!isValidDate(nacDate)) {
+                adjustedNacDate = adjustInvalidDate(nacDate);
+                f_nac.value = adjustedNacDate;
+            }
+
+            const birthYear = new Date(adjustedNacDate).getFullYear();
+            const age = calculateAge(adjustedNacDate);
+
+            if (birthYear > currentYear || age < 18) {
+                f_nac.style.borderColor = 'red';
+                submitButton.disabled = true;
+                return;
+            } else {
+                f_nac.style.borderColor = 'green';
+            }
+
+            const minDate = f_nac.getAttribute('min');
+            if (new Date(adjustedNacDate) < new Date(minDate) || birthYear < 1950) {
+                f_nac.style.borderColor = 'red';
+                submitButton.disabled = true;
+                return;
+            } else if (birthYear <= currentYear && age >= 18) {
+                f_nac.style.borderColor = 'green';
+            }
         }
-    }
 
-    // Validar la fecha de contratación
-    if (contDate) {
-        let adjustedContDate = contDate;
+        if (contDate) {
+            let adjustedContDate = contDate;
 
-        // Si la fecha no es válida, ajustarla
-        if (!isValidDate(contDate)) {
-            adjustedContDate = adjustInvalidDate(contDate);
-            f_cont.value = adjustedContDate;
-        }
+            if (!isValidDate(contDate)) {
+                adjustedContDate = adjustInvalidDate(contDate);
+                f_cont.value = adjustedContDate;
+            }
 
-        const contYear = new Date(adjustedContDate).getFullYear();
+            const contYear = new Date(adjustedContDate).getFullYear();
 
-        if (contYear > currentYear || new Date(adjustedContDate) > new Date(today)) {
-            f_cont.style.borderColor = 'red';
-            submitButton.disabled = true;  // Deshabilitar si el año es futuro o la fecha de contratación es futura
-        } else {
-            f_cont.style.borderColor = 'green';
-        }
-
-        if (nacDate && calculateAge(nacDate) >= 18) {
-            const allowedMinContDate = new Date(nacDate);
-            allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
-
-            if (new Date(adjustedContDate) < allowedMinContDate || contYear < 1950) {
+            if (contYear > currentYear || new Date(adjustedContDate) > new Date(today)) {
                 f_cont.style.borderColor = 'red';
-                submitButton.disabled = true;  // Deshabilitar si la fecha de contratación es anterior a la mayoría de edad o es anterior a 1950
-            } else if (contYear <= currentYear && new Date(adjustedContDate) >= allowedMinContDate) {
+                submitButton.disabled = true;
+                return;
+            } else {
                 f_cont.style.borderColor = 'green';
-                submitButton.disabled = false;  // Habilitar si la fecha de contratación es válida
+            }
+
+            if (nacDate && calculateAge(nacDate) >= 18) {
+                const allowedMinContDate = new Date(nacDate);
+                allowedMinContDate.setFullYear(allowedMinContDate.getFullYear() + 18);
+
+                if (new Date(adjustedContDate) < allowedMinContDate || contYear < 1950) {
+                    f_cont.style.borderColor = 'red';
+                    submitButton.disabled = true;
+                } else if (contYear <= currentYear && new Date(adjustedContDate) >= allowedMinContDate) {
+                    f_cont.style.borderColor = 'green';
+                    submitButton.disabled = false;
+                }
             }
         }
     }
-}
 
-function calculateAge(birthDate) {
-    const birth = new Date(birthDate);
-    const today = new Date();
-    let age = today.getFullYear() - birth.getFullYear();
-    const monthDiff = today.getMonth() - birth.getMonth();
+    function calculateAge(birthDate) {
+        const birth = new Date(birthDate);
+        const today = new Date();
+        let age = today.getFullYear() - birth.getFullYear();
+        const monthDiff = today.getMonth() - birth.getMonth();
 
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-        age--;
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+            age--;
+        }
+        return age;
     }
-    return age;
-}
-
-    validateInputs();
-    validateDates();
 
     inputs.forEach(input => {
-        input.addEventListener('input', () => {
-            validateInputs();
-            validateDates();
-        });
+        input.addEventListener('input', validateForm);
     });
 
     f_nac.addEventListener('input', validateDates);
     f_cont.addEventListener('input', validateDates);
+
+    validateForm();
 });
+
 
 </script>
