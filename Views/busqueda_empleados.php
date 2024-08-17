@@ -341,9 +341,9 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'nombre', minLength: 3 },
         { name: 'ap_paterno', minLength: 4 },
         { name: 'ap_materno', minLength: 4 },
-        { name: 'estado', minLength: 4 },
-        { name: 'ciudad', minLength: 4 },
-        { name: 'pais', minLength: 4 },
+        { name: 'estado', minLength: 5 },
+        { name: 'ciudad', minLength: 10 },
+        { name: 'pais', minLength: 5 },
         { name: 'afore', minLength: 8 },
         { name: 'telefono', minLength: 10, maxLength: 10 },
         { name: 'cd_postal', minLength: 5, maxLength: 5 },
@@ -494,3 +494,49 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const inputsConfig = [
+        { name: 'nombre', type: 'text' },
+        { name: 'ap_paterno', type: 'text' },
+        { name: 'ap_materno', type: 'text' },
+        { name: 'estado', type: 'text' },
+        { name: 'ciudad', type: 'text' },
+        { name: 'pais', type: 'text' },
+        { name: 'telefono', type: 'number' },
+        { name: 'num2', type: 'number' },
+        { name: 'afore', type: 'number' },
+        { name: 'nss', type: 'number' },
+        { name: 'cd_postal', type: 'number' },
+        { name: 'curp', type: 'alphanumeric' }
+    ];
+
+    function validateInput(value, type) {
+        const textPattern = /^[A-Za-zÁÉÍÓÚáéíóúÑñ\s]+$/;  // Solo letras y espacios
+        const numberPattern = /^\d+$/;                    // Solo números
+        const alphanumericPattern = /^[A-Za-z0-9]+$/;     // Letras y números
+
+        if (type === 'text') {
+            return textPattern.test(value);
+        } else if (type === 'number') {
+            return numberPattern.test(value);
+        } else if (type === 'alphanumeric') {
+            return alphanumericPattern.test(value);
+        }
+        return false;
+    }
+
+    document.querySelectorAll('input').forEach(input => {
+        const config = inputsConfig.find(conf => conf.name === input.name);
+        if (config) {
+            input.addEventListener('input', function() {
+                if (!validateInput(this.value, config.type)) {
+                    this.value = this.value.slice(0, -1); // Elimina el último carácter no válido
+                }
+            });
+        }
+    });
+});
+</script>
+
