@@ -26,46 +26,46 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse text-white" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link" href="busqueda_reserva.php">
-              <i class="fas fa-book"></i> Reservaciones
+              <i class="fas fa-book text-white"></i> Reservaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="vista_reservas_fisicas_admin.php">
-              <i class="fas fa-book"></i> Reservas Fisicas
+              <i class="fas fa-book text-white"></i> Reservas Fisicas
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_habitaciones.php">
-              <i class="fas fa-bed"></i> Habitaciones
+              <i class="fas fa-bed text-white"></i> Habitaciones
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_huesped.php">
-              <i class="fas fa-users"></i> Huesped
+              <i class="fas fa-users text-white"></i> Huesped
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_empleados.php">
-              <i class="fas fa-user"></i> Personal
+              <i class="fas fa-user text-white"></i> Personal
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="reportes_hotel.php">
-              <i class="fas fa-hotel"></i> Hotel
+              <i class="fas fa-hotel text-white"></i> Hotel
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="busqueda_facturacion.php">
-              <i class="fas fa-file-alt"></i> Facturacion
+              <i class="fas fa-file-alt text-white"></i> Facturacion
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="costos.php">
-              <i class="fas fa-dollar-sign"></i> Costos
+              <i class="fas fa-dollar-sign text-white"></i> Costos
             </a>
           </li>
           <li class="nav-item">
