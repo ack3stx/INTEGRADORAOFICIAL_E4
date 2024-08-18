@@ -866,20 +866,26 @@ function scrollToContent() {
     function mostrarToastSimple() {
         if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
         
-        Toastify({
-            text: "No hay habitaciones disponibles para las fechas seleccionadas",
-            duration: 3000,
-            gravity: "top", 
-            position: "right", 
-            close: true
-        }).showToast();
-    
-
-    setTimeout(function() {
+            Toastify({
+                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
+                 //className: "info",
+                     style: {
+                    background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px",
+                 zIndex: 9999,
+                 
+                 },
+                 gravity: "top",
+                 position: "right"
+                 }).showToast();
+                 
+                 setTimeout(function() {
                  window.location.href = "../Views/Calendario.php";
-                   }, 4000); 
-                }
-}
+                   }, 4000);
+               }
+    }
    
     
 
