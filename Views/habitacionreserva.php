@@ -818,6 +818,23 @@ function scrollToContent() {
 
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
 
+                    Toastify({
+                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
+                     style: {
+                    background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px",
+                 zIndex: 9999,
+                 
+                 },
+                 gravity: "top",
+                 position: "right"
+                 }).showToast(); 
+                 
+                 setTimeout(function() {
+                 window.location.href = "../Views/Calendario.php";
+                   }, 4000); 
                     
 
                     crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
@@ -1394,24 +1411,8 @@ cardFooter.className = 'card-footer-custom';
         
   
         function redireccionar() {
-            Toastify({
-                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
-                     style: {
-                    background: "rgba(214, 13, 13, 0.5)", 
-                 color: "#fff", 
-                 borderRadius: "8px", 
-                 padding: "10px",
-                 zIndex: 9999,
-                 
-                 },
-                 gravity: "top",
-                 position: "right"
-                 }).showToast(); 
-                 
-                 setTimeout(function() {
-                 window.location.href = "../Views/Calendario.php";
-                   }, 4000); 
-          //  window.location.href = 'form_pago.php';
+           
+            window.location.href = 'form_pago.php';
         }
 
 
