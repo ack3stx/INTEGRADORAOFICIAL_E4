@@ -133,6 +133,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
              DETALLE_RESERVACION.FECHA_INICIO,
              DETALLE_RESERVACION.FECHA_FIN, 
              RESERVACION.ESTADO_RESERVACION, 
+             DETALLE_PAGO.MONTO_TOTAL,
              COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
@@ -159,6 +160,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
              DETALLE_RESERVACION.FECHA_INICIO,
              DETALLE_RESERVACION.FECHA_FIN, 
              RESERVACION.ESTADO_RESERVACION, 
+             DETALLE_PAGO.MONTO_TOTAL,
              COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
@@ -186,6 +188,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
           echo "<th>Fecha Incio</th>";
           echo "<th>Fecha Fin</th>";
           echo "<th>Estado Reservación</th>";
+          echo "<th>Monto Pago</th>";
           echo "<th>Cantidad Habitaciones</th>";
           echo "</tr>";
           echo "</thead>";
@@ -200,6 +203,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
             echo "<td>{$reg->FECHA_INICIO}</td>";
             echo "<td>{$reg->FECHA_FIN}</td>";
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
+            echo "<td>{$reg->MONTO_TOTAL}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "</tr>";
           }
