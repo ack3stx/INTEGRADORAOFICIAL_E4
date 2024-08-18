@@ -788,6 +788,9 @@ function scrollToContent() {
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
+
+    
+   
    
 
     function obtenerHabitaciones() {
@@ -816,31 +819,23 @@ function scrollToContent() {
                  Kprecio = parseFloat(data.precioK[0].precio);
                  Sprecio = parseFloat(data.precioS[0].precio);
 
+                 console.log(habitacionesDoble, habitacionesKingSize, habitacionesSencilla);
+
+                 mostrarToastSimple();
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
+
+                    
                     crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
                     crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
                     crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
+
+                   
+                    console.log(data);
+
+                    
                 
-                   /* console.log("Mostrando notificación Toastify"); 
-                    Toastify({
-                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
-                 //className: "info",
-                     style: {
-                    background: "rgba(214, 13, 13, 0.5)", 
-                 color: "#fff", 
-                 borderRadius: "8px", 
-                 padding: "10px",
-                 zIndex: 9999,
-                 
-                 },
-                 gravity: "top",
-                 position: "right"
-                 }).showToast(); */
-                 
-                 setTimeout(function() {
-                 window.location.href = "../Views/Calendario.php";
-                   }, 4000); 
-        } else {
+                   
+                } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
@@ -870,6 +865,59 @@ function scrollToContent() {
     }
 
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+    
+
+    function mostrarToastSimple() {
+
+       
+if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
+
+    Toastify({
+            text: "No hay habitaciones disponibles para las fechas seleccionadas",
+         //className: "info",
+             style: {
+            background: "rgba(214, 13, 13, 0.5)", 
+         color: "#fff", 
+         borderRadius: "8px", 
+         padding: "10px",
+         zIndex: 9999,
+         
+         },
+         gravity: "top",
+         position: "right"
+         }).showToast();
+         
+         setTimeout(function() {
+         window.location.href = "../Views/Calendario.php";
+           }, 4000);
+}
+else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencilla > 0) {
+
+    Toastify({
+            text: "Habitaciones disponibles para las fechas seleccionadas",
+         //className: "info",
+             style: {
+            background: "green", 
+         color: "#fff", 
+         borderRadius: "8px", 
+         padding: "10px",
+         zIndex: 9999,
+         
+         },
+         gravity: "top",
+         position: "right"
+         }).showToast();
+         
+        
+}
+
+}
+
+
+    
+
+                   
+    
 
     function bloqueartarjeta(card){
         const texto = document.createElement('h5');
@@ -1401,6 +1449,7 @@ cardFooter.className = 'card-footer-custom';
         
   
         function redireccionar() {
+           
             window.location.href = 'form_pago.php';
         }
 
@@ -1629,11 +1678,9 @@ function toggleBilling() {
         document.getElementById('sencilla').disabled = false;
     }
 }
-       /* document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('continuar').addEventListener('click', guardardatospersona);
-});
+        
 
-         
+         /*
 
         //guardar datos de persona
         function guardardatospersona(){

@@ -118,12 +118,12 @@
       } else {
         if (empty($numero)) {
           $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
+                OR DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
 
 if ($cancelada == "todos") {
-    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
+    $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
 } elseif ($cancelada == "cancelada") {
-    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
+    $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
 }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION , 
@@ -133,23 +133,25 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
              DETALLE_RESERVACION.FECHA_INICIO,
              DETALLE_RESERVACION.FECHA_FIN, 
              RESERVACION.ESTADO_RESERVACION, 
+             DETALLE_PAGO.MONTO_TOTAL,
              COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO=USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED=PERSONA.ID_PERSONA
           INNER JOIN RESERVACION ON RESERVACION.HUESPED=HUESPED.ID_HUESPED
           INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION=RESERVACION.ID_RESERVACION
+          INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION=RESERVACION.ID_RESERVACION
           $where
           GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
 
         } else {
           $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
 
-if ($cancelada == "todos") {
-    $where .= " AND RESERVACION.ESTADO_RESERVACION != 'cancelada'";
-} elseif ($cancelada == "cancelada") {
-    $where .= " AND RESERVACION.ESTADO_RESERVACION = 'cancelada'";
-}
+          if ($cancelada == "todos") {
+            $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
+        } elseif ($cancelada == "cancelada") {
+            $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
+        }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, 
              CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
@@ -158,12 +160,14 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
              DETALLE_RESERVACION.FECHA_INICIO,
              DETALLE_RESERVACION.FECHA_FIN, 
              RESERVACION.ESTADO_RESERVACION, 
+             DETALLE_PAGO.MONTO_TOTAL,
              COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
           FROM USUARIOS
           INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
           INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
           INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
           INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+          INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION=RESERVACION.ID_RESERVACION
           $where
           GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
         }
@@ -184,6 +188,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
           echo "<th>Fecha Incio</th>";
           echo "<th>Fecha Fin</th>";
           echo "<th>Estado Reservación</th>";
+          echo "<th>Monto Pago</th>";
           echo "<th>Cantidad Habitaciones</th>";
           echo "</tr>";
           echo "</thead>";
@@ -198,6 +203,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
             echo "<td>{$reg->FECHA_INICIO}</td>";
             echo "<td>{$reg->FECHA_FIN}</td>";
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
+            echo "<td>{$reg->MONTO_TOTAL}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "</tr>";
           }
