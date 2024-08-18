@@ -342,7 +342,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'ap_paterno', minLength: 4 },
         { name: 'ap_materno', minLength: 4 },
         { name: 'estado', minLength: 5 },
-        { name: 'ciudad', minLength: 10 },
+        { name: 'ciudad', minLength: 5 },
         { name: 'pais', minLength: 5 },
         { name: 'afore', minLength: 8 },
         { name: 'telefono', minLength: 10, maxLength: 10 },
