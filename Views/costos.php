@@ -261,7 +261,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+        <?php
+        $consulta="SELECT T_HABITACION.PRECIO FROM T_HABITACION WHERE T_HABITACION.NOMBRE='Sencilla'";
+        $consi=$db->seleccionar($consulta);
+        $cosen=$consi[0]->PRECIO;
+        ?>
         <form action="../Scripts/cambiar_costo.php" method="post">
+            <label for="">Precio Actual</label>
+        <?php echo"<input type='text' class='form-control me-2' value='$cosen' disabled>" ?>
+        <br>
             <input class="form-control me-2" type="text" name="tipo" value="sencilla" placeholder="sencilla" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
             <input class="form-control me-2" name="costo" type="number">
@@ -284,7 +292,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <?php
+        $consulta="SELECT T_HABITACION.PRECIO FROM T_HABITACION WHERE T_HABITACION.NOMBRE='Doble'";
+        $consi=$db->seleccionar($consulta);
+        $cosen=$consi[0]->PRECIO;
+        ?>
       <form action="../Scripts/cambiar_costo.php" method="post">
+      <label for="">Precio Actual</label>
+        <?php echo"<input type='text' class='form-control me-2' value='$cosen' disabled>" ?>
+        <br>
             <input class="form-control me-2" name="tipo" type="text" value="doble" placeholder="Doble" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
             <input class="form-control me-2" name="costo" type="number">
@@ -307,7 +323,15 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+      <?php
+        $consulta="SELECT T_HABITACION.PRECIO FROM T_HABITACION WHERE T_HABITACION.NOMBRE='King Size'";
+        $consi=$db->seleccionar($consulta);
+        $cosen=$consi[0]->PRECIO;
+        ?>
       <form action="../Scripts/cambiar_costo.php" method="post">
+      <label for="">Precio Actual</label>
+        <?php echo"<input type='text' class='form-control me-2' value='$cosen' disabled>" ?>
+        <br>
             <input class="form-control me-2" type="text" name="tipo" value="king size" placeholder="King Size" style="display: none;"> <br>
             <label for="">Nuevo Costo</label>
             <input class="form-control me-2" name="costo" type="number">
