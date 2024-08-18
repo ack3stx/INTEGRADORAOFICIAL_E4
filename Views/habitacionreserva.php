@@ -790,7 +790,7 @@ function scrollToContent() {
     let tiposSeleccionados = [];
 
     function mostrarToastSimple() {
-        setTimeout(() => {
+       /* setTimeout(() => {
         Toastify({
             text: "No hay habitaciones disponibles para las fechas seleccionadas",
             duration: 3000,
@@ -798,7 +798,7 @@ function scrollToContent() {
             position: "right", 
             close: true
         }).showToast();
-    }, 500);
+    }, 500); */
 
     setTimeout(function() {
                  window.location.href = "../Views/Calendario.php";
@@ -840,11 +840,12 @@ function scrollToContent() {
                     crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
 
                     mostrarToastSimple();
+                    console.log(data);
 
-
+                    
                 
                    
-        } else {
+                } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
