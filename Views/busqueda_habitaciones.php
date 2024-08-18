@@ -185,6 +185,7 @@
                           <th>Tipo de Habitación</th>
                           <th>Estado Actual</th>
                           <th>Nuevo Estado</th>
+                          <th>Inconveniente</th>
                           <th>Acción</th>
                       </tr>
                     </thead>";
@@ -203,6 +204,7 @@
                           </select>
                           <input type='hidden' name='ID_HABITACION' value='{$habitacion->ID_HABITACION}'>
                       </td>";
+                echo "<td><input type='text' name='inconveniente' class='form-control' placeholder='Describa el inconveniente'></td>";
                 echo "<td><button type='submit' class='btn btn-primary'>Actualizar Estado</button></form></td>";
                 echo "</tr>";
               }
@@ -241,7 +243,7 @@
     extract($_POST);
     if ($_POST) {
       $consulta = "SELECT HABITACION.NUM_HABITACION, HABITACION.PISO, HABITACION.ESTADO_HABITACION, T_HABITACION.NOMBRE,
-      T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NINOS
+      T_HABITACION.DESCRIPCION, T_HABITACION.PRECIO, T_HABITACION.CANTIDAD_MAX_ADULTOS, T_HABITACION.CANTIDAD_MAX_NIÑOS
       FROM HABITACION
       INNER JOIN T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
       WHERE T_HABITACION.NOMBRE = '$tipo' AND HABITACION.ESTADO_HABITACION = '$estado'";
