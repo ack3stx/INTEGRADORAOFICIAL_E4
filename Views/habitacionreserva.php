@@ -862,6 +862,8 @@ function scrollToContent() {
                  Kprecio = parseFloat(data.precioK[0].precio);
                  Sprecio = parseFloat(data.precioS[0].precio);
 
+                 console.log(habitacionesDoble, habitacionesKingSize, habitacionesSencilla);
+
                  mostrarToastSimple();
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
 
