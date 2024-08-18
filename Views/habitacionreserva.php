@@ -790,13 +790,15 @@ function scrollToContent() {
     let tiposSeleccionados = [];
 
     function mostrarToastSimple() {
-    Toastify({
-        text: "No hay habitaciones disponibles para las fechas seleccionadas",
-        duration: 3000,
-        gravity: "top", // "top" o "bottom"
-        position: "right", // "left", "center" o "right"
-        close: true
-    }).showToast();
+        setTimeout(() => {
+        Toastify({
+            text: "No hay habitaciones disponibles para las fechas seleccionadas",
+            duration: 3000,
+            gravity: "top", 
+            position: "right", 
+            close: true
+        }).showToast();
+    }, 500);
 
     setTimeout(function() {
                  window.location.href = "../Views/Calendario.php";
