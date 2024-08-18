@@ -791,6 +791,8 @@ function scrollToContent() {
 
     
     function mostrarToastSimple() {
+
+        console.log(habitacionesDoble, habitacionesKingSize, habitacionesSencilla); 
         if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
         
             Toastify({
