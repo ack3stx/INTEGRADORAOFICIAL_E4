@@ -159,8 +159,7 @@
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
 
-      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
-        $consultona = "
+                $consultona = "
         SELECT 
             DATOS_FACTURACION.NOMBRE,
             DATOS_FACTURACION.APELLIDO_PATERNO,
@@ -197,6 +196,8 @@
         ";
 
         $datos_facturacion = $db->seleccionar($consultona);
+
+      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
 
         if (!empty($datos_facturacion)) {
             // Variable para calcular el total de la reservación
