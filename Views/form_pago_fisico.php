@@ -230,7 +230,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
 
-        boton.disabled = true;
+        boton.disabled = false;
     }
 
     inputs.forEach(input => {
