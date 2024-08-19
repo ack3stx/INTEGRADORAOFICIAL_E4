@@ -121,43 +121,6 @@
 
   $cadena2 = "SELECT DETALLE_PAGO FROM DATOS_FACTURACION;";
   $consultita = $db->seleccionar($cadena2);
-  $consultona = "
-        SELECT 
-            DATOS_FACTURACION.NOMBRE,
-            DATOS_FACTURACION.APELLIDO_PATERNO,
-            DATOS_FACTURACION.APELLIDO_MATERNO,
-            DATOS_FACTURACION.RFC,
-            DATOS_FACTURACION.DIRECCION,
-            DETALLE_PAGO.MONTO_TOTAL,
-            DETALLE_PAGO.METODO_PAGO,
-            T_HABITACION.NOMBRE AS TIPO_HABITACION,
-            COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
-            (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
-        FROM 
-            DETALLE_PAGO
-        JOIN 
-            DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
-        JOIN 
-            RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-        JOIN 
-            PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-        JOIN 
-            USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-        JOIN 
-            DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-        JOIN 
-            T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-        WHERE 
-            DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
-        GROUP BY 
-            T_HABITACION.NOMBRE
-        ";
-
-        $datos_facturacion = $db->seleccionar($consultona);
 
   $facturacion_detalles = array_map(function ($item) {
       return $item->DETALLE_PAGO;
@@ -197,6 +160,43 @@
                 <td>";
 
       if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
+        $consultona = "
+        SELECT 
+            DATOS_FACTURACION.NOMBRE,
+            DATOS_FACTURACION.APELLIDO_PATERNO,
+            DATOS_FACTURACION.APELLIDO_MATERNO,
+            DATOS_FACTURACION.RFC,
+            DATOS_FACTURACION.DIRECCION,
+            DETALLE_PAGO.MONTO_TOTAL,
+            DETALLE_PAGO.METODO_PAGO,
+            T_HABITACION.NOMBRE AS TIPO_HABITACION,
+            COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+            (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+        FROM 
+            DETALLE_PAGO
+        JOIN 
+            DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+        JOIN 
+            RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN 
+            HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+        JOIN 
+            PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+        JOIN 
+            USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+        JOIN 
+            DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+        JOIN 
+            HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+        JOIN 
+            T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+        WHERE 
+            DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+        GROUP BY 
+            T_HABITACION.NOMBRE
+        ";
+
+        $datos_facturacion = $db->seleccionar($consultona);
 
         if (!empty($datos_facturacion)) {
             // Variable para calcular el total de la reservación
@@ -241,8 +241,7 @@
             </div>
             </div>";
         }
-      }
-      $precio_total_reservacion = 0;
+        $precio_total_reservacion = 0;
 
             // Inicia el modal
             echo "<!-- Button trigger modal -->
@@ -277,6 +276,8 @@
                 </div>
             </div>
             </div>";
+      }
+      
 
       echo "<!-- Button trigger modal -->
       <br>
