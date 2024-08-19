@@ -636,7 +636,8 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 <div id="room-summary">
                     <!-- Resumen breve de habitaciones -->
                 </div>
-                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp;  <span id="total-price">0.00</span></strong></p>
+                <p><strong>Total de Habitaciones &nbsp;&nbsp;&nbsp;&nbsp;<span id="room-count">0</span></strong></p>
             </div>
             <!-- Fija los botones al fondo del contenedor -->
             <div class="fixed-buttons">
@@ -903,29 +904,14 @@ function scrollToContent() {
                  Kprecio = parseFloat(data.precioK[0].precio);
                  Sprecio = parseFloat(data.precioS[0].precio);
 
+                 mostrarToastSimple();
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
                     crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
                     crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
                     crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
 
-                    Toastify({
-                    text: "No hay habitaciones disponibles para las fechas seleccionadas",
-                 //className: "info",
-                     style: {
-                    background: "#ffff", 
-                 color: "black", 
-                 borderRadius: "8px", 
-                 padding: "10px",
-                 zIndex: 9999,
-                 
-                 },
-                 gravity: "top",
-                 position: "right"
-                 }).showToast();
-                 
-                 setTimeout(function() {
-                 window.location.href = "../Views/Calendariore.php";
-                   }, 4000); 
+                    console.log(data);
+                    
         } else {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
@@ -956,6 +942,55 @@ function scrollToContent() {
     }
 
     document.addEventListener('DOMContentLoaded',obtenerHabitaciones);
+
+    function mostrarToastSimple() {
+
+       
+if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
+
+    Toastify({
+            text: "No hay habitaciones disponibles para las fechas seleccionadas",
+         //className: "info",
+             style: {
+            background: "rgba(214, 13, 13, 0.5)", 
+         color: "#fff", 
+         borderRadius: "8px", 
+         padding: "10px",
+         zIndex: 9999,
+         
+         },
+         gravity: "top",
+         position: "right"
+         }).showToast();
+         
+         setTimeout(function() {
+         window.location.href = "../Views/Calendario.php";
+           }, 4000);
+}
+else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencilla > 0) {
+
+    Toastify({
+            text: "Habitaciones disponibles para las fechas seleccionadas",
+         //className: "info",
+             style: {
+            background: "green", 
+         color: "#fff", 
+         borderRadius: "8px", 
+         padding: "10px",
+         zIndex: 9999,
+         
+         },
+         gravity: "top",
+         position: "right"
+         }).showToast();
+         
+        
+}
+
+}
+
+
+    
 
     function bloqueartarjeta(card){
         const texto = document.createElement('h5');
@@ -1002,6 +1037,14 @@ texto.className = 'card-text';
 texto.innerText = 'Solo queda 1 habitación disponible';
 card.appendChild(texto);
 }
+
+if (habitacionesDoble > 1) {
+    const texto = document.createElement('p');
+    texto.className = 'card-text';
+    texto.innerText = 'Hay ' + habitacionesDoble + ' habitaciones disponibles';
+    card.appendChild(texto);
+}
+
 
 imageContainer.appendChild(img);
 
@@ -1171,6 +1214,13 @@ function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio,disponib
     texto.innerText = 'Solo queda 1 habitación disponible';
     card.appendChild(texto);
     }
+
+    if (habitacionesKingSize > 1) {
+               const texto = document.createElement('p');
+                 texto.className = 'card-text';
+                texto.innerText = 'Hay ' + habitacionesKingSize + ' habitaciones disponibles';
+                card.appendChild(texto);
+                }
     
     imageContainer.appendChild(img);
     
@@ -1338,6 +1388,13 @@ function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponib
     texto.innerText = 'Solo queda 1 habitación disponible';
     card.appendChild(texto);
     }
+
+    if (habitacionesSencilla > 1) {
+               const texto = document.createElement('p');
+                 texto.className = 'card-text';
+                texto.innerText = 'Hay ' + habitacionesSencilla + ' habitaciones disponibles';
+                card.appendChild(texto);
+                }
     
     imageContainer.appendChild(img);
     
@@ -1567,7 +1624,7 @@ function actualizarResumen(tipo) {
 
     boton.onclick = function() {
         resumenContenido.removeChild(div);
-        roomCount -= 1;
+        document.getElementById('room-count').textContent =  roomCount -= 1;
 
         const index = tiposSeleccionados.findIndex(habitacion => habitacion.tipo === tipo);
         if (index > -1) {
@@ -1603,7 +1660,7 @@ function actualizarResumen(tipo) {
         roomSencilla += 1;
     }
 
-    roomCount += 1;
+    document.getElementById('room-count').textContent =  roomCount += 1;
     desabilitarbotonañadir(tipo);
 }
 

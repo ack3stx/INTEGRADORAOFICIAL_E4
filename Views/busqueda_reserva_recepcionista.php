@@ -118,7 +118,7 @@
       } else {
         if (empty($numero)) {
           $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                OR DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
+                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
 
 if ($cancelada == "todos") {
     $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";

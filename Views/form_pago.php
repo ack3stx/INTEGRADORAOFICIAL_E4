@@ -194,8 +194,58 @@ session_start();
             if (input.length === 2 && !input.includes('/')) {
                 e.target.value = input + '/';
             }
+            if (input.length === 5) {
+        validateExpiryDate(input);
+    }
             enableSubmitButton();
         });
+
+
+        function validateExpiryDate(input) {
+    const [month, year] = input.split('/');
+
+    // Convertir los valores a enteros para la comparación
+    const inputMonth = parseInt(month, 10);
+    const inputYear = parseInt(year, 10);
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Enero es 0, por eso sumamos 1
+    const currentYear = parseInt(currentDate.getFullYear().toString().slice(-2)); 
+
+    // Validar que el mes sea válido
+    if (inputMonth < 1 || inputMonth > 12) {
+        Toastify({
+                text: "El mes debe estar entre 1 y 12.",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
+                 }).showToast();
+                 
+                
+        document.getElementById('expiry-date').value = ''; 
+        return;
+    }
+
+    // Validar que la fecha no esté en el pasado
+    if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+        Toastify({
+                text: "La fecha de expiración no puede estar en el pasado.",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
+                 }).showToast();
+        document.getElementById('expiry-date').value = '';
+    }
+    }
 
         document.getElementById('cvv').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
@@ -283,7 +333,7 @@ session_start();
                 text: "Reservacion realizada con exito",
                  //className: "info",
                  style: {
-                 background: "rgba(214, 13, 13, 0.5)", 
+                 background: "green", 
                  color: "#fff", 
                  borderRadius: "8px", 
                  padding: "10px"
