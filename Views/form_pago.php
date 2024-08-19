@@ -194,8 +194,38 @@ session_start();
             if (input.length === 2 && !input.includes('/')) {
                 e.target.value = input + '/';
             }
+            if (input.length === 5) {
+        validateExpiryDate(input);
+    }
             enableSubmitButton();
         });
+
+
+        function validateExpiryDate(input) {
+    const [month, year] = input.split('/');
+
+    // Convertir los valores a enteros para la comparación
+    const inputMonth = parseInt(month, 10);
+    const inputYear = parseInt(year, 10);
+
+    // Obtener la fecha actual
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth() + 1; // Enero es 0, por eso sumamos 1
+    const currentYear = parseInt(currentDate.getFullYear().toString().slice(-2)); 
+
+    // Validar que el mes sea válido
+    if (inputMonth < 1 || inputMonth > 12) {
+        alert('Por favor, ingrese un mes válido (01-12).');
+        document.getElementById('expiry-date').value = ''; 
+        return;
+    }
+
+    // Validar que la fecha no esté en el pasado
+    if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
+        alert('La fecha de expiración no puede estar en el pasado.');
+        document.getElementById('expiry-date').value = '';
+    }
+    }
 
         document.getElementById('cvv').addEventListener('input', function () {
             this.value = this.value.replace(/\D/g, '');
