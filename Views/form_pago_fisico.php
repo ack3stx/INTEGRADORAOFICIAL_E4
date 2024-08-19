@@ -74,11 +74,11 @@
         </div>
         <div class="mb-3">
             <label for="direccion" class="form-label">Dirección</label>
-            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" >
+            <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Calle 123, Ciudad, País" maxlength="100">
         </div>
         <div class="mb-3">
             <label for="rfc" class="form-label">RFC</label>
-            <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC">
+            <input type="text" class="form-control" id="rfc" name="rfc" placeholder="RFC" maxLength="13">
         </div>
     </div>
     <button type="submit" id="submit-button">Enviar</button>
@@ -200,8 +200,6 @@ function validartelefono(input){
     
 };
     
-
-
     </script>
 </body>
 </html>
