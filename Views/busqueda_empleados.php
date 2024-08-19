@@ -352,7 +352,8 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'curp', minLength: 18, maxLength: 18 },
         { name: 'usuario', minLength: 3, maxLength:30},
         { name: 'correo', minLength: 3, maxLength:40},
-        { name: 'contra', minLength:10, maxLength:30}
+        { name: 'contra', minLength:10, maxLength:30},
+        { name: 'direccion', minLength:10, maxLength:100},
     ];
 
     const submitButton = document.getElementById('submitButton');
