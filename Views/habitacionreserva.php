@@ -649,7 +649,7 @@ CARD DE CONTENIDOO CUANDO SE JUNTAN MAS DE 5 HABITACIONES
                 <div id="room-summary">
                     <!-- Resumen breve de habitaciones -->
                 </div>
-                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp; MXN <span id="total-price">0.00</span></strong></p>
+                <p><strong>Total &nbsp;&nbsp;&nbsp;&nbsp;  <span id="total-price">0.00</span></strong></p>
                 <p><strong>Total de Habitaciones &nbsp;&nbsp;&nbsp;&nbsp;<span id="room-count">0</span></strong></p>
             </div>
             <!-- Fija los botones al fondo del contenedor -->
@@ -1584,7 +1584,7 @@ function actualizarResumen(tipo) {
             localStorage.setItem('cantidad', acumulador);
         }
 
-        // Disminuye el contador correspondiente y verifica si se debe habilitar el botón
+        
         if(tipo === 'Doble'){
             roomdoble -= 1;
         } else if(tipo === 'King Size'){
@@ -1599,7 +1599,7 @@ function actualizarResumen(tipo) {
     div.appendChild(boton);
     resumenContenido.appendChild(div);
 
-    // Aumenta el contador correspondiente y verifica si se debe deshabilitar el botón
+    
     if(tipo === 'Doble'){
         roomdoble += 1;
     } else if(tipo === 'King Size'){

@@ -215,14 +215,34 @@ session_start();
 
     // Validar que el mes sea válido
     if (inputMonth < 1 || inputMonth > 12) {
-        alert('Por favor, ingrese un mes válido (01-12).');
+        Toastify({
+                text: "El mes debe estar entre 1 y 12.",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
+                 }).showToast();
+                 
+                
         document.getElementById('expiry-date').value = ''; 
         return;
     }
 
     // Validar que la fecha no esté en el pasado
     if (inputYear < currentYear || (inputYear === currentYear && inputMonth < currentMonth)) {
-        alert('La fecha de expiración no puede estar en el pasado.');
+        Toastify({
+                text: "La fecha de expiración no puede estar en el pasado.",
+                 //className: "info",
+                 style: {
+                 background: "rgba(214, 13, 13, 0.5)", 
+                 color: "#fff", 
+                 borderRadius: "8px", 
+                 padding: "10px"
+                 }
+                 }).showToast();
         document.getElementById('expiry-date').value = '';
     }
     }
@@ -313,7 +333,7 @@ session_start();
                 text: "Reservacion realizada con exito",
                  //className: "info",
                  style: {
-                 background: "rgba(214, 13, 13, 0.5)", 
+                 background: "green", 
                  color: "#fff", 
                  borderRadius: "8px", 
                  padding: "10px"
