@@ -241,7 +241,8 @@
             </div>
             </div>";
         }
-        $precio_total_reservacion = 0;
+      }
+      $precio_total_reservacion = 0;
 
             // Inicia el modal
             echo "<!-- Button trigger modal -->
@@ -276,8 +277,6 @@
                 </div>
             </div>
             </div>";
-      }
-      
 
       echo "<!-- Button trigger modal -->
       <br>
