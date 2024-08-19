@@ -180,7 +180,7 @@ if (isset($_SESSION['error_message'])) {
                 <label for="staffEmail">Nss:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="nss" required maxlength="11"><br>
                 <label for="staffEmail">Afore:</label>
-                <input class="form-control me-2" type="text" id="staffEmail" name="afore" required maxlength="30"><br>
+                <input class="form-control me-2" type="text" id="staffEmail" name="afore" required maxlength="4"><br>
                 <label for="staffEmail">Numero Emergencia:</label>
                 <input class="form-control me-2" type="text" id="staffEmail" name="num2" required maxlength="10"><br>
         </div>
@@ -344,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'estado', minLength: 5 },
         { name: 'ciudad', minLength: 5 },
         { name: 'pais', minLength: 5 },
-        { name: 'afore', minLength: 8 },
+        { name: 'afore', minLength: 4 },
         { name: 'telefono', minLength: 10, maxLength: 10 },
         { name: 'cd_postal', minLength: 5, maxLength: 5 },
         { name: 'nss', minLength: 11, maxLength: 11 },
@@ -506,7 +506,7 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'pais', type: 'text' },
         { name: 'telefono', type: 'number' },
         { name: 'num2', type: 'number' },
-        { name: 'afore', type: 'number' },
+        { name: 'afore', type: 'alphanumeric' },
         { name: 'nss', type: 'number' },
         { name: 'cd_postal', type: 'number' },
         { name: 'curp', type: 'alphanumeric' }
