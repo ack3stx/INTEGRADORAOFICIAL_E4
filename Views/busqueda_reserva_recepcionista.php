@@ -121,9 +121,9 @@
                 OR DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
 
 if ($cancelada == "todos") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION !='cancelada'";
 } elseif ($cancelada == "cancelada") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
+    $where .= " AND RESERVACION.ESTADO_RESERVACION ='cancelada'";
 }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION , 
@@ -148,9 +148,9 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
           $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
 
           if ($cancelada == "todos") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
+            $where .= " AND RESERVACION.ESTADO_RESERVACION !='cancelada'";
         } elseif ($cancelada == "cancelada") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
+            $where .= " AND RESERVACION.ESTADO_RESERVACION ='cancelada'";
         }
 
 $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, 
