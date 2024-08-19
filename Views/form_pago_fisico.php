@@ -216,7 +216,8 @@ document.addEventListener("DOMContentLoaded", function() {
     const inputs = document.querySelectorAll('input');
 
     function validarFormulario() {
-        let allValid = true;
+        
+        boton.disabled = true;
 
         validacionInputs.forEach(({ name, minLength, maxLength }) => {
             const input = document.querySelector(`[name="${name}"]`);
@@ -224,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (value.length < minLength || (maxLength && value.length > maxLength)) {
                 input.style.borderColor = 'red';
-                allValid = false;
+                boton.disabled = true;
             } else {
                 input.style.borderColor = 'green';
             }
