@@ -109,6 +109,10 @@
       <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
       <input class="form-control me-2 mb-2" type="date" name="fecha1">
       <input class="form-control me-2 mb-2" type="date" name="fecha2">
+      <select name="cancelada" class="form-select">
+        <option value="todos">Todos</option>
+        <option value="cancelada">Canceladas</option>
+      </select>
       <button class="btn btn-outline-danger mb-2" type="submit">Buscar</button>
     </form>
   </div>
