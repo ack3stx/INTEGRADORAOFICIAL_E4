@@ -224,16 +224,7 @@
                 <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
                 <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br><br>";
 
-            foreach ($datos_facturacion as $facturacion) {
-                echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
-                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
-
-                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
-            }
-
-            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
-                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
+            echo "
                 </div>
             
                 <div class='modal-footer'>
@@ -257,7 +248,7 @@
             <div class='modal-dialog'>
                 <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Detalles Reservacion</h1>
                 </div>
                 <div class='modal-body'>";
 
