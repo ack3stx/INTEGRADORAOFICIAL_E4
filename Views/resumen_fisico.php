@@ -8,10 +8,10 @@ $db->conectarDB();
 $conid="SELECT 
             MAX(RESERVACION.ID_RESERVACION) AS ID
         FROM 
-            RESERVACION";
+            RESERVACION;";
 
             $id_reserva=$db->seleccionar($conid);
-            $id_res=$id_reserva[0];
+            $id_res=$id_reserva->ID;
 
 $consultan="SELECT 
     RESERVACION.ID_RESERVACION AS FOLIO,
@@ -149,6 +149,7 @@ $datos_facturacion=$db->seleccionar($consulten);
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
     echo "<h3>FOLIO: $id_reserva->ID</h3><br>
+    <label>FOLIO: $id_reserva->ID</label>
     <label>Estado: $con1->ESTADO_RESERVACION</label>
     <label>Metodo Pago: $con1->METODO_PAGO</label>";
     echo $id_res;
