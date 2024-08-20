@@ -163,26 +163,53 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
             $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
         }
 
-$consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION, 
-             CONCAT(PERSONA.NOMBRE,' ',PERSONA.APELLIDO_PATERNO,' ',PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
-             PERSONA.NUMERO_DE_TELEFONO, 
-             RESERVACION.FECHA_,
-             DETALLE_RESERVACION.FECHA_INICIO,
-             DETALLE_RESERVACION.FECHA_FIN, 
-             RESERVACION.ESTADO_RESERVACION, 
-             DETALLE_PAGO.MONTO_TOTAL,
-             COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
-          FROM USUARIOS
-          INNER JOIN PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-          INNER JOIN HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-          INNER JOIN RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-          INNER JOIN DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-          INNER JOIN DETALLE_PAGO ON DETALLE_PAGO.RESERVACION=RESERVACION.ID_RESERVACION
-          $where
-          GROUP BY RESERVACION.ID_RESERVACION, NOMBRE_HUESPED, PERSONA.NUMERO_DE_TELEFONO, RESERVACION.FECHA_, RESERVACION.ESTADO_RESERVACION";
+$consulta = "SELECT 
+    DETALLE_PAGO.ID_DETALLE_PAGO
+    RESERVACION.ID_RESERVACION, 
+    CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
+    PERSONA.NUMERO_DE_TELEFONO, 
+    RESERVACION.FECHA_,
+    DETALLE_RESERVACION.FECHA_INICIO,
+    DETALLE_RESERVACION.FECHA_FIN, 
+    RESERVACION.ESTADO_RESERVACION, 
+    DETALLE_PAGO.MONTO_TOTAL,
+    DETALLE_PAGO.METODO_PAGO,
+    T_HABITACION.NOMBRE AS TIPO_HABITACION,
+    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES,
+    (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+FROM 
+    USUARIOS
+INNER JOIN 
+    PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+INNER JOIN 
+    HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+INNER JOIN 
+    RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+INNER JOIN 
+    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+INNER JOIN 
+    DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+INNER JOIN 
+    HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+INNER JOIN 
+    T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+$where
+GROUP BY 
+    RESERVACION.ID_RESERVACION, 
+    NOMBRE_HUESPED, 
+    PERSONA.NUMERO_DE_TELEFONO, 
+    RESERVACION.FECHA_, 
+    DETALLE_RESERVACION.FECHA_INICIO,
+    DETALLE_RESERVACION.FECHA_FIN,
+    RESERVACION.ESTADO_RESERVACION, 
+    DETALLE_PAGO.MONTO_TOTAL,
+    DETALLE_PAGO.METODO_PAGO,
+    T_HABITACION.NOMBRE
+";
         }
 
         $tabla = $conexion->seleccionar($consulta);
+
 
         if (empty($tabla)) {
           echo "<p>No se encontraron reservaciones.</p>";
@@ -200,6 +227,7 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
           echo "<th>Estado Reservación</th>";
           echo "<th>Monto Pago</th>";
           echo "<th>Cantidad Habitaciones</th>";
+          echo "<th>Acciones</th>";
           echo "</tr>";
           echo "</thead>";
           echo "<tbody>";
@@ -215,6 +243,42 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION,
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
             echo "<td>{$reg->MONTO_TOTAL}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+            echo "<td>";
+            $precio_total_reservacion = 0;
+
+            // Inicia el modal
+            echo "<!-- Button trigger modal -->
+            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBack{$reg->ID_DETALLE_PAGO}'>
+                Detalles
+            </button>
+            
+            <!-- Modal -->
+            <div class='modal fade' id='staticBack{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                <div class='modal-header'>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Detalles Reservacion</h1>
+                </div>
+                <div class='modal-body'>";
+
+            foreach ($datos_facturacion as $facturacion) {
+                echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
+                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
+                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
+
+                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
+            }
+
+            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
+                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
+                </div>
+            
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div></td>";
             echo "</tr>";
           }
 
