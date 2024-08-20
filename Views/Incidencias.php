@@ -68,7 +68,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservacionId']) && i
         foreach ($habitacionesSeleccionadas as $numHabitacion) {
             $idHabitacion = $db->seleccionar("SELECT ID_HABITACION FROM HABITACION WHERE NUM_HABITACION = '$numHabitacion'")[0]->ID_HABITACION;
 
-            // Actualizar el detalle correspondiente para que el ID de la habitación se actualice con el nuevo ID de la habitación seleccionada
             $consultaActualizar = "
                 UPDATE DETALLE_RESERVACION 
                 SET HABITACION = $idHabitacion 
@@ -83,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['reservacionId']) && i
             $db->ejecuta($consultaActualizar);
         }
 
-        // Actualizar el estado de la reservación a 'proceso'
         $consultaActualizarEstado = "
             UPDATE RESERVACION 
             SET ESTADO_RESERVACION = 'proceso' 
@@ -140,6 +138,24 @@ $tabla = $db->seleccionar($consulta);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+    <script>
+        function limitCheckboxes(name) {
+            const checkboxes = document.getElementsByName(name);
+            checkboxes.forEach((checkbox) => {
+                checkbox.addEventListener('change', function() {
+                    if (this.checked) {
+                        checkboxes.forEach((cb) => {
+                            if (cb !== this) cb.checked = false;
+                        });
+                    }
+                });
+            });
+        }
+
+        window.onload = function() {
+            limitCheckboxes('habitacionesSeleccionadas[]');
+        }
+    </script>
 </head>
 <body>
     

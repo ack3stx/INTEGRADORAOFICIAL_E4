@@ -205,7 +205,7 @@
                           <input type='hidden' name='ID_HABITACION' value='{$habitacion->ID_HABITACION}'>
                       </td>";
                 echo "<td><input type='text' name='inconveniente' class='form-control' placeholder='Describa el inconveniente'></td>";
-                echo "<td><button type='submit' class='btn btn-primary'>Actualizar Estado</button></form></td>";
+                echo "<td><button type='submit' class='btn btn-danger'>Actualizar Estado</button></form></td>";
                 echo "</tr>";
               }
 
