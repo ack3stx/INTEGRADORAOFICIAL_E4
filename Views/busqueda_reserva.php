@@ -123,19 +123,18 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      if(empty($numero) && empty($fecha1) && empty($fecha2)) {
+      if(empty($numero) && empty($fecha1) && empty($fecha2) && $cancelada=="todos") {
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-          $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
-
-if ($cancelada == "todos") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
-} elseif ($cancelada == "cancelada") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
-}
-
+          
+          if ($cancelada == "todos") {
+            $where= "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
+                        AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_PAGO.MONTO_TOTAL!=0";
+        } elseif ($cancelada == "cancelada") {
+            $where= "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
+        }
+        
 $consulta = "SELECT DISTINCT
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
@@ -166,7 +165,11 @@ GROUP BY
 ";
 
         } else {
-          $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
+          if ($cancelada == "todos") {
+            $where = "WHERE RESERVACION.ID_RESERVACION = '$numero' AND DETALLE_PAGO.MONTO_TOTAL!=0";
+        } elseif ($cancelada == "cancelada") {
+            $where = "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
+        }
 
 $consulta = "SELECT DISTINCT
     RESERVACION.ID_RESERVACION, 
