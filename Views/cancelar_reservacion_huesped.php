@@ -11,7 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $consulta = "CALL CANCELAR_RESERVACION_72HRS($id_reservacion)";
   $db->ejecuta($consulta);
 
+  $consultaUpdate = "UPDATE DETALLE_PAGO SET MONTO_TOTAL = 0 WHERE RESERVACION = $id_reservacion";
+  $db->ejecuta($consultaUpdate);
+
   header("Location: historialreservaciones.php");
   exit();
 }
+
 ?>

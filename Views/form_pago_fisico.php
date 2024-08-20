@@ -228,10 +228,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 boton.disabled = true;
             } else {
                 input.style.borderColor = 'green';
+                boton.disabled = false;
             }
         });
 
-        boton.disabled = false;
+        
     }
 
     inputs.forEach(input => {

@@ -71,3 +71,8 @@ END;
 DELIMITER ;
 
 ---------------------------------------------------------------------------------------
+
+
+SELECT `ID_HABITACION` 
+FROM `HABITACION` 
+WHERE `NUM_HABITACION` = '104';

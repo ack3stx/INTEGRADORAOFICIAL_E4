@@ -159,44 +159,46 @@
                 <td>{$reg->CANTIDAD}</td>
                 <td>";
 
-      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
-        $consultona = "
-        SELECT 
-            DATOS_FACTURACION.NOMBRE,
-            DATOS_FACTURACION.APELLIDO_PATERNO,
-            DATOS_FACTURACION.APELLIDO_MATERNO,
-            DATOS_FACTURACION.RFC,
-            DATOS_FACTURACION.DIRECCION,
-            DETALLE_PAGO.MONTO_TOTAL,
-            DETALLE_PAGO.METODO_PAGO,
-            T_HABITACION.NOMBRE AS TIPO_HABITACION,
-            COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
-            (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
-        FROM 
-            DETALLE_PAGO
-        JOIN 
-            DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
-        JOIN 
-            RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-        JOIN 
-            PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-        JOIN 
-            USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-        JOIN 
-            DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-        JOIN 
-            HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-        JOIN 
-            T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-        WHERE 
-            DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
-        GROUP BY 
-            T_HABITACION.NOMBRE
+                $consultona = "
+
+          SELECT 
+          DATOS_FACTURACION.NOMBRE,
+          DATOS_FACTURACION.APELLIDO_PATERNO,
+          DATOS_FACTURACION.APELLIDO_MATERNO,
+          DATOS_FACTURACION.RFC,
+          DATOS_FACTURACION.DIRECCION,
+          DETALLE_PAGO.MONTO_TOTAL,
+          DETALLE_PAGO.METODO_PAGO,
+          T_HABITACION.NOMBRE AS TIPO_HABITACION,
+          COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+          (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+      FROM 
+          DETALLE_PAGO
+      LEFT JOIN 
+          DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+      JOIN 
+          RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+      JOIN 
+          HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+      JOIN 
+          PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+      JOIN 
+          USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+      JOIN 
+          DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+      JOIN 
+          HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+      JOIN 
+          T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+      WHERE 
+          DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+      GROUP BY 
+          T_HABITACION.NOMBRE;
         ";
 
         $datos_facturacion = $db->seleccionar($consultona);
+
+      if (isset($reg->ID_DETALLE_PAGO) && in_array($reg->ID_DETALLE_PAGO, $facturacion_detalles)) {
 
         if (!empty($datos_facturacion)) {
             // Variable para calcular el total de la reservación
@@ -222,16 +224,7 @@
                 <label>RFC: {$datos_facturacion[0]->RFC}</label><br>
                 <label>Dirección: {$datos_facturacion[0]->DIRECCION}</label><br><br>";
 
-            foreach ($datos_facturacion as $facturacion) {
-                echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
-                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
-
-                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
-            }
-
-            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
-                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
+            echo "
                 </div>
             
                 <div class='modal-footer'>
@@ -255,7 +248,7 @@
             <div class='modal-dialog'>
                 <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Datos de Facturación</h1>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Detalles Reservacion</h1>
                 </div>
                 <div class='modal-body'>";
 
