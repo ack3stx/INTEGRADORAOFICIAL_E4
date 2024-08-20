@@ -11,7 +11,7 @@ $conid="SELECT
             RESERVACION";
 
             $id_reserva=$db->seleccionar($conid);
-            $id_res=$id_reserva->ID;
+            $id_res=$id_reserva[0];
 
 $consultan="SELECT 
     RESERVACION.ID_RESERVACION AS FOLIO,
