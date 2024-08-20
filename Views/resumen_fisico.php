@@ -9,9 +9,9 @@ $conid="SELECT
             MAX(RESERVACION.ID_RESERVACION)
         FROM 
             RESERVACION";
-            $id_reserva=$db->$conid;
-
+            $id_reserva=$db->seleccionar($conid);
             $id_res=$id_reserva[0];
+
 $consultan="SELECT 
     RESERVACION.ID_RESERVACION AS FOLIO,
     RESERVACION.ESTADO_RESERVACION, 
@@ -21,7 +21,11 @@ FROM
     RESERVACION
 JOIN 
     DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION
-WHERE RESERVACION.ID_RESERVACION = $id_res
+WHERE RESERVACION.ID_RESERVACION = (
+        SELECT 
+            MAX(RESERVACION.ID_RESERVACION)
+        FROM 
+            RESERVACION
     );
 ";
 $con1=$db->seleccionar($consultan);
@@ -51,7 +55,12 @@ HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
 JOIN 
 T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
 WHERE 
-RESERVACION.ID_RESERVACION = $id_res
+RESERVACION.ID_RESERVACION = (
+        SELECT 
+            MAX(RESERVACION.ID_RESERVACION)
+        FROM 
+            RESERVACION
+    );
 GROUP BY 
 DETALLE_RESERVACION.FECHA_INICIO, 
 DETALLE_RESERVACION.FECHA_FIN, 
@@ -138,7 +147,7 @@ $datos_facturacion=$db->seleccionar($consulten);
   <div class="container mt-5">
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
-    echo "<h3>FOLIO: $con1->FOLIO</h3><br>
+    echo "<h3>FOLIO: $id_res</h3><br>
     <label>Estado: $con1->ESTADO_RESERVACION</label>
     <label>Metodo Pago: $con1->METODO_PAGO</label>";
 
