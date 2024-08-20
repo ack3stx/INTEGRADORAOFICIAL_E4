@@ -148,7 +148,13 @@ $datos_facturacion=$db->seleccionar($consulten);
   <div class="container mt-5">
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
-    echo "<h3>FOLIO: {$id_res}</h3><br>
+    echo "<h3>FOLIO: $id_res </h3><br>
+    <label>FOLIO: $id_reserva->ID </label>
+    <label>FOLIO: $id_reserva[0] </label>
+    <label>FOLIO: $id_reserva[0]->ID </label>
+    <label>FOLIO: $con1->FOLIO </label>
+    <label>FOLIO: $con1[0]->FOLIO </label>
+    <label>FOLIO: $con1[0] </label>
     <label>Estado: $con1->ESTADO_RESERVACION</label>
     <label>Metodo Pago: $con1->METODO_PAGO</label>";
     echo $id_res;
@@ -160,7 +166,7 @@ $datos_facturacion=$db->seleccionar($consulten);
         <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>";
     }
 
-    echo "<label>Monto Total De La Reservacion: {$datos_facturacion[0]->MONTO_PAGO} </label><br>
+    echo "<label>Monto Total De La Reservacion: {$datos_facturacion[0]->MONTO_TOTAL} </label><br>
         <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>";
 ?>
     <footer class="mt-4">
