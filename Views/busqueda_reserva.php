@@ -163,39 +163,14 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
             $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
         }
 
-
-
-        if (empty($tabla)) {
-          echo "<p>No se encontraron reservaciones.</p>";
-        } else {
-          echo "<div class='table-responsive'>";
-          echo "<table class='table table-hover table-bordered table-danger'>";
-          echo "<thead class='table-dark'>";
-          echo "<tr>";
-          echo "<th>Folio Reservacion</th>";
-          echo "<th>Nombre</th>";
-          echo "<th>Teléfono</th>";
-          echo "<th>Fecha Reservación</th>";
-          echo "<th>Fecha Incio</th>";
-          echo "<th>Fecha Fin</th>";
-          echo "<th>Estado Reservación</th>";
-          echo "<th>Monto Pago</th>";
-          echo "<th>Cantidad Habitaciones</th>";
-          echo "<th>Acciones</th>";
-          echo "</tr>";
-          echo "</thead>";
-          echo "<tbody>";
-
-          foreach ($tabla as $reg) {
-            $consulta = "SELECT 
+$consulta = "SELECT 
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
     PERSONA.NUMERO_DE_TELEFONO, 
     RESERVACION.FECHA_,
     DETALLE_RESERVACION.FECHA_INICIO,
     DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION,
-    DETALLE_PAGO.ID_DETALLE_PAGO, 
+    RESERVACION.ESTADO_RESERVACION, 
     DETALLE_PAGO.MONTO_TOTAL,
     DETALLE_PAGO.METODO_PAGO,
     T_HABITACION.NOMBRE AS TIPO_HABITACION,
@@ -233,6 +208,29 @@ GROUP BY
         }
 
         $tabla = $conexion->seleccionar($consulta);
+
+        if (empty($tabla)) {
+          echo "<p>No se encontraron reservaciones.</p>";
+        } else {
+          echo "<div class='table-responsive'>";
+          echo "<table class='table table-hover table-bordered table-danger'>";
+          echo "<thead class='table-dark'>";
+          echo "<tr>";
+          echo "<th>Folio Reservacion</th>";
+          echo "<th>Nombre</th>";
+          echo "<th>Teléfono</th>";
+          echo "<th>Fecha Reservación</th>";
+          echo "<th>Fecha Incio</th>";
+          echo "<th>Fecha Fin</th>";
+          echo "<th>Estado Reservación</th>";
+          echo "<th>Monto Pago</th>";
+          echo "<th>Cantidad Habitaciones</th>";
+          echo "<th>Acciones</th>";
+          echo "</tr>";
+          echo "</thead>";
+          echo "<tbody>";
+
+          foreach ($tabla as $reg) {
             echo "<tr>";
             echo "<td>{$reg->ID_RESERVACION}</td>";
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
