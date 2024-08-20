@@ -117,13 +117,12 @@
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-          $where = "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
 
 if ($cancelada == "todos") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
+    $where= "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
+                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_PAGO.MONTO_TOTAL!=0";
 } elseif ($cancelada == "cancelada") {
-    $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
+    $where= "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
 }
 
 $consulta = "SELECT 
@@ -164,12 +163,11 @@ GROUP BY
     DETALLE_PAGO.ID_DETALLE_PAGO";
 
         } else {
-          $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
 
           if ($cancelada == "todos") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
+            $where = "WHERE RESERVACION.ID_RESERVACION = '$numero' AND DETALLE_PAGO.MONTO_TOTAL!=0";
         } elseif ($cancelada == "cancelada") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
+            $where = "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
         }
 
 $consulta = "SELECT 
