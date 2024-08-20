@@ -234,6 +234,7 @@ GROUP BY
           echo "<th>Estado Reservación</th>";
           echo "<th>Monto Pago</th>";
           echo "<th>Cantidad Habitaciones</th>";
+          echo "<th>Folio Pago</th>";
           echo "<th>Acciones</th>";
           echo "</tr>";
           echo "</thead>";
@@ -250,6 +251,7 @@ GROUP BY
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
             echo "<td>{$reg->MONTO_TOTAL}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+            echo "<td>{$reg->ID_DETALLE_PAGO}</td>";
             echo "<td>";
             $consultona = "
             SELECT
