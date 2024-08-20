@@ -75,7 +75,7 @@
           <?php
             if (isset($_SESSION["usuario"])) {
               echo "<button class='btn btn-danger dropdown-toggle' type='button' data-toggle='dropdown' aria-expanded='false'>
-                        ".$_SESSION["usuario"]."
+                        ".htmlspecialchars($_SESSION["usuario"])."
                       </button>";
             }
           ?>
@@ -98,7 +98,7 @@
       <input class="form-control me-2 mb-2" type="number" name="numero" placeholder="Número de la Reservación">
       <input class="form-control me-2 mb-2" type="date" name="fecha1">
       <input class="form-control me-2 mb-2" type="date" name="fecha2">
-      <select name="cancelada" class="form-select">
+      <select name="cancelada" class="form-select mb-2">
         <option value="todos">Todos</option>
         <option value="cancelada">Canceladas</option>
       </select>
@@ -109,20 +109,23 @@
   <div class="container">
   <?php 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        extract($_POST);
+        $numero = isset($_POST['numero']) ? intval($_POST['numero']) : null;
+        $fecha1 = isset($_POST['fecha1']) ? $_POST['fecha1'] : null;
+        $fecha2 = isset($_POST['fecha2']) ? $_POST['fecha2'] : null;
+        $cancelada = isset($_POST['cancelada']) ? $_POST['cancelada'] : 'todos';
 
         // Inicia construcción de la consulta SQL
         $whereClauses = [];
 
         if (!empty($numero)) {
-            $whereClauses[] = "RESERVACION.ID_RESERVACION = '$numero'";
+            $whereClauses[] = "RESERVACION.ID_RESERVACION = $numero";
         }
 
         if (!empty($fecha1) && !empty($fecha2)) {
             $whereClauses[] = "DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
         }
 
-        if ($cancelada == "cancelada") {
+        if ($cancelada === "cancelada") {
             $whereClauses[] = "RESERVACION.ESTADO_RESERVACION = 'Cancelada'";
         }
 
@@ -193,15 +196,15 @@
 
             foreach ($tabla as $reg) {
                 echo "<tr>";
-                echo "<td>{$reg->ID_RESERVACION}</td>";
-                echo "<td>{$reg->NOMBRE_HUESPED}</td>";
-                echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
-                echo "<td>{$reg->FECHA_}</td>";
-                echo "<td>{$reg->FECHA_INICIO}</td>";
-                echo "<td>{$reg->FECHA_FIN}</td>";
-                echo "<td>{$reg->ESTADO_RESERVACION}</td>";
-                echo "<td>{$reg->MONTO_TOTAL}</td>";
-                echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+                echo "<td>" . htmlspecialchars($reg->ID_RESERVACION) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->NOMBRE_HUESPED) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->NUMERO_DE_TELEFONO) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->FECHA_) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->FECHA_INICIO) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->FECHA_FIN) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->ESTADO_RESERVACION) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->MONTO_TOTAL) . "</td>";
+                echo "<td>" . htmlspecialchars($reg->CANTIDAD_DE_HABITACIONES) . "</td>";
                 echo "</tr>";
             }
 
@@ -258,9 +261,9 @@
     <div class="error-container">
       <i class="fas fa-times-circle error-icon"></i>
       <div class="error-code">404</div>
-      <div class="error-message">Pagina no Encontrada</div>
+      <div class="error-message">Página no Encontrada</div>
       <p>Es posible que la página que está buscando se haya eliminado, haya cambiado de nombre o no esté disponible temporalmente.</p>
-      <a href="../index.php" class="btn btn-primary mt-4">Pagina Principal</a>
+      <a href="../index.php" class="btn btn-primary mt-4">Página Principal</a>
     </div>
   </div>
 </body>
