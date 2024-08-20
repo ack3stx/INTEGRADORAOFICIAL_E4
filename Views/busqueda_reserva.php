@@ -269,8 +269,12 @@ GROUP BY
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "<td>";
             $consultona = "
-
-          SELECT 
+            SELECT 
+          DATOS_FACTURACION.NOMBRE,
+          DATOS_FACTURACION.APELLIDO_PATERNO,
+          DATOS_FACTURACION.APELLIDO_MATERNO,
+          DATOS_FACTURACION.RFC,
+          DATOS_FACTURACION.DIRECCION,
           DETALLE_PAGO.MONTO_TOTAL,
           DETALLE_PAGO.METODO_PAGO,
           T_HABITACION.NOMBRE AS TIPO_HABITACION,
