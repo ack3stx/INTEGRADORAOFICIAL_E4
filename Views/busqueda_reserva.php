@@ -177,12 +177,6 @@ GROUP BY
         } else {
           $where = "WHERE RESERVACION.ID_RESERVACION = '$numero'";
 
-          if ($cancelada == "todos") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL!=0";
-        } elseif ($cancelada == "cancelada") {
-            $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
-        }
-
 $consulta = "SELECT 
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
