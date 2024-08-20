@@ -34,6 +34,16 @@ try {
         echo $updateReservaMotivo . "<br>";
         
         $conexion->ejecuta($updateReservaMotivo);
+
+    } elseif ($nuevo_estado == 'disponible') {
+        $revertirReservaEstado = "UPDATE RESERVACION
+                                  JOIN DETALLE_RESERVACION ON RESERVACION.ID_RESERVACION = DETALLE_RESERVACION.RESERVACION
+                                  SET RESERVACION.ESTADO_RESERVACION = 'proceso', RESERVACION.INCONSISTENCIA = NULL
+                                  WHERE DETALLE_RESERVACION.HABITACION = $ID_HABITACION
+                                    AND DETALLE_RESERVACION.FECHA_INICIO >= NOW()
+                                    AND RESERVACION.ESTADO_RESERVACION = 'inconsistencia'";
+        
+        $conexion->ejecuta($revertirReservaEstado);
     }
 
     header("Location: ../Views/busqueda_habitaciones.php?success=2");
