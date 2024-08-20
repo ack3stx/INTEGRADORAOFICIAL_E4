@@ -5,65 +5,81 @@ include '../Clases/BasedeDatos.php';
 $db = new Database();
 $db->conectarDB();
 
-// Consulta para obtener el último ID de reserva
-$conid = "SELECT MAX(RESERVACION.ID_RESERVACION) AS ID FROM RESERVACION;";
-$id_reserva = $db->seleccionar($conid);
+$conid="SELECT 
+            MAX(RESERVACION.ID_RESERVACION) AS ID
+        FROM 
+            RESERVACION;";
 
-// Verificar si la consulta devolvió resultados
-if ($id_reserva && count($id_reserva) > 0) {
-    $id_res = $id_reserva[0]['ID'];  // Ajuste para acceder correctamente al ID
+            $id_reserva=$db->seleccionar($conid);
+            $id_res=$id_reserva->ID;
 
-    // Consulta para obtener los detalles de la reserva usando el último ID
-    $consultan = "SELECT 
-                    RESERVACION.ID_RESERVACION AS FOLIO,
-                    RESERVACION.ESTADO_RESERVACION, 
-                    DETALLE_PAGO.MONTO_TOTAL, 
-                    DETALLE_PAGO.METODO_PAGO
-                  FROM 
-                    RESERVACION
-                  JOIN 
-                    DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION
-                  WHERE RESERVACION.ID_RESERVACION = $id_res;";
-    
-    $con1 = $db->seleccionar($consultan);
-    
-    // Consulta para obtener los detalles adicionales de la reserva
-    $consulten = "
-    SELECT
-        DETALLE_RESERVACION.FECHA_INICIO, 
-        DETALLE_RESERVACION.FECHA_FIN, 
-        HABITACION.NUM_HABITACION,
-        T_HABITACION.NOMBRE AS TIPO_HABITACION,
-        COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES
-    FROM 
-        DETALLE_RESERVACION
-    JOIN 
-        HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
-    JOIN 
-        T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
-    WHERE 
-        DETALLE_RESERVACION.RESERVACION = $id_res
-    GROUP BY 
-        DETALLE_RESERVACION.FECHA_INICIO, 
-        DETALLE_RESERVACION.FECHA_FIN, 
-        HABITACION.NUM_HABITACION,
-        T_HABITACION.NOMBRE;
-    ";
-    
-    $datos_facturacion = $db->seleccionar($consulten);
-} else {
-    echo "No se encontró una reserva reciente.";
-    exit;
-}
+$consultan="SELECT 
+    RESERVACION.ID_RESERVACION AS FOLIO,
+    RESERVACION.ESTADO_RESERVACION, 
+    DETALLE_PAGO.MONTO_TOTAL, 
+    DETALLE_PAGO.METODO_PAGO
+FROM 
+    RESERVACION
+JOIN 
+    DETALLE_PAGO ON RESERVACION.ID_RESERVACION = DETALLE_PAGO.RESERVACION
+WHERE RESERVACION.ID_RESERVACION = (
+        SELECT 
+            MAX(RESERVACION.ID_RESERVACION)
+        FROM 
+            RESERVACION
+    );
+";
+$con1=$db->seleccionar($consultan);
+
+$consulten= "
+SELECT
+DETALLE_RESERVACION.FECHA_INICIO, 
+DETALLE_RESERVACION.FECHA_FIN, 
+DETALLE_PAGO.MONTO_TOTAL,
+DETALLE_PAGO.METODO_PAGO,
+T_HABITACION.NOMBRE AS TIPO_HABITACION,
+COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES
+FROM 
+DETALLE_PAGO
+JOIN 
+RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+JOIN 
+PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+JOIN 
+USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+JOIN 
+DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+JOIN 
+T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+WHERE 
+RESERVACION.ID_RESERVACION = (
+        SELECT 
+            MAX(RESERVACION.ID_RESERVACION)
+        FROM 
+            RESERVACION
+    );
+GROUP BY 
+DETALLE_RESERVACION.FECHA_INICIO, 
+DETALLE_RESERVACION.FECHA_FIN, 
+DETALLE_PAGO.MONTO_TOTAL,
+DETALLE_PAGO.METODO_PAGO,
+T_HABITACION.NOMBRE, 
+T_HABITACION.PRECIO;
+";
+$datos_facturacion=$db->seleccionar($consulten);
+
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laguna Inn</title>
-  <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
@@ -128,25 +144,24 @@ if ($id_reserva && count($id_reserva) > 0) {
     }
   </style>
   
-  <a href="Panel_Recepcionista.php" class="btn btn-danger back-button">Regresar</a>
+    <a href="Panel_Recepcionista.php" class="btn btn-danger back-button">Regresar</a>
   <div class="container mt-5">
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
-if ($con1 && count($con1) > 0) {
-    echo "<h3>FOLIO: {$con1[0]['FOLIO']}</h3><br>
-          <label>Estado: {$con1[0]['ESTADO_RESERVACION']}</label><br>
-          <label>Método Pago: {$con1[0]['METODO_PAGO']}</label><br>
-          <label>Monto Total: {$con1[0]['MONTO_TOTAL']}</label><br>";
+    echo "<h3>FOLIO: $id_reserva[0]->ID</h3><br>
+    <label>FOLIO: $id_reserva->ID</label>
+    <label>Estado: $con1->ESTADO_RESERVACION</label>
+    <label>Metodo Pago: $con1->METODO_PAGO</label>";
+    echo $id_res;
 
     foreach ($datos_facturacion as $facturacion) {
-        echo "<label>FECHA DEL CHECK IN: {$facturacion['FECHA_INICIO']}</label><br>
-              <label>FECHA DEL CHECK OUT: {$facturacion['FECHA_FIN']}</label><br>
-              <label>Cantidad de Habitaciones: {$facturacion['CANTIDAD_HABITACIONES']}</label><br>
-              <label>Tipo de Habitación: {$facturacion['TIPO_HABITACION']}</label><br>";
+        echo "<label>FECHA DEL CHECK IN: {$facturacion->FECHA_INICIO}</label><br>
+        <label>FECHA DEL CHECK OUT: {$facturacion->FECHA_FIN}</label><br>
+        <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>";
     }
-} else {
-    echo "<p>No se encontraron detalles para la reserva seleccionada.</p>";
-}
+
+    echo "<label>Monto Total De La Reservacion: {$con1->MONTO_TOTAL}</label><br>
+        <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>";
 ?>
     <footer class="mt-4">
       <p>&copy; 2024 Compañía. Hotel Laguna Inn. Todos los derechos reservados.</p>
