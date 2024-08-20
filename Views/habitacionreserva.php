@@ -789,6 +789,10 @@ function scrollToContent() {
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
+    let doblop=0;
+                  let kingp = 0;
+                   let senp = 0;
+
 
     
    
@@ -822,6 +826,12 @@ function scrollToContent() {
 
                  console.log(habitacionesDoble, habitacionesKingSize, habitacionesSencilla);
 
+                 
+                  
+                   doblop = habitacionesDoble;
+                   kingp = habitacionesKingSize;
+                   senp = habitacionesSencilla;
+
                  mostrarToastSimple();
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
 
@@ -840,7 +850,7 @@ function scrollToContent() {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,true);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,true,doblop);
             }
             else {
                 crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
@@ -888,9 +898,9 @@ if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencill
          position: "right"
          }).showToast();
          
-         setTimeout(function() {
+        
          window.location.href = "../Views/Calendario.php";
-           }, 4000);
+          
 }
 else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencilla > 0) {
 
@@ -913,6 +923,7 @@ else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencil
 }
 
 }
+
 
 
     
@@ -941,7 +952,7 @@ else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencil
 
 
 
-    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio,disponible)  {
+    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio,disponible,cantidad)  {
 
             
         const container = document.getElementById('contenedor-fluido');
@@ -972,7 +983,7 @@ if (habitacionesDoble === 1) {
 if (habitacionesDoble > 1) {
     const texto = document.createElement('p');
     texto.className = 'card-text';
-    texto.innerText = 'Hay ' + habitacionesDoble + ' habitaciones disponibles';
+    texto.innerText = `Hay ${cantidad} habitaciones disponibles`;
     card.appendChild(texto);
 }
 
@@ -1148,7 +1159,7 @@ cardFooter.className = 'card-footer-custom';
             if (habitacionesKingSize > 1) {
                const texto = document.createElement('p');
                  texto.className = 'card-text';
-                texto.innerText = 'Hay ' + habitacionesKingSize + ' habitaciones disponibles';
+                texto.innerText = 'Hay ' + kingp + ' habitaciones disponibles';
                 card.appendChild(texto);
                 }
             
@@ -1322,7 +1333,7 @@ cardFooter.className = 'card-footer-custom';
             if (habitacionesSencilla > 1) {
                const texto = document.createElement('p');
                  texto.className = 'card-text';
-                texto.innerText = 'Hay ' + habitacionesSencilla + ' habitaciones disponibles';
+                texto.innerText = 'Hay ' + senp + ' habitaciones disponibles';
                 card.appendChild(texto);
                 }
             
@@ -1587,10 +1598,13 @@ function actualizarResumen(tipo) {
         
         if(tipo === 'Doble'){
             roomdoble -= 1;
+            doblop -= 1;
         } else if(tipo === 'King Size'){
             roomKing -= 1;
+            kingp -= 1;
         } else if(tipo === 'Sencilla'){
             roomSencilla -= 1;
+            sencillap -= 1;
         }
 
         desabilitarbotonañadir(tipo);
@@ -1602,10 +1616,13 @@ function actualizarResumen(tipo) {
     
     if(tipo === 'Doble'){
         roomdoble += 1;
+        doblop += 1;
     } else if(tipo === 'King Size'){
         roomKing += 1;
+        kingp += 1;
     } else if(tipo === 'Sencilla'){
         roomSencilla += 1;
+        sencillap += 1;
     }
 
      document.getElementById('room-count').textContent =  roomCount += 1;
