@@ -113,7 +113,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-      if(empty($numero) && empty($fecha1) && empty($fecha2)) {
+      if(empty($numero) && empty($fecha1) && empty($fecha2) && $cancelada=="todos") {
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
