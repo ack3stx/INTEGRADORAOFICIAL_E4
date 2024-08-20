@@ -123,9 +123,7 @@
         }
 
         if ($cancelada == "cancelada") {
-            $whereClauses[] = "DETALLE_PAGO.MONTO_TOTAL = 0";
-        } elseif ($cancelada == "todos") {
-            $whereClauses[] = "DETALLE_PAGO.MONTO_TOTAL != 0";
+            $whereClauses[] = "RESERVACION.ESTADO_RESERVACION = 'Cancelada'";
         }
 
         // Combina todas las condiciones
