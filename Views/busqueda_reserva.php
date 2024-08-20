@@ -285,7 +285,7 @@ GROUP BY
                 </div>
                 <div class='modal-body'>";
 
-            foreach ($datos_facturacion as $facturacion) {
+            foreach ($reg as $facturacion) {
                 echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
                 <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
                 <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
