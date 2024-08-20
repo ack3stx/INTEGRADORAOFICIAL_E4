@@ -148,13 +148,7 @@ T_HABITACION.PRECIO;
 ";
 $datos_facturacion=$db->seleccionar($consulten);
 
-    echo "<h3>FOLIKSJHFJKAHFHO: $id_res </h3><br>
-    <label>FOLIASJDHAJFHKAHFJHFKAHO: $id_reserva->ID </label>
-    <label>FOLIO: $id_reserva[0] </label>
-    <label>FOLIO: $id_reserva[0]->ID </label>
-    <label>FOLIO: $con1->FOLIO </label>
-    <label>FOLIO: $con1[0]->FOLIO </label>
-    <label>FOLIO: $con1[0] </label>
+    echo "<h3>FOLIO: $id_res </h3><br>
     <label>Estado: $con1->ESTADO_RESERVACION</label>
     <label>Metodo Pago: $con1->METODO_PAGO</label>";
     echo $id_res;
