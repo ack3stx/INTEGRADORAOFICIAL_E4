@@ -117,25 +117,20 @@
         echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
       } else {
         if (empty($numero)) {
-
-if ($cancelada == "todos") {
-    $where= "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_PAGO.MONTO_TOTAL!=0";
-} elseif ($cancelada == "cancelada") {
-    $where= "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
-}
-
-$consulta = "SELECT 
+          
+          if ($cancelada == "todos") {
+            $where= "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
+                        AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_PAGO.MONTO_TOTAL!=0";
+        } elseif ($cancelada == "cancelada") {
+            $where= "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
+        }
+        
+$consulta = "SELECT DISTINCT
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
     PERSONA.NUMERO_DE_TELEFONO, 
     RESERVACION.FECHA_,
-    DETALLE_RESERVACION.FECHA_INICIO,
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO,
-    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+    RESERVACION.ESTADO_RESERVACION
 FROM 
     USUARIOS
 INNER JOIN 
@@ -156,31 +151,22 @@ GROUP BY
     PERSONA.APELLIDO_MATERNO, 
     PERSONA.NUMERO_DE_TELEFONO, 
     RESERVACION.FECHA_, 
-    DETALLE_RESERVACION.FECHA_INICIO, 
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO";
+    RESERVACION.ESTADO_RESERVACION;
+";
 
         } else {
-
           if ($cancelada == "todos") {
             $where = "WHERE RESERVACION.ID_RESERVACION = '$numero' AND DETALLE_PAGO.MONTO_TOTAL!=0";
         } elseif ($cancelada == "cancelada") {
             $where = "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
         }
 
-$consulta = "SELECT 
+$consulta = "SELECT DISTINCT
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
     PERSONA.NUMERO_DE_TELEFONO, 
     RESERVACION.FECHA_,
-    DETALLE_RESERVACION.FECHA_INICIO,
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO,
-    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+    RESERVACION.ESTADO_RESERVACION
 FROM 
     USUARIOS
 INNER JOIN 
@@ -201,11 +187,8 @@ GROUP BY
     PERSONA.APELLIDO_MATERNO, 
     PERSONA.NUMERO_DE_TELEFONO, 
     RESERVACION.FECHA_, 
-    DETALLE_RESERVACION.FECHA_INICIO, 
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO";
+    RESERVACION.ESTADO_RESERVACION;
+";
         }
 
         $tabla = $conexion->seleccionar($consulta);
@@ -221,11 +204,8 @@ GROUP BY
           echo "<th>Nombre</th>";
           echo "<th>Teléfono</th>";
           echo "<th>Fecha Reservación</th>";
-          echo "<th>Fecha Incio</th>";
-          echo "<th>Fecha Fin</th>";
           echo "<th>Estado Reservación</th>";
-          echo "<th>Monto Pago</th>";
-          echo "<th>Cantidad Habitaciones</th>";
+          echo "<th>Acciones</th>";
           echo "</tr>";
           echo "</thead>";
           echo "<tbody>";
@@ -236,12 +216,83 @@ GROUP BY
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
             echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
             echo "<td>{$reg->FECHA_}</td>";
-            echo "<td>{$reg->FECHA_INICIO}</td>";
-            echo "<td>{$reg->FECHA_FIN}</td>";
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
-            echo "<td>{$reg->MONTO_TOTAL}</td>";
-            echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
-            echo "</tr>";
+            echo "<td>";
+            $consultona = "
+            SELECT
+    DETALLE_RESERVACION.FECHA_INICIO, 
+    DETALLE_RESERVACION.FECHA_FIN, 
+    DETALLE_PAGO.MONTO_TOTAL,
+    DETALLE_PAGO.METODO_PAGO,
+    T_HABITACION.NOMBRE AS TIPO_HABITACION,
+    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+    (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+FROM 
+    DETALLE_PAGO
+JOIN 
+    RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+    HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+JOIN 
+    PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+JOIN 
+    USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+JOIN 
+    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+JOIN 
+    HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+JOIN 
+    T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+WHERE 
+    RESERVACION.ID_RESERVACION = {$reg->ID_RESERVACION}
+GROUP BY 
+    DETALLE_RESERVACION.FECHA_INICIO, 
+    DETALLE_RESERVACION.FECHA_FIN, 
+    DETALLE_PAGO.MONTO_TOTAL,
+    DETALLE_PAGO.METODO_PAGO,
+    T_HABITACION.NOMBRE, 
+    T_HABITACION.PRECIO;
+        ";
+
+        $datos_facturacion = $conexion->seleccionar($consultona);
+            $precio_total_reservacion = 0;
+
+            // Inicia el modal
+            echo "<!-- Button trigger modal -->
+            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBack{$reg->ID_RESERVACION}'>
+                Detalles
+            </button>
+            
+            <!-- Modal -->
+            <div class='modal fade' id='staticBack{$reg->ID_RESERVACION}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_RESERVACION}' aria-hidden='true'>
+            <div class='modal-dialog'>
+                <div class='modal-content'>
+                <div class='modal-header'>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_RESERVACION}'>Detalles Reservacion</h1>
+                </div>
+                <div class='modal-body'>";
+
+            foreach ($datos_facturacion as $facturacion) {
+                echo "<label>FECHA DEL CHECK IN: {$facturacion->FECHA_INICIO}</label><br>
+                <label>FECHA DEL CHECK OUT: {$facturacion->FECHA_FIN}</label><br>
+                <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
+                <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
+                <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
+
+                $precio_total_reservacion += $facturacion->PRECIO_TOTAL_POR_TIPO;
+            }
+
+            echo "<label>Monto Total De La Reservacion: {$precio_total_reservacion}</label><br>
+                <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>
+                </div>
+            
+                <div class='modal-footer'>
+                    <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Cerrar</button>
+                </div>
+                </div>
+            </div>
+            </div>";
+            echo "</td></tr>";
           }
 
           echo "</tbody>";
@@ -254,6 +305,7 @@ GROUP BY
     }
   ?>
 </div>
+
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
