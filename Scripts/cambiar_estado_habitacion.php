@@ -9,7 +9,8 @@ $nuevo_estado = $_POST['nuevo_estado'];
 $inconveniente = addslashes($_POST['inconveniente']);  
 echo "Inconveniente recibido: " . $inconveniente . "<br>"; 
 
-$consulta = "UPDATE HABITACION SET ESTADO_HABITACION = '$nuevo_estado' WHERE ID_HABITACION = $ID_HABITACION";
+$consulta = "UPDATE HABITACION SET ESTADO_HABITACION = '$nuevo_estado'
+ WHERE ID_HABITACION = $ID_HABITACION";
 
 try {
     $conexion->ejecuta($consulta);
@@ -19,7 +20,7 @@ try {
                                 JOIN DETALLE_RESERVACION ON RESERVACION.ID_RESERVACION = DETALLE_RESERVACION.RESERVACION
                                 SET RESERVACION.ESTADO_RESERVACION = 'inconsistencia'
                                 WHERE DETALLE_RESERVACION.HABITACION = $ID_HABITACION
-                                  AND DETALLE_RESERVACION.FECHA_INICIO >= NOW()
+                                      AND DETALLE_RESERVACION.FECHA_INICIO >= NOW()
                                   AND RESERVACION.ESTADO_RESERVACION = 'proceso'";
         
         $conexion->ejecuta($updateReservaEstado);
@@ -38,7 +39,7 @@ try {
     } elseif ($nuevo_estado == 'disponible') {
         $revertirReservaEstado = "UPDATE RESERVACION
                                   JOIN DETALLE_RESERVACION ON RESERVACION.ID_RESERVACION = DETALLE_RESERVACION.RESERVACION
-                                  SET RESERVACION.ESTADO_RESERVACION = 'proceso', RESERVACION.INCONSISTENCIA = NULL
+                                      SET RESERVACION.ESTADO_RESERVACION = 'proceso', RESERVACION.INCONSISTENCIA = NULL
                                   WHERE DETALLE_RESERVACION.HABITACION = $ID_HABITACION
                                     AND DETALLE_RESERVACION.FECHA_INICIO >= NOW()
                                     AND RESERVACION.ESTADO_RESERVACION = 'inconsistencia'";
