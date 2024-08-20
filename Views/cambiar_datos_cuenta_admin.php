@@ -180,10 +180,6 @@
     <?php endif; ?>
     <form method="post">
         <div class="mb-3">
-            <label for="usuario_confirar" class="form-label">Nuevo Nombre De Usuario</label>
-            <input type="text" class="form-control" id="usuario_confirar" name="nombre_user">
-        </div>
-        <div class="mb-3">
             <label for="exampleInputEmail1" class="form-label">Nuevo Email</label>
             <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="correo_act">
             <div id="emailHelp" class="form-text">Checa que tengas bien agregado el correo</div>
