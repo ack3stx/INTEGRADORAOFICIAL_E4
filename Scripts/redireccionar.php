@@ -16,6 +16,6 @@ WHERE ID_DETALLE_PAGO = @max_id;";
         $db->facturacion($nombreFactura,$apellidoPaternoFactura,$apellidoMaternoFactura,$rfc,$direccion);
     }
 
-    header('Location: ../Views/resumen_fisico2.php');
+    header('Location: ../Views/check2.php');
 
 ?>
