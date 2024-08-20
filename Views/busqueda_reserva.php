@@ -282,7 +282,7 @@ GROUP BY
           T_HABITACION.NOMBRE;
         ";
 
-        $datos_facturacion = $db->seleccionar($consultona);
+        $datos_facturacion = $conexion->seleccionar($consultona);
             $precio_total_reservacion = 0;
 
             // Inicia el modal
