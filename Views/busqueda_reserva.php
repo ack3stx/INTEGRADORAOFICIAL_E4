@@ -163,7 +163,31 @@ $consulta = "SELECT DISTINCT RESERVACION.ID_RESERVACION ,
             $where .= " AND DETALLE_PAGO.MONTO_TOTAL=0";
         }
 
-$consulta = "SELECT 
+
+
+        if (empty($tabla)) {
+          echo "<p>No se encontraron reservaciones.</p>";
+        } else {
+          echo "<div class='table-responsive'>";
+          echo "<table class='table table-hover table-bordered table-danger'>";
+          echo "<thead class='table-dark'>";
+          echo "<tr>";
+          echo "<th>Folio Reservacion</th>";
+          echo "<th>Nombre</th>";
+          echo "<th>Teléfono</th>";
+          echo "<th>Fecha Reservación</th>";
+          echo "<th>Fecha Incio</th>";
+          echo "<th>Fecha Fin</th>";
+          echo "<th>Estado Reservación</th>";
+          echo "<th>Monto Pago</th>";
+          echo "<th>Cantidad Habitaciones</th>";
+          echo "<th>Acciones</th>";
+          echo "</tr>";
+          echo "</thead>";
+          echo "<tbody>";
+
+          foreach ($tabla as $reg) {
+            $consulta = "SELECT 
     RESERVACION.ID_RESERVACION, 
     CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
     PERSONA.NUMERO_DE_TELEFONO, 
@@ -209,30 +233,6 @@ GROUP BY
         }
 
         $tabla = $conexion->seleccionar($consulta);
-
-
-        if (empty($tabla)) {
-          echo "<p>No se encontraron reservaciones.</p>";
-        } else {
-          echo "<div class='table-responsive'>";
-          echo "<table class='table table-hover table-bordered table-danger'>";
-          echo "<thead class='table-dark'>";
-          echo "<tr>";
-          echo "<th>Folio Reservacion</th>";
-          echo "<th>Nombre</th>";
-          echo "<th>Teléfono</th>";
-          echo "<th>Fecha Reservación</th>";
-          echo "<th>Fecha Incio</th>";
-          echo "<th>Fecha Fin</th>";
-          echo "<th>Estado Reservación</th>";
-          echo "<th>Monto Pago</th>";
-          echo "<th>Cantidad Habitaciones</th>";
-          echo "<th>Acciones</th>";
-          echo "</tr>";
-          echo "</thead>";
-          echo "<tbody>";
-
-          foreach ($tabla as $reg) {
             echo "<tr>";
             echo "<td>{$reg->ID_RESERVACION}</td>";
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
