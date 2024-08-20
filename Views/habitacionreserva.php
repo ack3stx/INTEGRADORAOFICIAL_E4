@@ -1622,7 +1622,7 @@ function actualizarResumen(tipo) {
             kingp -= 1;
         } else if(tipo === 'Sencilla'){
             roomSencilla -= 1;
-            sencillap -= 1;
+            senp -= 1;
         }
 
         actualizarhab();
@@ -1641,7 +1641,7 @@ function actualizarResumen(tipo) {
         kingp += 1;
     } else if(tipo === 'Sencilla'){
         roomSencilla += 1;
-        sencillap += 1;
+        senp += 1;
     }
 
      document.getElementById('room-count').textContent =  roomCount += 1;
