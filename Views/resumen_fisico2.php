@@ -1,77 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Laguna Inn</title>
-    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Document</title>
 </head>
 <body>
-  <style>
-    body {
-      background-color: #f0f8ff;
-      font-family: 'Roboto', sans-serif;
-    }
-    .container {
-      max-width: 600px;
-      padding: 20px;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      margin-top: 50px;
-      position: relative;
-    }
-    h2, h4 {
-      color: #dc3545;
-    }
-    .btn-danger {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    .btn-danger:hover {
-      background-color: #c82333;
-      border-color: #bd2130;
-    }
-    .form-control, .form-select {
-      border-radius: 0.25rem;
-      border-color: #dc3545;
-    }
-    .form-check-input:checked {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    .form-check-input:focus {
-      border-color: #dc3545;
-    }
-    #billingForm {
-      border-top: 1px solid #e0e0e0;
-      padding-top: 15px;
-      margin-top: 15px;
-    }
-    footer {
-      margin-top: 50px;
-      text-align: center;
-    }
-    .footer-link {
-      color: #dc3545;
-      text-decoration: none;
-    }
-    .footer-link:hover {
-      text-decoration: underline;
-    }
-    .back-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-  </style>
-  
-  
-    <a href="Panel_Recepcionista.php" class="btn btn-danger back-button">Regresar</a>
-  <div class="container mt-5">
+<div class="container mt-5 mx-auto">
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
 session_start();
@@ -169,11 +105,6 @@ $datos_facturacion=$db->seleccionar($consulten);
     echo "<label>Monto Total De La Reservacion: {$datos_facturacion[0]->MONTO_TOTAL} </label><br>
         <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>";
 ?>
-    <footer class="mt-4">
-      <p>&copy; 2024 Compañía. Hotel Laguna Inn. Todos los derechos reservados.</p>
-    </footer>
   </div>
-
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/5.1.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
