@@ -148,9 +148,10 @@ $datos_facturacion=$db->seleccionar($consulten);
   <div class="container mt-5">
     <h2 class="mb-4 text-center">RESUMEN DE TU RESERVA</h2>
 <?php
-    echo "<h3>FOLIO: $id_res</h3><br>
+    echo "<h3>FOLIO: $id_reserva->ID</h3><br>
     <label>Estado: $con1->ESTADO_RESERVACION</label>
     <label>Metodo Pago: $con1->METODO_PAGO</label>";
+    echo $id_res;
 
     foreach ($datos_facturacion as $facturacion) {
         echo "<label>FECHA DEL CHECK IN: {$facturacion->FECHA_INICIO}</label><br>
