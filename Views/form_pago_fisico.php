@@ -211,13 +211,12 @@ document.addEventListener("DOMContentLoaded", function() {
         { name: 'direccion', minLength: 10 },
         { name: 'rfc', minLength: 13 }
     ];
-
+    
     const boton = document.getElementById('submit-button');
     const inputs = document.querySelectorAll('input');
 
     function validarFormulario() {
-        
-        boton.disabled = true;
+        let allValid = true;
 
         validacionInputs.forEach(({ name, minLength, maxLength }) => {
             const input = document.querySelector(`[name="${name}"]`);
@@ -225,21 +224,25 @@ document.addEventListener("DOMContentLoaded", function() {
 
             if (value.length < minLength || (maxLength && value.length > maxLength)) {
                 input.style.borderColor = 'red';
-                boton.disabled = true;
+                allValid = false;
             } else {
                 input.style.borderColor = 'green';
-                boton.disabled = false;
             }
         });
 
-        
+        // El botón solo se habilita si todos los campos son válidos
+        boton.disabled = !allValid;
     }
 
     inputs.forEach(input => {
         input.addEventListener('input', validarFormulario);
     });
+
+    // Llama a la validación inicial para desactivar el botón al cargar la página si hay campos inválidos
+    validarFormulario();
 });
 </script>
+
 
 </body>
 </html>
