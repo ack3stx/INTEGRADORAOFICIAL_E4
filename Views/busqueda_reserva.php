@@ -268,6 +268,39 @@ GROUP BY
             echo "<td>{$reg->MONTO_TOTAL}</td>";
             echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
             echo "<td>";
+            $consultona = "
+
+          SELECT 
+          DETALLE_PAGO.MONTO_TOTAL,
+          DETALLE_PAGO.METODO_PAGO,
+          T_HABITACION.NOMBRE AS TIPO_HABITACION,
+          COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_HABITACIONES,
+          (T_HABITACION.PRECIO * COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION)) AS PRECIO_TOTAL_POR_TIPO
+      FROM 
+          DETALLE_PAGO
+      LEFT JOIN 
+          DATOS_FACTURACION ON DETALLE_PAGO.ID_DETALLE_PAGO = DATOS_FACTURACION.DETALLE_PAGO
+      JOIN 
+          RESERVACION ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+      JOIN 
+          HUESPED ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+      JOIN 
+          PERSONA ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+      JOIN 
+          USUARIOS ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+      JOIN 
+          DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+      JOIN 
+          HABITACION ON DETALLE_RESERVACION.HABITACION = HABITACION.ID_HABITACION
+      JOIN 
+          T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
+      WHERE 
+          DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+      GROUP BY 
+          T_HABITACION.NOMBRE;
+        ";
+
+        $datos_facturacion = $db->seleccionar($consultona);
             $precio_total_reservacion = 0;
 
             // Inicia el modal
@@ -285,7 +318,7 @@ GROUP BY
                 </div>
                 <div class='modal-body'>";
 
-            foreach ($reg as $facturacion) {
+            foreach ($datos_facturacion as $facturacion) {
                 echo "<label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
                 <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
                 <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
