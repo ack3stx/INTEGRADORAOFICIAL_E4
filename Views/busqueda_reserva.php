@@ -321,8 +321,8 @@ GROUP BY
                 </div>
                 </div>
             </div>
-            </div></td>";
-            echo "</tr>";
+            </div>";
+            echo "</td></tr>";
           }
 
           echo "</tbody>";
