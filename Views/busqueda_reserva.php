@@ -229,8 +229,6 @@ GROUP BY
           echo "<th>Nombre</th>";
           echo "<th>Teléfono</th>";
           echo "<th>Fecha Reservación</th>";
-          echo "<th>Fecha Incio</th>";
-          echo "<th>Fecha Fin</th>";
           echo "<th>Estado Reservación</th>";
           echo "<th>Acciones</th>";
           echo "</tr>";
@@ -243,8 +241,6 @@ GROUP BY
             echo "<td>{$reg->NOMBRE_HUESPED}</td>";
             echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
             echo "<td>{$reg->FECHA_}</td>";
-            echo "<td>{$reg->FECHA_INICIO}</td>";
-            echo "<td>{$reg->FECHA_FIN}</td>";
             echo "<td>{$reg->ESTADO_RESERVACION}</td>";
             echo "<td>";
             $consultona = "
