@@ -157,11 +157,10 @@ $datos_facturacion=$db->seleccionar($consulten);
         echo "<label>FECHA DEL CHECK IN: {$facturacion->FECHA_INICIO}</label><br>
         <label>FECHA DEL CHECK OUT: {$facturacion->FECHA_FIN}</label><br>
         <label>Tipo de Habitación: {$facturacion->TIPO_HABITACION}</label><br>
-        <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>
-        <label>Precio Total por Tipo: {$facturacion->PRECIO_TOTAL_POR_TIPO}</label><br><br>";
+        <label>Cantidad de Habitaciones: {$facturacion->CANTIDAD_HABITACIONES}</label><br>";
     }
 
-    echo "<label>Monto Total De La Reservacion: {$con1->MONTO_PAGO} </label><br>
+    echo "<label>Monto Total De La Reservacion: {$datos_facturacion[0]->MONTO_PAGO} </label><br>
         <label>Método De Pago: {$datos_facturacion[0]->METODO_PAGO}</label><br>";
 ?>
     <footer class="mt-4">
