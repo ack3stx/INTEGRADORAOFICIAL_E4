@@ -202,46 +202,7 @@ function validartelefono(input){
     
     </script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const validacionInputs = [
-        { name: 'nombreFactura', minLength: 3 },
-        { name: 'apellidoPaternoFactura', minLength: 4 },
-        { name: 'apellidoMaternoFactura', minLength: 4 },
-        { name: 'direccion', minLength: 10 },
-        { name: 'rfc', minLength: 13 }
-    ];
-    
-    const boton = document.getElementById('submit-button');
-    const inputs = document.querySelectorAll('input');
 
-    function validarFormulario() {
-        let allValid = true;
-
-        validacionInputs.forEach(({ name, minLength, maxLength }) => {
-            const input = document.querySelector(`[name="${name}"]`);
-            const value = input.value.trim();
-
-            if (value.length < minLength || (maxLength && value.length > maxLength)) {
-                input.style.borderColor = 'red';
-                allValid = false;
-            } else {
-                input.style.borderColor = 'green';
-            }
-        });
-
-        // El botón solo se habilita si todos los campos son válidos
-        boton.disabled = !allValid;
-    }
-
-    inputs.forEach(input => {
-        input.addEventListener('input', validarFormulario);
-    });
-
-    // Llama a la validación inicial para desactivar el botón al cargar la página si hay campos inválidos
-    validarFormulario();
-});
-</script>
 
 
 </body>
