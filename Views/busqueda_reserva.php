@@ -259,7 +259,7 @@ GROUP BY
       JOIN 
           T_HABITACION ON HABITACION.TIPO_HABITACION = T_HABITACION.ID_TIPO_HABITACION
       WHERE 
-          DETALLE_PAGO.ID_DETALLE_PAGO = {$reg->ID_DETALLE_PAGO}
+          RESERVACION.ID_RESERVACION = {$reg->ID_RESERVACION}
       GROUP BY 
           T_HABITACION.NOMBRE;
         ";
@@ -269,16 +269,16 @@ GROUP BY
 
             // Inicia el modal
             echo "<!-- Button trigger modal -->
-            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBack{$reg->ID_DETALLE_PAGO}'>
+            <button type='button' class='btn btn-primary' data-bs-toggle='modal' data-bs-target='#staticBack{$reg->ID_RESERVACION}'>
                 Detalles
             </button>
             
             <!-- Modal -->
-            <div class='modal fade' id='staticBack{$reg->ID_DETALLE_PAGO}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_DETALLE_PAGO}' aria-hidden='true'>
+            <div class='modal fade' id='staticBack{$reg->ID_RESERVACION}' data-bs-backdrop='static' data-bs-keyboard='false' tabindex='-1' aria-labelledby='staticBackdropLabel{$reg->ID_RESERVACION}' aria-hidden='true'>
             <div class='modal-dialog'>
                 <div class='modal-content'>
                 <div class='modal-header'>
-                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_DETALLE_PAGO}'>Detalles Reservacion</h1>
+                    <h1 class='modal-title fs-5' id='staticBackdropLabel{$reg->ID_RESERVACION}'>Detalles Reservacion</h1>
                 </div>
                 <div class='modal-body'>";
 
