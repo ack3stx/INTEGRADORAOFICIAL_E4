@@ -393,7 +393,25 @@ function facturacion($nombre,$a_paterno,$a_materno,$rfc,$direccion){
         echo $e->getMessage();
     }
 }
+
+
+function dispo_antes($fechaInicio,$fechaFin,$tipo){
+    try{
+
+        $stmt = $this->PDOLocal->prepare("CALL dispo_antes(:fechaInicio,:fechaFin,:tipo_habitacion)");
+        $stmt->bindParam(':fechaInicio',$fechaInicio,PDO::PARAM_STR);
+        $stmt->bindParam(':fechaFin',$fechaFin,PDO::PARAM_STR);
+        $stmt->bindParam(':tipo_habitacion',$tipo,PDO::PARAM_STR);
+        $stmt->execute();
+    }
+    catch(PDOException $e){
+        echo $e->getMessage();
+    }
+    
 }
+}
+
+
 
 
 ?>

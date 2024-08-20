@@ -29,6 +29,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" ) {
         $data = new Database();
         $data->conectarDB();
 
+        
+
         $pasada = $data->reservacionpasada($huesped, $recepcionista, $fecha, $estado_reservacion);
 
         foreach ($habitaciones as $habitacion) {

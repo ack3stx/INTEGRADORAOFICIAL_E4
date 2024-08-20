@@ -327,7 +327,9 @@ session_start();
               
                 
             }).then((data) => {
-               // console.log(data);
+               console.log(data);
+
+               
              
                Toastify({
                 text: "Reservacion realizada con exito",
