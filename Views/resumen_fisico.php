@@ -6,11 +6,12 @@ $db = new Database();
 $db->conectarDB();
 
 $conid="SELECT 
-            MAX(RESERVACION.ID_RESERVACION)
+            MAX(RESERVACION.ID_RESERVACION) AS ID
         FROM 
             RESERVACION";
+
             $id_reserva=$db->seleccionar($conid);
-            $id_res=$id_reserva[0];
+            $id_res=$id_reserva->ID;
 
 $consultan="SELECT 
     RESERVACION.ID_RESERVACION AS FOLIO,
