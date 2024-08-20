@@ -5,9 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laguna Inn</title>
-    <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="../Imagenes/LOGOHLI.png" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="../Estilos/estilos_panel_recepcionistaF.css">
 </head>
@@ -67,7 +66,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="Incidencias.php">
-              <i class="fas fa-users"></i>incidencias
+              <i class="fas fa-users"></i> Incidencias
             </a>
           </li>
         </ul>
@@ -109,156 +108,119 @@
 
   <div class="container">
   <?php 
-    extract($_POST);
-
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        extract($_POST);
 
-      if(empty($numero) && empty($fecha1) && empty($fecha2) && $cancelada=="todos") {
-        echo "<p>Por favor, ingresa los datos para realizar la búsqueda.</p>";
-      } else {
-        if (empty($numero)) {
+        // Inicia construcción de la consulta SQL
+        $whereClauses = [];
 
-if ($cancelada == "todos") {
-    $where= "WHERE DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2'
-                AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_PAGO.MONTO_TOTAL!=0";
-} elseif ($cancelada == "cancelada") {
-    $where= "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
-}
-
-$consulta = "SELECT 
-    RESERVACION.ID_RESERVACION, 
-    CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
-    PERSONA.NUMERO_DE_TELEFONO, 
-    RESERVACION.FECHA_,
-    DETALLE_RESERVACION.FECHA_INICIO,
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO,
-    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
-FROM 
-    USUARIOS
-INNER JOIN 
-    PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-INNER JOIN 
-    HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-INNER JOIN 
-    RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-INNER JOIN 
-    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-INNER JOIN 
-    DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-$where
-GROUP BY 
-    RESERVACION.ID_RESERVACION, 
-    PERSONA.NOMBRE, 
-    PERSONA.APELLIDO_PATERNO, 
-    PERSONA.APELLIDO_MATERNO, 
-    PERSONA.NUMERO_DE_TELEFONO, 
-    RESERVACION.FECHA_, 
-    DETALLE_RESERVACION.FECHA_INICIO, 
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO";
-
-        } else {
-
-          if ($cancelada == "todos") {
-            $where = "WHERE RESERVACION.ID_RESERVACION = '$numero' AND DETALLE_PAGO.MONTO_TOTAL!=0";
-        } elseif ($cancelada == "cancelada") {
-            $where = "WHERE DETALLE_PAGO.MONTO_TOTAL=0";
+        if (!empty($numero)) {
+            $whereClauses[] = "RESERVACION.ID_RESERVACION = '$numero'";
         }
 
-$consulta = "SELECT 
-    RESERVACION.ID_RESERVACION, 
-    CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
-    PERSONA.NUMERO_DE_TELEFONO, 
-    RESERVACION.FECHA_,
-    DETALLE_RESERVACION.FECHA_INICIO,
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO,
-    COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
-FROM 
-    USUARIOS
-INNER JOIN 
-    PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
-INNER JOIN 
-    HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
-INNER JOIN 
-    RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
-INNER JOIN 
-    DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
-INNER JOIN 
-    DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
-$where
-GROUP BY 
-    RESERVACION.ID_RESERVACION, 
-    PERSONA.NOMBRE, 
-    PERSONA.APELLIDO_PATERNO, 
-    PERSONA.APELLIDO_MATERNO, 
-    PERSONA.NUMERO_DE_TELEFONO, 
-    RESERVACION.FECHA_, 
-    DETALLE_RESERVACION.FECHA_INICIO, 
-    DETALLE_RESERVACION.FECHA_FIN, 
-    RESERVACION.ESTADO_RESERVACION, 
-    DETALLE_PAGO.MONTO_TOTAL,
-    DETALLE_PAGO.ID_DETALLE_PAGO";
+        if (!empty($fecha1) && !empty($fecha2)) {
+            $whereClauses[] = "DETALLE_RESERVACION.FECHA_INICIO BETWEEN '$fecha1' AND '$fecha2' AND DETALLE_RESERVACION.FECHA_FIN BETWEEN '$fecha1' AND '$fecha2'";
         }
 
+        if ($cancelada == "cancelada") {
+            $whereClauses[] = "DETALLE_PAGO.MONTO_TOTAL = 0";
+        } elseif ($cancelada == "todos") {
+            $whereClauses[] = "DETALLE_PAGO.MONTO_TOTAL != 0";
+        }
+
+        // Combina todas las condiciones
+        $where = count($whereClauses) > 0 ? "WHERE " . implode(" AND ", $whereClauses) : "";
+
+        // Construye la consulta SQL completa
+        $consulta = "
+            SELECT 
+                RESERVACION.ID_RESERVACION, 
+                CONCAT(PERSONA.NOMBRE, ' ', PERSONA.APELLIDO_PATERNO, ' ', PERSONA.APELLIDO_MATERNO) AS NOMBRE_HUESPED, 
+                PERSONA.NUMERO_DE_TELEFONO, 
+                RESERVACION.FECHA_,
+                DETALLE_RESERVACION.FECHA_INICIO,
+                DETALLE_RESERVACION.FECHA_FIN, 
+                RESERVACION.ESTADO_RESERVACION, 
+                DETALLE_PAGO.MONTO_TOTAL,
+                DETALLE_PAGO.ID_DETALLE_PAGO,
+                COUNT(DETALLE_RESERVACION.ID_DETALLE_RESERVACION) AS CANTIDAD_DE_HABITACIONES
+            FROM 
+                USUARIOS
+            INNER JOIN 
+                PERSONA ON PERSONA.USUARIO = USUARIOS.ID_USUARIO
+            INNER JOIN 
+                HUESPED ON HUESPED.PERSONA_HUESPED = PERSONA.ID_PERSONA
+            INNER JOIN 
+                RESERVACION ON RESERVACION.HUESPED = HUESPED.ID_HUESPED
+            INNER JOIN 
+                DETALLE_RESERVACION ON DETALLE_RESERVACION.RESERVACION = RESERVACION.ID_RESERVACION
+            INNER JOIN 
+                DETALLE_PAGO ON DETALLE_PAGO.RESERVACION = RESERVACION.ID_RESERVACION
+            $where
+            GROUP BY 
+                RESERVACION.ID_RESERVACION, 
+                PERSONA.NOMBRE, 
+                PERSONA.APELLIDO_PATERNO, 
+                PERSONA.APELLIDO_MATERNO, 
+                PERSONA.NUMERO_DE_TELEFONO, 
+                RESERVACION.FECHA_, 
+                DETALLE_RESERVACION.FECHA_INICIO, 
+                DETALLE_RESERVACION.FECHA_FIN, 
+                RESERVACION.ESTADO_RESERVACION, 
+                DETALLE_PAGO.MONTO_TOTAL,
+                DETALLE_PAGO.ID_DETALLE_PAGO";
+
+        // Ejecuta la consulta y obtiene los resultados
         $tabla = $conexion->seleccionar($consulta);
 
         if (empty($tabla)) {
-          echo "<p>No se encontraron reservaciones.</p>";
+            echo "<p>No se encontraron reservaciones.</p>";
         } else {
-          echo "<div class='table-responsive'>";
-          echo "<table class='table table-hover table-bordered table-danger'>";
-          echo "<thead class='table-dark'>";
-          echo "<tr>";
-          echo "<th>Folio Reservacion</th>";
-          echo "<th>Nombre</th>";
-          echo "<th>Teléfono</th>";
-          echo "<th>Fecha Reservación</th>";
-          echo "<th>Fecha Incio</th>";
-          echo "<th>Fecha Fin</th>";
-          echo "<th>Estado Reservación</th>";
-          echo "<th>Monto Pago</th>";
-          echo "<th>Cantidad Habitaciones</th>";
-          echo "</tr>";
-          echo "</thead>";
-          echo "<tbody>";
-
-          foreach ($tabla as $reg) {
+            echo "<div class='table-responsive'>";
+            echo "<table class='table table-hover table-bordered table-danger'>";
+            echo "<thead class='table-dark'>";
             echo "<tr>";
-            echo "<td>{$reg->ID_RESERVACION}</td>";
-            echo "<td>{$reg->NOMBRE_HUESPED}</td>";
-            echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
-            echo "<td>{$reg->FECHA_}</td>";
-            echo "<td>{$reg->FECHA_INICIO}</td>";
-            echo "<td>{$reg->FECHA_FIN}</td>";
-            echo "<td>{$reg->ESTADO_RESERVACION}</td>";
-            echo "<td>{$reg->MONTO_TOTAL}</td>";
-            echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+            echo "<th>Folio Reservacion</th>";
+            echo "<th>Nombre</th>";
+            echo "<th>Teléfono</th>";
+            echo "<th>Fecha Reservación</th>";
+            echo "<th>Fecha Inicio</th>";
+            echo "<th>Fecha Fin</th>";
+            echo "<th>Estado Reservación</th>";
+            echo "<th>Monto Pago</th>";
+            echo "<th>Cantidad Habitaciones</th>";
             echo "</tr>";
-          }
+            echo "</thead>";
+            echo "<tbody>";
 
-          echo "</tbody>";
-          echo "</table>";
-          echo "</div>";
+            foreach ($tabla as $reg) {
+                echo "<tr>";
+                echo "<td>{$reg->ID_RESERVACION}</td>";
+                echo "<td>{$reg->NOMBRE_HUESPED}</td>";
+                echo "<td>{$reg->NUMERO_DE_TELEFONO}</td>";
+                echo "<td>{$reg->FECHA_}</td>";
+                echo "<td>{$reg->FECHA_INICIO}</td>";
+                echo "<td>{$reg->FECHA_FIN}</td>";
+                echo "<td>{$reg->ESTADO_RESERVACION}</td>";
+                echo "<td>{$reg->MONTO_TOTAL}</td>";
+                echo "<td>{$reg->CANTIDAD_DE_HABITACIONES}</td>";
+                echo "</tr>";
+            }
+
+            echo "</tbody>";
+            echo "</table>";
+            echo "</div>";
         }
-      }
       
-      $conexion->desconectarBD();
+        $conexion->desconectarBD();
     }
   ?>
 </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <?php
     $conexion->desconectarBD();
   } else {
