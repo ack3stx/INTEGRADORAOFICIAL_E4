@@ -69,10 +69,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="Contacto.php"><label>CONTACTANOS</label></a>
-</li>
-
-         
-
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="Calendario.php"><label>RESERVAR AHORA</label></a>
             </li>
@@ -156,7 +153,6 @@ else {
     $usuario = $_SESSION["usuario"];
 
     $consulta = "SELECT
-
         RESERVACION.ID_RESERVACION AS FOLIO_RESERVA,
         RESERVACION.ESTADO_RESERVACION AS ESTADO,
         RESERVACION.FECHA_ AS FECHA_RESERVACION,
@@ -216,6 +212,9 @@ else {
     }
 
     foreach ($reservaciones as $folio_reserva => $reservacion) {
+        $fecha_reservacion = new DateTime($reservacion['FECHA_RESERVACION']);
+        $fecha_actual = new DateTime();
+        $diferencia_horas = $fecha_reservacion->diff($fecha_actual)->h + ($fecha_reservacion->diff($fecha_actual)->days * 24);
         ?>
 <div class="d-flex justify-content-center">
     <div class="card mb-3" style="width: 100%;">
@@ -224,17 +223,17 @@ else {
                 Nombre: <?php echo $reservacion['NOMBRE_COMPLETO']; ?><br>
                 Estado De La Reservacion: <?php echo $reservacion['ESTADO']; ?><br>
                 Fecha de reservación: <?php echo $reservacion['FECHA_RESERVACION']; ?><br>
-                Favor de realizar el check-in despues de las: : <?php echo $reservacion['FECHA_INICIO']; ?><br>
-                Favor de realizar el check-out antes de las: : <?php echo $reservacion['FECHA_FIN']; ?><br>
+                Favor de realizar el check-in después de las: <?php echo $reservacion['FECHA_INICIO']; ?><br>
+                Favor de realizar el check-out antes de las: <?php echo $reservacion['FECHA_FIN']; ?><br>
                 <?php foreach ($reservacion['TIPOS_HABITACION'] as $tipo) { ?>
                     Tipo de Habitación: <?php echo $tipo['TIPO_HABITACION']; ?> <br>
                     Cantidad de Habitaciones: <?php echo $tipo['CANTIDAD_HABITACIONES']; ?> 
                     <br>
                 <?php } ?>
                 Costo Total: <?php echo $reservacion['COSTO_TOTAL']; ?><br><br>
-            <?php if ($reservacion['ESTADO'] == 'proceso'): ?>
+            <?php if ($reservacion['ESTADO'] == 'proceso' && $diferencia_horas <= 72): ?>
                 <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal" data-reservacion-id="<?php echo $folio_reserva; ?>">
-                Rembolsar Cancelacion
+                Rembolsar Cancelación
             </button>
             <?php endif; ?>
         </div>

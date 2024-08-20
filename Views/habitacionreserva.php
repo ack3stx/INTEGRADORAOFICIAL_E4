@@ -789,6 +789,10 @@ function scrollToContent() {
     const noches = document.getElementById('noches');
     const fechas = document.getElementById('fechas');
     let tiposSeleccionados = [];
+    let doblop=0;
+                  let kingp = 0;
+                   let senp = 0;
+
 
     
    
@@ -822,13 +826,19 @@ function scrollToContent() {
 
                  console.log(habitacionesDoble, habitacionesKingSize, habitacionesSencilla);
 
+                 
+                  
+                   doblop = habitacionesDoble;
+                   kingp = habitacionesKingSize;
+                   senp = habitacionesSencilla;
+
                  mostrarToastSimple();
                 if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencilla === 0) {
 
                     
-                    crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
-                    crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
-                    crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
+                    crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false,doblop);
+                    crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false,kingp);
+                    crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false,senp);
 
                    
                     console.log(data);
@@ -840,25 +850,25 @@ function scrollToContent() {
             const container = document.getElementById('contenedor-fluido');
             if (habitacionesDoble > 0) {
                 
-               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,true);
+               crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,true,doblop);
             }
             else {
-                crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false);
+                crearTarjetaDoble('Habitación Doble', 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.',dobleG.adultos, dobleG.niños,Dprecio,false,doblop);
 
             }
             if (habitacionesKingSize > 0) {
                 
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,true);
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,true,kingp);
             }
             else {
-                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false);
+                crearTarjetaKingSize('Habitación King Size', 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.',dobleK.adultos,dobleK.niños,Kprecio,false,kingp);
 
             }
             if (habitacionesSencilla > 0) {
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,true);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,true,senp);
             }
             else{
-                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false);
+                crearTarjetaSencilla('Habitación Sencilla', 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable.',dobleS.adultos, dobleS.niños,Sprecio,false,senp);
             }
             console.log(data);
         }
@@ -888,9 +898,9 @@ if (habitacionesDoble === 0 && habitacionesKingSize === 0 && habitacionesSencill
          position: "right"
          }).showToast();
          
-         setTimeout(function() {
+        
          window.location.href = "../Views/Calendario.php";
-           }, 4000);
+          
 }
 else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencilla > 0) {
 
@@ -913,6 +923,7 @@ else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencil
 }
 
 }
+
 
 
     
@@ -941,7 +952,7 @@ else if (habitacionesDoble > 0 || habitacionesKingSize > 0 || habitacionesSencil
 
 
 
-    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio,disponible)  {
+    function crearTarjetaDoble(titulo, descripcion,adultos,niños,precio,disponible,cantidad)  {
 
             
         const container = document.getElementById('contenedor-fluido');
@@ -961,20 +972,7 @@ const img = document.createElement('img');
 img.src = '../Imagenes/HABITACION_D.png';
 img.alt = 'Habitación Doble';
 
-if (habitacionesDoble === 1) {
-    const texto = document.createElement('p');
-    texto.className = 'card-text';
-    texto.innerText = 'Solo queda 1 habitación disponible';
-    card.appendChild(texto);
-}
 
-
-if (habitacionesDoble > 1) {
-    const texto = document.createElement('p');
-    texto.className = 'card-text';
-    texto.innerText = 'Hay ' + habitacionesDoble + ' habitaciones disponibles';
-    card.appendChild(texto);
-}
 
 imageContainer.appendChild(img);
 
@@ -992,6 +990,21 @@ cardSubtitle.innerText = `Máximo de: ${adultos} huéspedes`;
 const cardText = document.createElement('p');
 cardText.className = 'card-text';
 cardText.innerText = 'Nuestra Habitación Doble ofrece dos cómodas camas matrimoniales en un espacio de 28 m² con suelo alfombrado. Disfruta de comodidades como aire acondicionado, caja de seguridad, escritorio con silla ejecutiva y un sillón individual.';
+
+const habitacionesDisponiblesText = document.createElement('p');
+    habitacionesDisponiblesText.className = 'card-text';
+    habitacionesDisponiblesText.id = 'doble-habitaciones-disponibles'; // ID único
+    habitacionesDisponiblesText.innerText = `Hay ${cantidad} habitaciones disponibles`;
+
+    
+    if (cantidad === 1) {
+        habitacionesDisponiblesText.innerText = 'Solo queda 1 habitación disponible';
+    }
+
+    cardBody.appendChild(cardTitle);
+    cardBody.appendChild(cardSubtitle);
+    cardBody.appendChild(cardText);
+    cardBody.appendChild(habitacionesDisponiblesText);
 
 const cardFooter = document.createElement('div');
 cardFooter.className = 'card-footer-custom';
@@ -1119,7 +1132,7 @@ cardFooter.className = 'card-footer-custom';
         }
         
 
-        function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio,disponible)  {
+        function crearTarjetaKingSize(titulo, descripcion,adultos,niños,precio,disponible,cantidad)  {
             
             const container = document.getElementById('contenedor-fluido');
             
@@ -1138,19 +1151,7 @@ cardFooter.className = 'card-footer-custom';
             img.src = '../Imagenes/HABITACION_K.png';
             img.alt = 'Habitación King Size';
 
-            if(habitacionesKingSize === 1){
-            const texto = document.createElement('p');
-            texto.className = 'card-text';
-            texto.innerText = 'Solo queda 1 habitación disponible';
-            card.appendChild(texto);
-            }
-
-            if (habitacionesKingSize > 1) {
-               const texto = document.createElement('p');
-                 texto.className = 'card-text';
-                texto.innerText = 'Hay ' + habitacionesKingSize + ' habitaciones disponibles';
-                card.appendChild(texto);
-                }
+          
             
             imageContainer.appendChild(img);
             
@@ -1168,6 +1169,22 @@ cardFooter.className = 'card-footer-custom';
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
             cardText.innerText = 'Disfruta de nuestra lujosa Habitación King Size con una cama de gran tamaño, perfecto para una estadía confortable.';
+
+            
+            const habitacionesDisponiblesText = document.createElement('p');
+            habitacionesDisponiblesText.className = 'card-text';
+            habitacionesDisponiblesText.id = 'king-habitaciones-disponibles';
+            habitacionesDisponiblesText.innerText = `Hay ${cantidad} habitaciones disponibles`;
+
+    
+            if (cantidad === 1) {
+            habitacionesDisponiblesText.innerText = 'Solo queda 1 habitación disponible';
+             }
+
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardSubtitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(habitacionesDisponiblesText);
             
             const cardFooter = document.createElement('div');
             cardFooter.className = 'card-footer-custom';
@@ -1293,7 +1310,7 @@ cardFooter.className = 'card-footer-custom';
             }
         }
         
-        function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponible)  {
+        function crearTarjetaSencilla(titulo, descripcion,adultos,niños,precio,disponible,cantidad)  {
             
             const container = document.getElementById('contenedor-fluido');
             
@@ -1312,20 +1329,7 @@ cardFooter.className = 'card-footer-custom';
             img.src = '../Imagenes/HABITACION_S.png';
             img.alt = 'Habitación Sencilla';
 
-            if(habitacionesSencilla === 1){
-            const texto = document.createElement('p');
-            texto.className = 'card-text';
-            texto.innerText = 'Solo queda 1 habitación disponible';
-            card.appendChild(texto);
-            }
-
-            if (habitacionesSencilla > 1) {
-               const texto = document.createElement('p');
-                 texto.className = 'card-text';
-                texto.innerText = 'Hay ' + habitacionesSencilla + ' habitaciones disponibles';
-                card.appendChild(texto);
-                }
-            
+          
             imageContainer.appendChild(img);
             
             const cardBody = document.createElement('div');
@@ -1342,6 +1346,21 @@ cardFooter.className = 'card-footer-custom';
             const cardText = document.createElement('p');
             cardText.className = 'card-text';
             cardText.innerText = 'Nuestra Habitación Sencilla es ideal para viajeros solos, con una cómoda cama individual y todas las comodidades necesarias para una estadía agradable';
+
+            const habitacionesDisponiblesText = document.createElement('p');
+             habitacionesDisponiblesText.className = 'card-text';
+             habitacionesDisponiblesText.id = 'sencilla-habitaciones-disponibles'; 
+             habitacionesDisponiblesText.innerText = `Hay ${cantidad} habitaciones disponibles`;
+
+    
+              if (cantidad === 1) {
+              habitacionesDisponiblesText.innerText = 'Solo queda 1 habitación disponible';
+              }
+
+             cardBody.appendChild(cardTitle);
+             cardBody.appendChild(cardSubtitle);
+             cardBody.appendChild(cardText);
+             cardBody.appendChild(habitacionesDisponiblesText);
             
             const cardFooter = document.createElement('div');
             cardFooter.className = 'card-footer-custom';
@@ -1467,7 +1486,17 @@ cardFooter.className = 'card-footer-custom';
             }
         }  
         
-        
+        function actualizarhab() {
+        const dobleHabitaciones = habitacionesDoble - roomdoble;
+         const kingHabitaciones = habitacionesKingSize - roomKing;
+         const sencillaHabitaciones = habitacionesSencilla - roomSencilla;
+
+   
+    document.getElementById('doble-habitaciones-disponibles').innerText = dobleHabitaciones === 1 ? 'Solo queda 1 habitación disponible' : `Hay ${dobleHabitaciones} habitaciones disponibles`;
+    document.getElementById('king-habitaciones-disponibles').innerText = kingHabitaciones === 1 ? 'Solo queda 1 habitación disponible' : `Hay ${kingHabitaciones} habitaciones disponibles`;
+    document.getElementById('sencilla-habitaciones-disponibles').innerText = sencillaHabitaciones === 1 ? 'Solo queda 1 habitación disponible' : `Hay ${sencillaHabitaciones} habitaciones disponibles`;
+}
+
   
         function redireccionar() {
            
@@ -1587,12 +1616,16 @@ function actualizarResumen(tipo) {
         
         if(tipo === 'Doble'){
             roomdoble -= 1;
+            doblop -= 1;
         } else if(tipo === 'King Size'){
             roomKing -= 1;
+            kingp -= 1;
         } else if(tipo === 'Sencilla'){
             roomSencilla -= 1;
+            senp -= 1;
         }
 
+        actualizarhab();
         desabilitarbotonañadir(tipo);
     };
 
@@ -1602,13 +1635,17 @@ function actualizarResumen(tipo) {
     
     if(tipo === 'Doble'){
         roomdoble += 1;
+        doblop += 1;
     } else if(tipo === 'King Size'){
         roomKing += 1;
+        kingp += 1;
     } else if(tipo === 'Sencilla'){
         roomSencilla += 1;
+        senp += 1;
     }
 
      document.getElementById('room-count').textContent =  roomCount += 1;
+     actualizarhab();
     desabilitarbotonañadir(tipo);
 }
 
