@@ -284,8 +284,8 @@ session_start();
                 enable: [
           function(date) {
            
-            return (date.getFullYear() === 2024) || 
-                   (date.getFullYear() === 2025 && date.getMonth() === 0);
+            return (date.getFullYear() === 2025) || 
+                   (date.getFullYear() === 2026 && date.getMonth() === 0);
           }
         ],
 
